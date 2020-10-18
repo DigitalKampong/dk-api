@@ -4,13 +4,13 @@ volumes:
   db: {}
 
 services:
-  mysql:
-    image: "mysql:8.0"
+  postgres:
+    image: "postgres:13-alpine"
     volumes:
-      - "db:/var/lib/mysql"
+      - "db:/var/lib/postgresql/data"
     environment:
-      - MYSQL_DATABASE=dk-api-db
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRES_DB=dk-api-db
+      - POSTGRES_HOST_AUTH_METHOD=trust
     ports:
-      - "3306:3306"
+      - "5432:5432"
     

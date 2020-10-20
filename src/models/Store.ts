@@ -5,7 +5,7 @@ import sequelize from '../db';
 class Store extends Model {
   public id!: number;
   public name!: string;
-  public contactNo: string;
+  public contactNo!: string;
 }
 
 Store.init(

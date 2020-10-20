@@ -1,4 +1,4 @@
-import Store from "../../models/Store";
+import Store from '../../models/Store';
 
 declare module 'express' {
   interface Request {

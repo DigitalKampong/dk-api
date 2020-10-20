@@ -2,14 +2,17 @@ import Store from '../models/Store';
 import {Request, Response, NextFunction} from 'express';
 
 export async function retrieveStore(req: Request, res: Response, next: NextFunction) {
-  const store = await Store.findByPk(req.params.id);
-  if (store === null) {
-    res.status(404).end();
-    return;
+  try {
+    const store = await Store.findByPk(req.params.id);
+    if (store === null) {
+      res.status(404).end();
+      return;
+    }
+    req.store = store;
+    next();
+  } catch (err) {
+    next(err);
   }
-
-  req.store = store;
-  next();
 }
 
 export async function indexStore() {}
@@ -29,7 +32,7 @@ export async function createStore(req: Request, res: Response, next: NextFunctio
 
 export async function updateStore() {}
 
-export async function destroyStore(req: Request, res: Response) {
+export async function destroyStore(req: Request, res: Response, next: NextFunction) {
   try {
     await req.store!.destroy();
   } catch (err) {

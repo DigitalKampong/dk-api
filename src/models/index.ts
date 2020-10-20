@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import {Model} from 'sequelize/types';
 
 const basename = path.basename(__filename);
-const models = {};
+const models: {[Key: string]: Model} = {};
 
 fs.readdirSync(__dirname)
   .filter(file => {

@@ -1,7 +1,7 @@
 import Store from '../models/Store';
 import {Request, Response, NextFunction} from 'express';
 
-export async function retrieveStore(req: Request, res: Response, next: NextFunction) {
+async function retrieveStore(req: Request, res: Response, next: NextFunction) {
   try {
     const store = await Store.findByPk(req.params.id);
     if (store === null) {
@@ -15,13 +15,20 @@ export async function retrieveStore(req: Request, res: Response, next: NextFunct
   }
 }
 
-export async function indexStore() {}
+async function indexStore(req: Request, res: Response, next: NextFunction) {
+  try {
+    const stores = await Store.findAll();
+    res.status(200).json(stores);
+  } catch (err) {
+    next(err);
+  }
+}
 
-export async function showStore(req: Request, res: Response) {
+async function showStore(req: Request, res: Response) {
   res.status(200).json(req.store);
 }
 
-export async function createStore(req: Request, res: Response, next: NextFunction) {
+async function createStore(req: Request, res: Response, next: NextFunction) {
   try {
     const store = await Store.create(req.body);
     res.status(201).json(store);
@@ -30,14 +37,26 @@ export async function createStore(req: Request, res: Response, next: NextFunctio
   }
 }
 
-export async function updateStore() {}
-
-export async function destroyStore(req: Request, res: Response, next: NextFunction) {
+async function updateStore(req: Request, res: Response, next: NextFunction) {
   try {
-    await req.store!.destroy();
+    const store = await req.store!.update(req.body);
+    res.status(200).json(store);
   } catch (err) {
     next(err);
   }
-
-  res.status(200).end();
 }
+
+async function destroyStore(req: Request, res: Response, next: NextFunction) {
+  try {
+    await req.store!.destroy();
+    res.status(200).end();
+  } catch (err) {
+    next(err);
+  }
+}
+
+export const indexStoreFuncs = [indexStore];
+export const showStoreFuncs = [retrieveStore, showStore];
+export const createStoreFuncs = [createStore];
+export const updateStoreFuncs = [retrieveStore, updateStore];
+export const destroyStoreFuncs = [retrieveStore, destroyStore];

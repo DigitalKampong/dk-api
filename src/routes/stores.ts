@@ -3,8 +3,10 @@ import * as storeController from '../controllers/storeController';
 
 const router = Router();
 
-router.get('/:id', storeController.retrieveStore, storeController.showStore);
-router.post('/', storeController.createStore);
-router.delete('/:id', storeController.retrieveStore, storeController.destroyStore);
+router.get('/', storeController.indexStoreFuncs);
+router.get('/:id', storeController.showStoreFuncs);
+router.post('/', storeController.createStoreFuncs);
+router.put('/:id', storeController.updateStoreFuncs);
+router.delete('/:id', storeController.destroyStoreFuncs);
 
 export default router;

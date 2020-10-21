@@ -24,8 +24,12 @@ async function indexStore(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function showStore(req: Request, res: Response) {
-  res.status(200).json(req.store);
+async function showStore(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.status(200).json(req.store);
+  } catch (err) {
+    next(err);
+  }
 }
 
 async function createStore(req: Request, res: Response, next: NextFunction) {

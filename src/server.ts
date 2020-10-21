@@ -4,9 +4,9 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 
-import {testAuthenticate} from './db/dbUtil';
+// import {testAuthenticate} from './db/dbUtil';
 
-testAuthenticate();
+// testAuthenticate();
 
 import stores from './routes/stores';
 
@@ -21,6 +21,13 @@ app.get('/', (req, res) => {
 });
 
 app.use('/stores', stores);
+
+app.all('*', (req, res) => res.send('You are at the wrong place. Shoo!'));
+
+app.use((err, req, res, _next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke! Please try again later.');
+});
 
 app.listen(PORT, () => {
   console.log(`Express server is listening on ${PORT}`);

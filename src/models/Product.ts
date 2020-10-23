@@ -33,7 +33,7 @@ Product.init(
     },
     image: {
       type: DataTypes.STRING,
-    },    
+    },
   },
   {sequelize}
 );

@@ -10,6 +10,7 @@ module.exports = {
       },
       name: {
         type: Sequelize.DataTypes.STRING,
+        allowNull: false,
       },
       category: {
         type: Sequelize.DataTypes.STRING,

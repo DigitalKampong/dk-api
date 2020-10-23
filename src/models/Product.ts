@@ -17,20 +17,24 @@ Product.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-    },
+    },    
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },     
     category: {
       type: DataTypes.STRING,
     },
-    productname: {
+    description: {
       type: DataTypes.STRING,
-      allowNull: false,
     },      
     price: {
       type: DataTypes.NUMBER,
     },
-    pic: {
+    image: {
       type: DataTypes.STRING,
     },
+    
     
   },
   {sequelize}

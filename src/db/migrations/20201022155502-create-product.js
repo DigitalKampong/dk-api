@@ -7,27 +7,22 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.DataTypes.INTEGER
+      },      
+      name: {
+        type: Sequelize.DataTypes.STRING
       },
       category: {
         type: Sequelize.DataTypes.STRING
       },
-      productname: {
+      description: {
         type: Sequelize.DataTypes.STRING
       },
       price: {
         type: Sequelize.DataTypes.DOUBLE
       },
-      pic: {
+      image: {
         type: Sequelize.DataTypes.STRING
       },
-      store_id: {
-        type: Sequelize.DataTypes.INTEGER,
-        references: {
-          model: 'Stores',
-          key: 'id'
-        }
-      },
-
       createdAt: {
         allowNull: false,
         type: Sequelize.DataTypes.DATE,
@@ -35,7 +30,16 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DataTypes.DATE,
-      }
+      },
+      storeId: {
+        type: Sequelize.DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Stores',
+          key: 'id'
+        }
+      },
+
     });
   },
   down: async (queryInterface, Sequelize) => {

@@ -1,6 +1,7 @@
 import {Request, Response, NextFunction} from 'express';
 import Store from '../models/Store';
 import HawkerCentre from '../models/HawkerCentre';
+import { assert } from 'console';
 
 async function retrieveStore(req: Request, res: Response, next: NextFunction) {
   try {
@@ -62,7 +63,10 @@ async function destroyStore(req: Request, res: Response, next: NextFunction) {
 
 async function retrieveHawkerCentre(req: Request, res: Response, next: NextFunction) {
   try {
-    const hawkerCentre = await HawkerCentre.findByPk(req.store.hawkerCentreId);
+    const store = req.store;
+    assert(store !== undefined);
+    const hawkerCentreId = store?.hawkerCentreId;
+    const hawkerCentre = await HawkerCentre.findByPk(hawkerCentreId);
     if (hawkerCentre === null) {
       res.status(404).end();
       return;
@@ -76,12 +80,15 @@ async function retrieveHawkerCentre(req: Request, res: Response, next: NextFunct
 
 async function showStoreInfo(req: Request, res: Response, next: NextFunction) {
   try {
+    const store = req.store;
+    const hawkerCentre = req.hawkerCentre;
+    assert(store !== undefined && hawkerCentre !== undefined);
     const info = {
-      name: req.store.name,
-      description: req.store.description,
-      contactNo: req.store.contactNo,
-      address: req.hawkerCentre.address,
-      unitNo: req.store.unitNo,
+      name: store?.name,
+      description: store?.description,
+      contactNo: store?.contactNo,
+      address: hawkerCentre?.address,
+      unitNo: store?.unitNo,
     };
     res.status(200).json(info);
   } catch (err) {

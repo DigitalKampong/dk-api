@@ -9,8 +9,8 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
       },
       name: {
-        type: Sequelize.DataTypes.STRING,
         allowNull: false,
+        type: Sequelize.DataTypes.STRING,
       },
       category: {
         type: Sequelize.DataTypes.STRING,
@@ -19,11 +19,19 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
       },
       price: {
-        type: Sequelize.DataTypes.DOUBLE,
         allowNull: false,
+        type: Sequelize.DataTypes.DOUBLE,
       },
       image: {
         type: Sequelize.DataTypes.STRING,
+      },
+      storeId: {
+        allowNull: false,
+        type: Sequelize.DataTypes.INTEGER,
+        references: {
+          model: 'Stores',
+          key: 'id',
+        },
       },
       createdAt: {
         allowNull: false,
@@ -32,14 +40,6 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DataTypes.DATE,
-      },
-      storeId: {
-        type: Sequelize.DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Stores',
-          key: 'id',
-        },
       },
     });
   },

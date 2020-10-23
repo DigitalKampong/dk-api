@@ -18,8 +18,8 @@ HawkerCentre.init(
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING,
       allowNull: false,
+      type: DataTypes.STRING,
     },
     address: {
       type: DataTypes.STRING,

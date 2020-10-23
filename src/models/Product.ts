@@ -19,8 +19,8 @@ Product.init(
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING,
       allowNull: false,
+      type: DataTypes.STRING,
     },
     category: {
       type: DataTypes.STRING,

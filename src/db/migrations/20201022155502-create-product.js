@@ -19,7 +19,7 @@ module.exports = {
       },
       price: {
         type: Sequelize.DataTypes.DOUBLE,
-        allowNull: false
+        allowNull: false,
       },
       image: {
         type: Sequelize.DataTypes.STRING,
@@ -37,13 +37,13 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'Stores',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
     });
   },
-  
-  down: async (queryInterface) => {
+
+  down: async queryInterface => {
     await queryInterface.dropTable('Products');
   },
 };

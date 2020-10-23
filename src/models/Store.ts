@@ -27,6 +27,6 @@ Store.init(
   {sequelize}
 );
 
-Store.hasMany(Product, {foreignKey: "storeId"});
+Store.hasMany(Product, {foreignKey: 'storeId'});
 
 export default Store;

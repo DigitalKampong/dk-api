@@ -17,17 +17,17 @@ Product.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-    },    
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-    },     
+    },
     category: {
       type: DataTypes.STRING,
     },
     description: {
       type: DataTypes.STRING,
-    },      
+    },
     price: {
       type: DataTypes.NUMBER,
     },

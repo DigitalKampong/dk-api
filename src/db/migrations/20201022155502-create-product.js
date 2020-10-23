@@ -6,22 +6,23 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.DataTypes.INTEGER
-      },      
+        type: Sequelize.DataTypes.INTEGER,
+      },
       name: {
-        type: Sequelize.DataTypes.STRING
+        type: Sequelize.DataTypes.STRING,
       },
       category: {
-        type: Sequelize.DataTypes.STRING
+        type: Sequelize.DataTypes.STRING,
       },
       description: {
-        type: Sequelize.DataTypes.STRING
+        type: Sequelize.DataTypes.STRING,
       },
       price: {
-        type: Sequelize.DataTypes.DOUBLE
+        type: Sequelize.DataTypes.DOUBLE,
+        allowNull: false
       },
       image: {
-        type: Sequelize.DataTypes.STRING
+        type: Sequelize.DataTypes.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -39,10 +40,10 @@ module.exports = {
           key: 'id'
         }
       },
-
     });
   },
-  down: async (queryInterface, Sequelize) => {
+  
+  down: async (queryInterface) => {
     await queryInterface.dropTable('Products');
-  }
+  },
 };

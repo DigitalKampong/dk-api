@@ -1,15 +1,17 @@
 import {Model, DataTypes} from 'sequelize';
 
 import sequelize from '../db';
-import Product from './Product';
 
-class Store extends Model {
+class Product extends Model {
   public id!: number;
-  public name!: string;
-  public contactNo!: string;
+  public category!: string;
+  public productname!: string;
+  public price!: string;
+  public pic!: string;
+  public store_id!: number;
 }
 
-Store.init(
+Product.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -20,19 +22,20 @@ Store.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    category: {
+      type: DataTypes.STRING,
+    },
     description: {
       type: DataTypes.STRING,
     },
-    contactNo: {
-      type: DataTypes.STRING,
+    price: {
+      type: DataTypes.NUMBER,
     },
-    unitNo: {
-      type: DataTypes.INTEGER,
+    image: {
+      type: DataTypes.STRING,
     },
   },
   {sequelize}
 );
 
-Store.hasMany(Product, {foreignKey: 'storeId'});
-
-export default Store;
+export default Product;

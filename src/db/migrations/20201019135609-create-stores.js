@@ -11,13 +11,15 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
       },
       name: {
-        type: Sequelize.DataTypes.STRING,
         allowNull: false,
+        type: Sequelize.DataTypes.STRING,
       },
       createdAt: {
+        allowNull: false,
         type: Sequelize.DataTypes.DATE,
       },
       updatedAt: {
+        allowNull: false,
         type: Sequelize.DataTypes.DATE,
       },
     });
@@ -30,24 +32,26 @@ module.exports = {
         type: Sequelize.DataTypes.INTEGER,
       },
       name: {
-        type: Sequelize.DataTypes.STRING,
         allowNull: false,
+        type: Sequelize.DataTypes.STRING,
       },
       address: {
         type: Sequelize.DataTypes.STRING,
       },
       regionId: {
-        type: Sequelize.DataTypes.INTEGER,
         allowNull: false,
+        type: Sequelize.DataTypes.INTEGER,
         references: {
           model: 'Regions',
           key: 'id',
         },
       },
       createdAt: {
+        allowNull: false,
         type: Sequelize.DataTypes.DATE,
       },
       updatedAt: {
+        allowNull: false,
         type: Sequelize.DataTypes.DATE,
       },
     });
@@ -59,8 +63,8 @@ module.exports = {
         autoIncrement: true,
       },
       name: {
-        type: Sequelize.DataTypes.STRING,
         allowNull: false,
+        type: Sequelize.DataTypes.STRING,
       },
       description: {
         type: Sequelize.DataTypes.TEXT,
@@ -69,8 +73,8 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
       },
       hawkerCentreId: {
-        type: Sequelize.DataTypes.INTEGER,
         allowNull: false,
+        type: Sequelize.DataTypes.INTEGER,
         references: {
           model: 'HawkerCentres',
           key: 'id',
@@ -80,9 +84,11 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
       },
       createdAt: {
+        allowNull: false,
         type: Sequelize.DataTypes.DATE,
       },
       updatedAt: {
+        allowNull: false,
         type: Sequelize.DataTypes.DATE,
       },
     });

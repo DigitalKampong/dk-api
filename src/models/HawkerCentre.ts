@@ -1,14 +1,16 @@
 import {Model, DataTypes} from 'sequelize';
 
 import sequelize from '../db';
+import Store from './Store';
 
-class Store extends Model {
+class HawkerCentre extends Model {
   public id!: number;
   public name!: string;
-  public contactNo!: string;
+  public regionId!: number;
+  public address!: string;
 }
 
-Store.init(
+HawkerCentre.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -19,17 +21,13 @@ Store.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
+    address: {
       type: DataTypes.STRING,
-    },
-    contactNo: {
-      type: DataTypes.STRING,
-    },
-    unitNo: {
-      type: DataTypes.INTEGER,
     },
   },
   {sequelize}
 );
 
-export default Store;
+HawkerCentre.hasMany(Store, {foreignKey: 'hawkerCentreId'});
+
+export default HawkerCentre;

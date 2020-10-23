@@ -6,9 +6,10 @@ import {Request, Response, NextFunction} from 'express';
 import cors from 'cors';
 
 // import {testAuthenticate} from './db/dbUtil';
-
 // testAuthenticate();
 
+import regions from './routes/regions';
+import hawkerCentres from './routes/hawkerCentres';
 import stores from './routes/stores';
 
 const app = express();
@@ -21,6 +22,8 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
+app.use('/regions', regions);
+app.use('/hawkerCentres', hawkerCentres);
 app.use('/stores', stores);
 
 app.all('*', (req: Request, res: Response) => res.send('You are at the wrong place. Shoo!'));

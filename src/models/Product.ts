@@ -4,10 +4,11 @@ import sequelize from '../db';
 
 class Product extends Model {
   public id!: number;
+  public name!: string;
   public category!: string;
-  public productname!: string;
-  public price!: string;
-  public pic!: string;
+  public description!: string;
+  public price!: number;
+  public image!: string;
   public store_id!: number;
 }
 
@@ -19,7 +20,6 @@ Product.init(
       primaryKey: true,
     },
     name: {
-      allowNull: false,
       type: DataTypes.STRING,
     },
     category: {
@@ -33,6 +33,9 @@ Product.init(
     },
     image: {
       type: DataTypes.STRING,
+    },
+    storeId: {
+      type: DataTypes.INTEGER,
     },
   },
   {sequelize}

@@ -8,5 +8,6 @@ router.get('/:id', storeController.showStoreFuncs);
 router.post('/', storeController.createStoreFuncs);
 router.put('/:id', storeController.updateStoreFuncs);
 router.delete('/:id', storeController.destroyStoreFuncs);
+router.get('/info/:id', storeController.showStoreInfoFuncs);
 
 export default router;

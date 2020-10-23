@@ -1,0 +1,45 @@
+'use strict';
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('Stores', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER,
+      },
+      name: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      description: {
+        type: Sequelize.TEXT,
+      },
+      contactNo: {
+        type: Sequelize.STRING,
+      },
+      unitNo: {
+        type: Sequelize.STRING,
+      },
+      hawkerCentreId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'HawkerCentres',
+          key: 'id',
+        },
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
+    });
+  },
+  down: async (queryInterface, _Sequelize) => {
+    await queryInterface.dropTable('Stores');
+  },
+};

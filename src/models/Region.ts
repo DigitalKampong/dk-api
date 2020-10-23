@@ -16,7 +16,6 @@ Region.init(
       primaryKey: true,
     },
     name: {
-      allowNull: false,
       type: DataTypes.STRING,
     },
   },

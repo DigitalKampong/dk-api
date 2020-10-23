@@ -6,8 +6,8 @@ import Store from './Store';
 class HawkerCentre extends Model {
   public id!: number;
   public name!: string;
-  public regionId!: number;
   public address!: string;
+  public regionId!: number;
 }
 
 HawkerCentre.init(
@@ -23,6 +23,9 @@ HawkerCentre.init(
     },
     address: {
       type: DataTypes.STRING,
+    },
+    regionId: {
+      type: DataTypes.INTEGER,
     },
   },
   {sequelize}

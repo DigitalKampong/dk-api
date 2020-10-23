@@ -1,5 +1,6 @@
-import Store from '../models/Store';
 import {Request, Response, NextFunction} from 'express';
+import Store from '../models/Store';
+import HawkerCentre from '../models/HawkerCentre';
 
 async function retrieveStore(req: Request, res: Response, next: NextFunction) {
   try {
@@ -59,8 +60,38 @@ async function destroyStore(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function retrieveHawkerCentre(req: Request, res: Response, next: NextFunction) {
+  try {
+    const hawkerCentre = await HawkerCentre.findByPk(req.store.hawkerCentreId);
+    if (hawkerCentre === null) {
+      res.status(404).end();
+      return;
+    }
+    req.hawkerCentre = hawkerCentre;
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function showStoreInfo(req: Request, res: Response, next: NextFunction) {
+  try {
+    const info = {
+      name: req.store.name,
+      description: req.store.description,
+      contactNo: req.store.contactNo,
+      address: req.hawkerCentre.address,
+      unitNo: req.store.unitNo,
+    };
+    res.status(200).json(info);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export const indexStoreFuncs = [indexStore];
 export const showStoreFuncs = [retrieveStore, showStore];
 export const createStoreFuncs = [createStore];
 export const updateStoreFuncs = [retrieveStore, updateStore];
 export const destroyStoreFuncs = [retrieveStore, destroyStore];
+export const showStoreInfoFuncs = [retrieveStore, retrieveHawkerCentre, showStoreInfo];

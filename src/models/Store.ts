@@ -6,7 +6,10 @@ import Product from './Product';
 class Store extends Model {
   public id!: number;
   public name!: string;
+  public description!: string;
   public contactNo!: string;
+  public unitNo!: string;
+  public hawkerCentreId!: number;
 }
 
 Store.init(
@@ -17,7 +20,6 @@ Store.init(
       primaryKey: true,
     },
     name: {
-      allowNull: false,
       type: DataTypes.STRING,
     },
     description: {
@@ -27,6 +29,9 @@ Store.init(
       type: DataTypes.STRING,
     },
     unitNo: {
+      type: DataTypes.INTEGER,
+    },
+    hawkerCentreId: {
       type: DataTypes.INTEGER,
     },
   },

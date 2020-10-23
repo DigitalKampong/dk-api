@@ -1,6 +1,7 @@
 import {Model, DataTypes} from 'sequelize';
 
 import sequelize from '../db';
+import Product from './Product';
 
 class Store extends Model {
   public id!: number;
@@ -25,5 +26,7 @@ Store.init(
   },
   {sequelize}
 );
+
+Store.hasMany(Product, {foreignKey: "store_id"});
 
 export default Store;

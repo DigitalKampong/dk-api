@@ -5,11 +5,12 @@ import express from 'express';
 import {Request, Response, NextFunction} from 'express';
 import cors from 'cors';
 
-// import {testAuthenticate} from './db/dbUtil';
+import {testAuthenticate} from './db/dbUtil';
 
-// testAuthenticate();
+testAuthenticate();
 
 import stores from './routes/stores';
+import products from './routes/products';
 
 const app = express();
 const PORT = process.env.PORT || '3000';
@@ -22,6 +23,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use('/stores', stores);
+app.use('/products', products);
 
 app.all('*', (req: Request, res: Response) => res.send('You are at the wrong place. Shoo!'));
 

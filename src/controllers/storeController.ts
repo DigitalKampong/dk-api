@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from 'express';
 import Store from '../models/Store';
 import HawkerCentre from '../models/HawkerCentre';
-import { assert } from 'console';
+import {assert} from 'console';
 
 async function retrieveStore(req: Request, res: Response, next: NextFunction) {
   try {

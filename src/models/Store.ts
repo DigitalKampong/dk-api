@@ -9,6 +9,7 @@ class Store extends Model {
   public description!: string;
   public contactNo!: string;
   public unitNo!: string;
+  public address?: string;
   public hawkerCentreId!: number;
 }
 
@@ -39,5 +40,6 @@ Store.init(
 );
 
 Store.hasMany(Product, {foreignKey: 'storeId'});
+Product.belongsTo(Store);
 
 export default Store;

@@ -32,5 +32,6 @@ HawkerCentre.init(
 );
 
 HawkerCentre.hasMany(Store, {foreignKey: 'hawkerCentreId'});
+Store.belongsTo(HawkerCentre, {foreignKey: 'hawkerCentreId'});
 
 export default HawkerCentre;

@@ -24,11 +24,11 @@ module.exports = {
       image: {
         type: Sequelize.STRING,
       },
-      storeId: {
+      stallId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Stores',
+          model: 'Stalls',
           key: 'id',
         },
       },

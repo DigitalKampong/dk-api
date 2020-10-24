@@ -1,7 +1,7 @@
 import {Model, DataTypes} from 'sequelize';
 
 import sequelize from '../db';
-import Store from './Store';
+import Stall from './Stall';
 
 class HawkerCentre extends Model {
   public id!: number;
@@ -31,7 +31,7 @@ HawkerCentre.init(
   {sequelize}
 );
 
-HawkerCentre.hasMany(Store, {foreignKey: 'hawkerCentreId'});
-Store.belongsTo(HawkerCentre, {foreignKey: 'hawkerCentreId'});
+HawkerCentre.hasMany(Stall, {foreignKey: 'hawkerCentreId'});
+Stall.belongsTo(HawkerCentre, {foreignKey: 'hawkerCentreId'});
 
 export default HawkerCentre;

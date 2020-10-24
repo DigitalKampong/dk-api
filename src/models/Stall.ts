@@ -3,7 +3,7 @@ import {Model, DataTypes} from 'sequelize';
 import sequelize from '../db';
 import Product from './Product';
 
-class Store extends Model {
+class Stall extends Model {
   public id!: number;
   public name!: string;
   public description!: string;
@@ -13,7 +13,7 @@ class Store extends Model {
   public hawkerCentreId!: number;
 }
 
-Store.init(
+Stall.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -39,7 +39,7 @@ Store.init(
   {sequelize}
 );
 
-Store.hasMany(Product, {foreignKey: 'storeId'});
-Product.belongsTo(Store, {foreignKey: 'storeId'});
+Stall.hasMany(Product, {foreignKey: 'stallId'});
+Product.belongsTo(Stall, {foreignKey: 'stallId'});
 
-export default Store;
+export default Stall;

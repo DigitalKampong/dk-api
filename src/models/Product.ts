@@ -9,7 +9,7 @@ class Product extends Model {
   public description!: string;
   public price!: number;
   public image!: string;
-  public store_id!: number;
+  public stall_id!: number;
 }
 
 Product.init(
@@ -34,7 +34,7 @@ Product.init(
     image: {
       type: DataTypes.STRING,
     },
-    storeId: {
+    stallId: {
       type: DataTypes.INTEGER,
     },
   },

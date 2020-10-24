@@ -10,7 +10,7 @@ testAuthenticate();
 
 import regions from './routes/regions';
 import hawkerCentres from './routes/hawkerCentres';
-import stores from './routes/stores';
+import stalls from './routes/stalls';
 import products from './routes/products';
 
 const app = express();
@@ -25,7 +25,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/regions', regions);
 app.use('/hawkerCentres', hawkerCentres);
-app.use('/stores', stores);
+app.use('/stalls', stalls);
 app.use('/products', products);
 
 app.all('*', (req: Request, res: Response) => res.send('You are at the wrong place. Shoo!'));

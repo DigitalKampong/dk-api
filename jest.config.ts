@@ -4,12 +4,12 @@ import {defaults} from 'jest-config';
 const config: Config.InitialOptions = {
   // verbose: true,
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json', 'jsx', 'node'],
-  globalSetup: './test/setup.ts',
-  globalTeardown: './test/teardown.ts',
+  globalSetup: './tests/globalSetup.ts',
+  globalTeardown: './tests/globalTeardown.ts',
+  setupFilesAfterEnv: ['./tests/setup.ts'],
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest"
-  }
+    '^.+\\.(ts|tsx)$': 'ts-jest',
+  },
 };
 
 export default config;
-

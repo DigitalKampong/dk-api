@@ -9,7 +9,7 @@
     "src/**/*.ts",
   ],
   "exclude": [
-    "test/**/*.ts",
+    "tests/**/*.ts",
   ],
   "typeRoots": [
     "src/@types"

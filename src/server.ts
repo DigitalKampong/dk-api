@@ -1,12 +1,9 @@
-import dotenvFlow from 'dotenv-flow';
-dotenvFlow.config();
-
 import express from 'express';
 import {Request, Response, NextFunction} from 'express';
 import cors from 'cors';
 
+import {PORT} from './consts';
 import {testAuthenticate} from './db/dbUtil';
-testAuthenticate();
 
 import regions from './routes/regions';
 import hawkerCentres from './routes/hawkerCentres';
@@ -15,6 +12,8 @@ import products from './routes/products';
 
 const app = express();
 const PORT = process.env.PORT || '3000';
+
+// testAuthenticate();
 
 app.use(cors());
 app.use(express.json());

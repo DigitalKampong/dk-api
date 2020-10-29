@@ -1,6 +1,11 @@
 import {Sequelize} from 'sequelize';
 
-const connectionUri = process.env.DATABASE_URL || '';
-const sequelize = new Sequelize(connectionUri);
+import {DATABASE_URL} from '../consts';
+
+const logging = process.env.NODE_ENV === 'test' ? false : true;
+
+const sequelize = new Sequelize(DATABASE_URL, {
+  logging: logging,
+});
 
 export default sequelize;

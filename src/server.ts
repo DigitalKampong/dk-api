@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import dotenvFlow from 'dotenv-flow';
+dotenvFlow.config();
 
 import express from 'express';
 import {Request, Response, NextFunction} from 'express';

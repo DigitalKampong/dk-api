@@ -11,7 +11,6 @@ import stalls from './routes/stalls';
 import products from './routes/products';
 
 const app = express();
-const PORT = process.env.PORT || '3000';
 
 // testAuthenticate();
 
@@ -34,6 +33,10 @@ app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
   res.status(500).send('Something broke! Please try again later.');
 });
 
-app.listen(PORT, () => {
-  console.log(`Express server is listening on ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`Express server is listening on ${PORT}`);
+  });
+}
+
+export default app;

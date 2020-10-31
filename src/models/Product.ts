@@ -3,7 +3,7 @@ import {Model, DataTypes} from 'sequelize';
 import sequelize from '../db';
 
 class Product extends Model {
-  public id!: number;
+  public productId!: number;
   public name!: string;
   public category!: string;
   public description!: string;
@@ -14,7 +14,7 @@ class Product extends Model {
 
 Product.init(
   {
-    id: {
+    productId: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,

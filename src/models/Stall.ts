@@ -4,7 +4,7 @@ import sequelize from '../db';
 import Product from './Product';
 
 class Stall extends Model {
-  public id!: number;
+  public stallId!: number;
   public name!: string;
   public description!: string;
   public contactNo!: string;
@@ -15,7 +15,7 @@ class Stall extends Model {
 
 Stall.init(
   {
-    id: {
+    stallId: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,

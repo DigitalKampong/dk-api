@@ -4,7 +4,7 @@ import sequelize from '../db';
 import Stall from './Stall';
 
 class HawkerCentre extends Model {
-  public id!: number;
+  public hawkerCentreId!: number;
   public name!: string;
   public address!: string;
   public regionId!: number;
@@ -12,7 +12,7 @@ class HawkerCentre extends Model {
 
 HawkerCentre.init(
   {
-    id: {
+    hawkerCentreId: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,

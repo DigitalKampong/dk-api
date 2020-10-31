@@ -4,13 +4,13 @@ import sequelize from '../db';
 import HawkerCentre from './HawkerCentre';
 
 class Region extends Model {
-  public id!: number;
+  public regionId!: number;
   public name!: string;
 }
 
 Region.init(
   {
-    id: {
+    regionId: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,

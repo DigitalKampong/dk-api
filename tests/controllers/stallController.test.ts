@@ -51,4 +51,4 @@ describe('DELETE /stall/:id', () => {
     expect(res.status).toEqual(200);
     expect(await Stall.findByPk(stall.id)).toBeNull();
   });
-})
+});

@@ -29,7 +29,7 @@ Product.init(
       type: DataTypes.STRING,
     },
     price: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.DOUBLE,
     },
     image: {
       type: DataTypes.STRING,

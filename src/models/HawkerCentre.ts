@@ -16,6 +16,7 @@ HawkerCentre.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+      allowNull: false,
     },
     name: {
       allowNull: false,
@@ -26,6 +27,11 @@ HawkerCentre.init(
     },
     regionId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Regions',
+        key: 'id',
+      },
     },
   },
   {sequelize}

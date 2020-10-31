@@ -19,9 +19,11 @@ Stall.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+      allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     description: {
       type: DataTypes.STRING,
@@ -34,6 +36,11 @@ Stall.init(
     },
     hawkerCentreId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'HawkerCentres',
+        key: 'id',
+      },
     },
   },
   {sequelize}

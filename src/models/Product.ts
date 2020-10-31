@@ -18,9 +18,11 @@ Product.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+      allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     category: {
       type: DataTypes.STRING,
@@ -36,6 +38,11 @@ Product.init(
     },
     stallId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Stalls',
+        key: 'id',
+      },
     },
   },
   {sequelize}

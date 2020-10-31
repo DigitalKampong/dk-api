@@ -12,7 +12,7 @@ module.exports = function (req: Request, res: Response, next: NextFunction) {
   }
 
   try {
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err: any, decoded: User) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err: Error, decoded: User) => {
       if (err) {
         next(err);
       } else {

@@ -20,7 +20,7 @@ async function register(req: Request, res: Response, next: NextFunction) {
       id: user.id,
     };
 
-    jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'}, (err: Error, token: String) => {
+    jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '7 days'}, (err: Error, token: String) => {
       if (err) throw err;
       res.status(201).json({token});
     });
@@ -48,7 +48,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
     const payload = {
       id: user!.id,
     };
-    jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'}, (err: Error, token: String) => {
+    jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '7 days'}, (err: Error, token: String) => {
       if (err) throw err;
       res.status(201).json({token});
     });

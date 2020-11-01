@@ -1,9 +1,7 @@
 import request from 'supertest';
-import HawkerCentre from '../../src/models/HawkerCentre';
 import Stall from '../../src/models/Stall';
 import HawkerCentreFact from '../factories/HawkerCentreFactory';
 import StallFact from '../factories/StallFactory';
-// import StallFactory from '../factories/StallFactory';
 
 import app from '../../src/server';
 

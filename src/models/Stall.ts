@@ -1,4 +1,4 @@
-import {Model, DataTypes, HasMany, BelongsTo} from 'sequelize';
+import {Model, DataTypes, HasMany, BelongsTo, BelongsToGetAssociationMixin} from 'sequelize';
 
 import sequelize from '../db';
 import Product from './Product';
@@ -7,14 +7,19 @@ import HawkerCentre from './HawkerCentre';
 class Stall extends Model {
   public id!: number;
   public name!: string;
-  public description!: string;
-  public contactNo!: string;
-  public unitNo!: string;
-  public address?: string;
+  public description!: string | null;
+  public contactNo!: string | null;
   public hawkerCentreId!: number;
 
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+
   public static HawkerCentre: BelongsTo<Stall, HawkerCentre>;
+  public getHawkerCentre!: BelongsToGetAssociationMixin<HawkerCentre>;
+
   public static Product: HasMany<Stall, Product>;
+
+  public readonly hawkerCentre?: HawkerCentre;
 }
 
 Stall.init(

@@ -19,23 +19,25 @@ describe('POST /stalls', () => {
   });
 
   it('returns an error given invalid attributes', async () => {
+    // Change the error code once we figure out a way to handle user errors gracefully
+    // it is now caught by the general error handler. The general error handler uses console.error so we hide it away for now.
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
     const res = await request(app).post('/stalls').send({name: ''});
 
-    // change this error code once we figure out a way to handle user errors gracefully
-    // it is now caught by the general error handler
     expect(res.status).toEqual(500);
+    spy.mockRestore();
   });
 });
 
 describe('GET /stall/:id', () => {
   it('returns an existing store', async () => {
-    // Should check hawkerCentre here also
     const stall = await StallFact.create();
+    const hc = await stall.getHawkerCentre();
     const res = await request(app).get(`/stalls/${stall.id}`);
 
     expect(res.status).toEqual(200);
     expect(res.body).toHaveProperty('name', stall.name);
-    expect(res.body).toHaveProperty('HawkerCentre');
+    expect(res.body).toHaveProperty('HawkerCentre', {name: hc.name, address: hc.address});
   });
 });
 

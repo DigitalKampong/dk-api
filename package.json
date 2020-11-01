@@ -45,6 +45,6 @@
     "sequelize-cli": "sequelize-cli",
     "heroku-postbuild": "yarn build && sequelize-cli db:migrate",
     "test": "jest",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand tests/controllers/stallController.test.ts"
+    "test:debug": "node --inspect_brk node_modules/.bin/jest --runInBand"
   }
 }

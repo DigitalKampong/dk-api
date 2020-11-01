@@ -19,7 +19,7 @@ class Stall extends Model {
 
   public static Product: HasMany<Stall, Product>;
 
-  public readonly hawkerCentre?: HawkerCentre;
+  public readonly HawkerCentre?: HawkerCentre;
 }
 
 Stall.init(

@@ -3,7 +3,19 @@ import {Request, Response, NextFunction} from 'express';
 
 async function retrieveProduct(req: Request, res: Response, next: NextFunction) {
   try {
-    const product = await Product.findByPk(req.params.id);
+    const product = await Product.findByPk(req.params.id, {
+      attributes: [
+        ['id', 'productId'],
+        'name',
+        'category',
+        'description',
+        'price',
+        'image',
+        'stallId',
+        'createdAt',
+        'updatedAt',
+      ],
+    });
     if (product === null) {
       res.status(404).end();
       return;
@@ -17,7 +29,19 @@ async function retrieveProduct(req: Request, res: Response, next: NextFunction) 
 
 async function indexProduct(req: Request, res: Response, next: NextFunction) {
   try {
-    const products = await Product.findAll();
+    const products = await Product.findAll({
+      attributes: [
+        ['id', 'productId'],
+        'name',
+        'category',
+        'description',
+        'price',
+        'image',
+        'stallId',
+        'createdAt',
+        'updatedAt',
+      ],
+    });
     res.status(200).json(products);
   } catch (err) {
     next(err);
@@ -34,8 +58,10 @@ async function showProduct(req: Request, res: Response, next: NextFunction) {
 
 async function createProduct(req: Request, res: Response, next: NextFunction) {
   try {
-    const product = await Product.create(req.body);
-
+    const temp = req.body;
+    const newProduct = {id: temp['productId'], ...temp};
+    delete newProduct['productId'];
+    const product = await Product.create(newProduct);
     res.status(201).json(product);
   } catch (err) {
     next(err);
@@ -44,7 +70,10 @@ async function createProduct(req: Request, res: Response, next: NextFunction) {
 
 async function updateProduct(req: Request, res: Response, next: NextFunction) {
   try {
-    const product = await req.product!.update(req.body);
+    const temp = req.body;
+    const updatedProduct = {id: temp['productId'], ...temp};
+    delete updatedProduct['productId'];
+    const product = await req.product!.update(updatedProduct);
     res.status(200).json(product);
   } catch (err) {
     next(err);
@@ -53,7 +82,9 @@ async function updateProduct(req: Request, res: Response, next: NextFunction) {
 
 async function destroyProduct(req: Request, res: Response, next: NextFunction) {
   try {
-    await req.product!.destroy();
+    const temp = req.product;
+    const id = temp!.getDataValue('productId');
+    await Product.destroy({where: {id}});
     res.status(200).end();
   } catch (err) {
     next(err);

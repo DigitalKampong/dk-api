@@ -6,6 +6,16 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
   try {
     const stall = await Stall.findByPk(req.params.id, {
       include: [{model: HawkerCentre, attributes: ['name', 'address']}],
+      attributes: [
+        ['id', 'stallId'],
+        'name',
+        'description',
+        'contactNo',
+        'unitNo',
+        'hawkerCentreId',
+        'createdAt',
+        'updatedAt',
+      ],
     });
     if (stall === null) {
       res.status(404).end();
@@ -20,7 +30,18 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
 
 async function indexStall(req: Request, res: Response, next: NextFunction) {
   try {
-    const stalls = await Stall.findAll();
+    const stalls = await Stall.findAll({
+      attributes: [
+        ['id', 'stallId'],
+        'name',
+        'description',
+        'contactNo',
+        'unitNo',
+        'hawkerCentreId',
+        'createdAt',
+        'updatedAt',
+      ],
+    });
     res.status(200).json(stalls);
   } catch (err) {
     next(err);
@@ -37,7 +58,10 @@ async function showStall(req: Request, res: Response, next: NextFunction) {
 
 async function createStall(req: Request, res: Response, next: NextFunction) {
   try {
-    const stall = await Stall.create(req.body);
+    const temp = req.body;
+    const newStall = {id: temp['stallId'], ...temp};
+    delete newStall['stallId'];
+    const stall = await Stall.create(newStall);
     res.status(201).json(stall);
   } catch (err) {
     next(err);
@@ -46,7 +70,10 @@ async function createStall(req: Request, res: Response, next: NextFunction) {
 
 async function updateStall(req: Request, res: Response, next: NextFunction) {
   try {
-    const stall = await req.stall!.update(req.body);
+    const temp = req.body;
+    const updatedStall = {id: temp['stallId'], ...temp};
+    delete updatedStall['stallId'];
+    const stall = await req.stall!.update(updatedStall);
     res.status(200).json(stall);
   } catch (err) {
     next(err);
@@ -55,7 +82,9 @@ async function updateStall(req: Request, res: Response, next: NextFunction) {
 
 async function destroyStall(req: Request, res: Response, next: NextFunction) {
   try {
-    await req.stall!.destroy();
+    const temp = req.stall;
+    const id = temp!.getDataValue('stallId');
+    await Stall.destroy({where: {id}});
     res.status(200).end();
   } catch (err) {
     next(err);

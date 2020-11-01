@@ -55,6 +55,6 @@ Stall.init(
 );
 
 Stall.Product = Stall.hasMany(Product, {foreignKey: 'stallId'});
-Product.Store = Product.belongsTo(Stall, {foreignKey: 'stallId'});
+Product.Stall = Product.belongsTo(Stall, {foreignKey: 'stallId'});
 
 export default Stall;

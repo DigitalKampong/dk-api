@@ -6,6 +6,8 @@ import HawkerCentre from './HawkerCentre';
 class Region extends Model {
   public id!: number;
   public name!: string;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 
   public static HawkerCentre: HasMany<Region, HawkerCentre>;
 }

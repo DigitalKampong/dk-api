@@ -9,6 +9,8 @@ class HawkerCentre extends Model {
   public name!: string;
   public address!: string;
   public regionId!: number;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 
   public static Region: BelongsTo<HawkerCentre, Region>;
   public static Stall: HasMany<HawkerCentre, Stall>;

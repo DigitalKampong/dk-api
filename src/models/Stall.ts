@@ -10,16 +10,15 @@ class Stall extends Model {
   public description!: string | null;
   public contactNo!: string | null;
   public hawkerCentreId!: number;
-
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
   public static HawkerCentre: BelongsTo<Stall, HawkerCentre>;
+  public readonly HawkerCentre?: HawkerCentre;
   public getHawkerCentre!: BelongsToGetAssociationMixin<HawkerCentre>;
 
   public static Product: HasMany<Stall, Product>;
-
-  public readonly HawkerCentre?: HawkerCentre;
+  public readonly Products?: Product[];
 }
 
 Stall.init(
@@ -55,7 +54,7 @@ Stall.init(
   {sequelize}
 );
 
-Stall.hasMany(Product, {foreignKey: 'stallId'});
-Product.belongsTo(Stall, {foreignKey: 'stallId'});
+Stall.Product = Stall.hasMany(Product, {foreignKey: 'stallId'});
+Product.Store = Product.belongsTo(Stall, {foreignKey: 'stallId'});
 
 export default Stall;

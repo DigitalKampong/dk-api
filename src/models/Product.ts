@@ -11,6 +11,8 @@ class Product extends Model {
   public price!: number;
   public image!: string;
   public stall_id!: number;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 
   public static Stall: BelongsTo<Product, Stall>;
 }

@@ -15,6 +15,4 @@ fs.readdirSync(__dirname)
     models[model.default.name] = model.default; // we export default from our models
   });
 
-// console.log(models['Region'].associate());
-
 export default models;

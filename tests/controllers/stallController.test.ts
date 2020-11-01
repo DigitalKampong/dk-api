@@ -18,33 +18,30 @@ describe('POST /stalls', () => {
     expect(res.body).toHaveProperty('name', 'best chicken rice');
   });
 
-  // it('returns an error given invalid attributes', async () => {
-  //   const res = await request(app).post('/stalls').send({name: ''});
+  it('returns an error given invalid attributes', async () => {
+    const res = await request(app).post('/stalls').send({name: ''});
 
-  //   // change this error code once we figure out a way to handle user errors gracefully
-  //   // it is now caught by the general error handler
-  //   expect(res.status).toEqual(500);
-  // });
+    // change this error code once we figure out a way to handle user errors gracefully
+    // it is now caught by the general error handler
+    expect(res.status).toEqual(500);
+  });
 });
 
 describe('GET /stall/:id', () => {
   it('returns an existing store', async () => {
-    const hcAttr = {name: 'fake name', address: 'fake addr'};
-    const hawkerCentre = await HawkerCentre.create(hcAttr);
-    const stall = await Stall.create({name: 'duck rice', hawkerCentreId: hawkerCentre.id});
+    // Should check hawkerCentre here also
+    const stall = await StallFact.create();
     const res = await request(app).get(`/stalls/${stall.id}`);
 
     expect(res.status).toEqual(200);
-    expect(res.body).toHaveProperty('name', 'duck rice');
-    expect(res.body).toHaveProperty('HawkerCentre', hcAttr);
+    expect(res.body).toHaveProperty('name', stall.name);
+    expect(res.body).toHaveProperty('HawkerCentre');
   });
 });
 
 describe('PUT /stall/:id', () => {
   it('returns an updated store', async () => {
-    const hcAttr = {name: 'fake name', address: 'fake addr'};
-    const hawkerCentre = await HawkerCentre.create(hcAttr);
-    const stall = await Stall.create({name: 'duck rice', hawkerCentreId: hawkerCentre.id});
+    const stall = await StallFact.create();
     const res = await request(app).put(`/stalls/${stall.id}`).send({name: 'noodles'});
 
     expect(res.status).toEqual(200);
@@ -54,7 +51,7 @@ describe('PUT /stall/:id', () => {
 
 describe('DELETE /stall/:id', () => {
   it('returns success on successful deletion', async () => {
-    const stall = await Stall.create({name: 'duck rice'});
+    const stall = await StallFact.create();
     const res = await request(app).delete(`/stalls/${stall.id}`);
 
     expect(res.status).toEqual(200);

@@ -1,7 +1,8 @@
-import {Model, DataTypes} from 'sequelize';
+import {Model, DataTypes, HasMany, BelongsTo} from 'sequelize';
 
 import sequelize from '../db';
 import Product from './Product';
+import HawkerCentre from './HawkerCentre';
 
 class Stall extends Model {
   public id!: number;
@@ -11,6 +12,9 @@ class Stall extends Model {
   public unitNo!: string;
   public address?: string;
   public hawkerCentreId!: number;
+
+  public static HawkerCentre: BelongsTo<Stall, HawkerCentre>;
+  public static Product: HasMany<Stall, Product>;
 }
 
 Stall.init(

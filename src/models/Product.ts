@@ -1,6 +1,7 @@
-import {Model, DataTypes} from 'sequelize';
+import {Model, DataTypes, BelongsTo} from 'sequelize';
 
 import sequelize from '../db';
+import Stall from './Stall';
 
 class Product extends Model {
   public id!: number;
@@ -10,6 +11,8 @@ class Product extends Model {
   public price!: number;
   public image!: string;
   public stall_id!: number;
+
+  public static Stall: BelongsTo<Product, Stall>;
 }
 
 Product.init(

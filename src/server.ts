@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import {PORT} from './consts';
 import {testAuthenticate} from './db/dbUtil';
+import './models'; // import for side effects
 
 import regions from './routes/regions';
 import hawkerCentres from './routes/hawkerCentres';

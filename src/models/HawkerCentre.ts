@@ -1,13 +1,17 @@
-import {Model, DataTypes} from 'sequelize';
+import {Model, DataTypes, BelongsTo, HasMany} from 'sequelize';
 
 import sequelize from '../db';
 import Stall from './Stall';
+import Region from './Region';
 
 class HawkerCentre extends Model {
   public id!: number;
   public name!: string;
   public address!: string;
   public regionId!: number;
+
+  public static Region: BelongsTo<HawkerCentre, Region>;
+  public static Stall: HasMany<HawkerCentre, Stall>;
 }
 
 HawkerCentre.init(
@@ -37,7 +41,7 @@ HawkerCentre.init(
   {sequelize}
 );
 
-HawkerCentre.hasMany(Stall, {foreignKey: 'hawkerCentreId'});
-Stall.belongsTo(HawkerCentre, {foreignKey: 'hawkerCentreId'});
+HawkerCentre.Stall = HawkerCentre.hasMany(Stall, {foreignKey: 'hawkerCentreId'});
+Stall.HawkerCentre = Stall.belongsTo(HawkerCentre, {foreignKey: 'hawkerCentreId'});
 
 export default HawkerCentre;

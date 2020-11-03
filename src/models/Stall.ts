@@ -1,16 +1,24 @@
-import {Model, DataTypes} from 'sequelize';
+import {Model, DataTypes, HasMany, BelongsTo, BelongsToGetAssociationMixin} from 'sequelize';
 
 import sequelize from '../db';
 import Product from './Product';
+import HawkerCentre from './HawkerCentre';
 
 class Stall extends Model {
   public id!: number;
   public name!: string;
-  public description!: string;
-  public contactNo!: string;
-  public unitNo!: string;
-  public address?: string;
+  public description!: string | null;
+  public contactNo!: string | null;
   public hawkerCentreId!: number;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+
+  public static HawkerCentre: BelongsTo<Stall, HawkerCentre>;
+  public readonly HawkerCentre?: HawkerCentre;
+  public getHawkerCentre!: BelongsToGetAssociationMixin<HawkerCentre>;
+
+  public static Product: HasMany<Stall, Product>;
+  public readonly Products?: Product[];
 }
 
 Stall.init(
@@ -19,9 +27,11 @@ Stall.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+      allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     description: {
       type: DataTypes.STRING,
@@ -34,12 +44,17 @@ Stall.init(
     },
     hawkerCentreId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'HawkerCentres',
+        key: 'id',
+      },
     },
   },
   {sequelize}
 );
 
-Stall.hasMany(Product, {foreignKey: 'stallId'});
-Product.belongsTo(Stall, {foreignKey: 'stallId'});
+Stall.Product = Stall.hasMany(Product, {foreignKey: 'stallId'});
+Product.Stall = Product.belongsTo(Stall, {foreignKey: 'stallId'});
 
 export default Stall;

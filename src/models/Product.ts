@@ -1,6 +1,7 @@
-import {Model, DataTypes} from 'sequelize';
+import {Model, DataTypes, BelongsTo} from 'sequelize';
 
 import sequelize from '../db';
+import Stall from './Stall';
 
 class Product extends Model {
   public id!: number;
@@ -10,6 +11,10 @@ class Product extends Model {
   public price!: number;
   public image!: string;
   public stall_id!: number;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+
+  public static Stall: BelongsTo<Product, Stall>;
 }
 
 Product.init(
@@ -18,9 +23,11 @@ Product.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+      allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
     },
     category: {
       type: DataTypes.STRING,
@@ -29,13 +36,18 @@ Product.init(
       type: DataTypes.STRING,
     },
     price: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.DOUBLE,
     },
     image: {
       type: DataTypes.STRING,
     },
     stallId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Stalls',
+        key: 'id',
+      },
     },
   },
   {sequelize}

@@ -1,6 +1,45 @@
 import Region from '../models/Region';
 import {Request, Response, NextFunction} from 'express';
 
+async function postIdFormatting(req: Request, res: Response, next: NextFunction) {
+  try {
+    const region = {id: req.body['regionId'], ...req.body};
+    delete region['regionId'];
+    req.body = region;
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function getIdFormatting(req: Request, res: Response, next: NextFunction) {
+  try {
+    let plainRegion = JSON.parse(JSON.stringify(req.region));
+    plainRegion = {regionId: plainRegion['id'], ...plainRegion};
+    delete plainRegion['id'];
+
+    req.body = plainRegion;
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function getMultipleIdFormatting(req: Request, res: Response, next: NextFunction) {
+  try {
+    const changedKeys = req.body.map((x: Region) => {
+      let plainRegion = JSON.parse(JSON.stringify(x));
+      plainRegion = {regionId: plainRegion['id'], ...plainRegion};
+      delete plainRegion['id'];
+      return plainRegion;
+    });
+
+    res.status(201).json(changedKeys);
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function retrieveRegion(req: Request, res: Response, next: NextFunction) {
   try {
     const region = await Region.findByPk(req.params.id);
@@ -18,7 +57,8 @@ async function retrieveRegion(req: Request, res: Response, next: NextFunction) {
 async function indexRegion(req: Request, res: Response, next: NextFunction) {
   try {
     const regions = await Region.findAll();
-    res.status(200).json(regions);
+    req.body = regions;
+    next();
   } catch (err) {
     next(err);
   }
@@ -26,7 +66,7 @@ async function indexRegion(req: Request, res: Response, next: NextFunction) {
 
 async function showRegion(req: Request, res: Response, next: NextFunction) {
   try {
-    res.status(200).json(req.region);
+    res.status(200).json(req.body);
   } catch (err) {
     next(err);
   }
@@ -59,8 +99,8 @@ async function destroyRegion(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export const indexRegionFuncs = [indexRegion];
-export const showRegionFuncs = [retrieveRegion, showRegion];
-export const createRegionFuncs = [createRegion];
-export const updateRegionFuncs = [retrieveRegion, updateRegion];
+export const indexRegionFuncs = [indexRegion, getMultipleIdFormatting];
+export const showRegionFuncs = [retrieveRegion, getIdFormatting, showRegion];
+export const createRegionFuncs = [postIdFormatting, createRegion];
+export const updateRegionFuncs = [retrieveRegion, postIdFormatting, updateRegion];
 export const destroyRegionFuncs = [retrieveRegion, destroyRegion];

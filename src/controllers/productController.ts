@@ -134,7 +134,7 @@ async function destroyProduct(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-function deleteProperties(object: {[x: string]: any}, properties: string[]) {
+function deleteProperties(object: {[x: string]: unknown}, properties: string[]) {
   for (const property of properties) {
     property in object && delete object[property];
   }

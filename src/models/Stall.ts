@@ -8,6 +8,7 @@ class Stall extends Model {
   public id!: number;
   public name!: string;
   public description!: string | null;
+  public rating!: number | null;
   public contactNo!: string | null;
   public hawkerCentreId!: number;
   public readonly createdAt!: Date;
@@ -35,6 +36,9 @@ Stall.init(
     },
     description: {
       type: DataTypes.STRING,
+    },
+    rating: {
+      type: DataTypes.DOUBLE,
     },
     contactNo: {
       type: DataTypes.STRING,

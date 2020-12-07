@@ -2,7 +2,7 @@
 import type {Config} from '@jest/types';
 
 const config: Config.InitialOptions = {
-  // verbose: true,
+  verbose: true,
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json', 'jsx', 'node'],
   setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   transform: {

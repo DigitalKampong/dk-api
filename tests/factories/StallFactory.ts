@@ -8,8 +8,8 @@ export default class StallFactory {
     .attr('name', lorem.words)
     .attr('HawkerCentre', HawkerCentreFact.build());
 
-  public static getIncludes() {
-    return [{association: Stall.HawkerCentre, include: HawkerCentreFact.getInclude()}];
+  public static getInclude() {
+    return [{association: Stall.associations.HawkerCentre, include: HawkerCentreFact.getInclude()}];
   }
 
   public static build() {
@@ -17,6 +17,6 @@ export default class StallFactory {
   }
 
   public static create(): Promise<Stall> {
-    return Stall.create(this.build(), {include: StallFactory.getIncludes()});
+    return Stall.create(this.build(), {include: StallFactory.getInclude()});
   }
 }

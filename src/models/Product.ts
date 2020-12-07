@@ -44,7 +44,7 @@ class Product extends Model<ProductAttributes, ProductCreationAttributes> implem
   public readonly stall?: Stall;
 
   public static associations: {
-    stall: Association<Product, Stall>;
+    Stall: Association<Product, Stall>;
   };
 
   // TODO: Delete once everything is working

@@ -33,7 +33,9 @@ interface HawkerCentreAttributes {
 
 interface HawkerCentreCreationAttributes extends Optional<HawkerCentreAttributes, 'id'> {}
 
-class HawkerCentre extends Model<HawkerCentreAttributes, HawkerCentreCreationAttributes> implements HawkerCentreAttributes {
+class HawkerCentre
+  extends Model<HawkerCentreAttributes, HawkerCentreCreationAttributes>
+  implements HawkerCentreAttributes {
   public id!: number;
   public name!: string;
   public address!: string | null;
@@ -63,8 +65,8 @@ class HawkerCentre extends Model<HawkerCentreAttributes, HawkerCentreCreationAtt
   public readonly stalls?: Stall[];
 
   public static associations: {
-    region: Association<HawkerCentre, Region>;
-    stalls: Association<HawkerCentre, Stall>;
+    Region: Association<HawkerCentre, Region>;
+    Stalls: Association<HawkerCentre, Stall>;
   };
 
   // TODO: Delete once everything is working

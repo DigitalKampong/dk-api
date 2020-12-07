@@ -67,8 +67,8 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public readonly Products?: Product[];
 
   public static associations: {
-    hawkerCentres: Association<Stall, HawkerCentre>;
-    products: Association<Stall, Product>;
+    HawkerCentre: Association<Stall, HawkerCentre>;
+    Products: Association<Stall, Product>;
   };
 
   // TODO: Delete once everything is working

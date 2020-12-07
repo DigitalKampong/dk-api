@@ -10,7 +10,7 @@ class Product extends Model {
   public description!: string;
   public price!: number;
   public image!: string;
-  public stall_id!: number;
+  public stallId!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 

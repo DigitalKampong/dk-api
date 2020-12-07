@@ -1,5 +1,7 @@
 import Product from '../models/Product';
 import {Request, Response, NextFunction} from 'express';
+import Stall from '../models/Stall';
+import HawkerCentre from '../models/HawkerCentre';
 
 async function postIdFormatting(req: Request, res: Response, next: NextFunction) {
   try {
@@ -29,8 +31,30 @@ async function getMultipleIdFormatting(req: Request, res: Response, next: NextFu
   try {
     const changedKeys = req.body.map((x: Product) => {
       let plainProduct = JSON.parse(JSON.stringify(x));
-      plainProduct = {productId: plainProduct['id'], ...plainProduct};
-      delete plainProduct['id'];
+      plainProduct = {
+        productId: plainProduct['id'],
+        productName: plainProduct['name'],
+        productCategory: plainProduct['category'],
+        productPrice: plainProduct['price'],
+        productImage: plainProduct['image'],
+        productDescription: plainProduct['description'],
+        stallName: plainProduct['Stall']['name'],
+        stallAddress:
+          plainProduct['Stall']['HawkerCentre']['address'] + ' ' + plainProduct['Stall']['unitNo'],
+        stallRating: plainProduct['Stall']['rating'],
+        ...plainProduct,
+      };
+      deleteProperties(plainProduct, [
+        'id',
+        'name',
+        'category',
+        'price',
+        'image',
+        'description',
+        'createdAt',
+        'updatedAt',
+        'Stall',
+      ]);
       return plainProduct;
     });
 
@@ -56,7 +80,18 @@ async function retrieveProduct(req: Request, res: Response, next: NextFunction) 
 
 async function indexProduct(req: Request, res: Response, next: NextFunction) {
   try {
-    const products = await Product.findAll();
+    const products = await Product.findAll({
+      include: [
+        {
+          model: Stall,
+          include: [
+            {
+              model: HawkerCentre,
+            },
+          ],
+        },
+      ],
+    });
     req.body = products;
     next();
   } catch (err) {
@@ -96,6 +131,12 @@ async function destroyProduct(req: Request, res: Response, next: NextFunction) {
     res.status(200).end();
   } catch (err) {
     next(err);
+  }
+}
+
+function deleteProperties(object: {[x: string]: any}, properties: string[]) {
+  for (const property of properties) {
+    property in object && delete object[property];
   }
 }
 

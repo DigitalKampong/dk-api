@@ -1,25 +1,74 @@
-import {Model, DataTypes, HasMany, BelongsTo, BelongsToGetAssociationMixin} from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  Optional,
+  Association,
+  BelongsToCreateAssociationMixin,
+  BelongsToGetAssociationMixin,
+  BelongsToSetAssociationMixin,
+  HasManyAddAssociationMixin,
+  HasManyAddAssociationsMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyHasAssociationsMixin,
+  HasManyRemoveAssociationMixin,
+  HasManyRemoveAssociationsMixin,
+  HasManySetAssociationsMixin,
+} from 'sequelize';
 
 import sequelize from '../db';
 import Product from './Product';
 import HawkerCentre from './HawkerCentre';
 
-class Stall extends Model {
+interface StallAttributes {
+  id: number;
+  name: string;
+  description: string | null;
+  contactNo: string | null;
+  unitNo: string | null;
+  hawkerCentreId: number;
+}
+
+interface StallCreationAttributes extends Optional<StallAttributes, 'id'> {}
+
+class Stall extends Model<StallAttributes, StallCreationAttributes> implements StallAttributes {
   public id!: number;
   public name!: string;
   public description!: string | null;
   public rating!: number | null;
   public contactNo!: string | null;
+  public unitNo!: string | null;
   public hawkerCentreId!: number;
+
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  public static HawkerCentre: BelongsTo<Stall, HawkerCentre>;
-  public readonly HawkerCentre?: HawkerCentre;
+  // Stall.belongsTo(HawkerCentre)
+  public createHawkerCentre!: BelongsToCreateAssociationMixin<HawkerCentre>;
   public getHawkerCentre!: BelongsToGetAssociationMixin<HawkerCentre>;
+  public setHawkerCentre!: BelongsToSetAssociationMixin<HawkerCentre, number>;
 
-  public static Product: HasMany<Stall, Product>;
+  // Stall.hasMany(Product)
+  public addProduct!: HasManyAddAssociationMixin<Product, number>;
+  public addProducts!: HasManyAddAssociationsMixin<Product, number>;
+  public countProducts!: HasManyCountAssociationsMixin;
+  public createProducts!: HasManyCreateAssociationMixin<Product>;
+  public getProducts!: HasManyGetAssociationsMixin<Product>;
+  public hasProduct!: HasManyHasAssociationMixin<Product, number>;
+  public hasProducts!: HasManyHasAssociationsMixin<Product, number>;
+  public removeProduct!: HasManyRemoveAssociationMixin<Product, number>;
+  public removeProducts!: HasManyRemoveAssociationsMixin<Product, number>;
+  public setProducts!: HasManySetAssociationsMixin<Product, number>;
+
+  public readonly HawkerCentre?: HawkerCentre;
   public readonly Products?: Product[];
+
+  public static associations: {
+    HawkerCentre: Association<Stall, HawkerCentre>;
+    Products: Association<Stall, Product>;
+  };
 }
 
 Stall.init(
@@ -58,7 +107,7 @@ Stall.init(
   {sequelize}
 );
 
-Stall.Product = Stall.hasMany(Product, {foreignKey: 'stallId'});
-Product.Stall = Product.belongsTo(Stall, {foreignKey: 'stallId'});
+Stall.hasMany(Product, {foreignKey: 'stallId'});
+Product.belongsTo(Stall, {foreignKey: 'stallId'});
 
 export default Stall;

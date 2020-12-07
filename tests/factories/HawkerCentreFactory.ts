@@ -7,7 +7,7 @@ export default class HawkerCentreFactory {
   private static fact = new Factory().attr('name', lorem.words).attr('Region', RegionFact.build());
 
   public static getInclude() {
-    return [HawkerCentre.Region];
+    return [{association: HawkerCentre.associations.Region, include: RegionFact.getInclude()}];
   }
 
   public static build() {

@@ -30,12 +30,10 @@ describe('POST /stalls', () => {
 describe('GET /stall/:id', () => {
   it('returns an existing store', async () => {
     const stall = await StallFact.create();
-    const hc = await stall.getHawkerCentre();
     const res = await request(app).get(`/stalls/${stall.id}`);
 
     expect(res.status).toEqual(200);
     expect(res.body).toHaveProperty('name', stall.name);
-    expect(res.body).toHaveProperty('HawkerCentre', {name: hc.name, address: hc.address});
   });
 });
 

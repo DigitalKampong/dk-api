@@ -15,7 +15,6 @@ async function postIdFormatting(req: Request, res: Response, next: NextFunction)
 async function getIdFormatting(req: Request, res: Response, next: NextFunction) {
   try {
     let plainStall = JSON.parse(JSON.stringify(req.stall));
-    console.log(plainStall);
     plainStall = {stallId: plainStall['id'], ...plainStall};
     delete plainStall['id'];
 

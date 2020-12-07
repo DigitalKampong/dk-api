@@ -1,20 +1,52 @@
-import {Model, DataTypes, BelongsTo} from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  Optional,
+  Association,
+  BelongsToCreateAssociationMixin,
+  BelongsToGetAssociationMixin,
+  BelongsToSetAssociationMixin,
+} from 'sequelize';
 
 import sequelize from '../db';
 import Stall from './Stall';
 
-class Product extends Model {
+interface ProductAttributes {
+  id: number;
+  name: string;
+  category: string | null;
+  description: string | null;
+  price: number | null;
+  image: string | null;
+  stallId: number;
+}
+
+interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
+
+class Product
+  extends Model<ProductAttributes, ProductCreationAttributes>
+  implements ProductAttributes {
   public id!: number;
   public name!: string;
-  public category!: string;
-  public description!: string;
-  public price!: number;
-  public image!: string;
-  public stall_id!: number;
+  public category!: string | null;
+  public description!: string | null;
+  public price!: number | null;
+  public image!: string | null;
+  public stallId!: number;
+
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  public static Stall: BelongsTo<Product, Stall>;
+  // Product.belongsTo(Stall)
+  public createStall!: BelongsToCreateAssociationMixin<Stall>;
+  public getStall!: BelongsToGetAssociationMixin<Stall>;
+  public setStall!: BelongsToSetAssociationMixin<Stall, number>;
+
+  public readonly stall?: Stall;
+
+  public static associations: {
+    Stall: Association<Product, Stall>;
+  };
 }
 
 Product.init(

@@ -3,7 +3,6 @@ import {
   DataTypes,
   Optional,
   Association,
-  HasMany,
   HasManyAddAssociationMixin,
   HasManyAddAssociationsMixin,
   HasManyCountAssociationsMixin,

@@ -3,7 +3,6 @@ import {
   DataTypes,
   Optional,
   Association,
-  BelongsTo,
   BelongsToCreateAssociationMixin,
   BelongsToGetAssociationMixin,
   BelongsToSetAssociationMixin,

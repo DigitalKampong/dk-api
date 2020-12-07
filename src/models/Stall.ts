@@ -1,24 +1,75 @@
-import {Model, DataTypes, HasMany, BelongsTo, BelongsToGetAssociationMixin} from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  BelongsTo,
+  HasMany,
+  BelongsToCreateAssociationMixin,
+  BelongsToGetAssociationMixin,
+  BelongsToSetAssociationMixin,
+  HasManyAddAssociationMixin,
+  HasManyAddAssociationsMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyHasAssociationsMixin,
+  HasManyRemoveAssociationMixin,
+  HasManyRemoveAssociationsMixin,
+  HasManySetAssociationsMixin,
+} from 'sequelize';
 
 import sequelize from '../db';
 import Product from './Product';
 import HawkerCentre from './HawkerCentre';
 
-class Stall extends Model {
+interface StallAttributes {
+  id: number;
+  name: string;
+  description: string | null;
+  contactNo: string | null;
+  hawkerCentreId: number;
+}
+
+interface StallCreationAttributes extends Optional<StallAttributes, 'id'> {}
+
+class Stall extends Model<StallAttributes, StallCreationAttributes> {
   public id!: number;
   public name!: string;
   public description!: string | null;
   public contactNo!: string | null;
   public hawkerCentreId!: number;
+
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  public static HawkerCentre: BelongsTo<Stall, HawkerCentre>;
-  public readonly HawkerCentre?: HawkerCentre;
+  // Stall.belongsTo(HawkerCentre)
+  public createHawkerCentre!: BelongsToCreateAssociationMixin<HawkerCentre>;
   public getHawkerCentre!: BelongsToGetAssociationMixin<HawkerCentre>;
+  public setHawkerCentre!: BelongsToSetAssociationMixin<HawkerCentre, number>;
 
-  public static Product: HasMany<Stall, Product>;
+  // Stall.hasMany(Product)
+  public addProduct!: HasManyAddAssociationMixin<Product, number>;
+  public addProducts!: HasManyAddAssociationsMixin<Product, number>;
+  public countProducts!: HasManyCountAssociationsMixin;
+  public createProducts!: HasManyCreateAssociationMixin<Product>;
+  public getProducts!: HasManyGetAssociationsMixin<Product>;
+  public hasProduct!: HasManyHasAssociationMixin<Product, number>;
+  public hasProducts!: HasManyHasAssociationsMixin<Product, number>;
+  public removeProduct!: HasManyRemoveAssociationMixin<Product, number>;
+  public removeProducts!: HasManyRemoveAssociationsMixin<Product, number>;
+  public setProducts!: HasManySetAssociationsMixin<Product, number>;
+
+  public readonly HawkerCentre?: HawkerCentre;
   public readonly Products?: Product[];
+
+  public static associations: {
+    hawkerCentres: Association<Stall, HawkerCentre>;
+    products: Association<Stall, Product>;
+  };
+
+  // TODO: Delete once everything is working
+  public static HawkerCentre: BelongsTo<Stall, HawkerCentre>;
+  public static Product: HasMany<Stall, Product>;
 }
 
 Stall.init(

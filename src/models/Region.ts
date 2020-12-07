@@ -51,7 +51,7 @@ class Region extends Model<RegionAttributes, RegionCreationAttributes> implement
     hawkerCentres: Association<Region, HawkerCentre>;
   };
 
-  // Delete it once checked
+  // TODO: Delete once verified everything is working
   public static HawkerCentre: HasMany<Region, HawkerCentre>;
 }
 

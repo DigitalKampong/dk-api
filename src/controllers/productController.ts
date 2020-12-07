@@ -1,7 +1,6 @@
 import Product from '../models/Product';
 import {Request, Response, NextFunction} from 'express';
 import Stall from '../models/Stall';
-import HawkerCentre from '../models/HawkerCentre';
 
 async function postIdFormatting(req: Request, res: Response, next: NextFunction) {
   try {

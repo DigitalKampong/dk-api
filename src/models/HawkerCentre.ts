@@ -68,10 +68,6 @@ class HawkerCentre
     Region: Association<HawkerCentre, Region>;
     Stalls: Association<HawkerCentre, Stall>;
   };
-
-  // TODO: Delete once everything is working
-  public static Region: BelongsTo<HawkerCentre, Region>;
-  public static Stall: HasMany<HawkerCentre, Stall>;
 }
 
 HawkerCentre.init(
@@ -101,7 +97,7 @@ HawkerCentre.init(
   {sequelize}
 );
 
-HawkerCentre.Stall = HawkerCentre.hasMany(Stall, {foreignKey: 'hawkerCentreId'});
-Stall.HawkerCentre = Stall.belongsTo(HawkerCentre, {foreignKey: 'hawkerCentreId'});
+HawkerCentre.hasMany(Stall, {foreignKey: 'hawkerCentreId'});
+Stall.belongsTo(HawkerCentre, {foreignKey: 'hawkerCentreId'});
 
 export default HawkerCentre;

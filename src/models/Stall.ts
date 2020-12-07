@@ -70,10 +70,6 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
     HawkerCentre: Association<Stall, HawkerCentre>;
     Products: Association<Stall, Product>;
   };
-
-  // TODO: Delete once everything is working
-  public static HawkerCentre: BelongsTo<Stall, HawkerCentre>;
-  public static Product: HasMany<Stall, Product>;
 }
 
 Stall.init(
@@ -109,7 +105,7 @@ Stall.init(
   {sequelize}
 );
 
-Stall.Product = Stall.hasMany(Product, {foreignKey: 'stallId'});
-Product.Stall = Product.belongsTo(Stall, {foreignKey: 'stallId'});
+Stall.hasMany(Product, {foreignKey: 'stallId'});
+Product.belongsTo(Stall, {foreignKey: 'stallId'});
 
 export default Stall;

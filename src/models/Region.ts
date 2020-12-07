@@ -48,11 +48,8 @@ class Region extends Model<RegionAttributes, RegionCreationAttributes> implement
   public readonly hawkerCentres?: HawkerCentre[];
 
   public static associations: {
-    hawkerCentres: Association<Region, HawkerCentre>;
+    HawkerCentres: Association<Region, HawkerCentre>;
   };
-
-  // TODO: Delete once verified everything is working
-  public static HawkerCentre: HasMany<Region, HawkerCentre>;
 }
 
 Region.init(
@@ -71,7 +68,7 @@ Region.init(
   {sequelize}
 );
 
-Region.HawkerCentre = Region.hasMany(HawkerCentre, {foreignKey: 'regionId'});
-HawkerCentre.Region = HawkerCentre.belongsTo(Region, {foreignKey: 'regionId'});
+Region.hasMany(HawkerCentre, {foreignKey: 'regionId'});
+HawkerCentre.belongsTo(Region, {foreignKey: 'regionId'});
 
 export default Region;

@@ -24,7 +24,9 @@ interface ProductAttributes {
 
 interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
 
-class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
+class Product
+  extends Model<ProductAttributes, ProductCreationAttributes>
+  implements ProductAttributes {
   public id!: number;
   public name!: string;
   public category!: string | null;
@@ -46,9 +48,6 @@ class Product extends Model<ProductAttributes, ProductCreationAttributes> implem
   public static associations: {
     Stall: Association<Product, Stall>;
   };
-
-  // TODO: Delete once everything is working
-  public static Stall: BelongsTo<Product, Stall>;
 }
 
 Product.init(

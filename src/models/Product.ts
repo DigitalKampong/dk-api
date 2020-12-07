@@ -1,6 +1,8 @@
 import {
   Model,
   DataTypes,
+  Optional,
+  Association,
   BelongsTo,
   BelongsToCreateAssociationMixin,
   BelongsToGetAssociationMixin,
@@ -11,25 +13,25 @@ import sequelize from '../db';
 import Stall from './Stall';
 
 interface ProductAttributes {
-  public id: number;
-  public name: string;
-  public category: string | null;
-  public description: string | null;
-  public price: number | null;
-  public image: string | null;
-  public stall_id: number;
+  id: number;
+  name: string;
+  category: string | null;
+  description: string | null;
+  price: number | null;
+  image: string | null;
+  stallId: number;
 }
 
 interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
 
-class Product extends Model<ProductAttributes, ProductCreationAttributes> {
+class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
   public id!: number;
   public name!: string;
   public category!: string | null;
   public description!: string | null;
   public price!: number | null;
   public image!: string | null;
-  public stall_id!: number;
+  public stallId!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;

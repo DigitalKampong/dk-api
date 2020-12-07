@@ -1,6 +1,8 @@
 import {
   Model,
   DataTypes,
+  Optional,
+  Association,
   BelongsTo,
   HasMany,
   BelongsToCreateAssociationMixin,
@@ -31,7 +33,7 @@ interface HawkerCentreAttributes {
 
 interface HawkerCentreCreationAttributes extends Optional<HawkerCentreAttributes, 'id'> {}
 
-class HawkerCentre extends Model<HawkerCentreAttributes, HawkerCentreCreationAttributes> {
+class HawkerCentre extends Model<HawkerCentreAttributes, HawkerCentreCreationAttributes> implements HawkerCentreAttributes {
   public id!: number;
   public name!: string;
   public address!: string | null;

@@ -1,6 +1,8 @@
 import {
   Model,
   DataTypes,
+  Optional,
+  Association,
   BelongsTo,
   HasMany,
   BelongsToCreateAssociationMixin,
@@ -27,16 +29,18 @@ interface StallAttributes {
   name: string;
   description: string | null;
   contactNo: string | null;
+  unitNo: string | null;
   hawkerCentreId: number;
 }
 
 interface StallCreationAttributes extends Optional<StallAttributes, 'id'> {}
 
-class Stall extends Model<StallAttributes, StallCreationAttributes> {
+class Stall extends Model<StallAttributes, StallCreationAttributes> implements StallAttributes {
   public id!: number;
   public name!: string;
   public description!: string | null;
   public contactNo!: string | null;
+  public unitNo!: string | null;
   public hawkerCentreId!: number;
 
   public readonly createdAt!: Date;

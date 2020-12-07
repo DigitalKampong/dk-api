@@ -1,9 +1,9 @@
 import {
   Model,
   DataTypes,
-  HasMany,
   Optional,
   Association,
+  HasMany,
   HasManyAddAssociationMixin,
   HasManyAddAssociationsMixin,
   HasManyCountAssociationsMixin,

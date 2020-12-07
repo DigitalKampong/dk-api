@@ -26,6 +26,7 @@ interface StallAttributes {
   id: number;
   name: string;
   description: string | null;
+  rating: number | null;
   contactNo: string | null;
   unitNo: string | null;
   hawkerCentreId: number;

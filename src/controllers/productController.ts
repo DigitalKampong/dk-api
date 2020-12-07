@@ -83,10 +83,10 @@ async function indexProduct(req: Request, res: Response, next: NextFunction) {
     const products = await Product.findAll({
       include: [
         {
-          model: Stall,
+          association: Product.associations.Stall,
           include: [
             {
-              model: HawkerCentre,
+              association: Stall.associations.HawkerCentre,
             },
           ],
         },

@@ -26,43 +26,6 @@ async function getIdFormatting(req: Request, res: Response, next: NextFunction) 
   }
 }
 
-async function getMultipleIdFormatting(req: Request, res: Response, next: NextFunction) {
-  try {
-    const changedKeys = req.body.map((x: Product) => {
-      let plainProduct = JSON.parse(JSON.stringify(x));
-      plainProduct = {
-        productId: plainProduct['id'],
-        productName: plainProduct['name'],
-        productCategory: plainProduct['category'],
-        productPrice: plainProduct['price'],
-        productImage: plainProduct['image'],
-        productDescription: plainProduct['description'],
-        stallName: plainProduct['Stall']['name'],
-        stallAddress:
-          plainProduct['Stall']['HawkerCentre']['address'] + ' ' + plainProduct['Stall']['unitNo'],
-        stallRating: plainProduct['Stall']['rating'],
-        ...plainProduct,
-      };
-      deleteProperties(plainProduct, [
-        'id',
-        'name',
-        'category',
-        'price',
-        'image',
-        'description',
-        'createdAt',
-        'updatedAt',
-        'Stall',
-      ]);
-      return plainProduct;
-    });
-
-    res.status(201).json(changedKeys);
-  } catch (err) {
-    next(err);
-  }
-}
-
 async function retrieveProduct(req: Request, res: Response, next: NextFunction) {
   try {
     const product = await Product.findByPk(req.params.id);
@@ -133,13 +96,7 @@ async function destroyProduct(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-function deleteProperties(object: {[x: string]: unknown}, properties: string[]) {
-  for (const property of properties) {
-    property in object && delete object[property];
-  }
-}
-
-export const indexProductFuncs = [indexProduct, getMultipleIdFormatting];
+export const indexProductFuncs = [indexProduct, showProduct];
 export const showProductFuncs = [retrieveProduct, getIdFormatting, showProduct];
 export const createProductFuncs = [postIdFormatting, createProduct];
 export const updateProductFuncs = [retrieveProduct, postIdFormatting, updateProduct];

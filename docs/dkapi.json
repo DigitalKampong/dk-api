@@ -1,0 +1,591 @@
+{
+	"info": {
+		"_postman_id": "ac57a640-1655-47f2-95cf-e13aa83fa3bd",
+		"name": "DK API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get products from the database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/products",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Get information of all products. Includes the information of the respective stalls."
+					},
+					"response": []
+				},
+				{
+					"name": "Post product details to the database",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Chicken Rice\",\n    \"stallId\": 1,\n    \"category\": \"<string>\",\n    \"description\": \"<string>\",\n    \"price\": \"<double>\",\n    \"image\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/products",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get product details from the database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/products/:productId",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"products",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product details from the database",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/products/:productId",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"products",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put product details into the database",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"category\": \"<string>\",\n    \"description\": \"<string>\",\n    \"price\": \"<double>\",\n    \"image\": \"<string>\",\n    \"stallId\": \"<integer>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/products/:productId",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"products",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Stalls",
+			"item": [
+				{
+					"name": "Get stalls from the database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/stalls",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"stalls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post stall details to the database",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"5 Star Chicken Rice Stall\",\n    \"description\": \"<string>\",\n    \"rating\": \"<double>\",\n    \"contactNo\": \"<integer>\",\n    \"unitNo\": \"<string>\",\n    \"hawkerCentreId\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/stalls",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"stalls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get stall details from the database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/stalls/:stallId",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"stalls",
+								":stallId"
+							],
+							"variable": [
+								{
+									"key": "stallId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete stall details from the database",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/stalls/:stallId",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"stalls",
+								":stallId"
+							],
+							"variable": [
+								{
+									"key": "stallId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put product details into the database",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"rating\": \"<double>\",\n    \"contactNo\": \"<integer>\",\n    \"unitNo\": \"<string>\",\n    \"hawkerCentreId\": \"<integer>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/stalls/:stallId",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"stalls",
+								":stallId"
+							],
+							"variable": [
+								{
+									"key": "stallId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "HawkerCentres",
+			"item": [
+				{
+					"name": "Get hawker centres from the database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/hawkercentres",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"hawkercentres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post hawker centre details to the database",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Adam Food Centre\",\n    \"address\": \"<string>\",\n    \"regionId\": 5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/hawkercentres",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"hawkercentres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get hawker centre details from the database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/hawkercentres/:hawkerCentreId",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"hawkercentres",
+								":hawkerCentreId"
+							],
+							"variable": [
+								{
+									"key": "hawkerCentreId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete hawker centre detail from the database",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/hawkercentres/:hawkerCentreId",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"hawkercentres",
+								":hawkerCentreId"
+							],
+							"variable": [
+								{
+									"key": "hawkerCentreId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put hawker centre details into the database",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"address\": \"<string>\",\n    \"regionId\": \"<integer>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/hawkercentres/:hawkerCentreId",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"hawkercentres",
+								":hawkerCentreId"
+							],
+							"variable": [
+								{
+									"key": "hawkerCentreId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Regions",
+			"item": [
+				{
+					"name": "Get regions from the database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/regions",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"regions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post region details to the database",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"North\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/regions",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"regions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get region details from the database",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/regions/:regionId",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete region details from the database",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/regions/:regionId",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put region details into the database",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://dk-api-21.herokuapp.com/regions/:regionId",
+							"protocol": "https",
+							"host": [
+								"dk-api-21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"regions",
+								":regionId"
+							],
+							"variable": [
+								{
+									"key": "regionId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

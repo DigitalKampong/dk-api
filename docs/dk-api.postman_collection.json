@@ -1,0 +1,1723 @@
+{
+	"info": {
+		"_postman_id": "a5ad478e-2b5a-4cd3-97f5-983d63364632",
+		"name": "dk-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/products/1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get product",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/products/1",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"products",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "227"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e3-vCPR6B/96BMrsRfmQGx8m8H4z2U\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:45:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Chicken Rice\",\n    \"category\": \"chinese cuisine\",\n    \"description\": \"delicious chicken rice\",\n    \"price\": 3.8,\n    \"image\": \"http://image_url\",\n    \"stallId\": 1,\n    \"createdAt\": \"2020-12-09T06:40:05.643Z\",\n    \"updatedAt\": \"2020-12-09T06:40:44.440Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/products",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Get information of all products. Includes the information of the respective stalls."
+					},
+					"response": [
+						{
+							"name": "Get products",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/products",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1315"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"523-UO3CizxbgCaFLIIYcWEHG1B2v1k\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:41:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 2,\n        \"name\": \"Duck Rice\",\n        \"category\": \"chinese cuisine\",\n        \"description\": \"duck rice\",\n        \"price\": 2.5,\n        \"image\": \"http://image_url\",\n        \"stallId\": 1,\n        \"createdAt\": \"2020-12-09T06:41:47.910Z\",\n        \"updatedAt\": \"2020-12-09T06:41:47.910Z\",\n        \"Stall\": {\n            \"id\": 1,\n            \"name\": \"5 Star Chicken Rice Stall\",\n            \"description\": \"newer description\",\n            \"rating\": 4.5,\n            \"contactNo\": \"91234567\",\n            \"unitNo\": \"01-02\",\n            \"hawkerCentreId\": 1,\n            \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n            \"updatedAt\": \"2020-12-09T06:37:35.710Z\",\n            \"HawkerCentre\": {\n                \"id\": 1,\n                \"name\": \"Yuhua Village Market\",\n                \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n                \"regionId\": 1,\n                \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n                \"updatedAt\": \"2020-12-09T06:29:04.408Z\"\n            }\n        }\n    },\n    {\n        \"id\": 1,\n        \"name\": \"Chicken Rice\",\n        \"category\": \"chinese cuisine\",\n        \"description\": \"delicious chicken rice\",\n        \"price\": 3.8,\n        \"image\": \"http://image_url\",\n        \"stallId\": 1,\n        \"createdAt\": \"2020-12-09T06:40:05.643Z\",\n        \"updatedAt\": \"2020-12-09T06:40:44.440Z\",\n        \"Stall\": {\n            \"id\": 1,\n            \"name\": \"5 Star Chicken Rice Stall\",\n            \"description\": \"newer description\",\n            \"rating\": 4.5,\n            \"contactNo\": \"91234567\",\n            \"unitNo\": \"01-02\",\n            \"hawkerCentreId\": 1,\n            \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n            \"updatedAt\": \"2020-12-09T06:37:35.710Z\",\n            \"HawkerCentre\": {\n                \"id\": 1,\n                \"name\": \"Yuhua Village Market\",\n                \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n                \"regionId\": 1,\n                \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n                \"updatedAt\": \"2020-12-09T06:29:04.408Z\"\n            }\n        }\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Duck Rice\",\n    \"stallId\": 1,\n    \"category\": \"chinese cuisine\",\n    \"description\": \"duck rice\",\n    \"price\": 2.5,\n    \"image\": \"http://image_url\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/products",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create product",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Chicken Rice\",\n    \"stallId\": 1,\n    \"category\": \"chinese cuisine\",\n    \"description\": \"delicious chicken rice\",\n    \"price\": 3.5,\n    \"image\": \"http://image_url\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/products",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "227"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e3-XRQwTS8eDi5Hu13ThQXrWxIgysM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:40:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Chicken Rice\",\n    \"stallId\": 1,\n    \"category\": \"chinese cuisine\",\n    \"description\": \"delicious chicken rice\",\n    \"price\": 3.5,\n    \"image\": \"http://image_url\",\n    \"updatedAt\": \"2020-12-09T06:40:05.643Z\",\n    \"createdAt\": \"2020-12-09T06:40:05.643Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"price\": 3.8\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/products/1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update product",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"price\": 3.8\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/products/1",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"products",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "227"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e3-vCPR6B/96BMrsRfmQGx8m8H4z2U\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:40:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Chicken Rice\",\n    \"category\": \"chinese cuisine\",\n    \"description\": \"delicious chicken rice\",\n    \"price\": 3.8,\n    \"image\": \"http://image_url\",\n    \"stallId\": 1,\n    \"createdAt\": \"2020-12-09T06:40:05.643Z\",\n    \"updatedAt\": \"2020-12-09T06:40:44.440Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/products/2",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"products",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete product",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/products/2",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"products",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:46:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "Fields allowed\n- name: string;\n- category: string | null;\n- description: string | null;\n- price: number | null;\n- image: string | null;\n- stallId: number;",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ed560b65-c7cd-4f54-9566-dfe862bb8739",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "915a3091-bba4-444a-a07f-6e4c19dbea97",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Stalls",
+			"item": [
+				{
+					"name": "Get stall",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/stalls/1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get stall",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/stalls/1",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"stalls",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "232"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e8-ezwy9/EdtdsPf2jDOkE1ne+uZjM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:38:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"stallId\": 1,\n    \"name\": \"5 Star Chicken Rice Stall\",\n    \"description\": \"newer description\",\n    \"rating\": 4.5,\n    \"contactNo\": \"91234567\",\n    \"unitNo\": \"01-02\",\n    \"hawkerCentreId\": 1,\n    \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n    \"updatedAt\": \"2020-12-09T06:37:35.710Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get stalls",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/stalls",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get stalls",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/stalls",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"stalls"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "463"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1cf-ntFRJN2VdMx+Fmvx9bPC8u5jH80\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:38:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"stallId\": 1,\n        \"name\": \"5 Star Chicken Rice Stall\",\n        \"description\": \"newer description\",\n        \"rating\": 4.5,\n        \"contactNo\": \"91234567\",\n        \"unitNo\": \"01-02\",\n        \"hawkerCentreId\": 1,\n        \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n        \"updatedAt\": \"2020-12-09T06:37:35.710Z\"\n    },\n    {\n        \"stallId\": 2,\n        \"name\": \"2nd chicken Rice Stall\",\n        \"description\": \"some description\",\n        \"rating\": 1.5,\n        \"contactNo\": \"97654321\",\n        \"unitNo\": \"01-03\",\n        \"hawkerCentreId\": 1,\n        \"createdAt\": \"2020-12-09T06:38:06.634Z\",\n        \"updatedAt\": \"2020-12-09T06:38:06.634Z\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create stall",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"2nd chicken Rice Stall\",\n    \"description\": \"some description\",\n    \"rating\": 1.5,\n    \"contactNo\": \"97654321\",\n    \"unitNo\": \"01-03\",\n    \"hawkerCentreId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/stalls",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create stall",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"5 Star Chicken Rice Stall\",\n    \"description\": \"some description\",\n    \"rating\": 4.5,\n    \"contactNo\": \"91234567\",\n    \"unitNo\": \"01-02\",\n    \"hawkerCentreId\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/stalls",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"stalls"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "226"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e2-IV/v1iR+51CqIs/ToGOLEhwbvQo\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:37:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"5 Star Chicken Rice Stall\",\n    \"description\": \"some description\",\n    \"rating\": 4.5,\n    \"contactNo\": \"91234567\",\n    \"unitNo\": \"01-02\",\n    \"hawkerCentreId\": 1,\n    \"updatedAt\": \"2020-12-09T06:37:05.828Z\",\n    \"createdAt\": \"2020-12-09T06:37:05.828Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update stall",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"newer description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/stalls/1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update stall",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"newer description\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/stalls/1",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"stalls",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "227"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e3-Luhkx9kvNyt7PyZglyhUdm+3uG0\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:37:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"5 Star Chicken Rice Stall\",\n    \"description\": \"newer description\",\n    \"rating\": 4.5,\n    \"contactNo\": \"91234567\",\n    \"unitNo\": \"01-02\",\n    \"hawkerCentreId\": 1,\n    \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n    \"updatedAt\": \"2020-12-09T06:37:35.710Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete stall",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/stalls/2",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete stall",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/stalls/2",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"stalls",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:38:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "Fields allowed:\n- name: string;\n- description: string | null;\n- rating: number | null;\n- contactNo: string | null;\n- unitNo: string | null;\n- hawkerCentreId: number;",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "dc9cefcb-ea4f-439c-a02f-5fa62a793c7a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ecbec72e-bf3d-4ffd-b989-d856d8cf1395",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "HawkerCentres",
+			"item": [
+				{
+					"name": "Get hawker centre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/hawkercentres/1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"hawkercentres",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get hawker centre",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/hawkercentres/1",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"hawkercentres",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "197"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c5-+XShs9VGR68G7RFw1WFbgawJeyY\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:33:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"hawkerCentreId\": 1,\n    \"name\": \"Yuhua Village Market\",\n    \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n    \"regionId\": 1,\n    \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n    \"updatedAt\": \"2020-12-09T06:29:04.408Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get hawker centres",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/hawkercentres",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"hawkercentres"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get hawker centres",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/hawkercentres",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"hawkercentres"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "364"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"16c-rDQZMWCzkAC6b30M3BNaNbR44u0\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:32:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"hawkerCentreId\": 1,\n        \"name\": \"Yuhua Village Market\",\n        \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n        \"regionId\": 1,\n        \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n        \"updatedAt\": \"2020-12-09T06:29:04.408Z\"\n    },\n    {\n        \"hawkerCentreId\": 2,\n        \"name\": \"Fake hawker centre\",\n        \"address\": \"Fake address\",\n        \"regionId\": 1,\n        \"createdAt\": \"2020-12-09T06:32:50.473Z\",\n        \"updatedAt\": \"2020-12-09T06:32:50.473Z\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create hawker centre",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Fake hawker centre\",\n    \"address\": \"Fake address\",\n    \"regionId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/hawkercentres",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"hawkercentres"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create hawker centre",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Yuhua Village Market and Food Centre\",\n    \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n    \"regionId\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/hawkercentres",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"hawkercentres"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "201"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c9-uhTNOM3pPmc6XqaQyJEi8cFYt5c\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:26:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Yuhua Village Market and Food Centre\",\n    \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n    \"regionId\": 1,\n    \"updatedAt\": \"2020-12-09T06:26:55.647Z\",\n    \"createdAt\": \"2020-12-09T06:26:55.647Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update hawker centre",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Yuhua Village Market\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/hawkercentres/1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"hawkercentres",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update hawker centre",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Yuhua Village Market\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/hawkercentres/1",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"hawkercentres",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "185"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b9-Sq6wsGgdQnhBY+wDdfKP1U9+RN4\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:29:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Yuhua Village Market\",\n    \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n    \"regionId\": 1,\n    \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n    \"updatedAt\": \"2020-12-09T06:29:04.408Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete hawker centre",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/hawkercentres/2",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"hawkercentres",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete hawker centre",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/hawkercentres/2",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"hawkercentres",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:33:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "Fields needed\n- name: string;\n- address: string | null;\n- regionId: number;",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4d8b592b-6f4d-412e-9a49-9e4bf12e4cf1",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d70da20b-2e5a-4bda-bb39-a79e37c5a224",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Regions",
+			"item": [
+				{
+					"name": "Get region",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/regions/1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"regions",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get region",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/regions/1",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"regions",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "106"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6a-zIMcQrF6huacq1ZVonyj0nfzOXc\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:24:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"regionId\": 1,\n    \"name\": \"West\",\n    \"createdAt\": \"2020-12-09T06:22:44.182Z\",\n    \"updatedAt\": \"2020-12-09T06:23:07.436Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get regions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/regions",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"regions"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get regions",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/regions",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"regions"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "215"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d7-j8I8qfrMLCtIPX2kuCMDUHI6u4w\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:23:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"regionId\": 1,\n        \"name\": \"West\",\n        \"createdAt\": \"2020-12-09T06:22:44.182Z\",\n        \"updatedAt\": \"2020-12-09T06:23:07.436Z\"\n    },\n    {\n        \"regionId\": 2,\n        \"name\": \"East\",\n        \"createdAt\": \"2020-12-09T06:23:41.635Z\",\n        \"updatedAt\": \"2020-12-09T06:23:41.635Z\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create region",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"East\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/regions",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"regions"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create region",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"North\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/regions",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"regions"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "101"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"65-fFlVKCqugeW+mxpJGW9QYzpiws0\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:22:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"North\",\n    \"updatedAt\": \"2020-12-09T06:22:44.182Z\",\n    \"createdAt\": \"2020-12-09T06:22:44.182Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update region",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"West\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/regions/1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"regions",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update region",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"West\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/regions/1",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"regions",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "100"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"64-PnzBxBOEvsdauWu3bC0hqOLiDrM\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:23:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"West\",\n    \"createdAt\": \"2020-12-09T06:22:44.182Z\",\n    \"updatedAt\": \"2020-12-09T06:23:07.436Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete region",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/regions/2",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"regions",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete region",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{server_url}}/regions/2",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"regions",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Dec 2020 06:24:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Content-Length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "Fields needed\n- name: string;",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "18d32758-daab-4345-b171-dc1cd5e0cf47",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e92553fb-c437-4780-a649-933bc4d447f0",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

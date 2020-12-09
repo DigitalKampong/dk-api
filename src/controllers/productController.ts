@@ -1,44 +1,6 @@
 import Product from '../models/Product';
 import {Request, Response, NextFunction} from 'express';
-
-async function postIdFormatting(req: Request, res: Response, next: NextFunction) {
-  try {
-    const product = {id: req.body['productId'], ...req.body};
-    delete product['productId'];
-    req.body = product;
-    next();
-  } catch (err) {
-    next(err);
-  }
-}
-
-async function getIdFormatting(req: Request, res: Response, next: NextFunction) {
-  try {
-    let plainProduct = JSON.parse(JSON.stringify(req.product));
-    plainProduct = {productId: plainProduct['id'], ...plainProduct};
-    delete plainProduct['id'];
-
-    req.body = plainProduct;
-    next();
-  } catch (err) {
-    next(err);
-  }
-}
-
-async function getMultipleIdFormatting(req: Request, res: Response, next: NextFunction) {
-  try {
-    const changedKeys = req.body.map((x: Product) => {
-      let plainProduct = JSON.parse(JSON.stringify(x));
-      plainProduct = {productId: plainProduct['id'], ...plainProduct};
-      delete plainProduct['id'];
-      return plainProduct;
-    });
-
-    res.status(201).json(changedKeys);
-  } catch (err) {
-    next(err);
-  }
-}
+import Stall from '../models/Stall';
 
 async function retrieveProduct(req: Request, res: Response, next: NextFunction) {
   try {
@@ -56,9 +18,19 @@ async function retrieveProduct(req: Request, res: Response, next: NextFunction) 
 
 async function indexProduct(req: Request, res: Response, next: NextFunction) {
   try {
-    const products = await Product.findAll();
-    req.body = products;
-    next();
+    const products = await Product.findAll({
+      include: [
+        {
+          association: Product.associations.Stall,
+          include: [
+            {
+              association: Stall.associations.HawkerCentre,
+            },
+          ],
+        },
+      ],
+    });
+    res.status(200).json(products);
   } catch (err) {
     next(err);
   }
@@ -99,8 +71,8 @@ async function destroyProduct(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export const indexProductFuncs = [indexProduct, getMultipleIdFormatting];
-export const showProductFuncs = [retrieveProduct, getIdFormatting, showProduct];
-export const createProductFuncs = [postIdFormatting, createProduct];
-export const updateProductFuncs = [retrieveProduct, postIdFormatting, updateProduct];
+export const indexProductFuncs = [indexProduct];
+export const showProductFuncs = [retrieveProduct, showProduct];
+export const createProductFuncs = [createProduct];
+export const updateProductFuncs = [retrieveProduct, updateProduct];
 export const destroyProductFuncs = [retrieveProduct, destroyProduct];

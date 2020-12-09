@@ -26,6 +26,7 @@ interface StallAttributes {
   id: number;
   name: string;
   description: string | null;
+  rating: number | null;
   contactNo: string | null;
   unitNo: string | null;
   hawkerCentreId: number;
@@ -37,6 +38,7 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public id!: number;
   public name!: string;
   public description!: string | null;
+  public rating!: number | null;
   public contactNo!: string | null;
   public unitNo!: string | null;
   public hawkerCentreId!: number;
@@ -84,6 +86,9 @@ Stall.init(
     },
     description: {
       type: DataTypes.STRING,
+    },
+    rating: {
+      type: DataTypes.DOUBLE,
     },
     contactNo: {
       type: DataTypes.STRING,

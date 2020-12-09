@@ -14,13 +14,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{server_url}}/products/1",
+							"raw": "{{server_url}}/products/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"products",
-								"1"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -263,13 +269,19 @@
 							}
 						},
 						"url": {
-							"raw": "{{server_url}}/products/1",
+							"raw": "{{server_url}}/products/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"products",
-								"1"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -347,13 +359,19 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{server_url}}/products/2",
+							"raw": "{{server_url}}/products/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"products",
-								"2"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -409,7 +427,7 @@
 					]
 				}
 			],
-			"description": "Fields allowed\n1. name: string;\n2. category: string | null;\n3. description: string | null;\n4. price: number | null;\n5. image: string | null;\n6. stallId: number;",
+			"description": "Fields allowed\n- name: string;\n- category: string | null;\n- description: string | null;\n- price: number | null;\n- image: string | null;\n- stallId: number;",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -443,13 +461,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{server_url}}/stalls/1",
+							"raw": "{{server_url}}/stalls/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"stalls",
-								"1"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -691,13 +715,19 @@
 							}
 						},
 						"url": {
-							"raw": "{{server_url}}/stalls/1",
+							"raw": "{{server_url}}/stalls/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"stalls",
-								"1"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -775,13 +805,19 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{server_url}}/stalls/2",
+							"raw": "{{server_url}}/stalls/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"stalls",
-								"2"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -871,13 +907,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{server_url}}/hawkercentres/1",
+							"raw": "{{server_url}}/hawkercentres/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"hawkercentres",
-								"1"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1119,13 +1161,19 @@
 							}
 						},
 						"url": {
-							"raw": "{{server_url}}/hawkercentres/1",
+							"raw": "{{server_url}}/hawkercentres/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"hawkercentres",
-								"1"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1203,13 +1251,19 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{server_url}}/hawkercentres/2",
+							"raw": "{{server_url}}/hawkercentres/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"hawkercentres",
-								"2"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1299,13 +1353,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{server_url}}/regions/1",
+							"raw": "{{server_url}}/regions/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"regions",
-								"1"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1547,13 +1607,19 @@
 							}
 						},
 						"url": {
-							"raw": "{{server_url}}/regions/1",
+							"raw": "{{server_url}}/regions/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"regions",
-								"1"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1631,13 +1697,19 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{server_url}}/regions/2",
+							"raw": "{{server_url}}/regions/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"regions",
-								"2"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -1693,7 +1765,7 @@
 					]
 				}
 			],
-			"description": "Fields needed\n- name: string;",
+			"description": "Fields allowed\n- name: string;",
 			"event": [
 				{
 					"listen": "prerequest",

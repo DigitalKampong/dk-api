@@ -122,8 +122,16 @@ URL: {{server_url}}/hawkercentres
 ```bash
 Method: DELETE
 Type: 
-URL: {{server_url}}/hawkercentres/2
+URL: {{server_url}}/hawkercentres/:id
 ```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -149,8 +157,16 @@ URL: {{server_url}}/hawkercentres/2
 ```bash
 Method: GET
 Type: 
-URL: {{server_url}}/hawkercentres/1
+URL: {{server_url}}/hawkercentres/:id
 ```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -239,8 +255,16 @@ URL: {{server_url}}/hawkercentres
 ```bash
 Method: PUT
 Type: RAW
-URL: {{server_url}}/hawkercentres/1
+URL: {{server_url}}/hawkercentres/:id
 ```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -292,12 +316,12 @@ URL: {{server_url}}/hawkercentres/1
 
 ## Products
 Fields allowed
-1. name: string;
-2. category: string | null;
-3. description: string | null;
-4. price: number | null;
-5. image: string | null;
-6. stallId: number;
+- name: string;
+- category: string | null;
+- description: string | null;
+- price: number | null;
+- image: string | null;
+- stallId: number;
 
 
 
@@ -383,8 +407,16 @@ URL: {{server_url}}/products
 ```bash
 Method: DELETE
 Type: 
-URL: {{server_url}}/products/2
+URL: {{server_url}}/products/:id
 ```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -410,8 +442,16 @@ URL: {{server_url}}/products/2
 ```bash
 Method: GET
 Type: 
-URL: {{server_url}}/products/1
+URL: {{server_url}}/products/:id
 ```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -549,8 +589,16 @@ URL: {{server_url}}/products
 ```bash
 Method: PUT
 Type: RAW
-URL: {{server_url}}/products/1
+URL: {{server_url}}/products/:id
 ```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -604,7 +652,7 @@ URL: {{server_url}}/products/1
 
 
 ## Regions
-Fields needed
+Fields allowed
 - name: string;
 
 
@@ -676,8 +724,16 @@ URL: {{server_url}}/regions
 ```bash
 Method: DELETE
 Type: 
-URL: {{server_url}}/regions/2
+URL: {{server_url}}/regions/:id
 ```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -703,8 +759,16 @@ URL: {{server_url}}/regions/2
 ```bash
 Method: GET
 Type: 
-URL: {{server_url}}/regions/1
+URL: {{server_url}}/regions/:id
 ```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -787,8 +851,16 @@ URL: {{server_url}}/regions
 ```bash
 Method: PUT
 Type: RAW
-URL: {{server_url}}/regions/1
+URL: {{server_url}}/regions/:id
 ```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -929,8 +1001,16 @@ URL: {{server_url}}/stalls
 ```bash
 Method: DELETE
 Type: 
-URL: {{server_url}}/stalls/2
+URL: {{server_url}}/stalls/:id
 ```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -956,8 +1036,16 @@ URL: {{server_url}}/stalls/2
 ```bash
 Method: GET
 Type: 
-URL: {{server_url}}/stalls/1
+URL: {{server_url}}/stalls/:id
 ```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -1055,8 +1143,16 @@ URL: {{server_url}}/stalls
 ```bash
 Method: PUT
 Type: RAW
-URL: {{server_url}}/stalls/1
+URL: {{server_url}}/stalls/:id
 ```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -1111,4 +1207,4 @@ URL: {{server_url}}/stalls/1
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-09 15:07:47 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-09 15:11:05 by [docgen](https://github.com/thedevsaddam/docgen)

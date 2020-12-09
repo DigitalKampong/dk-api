@@ -18,3 +18,9 @@
 1. Add breakpoints to the files
 2. Run `yarn test:debug {test_file_name}` in VSCode's integrated terminal, it should be waiting for a debugging client to connect to its process
 3. Attach the VSCode debugger to the node process by opening the command palette and searching for "Attach to Node process"
+
+## API Docs
+To generate API docs,
+1. `cd` into `docs` directory
+2. Run `docgen build -i dk-api.postman_collection.json -m -o api-docs.md` with updated postman collection
+

@@ -409,7 +409,7 @@
 					]
 				}
 			],
-			"description": "Fields allowed\n- name: string;\n- category: string | null;\n- description: string | null;\n- price: number | null;\n- image: string | null;\n- stallId: number;",
+			"description": "Fields allowed\n1. name: string;\n2. category: string | null;\n3. description: string | null;\n4. price: number | null;\n5. image: string | null;\n6. stallId: number;",
 			"event": [
 				{
 					"listen": "prerequest",

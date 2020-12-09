@@ -1,44 +1,44 @@
 import Stall from '../models/Stall';
 import {Request, Response, NextFunction} from 'express';
 
-async function postIdFormatting(req: Request, res: Response, next: NextFunction) {
-  try {
-    const stall = {id: req.body['stallId'], ...req.body};
-    delete stall['stallId'];
-    req.body = stall;
-    next();
-  } catch (err) {
-    next(err);
-  }
-}
+// async function postIdFormatting(req: Request, res: Response, next: NextFunction) {
+//   try {
+//     const stall = {id: req.body['stallId'], ...req.body};
+//     delete stall['stallId'];
+//     req.body = stall;
+//     next();
+//   } catch (err) {
+//     next(err);
+//   }
+// }
 
-async function getIdFormatting(req: Request, res: Response, next: NextFunction) {
-  try {
-    let plainStall = JSON.parse(JSON.stringify(req.stall));
-    plainStall = {stallId: plainStall['id'], ...plainStall};
-    delete plainStall['id'];
+// async function getIdFormatting(req: Request, res: Response, next: NextFunction) {
+//   try {
+//     let plainStall = JSON.parse(JSON.stringify(req.stall));
+//     plainStall = {stallId: plainStall['id'], ...plainStall};
+//     delete plainStall['id'];
 
-    req.body = plainStall;
-    next();
-  } catch (err) {
-    next(err);
-  }
-}
+//     req.body = plainStall;
+//     next();
+//   } catch (err) {
+//     next(err);
+//   }
+// }
 
-async function getMultipleIdFormatting(req: Request, res: Response, next: NextFunction) {
-  try {
-    const changedKeys = req.body.map((x: Stall) => {
-      let plainStall = JSON.parse(JSON.stringify(x));
-      plainStall = {stallId: plainStall['id'], ...plainStall};
-      delete plainStall['id'];
-      return plainStall;
-    });
+// async function getMultipleIdFormatting(req: Request, res: Response, next: NextFunction) {
+//   try {
+//     const changedKeys = req.body.map((x: Stall) => {
+//       let plainStall = JSON.parse(JSON.stringify(x));
+//       plainStall = {stallId: plainStall['id'], ...plainStall};
+//       delete plainStall['id'];
+//       return plainStall;
+//     });
 
-    res.status(201).json(changedKeys);
-  } catch (err) {
-    next(err);
-  }
-}
+//     res.status(201).json(changedKeys);
+//   } catch (err) {
+//     next(err);
+//   }
+// }
 
 async function retrieveStall(req: Request, res: Response, next: NextFunction) {
   try {
@@ -99,8 +99,8 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export const indexStallFuncs = [indexStall, getMultipleIdFormatting];
-export const showStallFuncs = [retrieveStall, getIdFormatting, showStall];
-export const createStallFuncs = [postIdFormatting, createStall];
-export const updateStallFuncs = [retrieveStall, postIdFormatting, updateStall];
+export const indexStallFuncs = [indexStall];
+export const showStallFuncs = [retrieveStall, showStall];
+export const createStallFuncs = [createStall];
+export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];

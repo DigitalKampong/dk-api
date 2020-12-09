@@ -30,7 +30,6 @@ async function indexProduct(req: Request, res: Response, next: NextFunction) {
         },
       ],
     });
-    req.body = products;
     res.status(200).json(products);
   } catch (err) {
     next(err);

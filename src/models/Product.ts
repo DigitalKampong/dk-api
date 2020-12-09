@@ -33,6 +33,7 @@ class Product
   public price!: number | null;
   public image!: string | null;
   public stallId!: number;
+
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 

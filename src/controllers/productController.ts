@@ -2,30 +2,6 @@ import Product from '../models/Product';
 import {Request, Response, NextFunction} from 'express';
 import Stall from '../models/Stall';
 
-async function postIdFormatting(req: Request, res: Response, next: NextFunction) {
-  try {
-    const product = {id: req.body['productId'], ...req.body};
-    delete product['productId'];
-    req.body = product;
-    next();
-  } catch (err) {
-    next(err);
-  }
-}
-
-async function getIdFormatting(req: Request, res: Response, next: NextFunction) {
-  try {
-    let plainProduct = JSON.parse(JSON.stringify(req.product));
-    plainProduct = {productId: plainProduct['id'], ...plainProduct};
-    delete plainProduct['id'];
-
-    req.body = plainProduct;
-    next();
-  } catch (err) {
-    next(err);
-  }
-}
-
 async function retrieveProduct(req: Request, res: Response, next: NextFunction) {
   try {
     const product = await Product.findByPk(req.params.id);
@@ -55,7 +31,7 @@ async function indexProduct(req: Request, res: Response, next: NextFunction) {
       ],
     });
     req.body = products;
-    next();
+    res.status(200).json(products);
   } catch (err) {
     next(err);
   }
@@ -96,8 +72,8 @@ async function destroyProduct(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export const indexProductFuncs = [indexProduct, showProduct];
-export const showProductFuncs = [retrieveProduct, getIdFormatting, showProduct];
-export const createProductFuncs = [postIdFormatting, createProduct];
-export const updateProductFuncs = [retrieveProduct, postIdFormatting, updateProduct];
+export const indexProductFuncs = [indexProduct];
+export const showProductFuncs = [retrieveProduct, showProduct];
+export const createProductFuncs = [createProduct];
+export const updateProductFuncs = [retrieveProduct, updateProduct];
 export const destroyProductFuncs = [retrieveProduct, destroyProduct];

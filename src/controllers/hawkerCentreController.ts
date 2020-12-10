@@ -1,45 +1,6 @@
 import HawkerCentre from '../models/HawkerCentre';
 import {Request, Response, NextFunction} from 'express';
 
-// async function postIdFormatting(req: Request, res: Response, next: NextFunction) {
-//   try {
-//     const hawkerCentre = {id: req.body['hawkerCentreId'], ...req.body};
-//     delete hawkerCentre['hawkerCentreId'];
-//     req.body = hawkerCentre;
-//     next();
-//   } catch (err) {
-//     next(err);
-//   }
-// }
-
-// async function getIdFormatting(req: Request, res: Response, next: NextFunction) {
-//   try {
-//     let plainHawkerCentre = JSON.parse(JSON.stringify(req.hawkerCentre));
-//     plainHawkerCentre = {hawkerCentreId: plainHawkerCentre['id'], ...plainHawkerCentre};
-//     delete plainHawkerCentre['id'];
-
-//     req.body = plainHawkerCentre;
-//     next();
-//   } catch (err) {
-//     next(err);
-//   }
-// }
-
-// async function getMultipleIdFormatting(req: Request, res: Response, next: NextFunction) {
-//   try {
-//     const changedKeys = req.body.map((x: HawkerCentre) => {
-//       let plainHawkerCentre = JSON.parse(JSON.stringify(x));
-//       plainHawkerCentre = {hawkerCentreId: plainHawkerCentre['id'], ...plainHawkerCentre};
-//       delete plainHawkerCentre['id'];
-//       return plainHawkerCentre;
-//     });
-
-//     res.status(201).json(changedKeys);
-//   } catch (err) {
-//     next(err);
-//   }
-// }
-
 async function retrieveHawkerCentre(req: Request, res: Response, next: NextFunction) {
   try {
     const hawkerCentre = await HawkerCentre.findByPk(req.params.id, {

@@ -937,7 +937,7 @@ URL: {{server_url}}/stalls
 
 ```js        
 {
-    "name": "2nd chicken Rice Stall",
+    "name": "3rd chicken Rice Stall",
     "description": "some description",
     "rating": 1.5,
     "contactNo": "97654321",
@@ -959,11 +959,11 @@ URL: {{server_url}}/stalls
 
 ```js        
 {
-    "name": "5 Star Chicken Rice Stall",
+    "name": "3rd chicken Rice Stall",
     "description": "some description",
-    "rating": 4.5,
-    "contactNo": "91234567",
-    "unitNo": "01-02",
+    "rating": 1.5,
+    "contactNo": "97654321",
+    "unitNo": "01-03",
     "hawkerCentreId": 1
 }
 ```
@@ -973,15 +973,30 @@ URL: {{server_url}}/stalls
 ##### I. Example Response: Create stall
 ```js
 {
-    "id": 1,
-    "name": "5 Star Chicken Rice Stall",
+    "id": 4,
+    "name": "3rd chicken Rice Stall",
     "description": "some description",
-    "rating": 4.5,
-    "contactNo": "91234567",
-    "unitNo": "01-02",
+    "rating": 1.5,
+    "contactNo": "97654321",
+    "unitNo": "01-03",
     "hawkerCentreId": 1,
-    "updatedAt": "2020-12-09T06:37:05.828Z",
-    "createdAt": "2020-12-09T06:37:05.828Z"
+    "createdAt": "2020-12-10T07:40:42.437Z",
+    "updatedAt": "2020-12-10T07:40:42.437Z",
+    "Products": [],
+    "HawkerCentre": {
+        "id": 1,
+        "name": "Yuhua Village Market",
+        "address": "254 Jurong East Street 24, Singapore 600254",
+        "regionId": 1,
+        "createdAt": "2020-12-09T06:26:55.647Z",
+        "updatedAt": "2020-12-09T06:29:04.408Z",
+        "Region": {
+            "id": 1,
+            "name": "West",
+            "createdAt": "2020-12-09T06:22:44.182Z",
+            "updatedAt": "2020-12-09T06:23:07.436Z"
+        }
+    }
 }
 ```
 
@@ -1035,7 +1050,7 @@ URL: {{server_url}}/stalls/:id
 
 ```bash
 Method: GET
-Type: 
+Type: RAW
 URL: {{server_url}}/stalls/:id
 ```
 
@@ -1056,19 +1071,56 @@ URL: {{server_url}}/stalls/:id
 
 
 
+***Query:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
+
+
+
 ##### I. Example Response: Get stall
 ```js
-{
-    "stallId": 1,
-    "name": "5 Star Chicken Rice Stall",
-    "description": "newer description",
-    "rating": 4.5,
-    "contactNo": "91234567",
-    "unitNo": "01-02",
-    "hawkerCentreId": 1,
-    "createdAt": "2020-12-09T06:37:05.828Z",
-    "updatedAt": "2020-12-09T06:37:35.710Z"
-}
+[
+    {
+        "id": 1,
+        "name": "5 Star Chicken Rice Stall",
+        "description": "newer description",
+        "rating": 4.5,
+        "contactNo": "91234567",
+        "unitNo": "01-02",
+        "hawkerCentreId": 1,
+        "createdAt": "2020-12-09T06:37:05.828Z",
+        "updatedAt": "2020-12-09T06:37:35.710Z",
+        "Products": [
+            {
+                "id": 1,
+                "name": "Chicken Rice",
+                "category": "chinese cuisine",
+                "description": "delicious chicken rice",
+                "price": 3.8,
+                "image": "http://image_url",
+                "stallId": 1,
+                "createdAt": "2020-12-09T06:40:05.643Z",
+                "updatedAt": "2020-12-09T06:40:44.440Z"
+            }
+        ],
+        "HawkerCentre": {
+            "id": 1,
+            "name": "Yuhua Village Market",
+            "address": "254 Jurong East Street 24, Singapore 600254",
+            "regionId": 1,
+            "createdAt": "2020-12-09T06:26:55.647Z",
+            "updatedAt": "2020-12-09T06:29:04.408Z",
+            "Region": {
+                "id": 1,
+                "name": "West",
+                "createdAt": "2020-12-09T06:22:44.182Z",
+                "updatedAt": "2020-12-09T06:23:07.436Z"
+            }
+        }
+    }
+]
 ```
 
 
@@ -1103,7 +1155,7 @@ URL: {{server_url}}/stalls
 ```js
 [
     {
-        "stallId": 1,
+        "id": 1,
         "name": "5 Star Chicken Rice Stall",
         "description": "newer description",
         "rating": 4.5,
@@ -1111,24 +1163,66 @@ URL: {{server_url}}/stalls
         "unitNo": "01-02",
         "hawkerCentreId": 1,
         "createdAt": "2020-12-09T06:37:05.828Z",
-        "updatedAt": "2020-12-09T06:37:35.710Z"
+        "updatedAt": "2020-12-09T06:37:35.710Z",
+        "Products": [
+            {
+                "id": 1,
+                "name": "Chicken Rice",
+                "category": "chinese cuisine",
+                "description": "delicious chicken rice",
+                "price": 3.8,
+                "image": "http://image_url",
+                "stallId": 1,
+                "createdAt": "2020-12-09T06:40:05.643Z",
+                "updatedAt": "2020-12-09T06:40:44.440Z"
+            }
+        ],
+        "HawkerCentre": {
+            "id": 1,
+            "name": "Yuhua Village Market",
+            "address": "254 Jurong East Street 24, Singapore 600254",
+            "regionId": 1,
+            "createdAt": "2020-12-09T06:26:55.647Z",
+            "updatedAt": "2020-12-09T06:29:04.408Z",
+            "Region": {
+                "id": 1,
+                "name": "West",
+                "createdAt": "2020-12-09T06:22:44.182Z",
+                "updatedAt": "2020-12-09T06:23:07.436Z"
+            }
+        }
     },
     {
-        "stallId": 2,
-        "name": "2nd chicken Rice Stall",
+        "id": 4,
+        "name": "3rd chicken Rice Stall",
         "description": "some description",
         "rating": 1.5,
         "contactNo": "97654321",
         "unitNo": "01-03",
         "hawkerCentreId": 1,
-        "createdAt": "2020-12-09T06:38:06.634Z",
-        "updatedAt": "2020-12-09T06:38:06.634Z"
+        "createdAt": "2020-12-10T07:40:42.437Z",
+        "updatedAt": "2020-12-10T07:40:42.437Z",
+        "Products": [],
+        "HawkerCentre": {
+            "id": 1,
+            "name": "Yuhua Village Market",
+            "address": "254 Jurong East Street 24, Singapore 600254",
+            "regionId": 1,
+            "createdAt": "2020-12-09T06:26:55.647Z",
+            "updatedAt": "2020-12-09T06:29:04.408Z",
+            "Region": {
+                "id": 1,
+                "name": "West",
+                "createdAt": "2020-12-09T06:22:44.182Z",
+                "updatedAt": "2020-12-09T06:23:07.436Z"
+            }
+        }
     }
 ]
 ```
 
 
-***Status Code:*** 201
+***Status Code:*** 200
 
 <br>
 
@@ -1160,7 +1254,7 @@ URL: {{server_url}}/stalls/:id
 
 ```js        
 {
-    "description": "newer description"
+    "description": "extremely updated description"
 }
 ```
 
@@ -1173,11 +1267,19 @@ URL: {{server_url}}/stalls/:id
 
 
 
+***Query:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 1 |  |
+
+
+
 ***Body:***
 
 ```js        
 {
-    "description": "newer description"
+    "description": "extremely updated description"
 }
 ```
 
@@ -1188,13 +1290,40 @@ URL: {{server_url}}/stalls/:id
 {
     "id": 1,
     "name": "5 Star Chicken Rice Stall",
-    "description": "newer description",
+    "description": "extremely updated description",
     "rating": 4.5,
     "contactNo": "91234567",
     "unitNo": "01-02",
     "hawkerCentreId": 1,
     "createdAt": "2020-12-09T06:37:05.828Z",
-    "updatedAt": "2020-12-09T06:37:35.710Z"
+    "updatedAt": "2020-12-10T07:52:16.327Z",
+    "Products": [
+        {
+            "id": 1,
+            "name": "Chicken Rice",
+            "category": "chinese cuisine",
+            "description": "delicious chicken rice",
+            "price": 3.8,
+            "image": "http://image_url",
+            "stallId": 1,
+            "createdAt": "2020-12-09T06:40:05.643Z",
+            "updatedAt": "2020-12-09T06:40:44.440Z"
+        }
+    ],
+    "HawkerCentre": {
+        "id": 1,
+        "name": "Yuhua Village Market",
+        "address": "254 Jurong East Street 24, Singapore 600254",
+        "regionId": 1,
+        "createdAt": "2020-12-09T06:26:55.647Z",
+        "updatedAt": "2020-12-09T06:29:04.408Z",
+        "Region": {
+            "id": 1,
+            "name": "West",
+            "createdAt": "2020-12-09T06:22:44.182Z",
+            "updatedAt": "2020-12-09T06:23:07.436Z"
+        }
+    }
 }
 ```
 
@@ -1207,4 +1336,4 @@ URL: {{server_url}}/stalls/:id
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-09 15:11:05 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-10 15:53:41 by [docgen](https://github.com/thedevsaddam/docgen)

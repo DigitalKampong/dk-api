@@ -457,9 +457,16 @@
 			"item": [
 				{
 					"name": "Get stall",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{server_url}}/stalls/:id",
 							"host": [
@@ -483,14 +490,24 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
 								"url": {
-									"raw": "{{server_url}}/stalls/1",
+									"raw": "{{server_url}}/stalls/:id",
 									"host": [
 										"{{server_url}}"
 									],
 									"path": [
 										"stalls",
-										"1"
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
 									]
 								}
 							},
@@ -512,15 +529,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "232"
+									"value": "781"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"e8-ezwy9/EdtdsPf2jDOkE1ne+uZjM\""
+									"value": "W/\"30d-VF2tjoLBbPiWH80xEbd5/IYNyN0\""
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 09 Dec 2020 06:38:40 GMT"
+									"value": "Thu, 10 Dec 2020 07:39:51 GMT"
 								},
 								{
 									"key": "Connection",
@@ -532,7 +549,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"stallId\": 1,\n    \"name\": \"5 Star Chicken Rice Stall\",\n    \"description\": \"newer description\",\n    \"rating\": 4.5,\n    \"contactNo\": \"91234567\",\n    \"unitNo\": \"01-02\",\n    \"hawkerCentreId\": 1,\n    \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n    \"updatedAt\": \"2020-12-09T06:37:35.710Z\"\n}"
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"5 Star Chicken Rice Stall\",\n        \"description\": \"newer description\",\n        \"rating\": 4.5,\n        \"contactNo\": \"91234567\",\n        \"unitNo\": \"01-02\",\n        \"hawkerCentreId\": 1,\n        \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n        \"updatedAt\": \"2020-12-09T06:37:35.710Z\",\n        \"Products\": [\n            {\n                \"id\": 1,\n                \"name\": \"Chicken Rice\",\n                \"category\": \"chinese cuisine\",\n                \"description\": \"delicious chicken rice\",\n                \"price\": 3.8,\n                \"image\": \"http://image_url\",\n                \"stallId\": 1,\n                \"createdAt\": \"2020-12-09T06:40:05.643Z\",\n                \"updatedAt\": \"2020-12-09T06:40:44.440Z\"\n            }\n        ],\n        \"HawkerCentre\": {\n            \"id\": 1,\n            \"name\": \"Yuhua Village Market\",\n            \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n            \"regionId\": 1,\n            \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n            \"updatedAt\": \"2020-12-09T06:29:04.408Z\",\n            \"Region\": {\n                \"id\": 1,\n                \"name\": \"West\",\n                \"createdAt\": \"2020-12-09T06:22:44.182Z\",\n                \"updatedAt\": \"2020-12-09T06:23:07.436Z\"\n            }\n        }\n    }\n]"
 						}
 					]
 				},
@@ -567,8 +584,8 @@
 									]
 								}
 							},
-							"status": "Created",
-							"code": 201,
+							"status": "OK",
+							"code": 200,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
@@ -585,15 +602,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "463"
+									"value": "1330"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"1cf-ntFRJN2VdMx+Fmvx9bPC8u5jH80\""
+									"value": "W/\"532-4ktL3qEXcQ7tGLj39yeeVFZXq9o\""
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 09 Dec 2020 06:38:21 GMT"
+									"value": "Thu, 10 Dec 2020 07:42:27 GMT"
 								},
 								{
 									"key": "Connection",
@@ -605,7 +622,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"stallId\": 1,\n        \"name\": \"5 Star Chicken Rice Stall\",\n        \"description\": \"newer description\",\n        \"rating\": 4.5,\n        \"contactNo\": \"91234567\",\n        \"unitNo\": \"01-02\",\n        \"hawkerCentreId\": 1,\n        \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n        \"updatedAt\": \"2020-12-09T06:37:35.710Z\"\n    },\n    {\n        \"stallId\": 2,\n        \"name\": \"2nd chicken Rice Stall\",\n        \"description\": \"some description\",\n        \"rating\": 1.5,\n        \"contactNo\": \"97654321\",\n        \"unitNo\": \"01-03\",\n        \"hawkerCentreId\": 1,\n        \"createdAt\": \"2020-12-09T06:38:06.634Z\",\n        \"updatedAt\": \"2020-12-09T06:38:06.634Z\"\n    }\n]"
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"5 Star Chicken Rice Stall\",\n        \"description\": \"newer description\",\n        \"rating\": 4.5,\n        \"contactNo\": \"91234567\",\n        \"unitNo\": \"01-02\",\n        \"hawkerCentreId\": 1,\n        \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n        \"updatedAt\": \"2020-12-09T06:37:35.710Z\",\n        \"Products\": [\n            {\n                \"id\": 1,\n                \"name\": \"Chicken Rice\",\n                \"category\": \"chinese cuisine\",\n                \"description\": \"delicious chicken rice\",\n                \"price\": 3.8,\n                \"image\": \"http://image_url\",\n                \"stallId\": 1,\n                \"createdAt\": \"2020-12-09T06:40:05.643Z\",\n                \"updatedAt\": \"2020-12-09T06:40:44.440Z\"\n            }\n        ],\n        \"HawkerCentre\": {\n            \"id\": 1,\n            \"name\": \"Yuhua Village Market\",\n            \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n            \"regionId\": 1,\n            \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n            \"updatedAt\": \"2020-12-09T06:29:04.408Z\",\n            \"Region\": {\n                \"id\": 1,\n                \"name\": \"West\",\n                \"createdAt\": \"2020-12-09T06:22:44.182Z\",\n                \"updatedAt\": \"2020-12-09T06:23:07.436Z\"\n            }\n        }\n    },\n    {\n        \"id\": 4,\n        \"name\": \"3rd chicken Rice Stall\",\n        \"description\": \"some description\",\n        \"rating\": 1.5,\n        \"contactNo\": \"97654321\",\n        \"unitNo\": \"01-03\",\n        \"hawkerCentreId\": 1,\n        \"createdAt\": \"2020-12-10T07:40:42.437Z\",\n        \"updatedAt\": \"2020-12-10T07:40:42.437Z\",\n        \"Products\": [],\n        \"HawkerCentre\": {\n            \"id\": 1,\n            \"name\": \"Yuhua Village Market\",\n            \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n            \"regionId\": 1,\n            \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n            \"updatedAt\": \"2020-12-09T06:29:04.408Z\",\n            \"Region\": {\n                \"id\": 1,\n                \"name\": \"West\",\n                \"createdAt\": \"2020-12-09T06:22:44.182Z\",\n                \"updatedAt\": \"2020-12-09T06:23:07.436Z\"\n            }\n        }\n    }\n]"
 						}
 					]
 				},
@@ -616,7 +633,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"2nd chicken Rice Stall\",\n    \"description\": \"some description\",\n    \"rating\": 1.5,\n    \"contactNo\": \"97654321\",\n    \"unitNo\": \"01-03\",\n    \"hawkerCentreId\": 1\n}",
+							"raw": "{\n    \"name\": \"3rd chicken Rice Stall\",\n    \"description\": \"some description\",\n    \"rating\": 1.5,\n    \"contactNo\": \"97654321\",\n    \"unitNo\": \"01-03\",\n    \"hawkerCentreId\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -641,7 +658,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"5 Star Chicken Rice Stall\",\n    \"description\": \"some description\",\n    \"rating\": 4.5,\n    \"contactNo\": \"91234567\",\n    \"unitNo\": \"01-02\",\n    \"hawkerCentreId\": 1\n}",
+									"raw": "{\n    \"name\": \"3rd chicken Rice Stall\",\n    \"description\": \"some description\",\n    \"rating\": 1.5,\n    \"contactNo\": \"97654321\",\n    \"unitNo\": \"01-03\",\n    \"hawkerCentreId\": 1\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -676,15 +693,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "226"
+									"value": "548"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"e2-IV/v1iR+51CqIs/ToGOLEhwbvQo\""
+									"value": "W/\"224-5hoPV9UufJJSafdD6KsoTnspGPs\""
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 09 Dec 2020 06:37:05 GMT"
+									"value": "Thu, 10 Dec 2020 07:40:42 GMT"
 								},
 								{
 									"key": "Connection",
@@ -696,7 +713,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 1,\n    \"name\": \"5 Star Chicken Rice Stall\",\n    \"description\": \"some description\",\n    \"rating\": 4.5,\n    \"contactNo\": \"91234567\",\n    \"unitNo\": \"01-02\",\n    \"hawkerCentreId\": 1,\n    \"updatedAt\": \"2020-12-09T06:37:05.828Z\",\n    \"createdAt\": \"2020-12-09T06:37:05.828Z\"\n}"
+							"body": "{\n    \"id\": 4,\n    \"name\": \"3rd chicken Rice Stall\",\n    \"description\": \"some description\",\n    \"rating\": 1.5,\n    \"contactNo\": \"97654321\",\n    \"unitNo\": \"01-03\",\n    \"hawkerCentreId\": 1,\n    \"createdAt\": \"2020-12-10T07:40:42.437Z\",\n    \"updatedAt\": \"2020-12-10T07:40:42.437Z\",\n    \"Products\": [],\n    \"HawkerCentre\": {\n        \"id\": 1,\n        \"name\": \"Yuhua Village Market\",\n        \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n        \"regionId\": 1,\n        \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n        \"updatedAt\": \"2020-12-09T06:29:04.408Z\",\n        \"Region\": {\n            \"id\": 1,\n            \"name\": \"West\",\n            \"createdAt\": \"2020-12-09T06:22:44.182Z\",\n            \"updatedAt\": \"2020-12-09T06:23:07.436Z\"\n        }\n    }\n}"
 						}
 					]
 				},
@@ -707,7 +724,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"description\": \"newer description\"\n}",
+							"raw": "{\n    \"description\": \"extremely updated description\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -739,7 +756,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"description\": \"newer description\"\n}",
+									"raw": "{\n    \"description\": \"extremely updated description\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -747,13 +764,19 @@
 									}
 								},
 								"url": {
-									"raw": "{{server_url}}/stalls/1",
+									"raw": "{{server_url}}/stalls/:id",
 									"host": [
 										"{{server_url}}"
 									],
 									"path": [
 										"stalls",
-										"1"
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
 									]
 								}
 							},
@@ -775,15 +798,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "227"
+									"value": "791"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"e3-Luhkx9kvNyt7PyZglyhUdm+3uG0\""
+									"value": "W/\"317-tLlabj+xiIcNXqbKhHRBt7x7/B8\""
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 09 Dec 2020 06:37:35 GMT"
+									"value": "Thu, 10 Dec 2020 07:52:16 GMT"
 								},
 								{
 									"key": "Connection",
@@ -795,7 +818,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 1,\n    \"name\": \"5 Star Chicken Rice Stall\",\n    \"description\": \"newer description\",\n    \"rating\": 4.5,\n    \"contactNo\": \"91234567\",\n    \"unitNo\": \"01-02\",\n    \"hawkerCentreId\": 1,\n    \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n    \"updatedAt\": \"2020-12-09T06:37:35.710Z\"\n}"
+							"body": "{\n    \"id\": 1,\n    \"name\": \"5 Star Chicken Rice Stall\",\n    \"description\": \"extremely updated description\",\n    \"rating\": 4.5,\n    \"contactNo\": \"91234567\",\n    \"unitNo\": \"01-02\",\n    \"hawkerCentreId\": 1,\n    \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n    \"updatedAt\": \"2020-12-10T07:52:16.327Z\",\n    \"Products\": [\n        {\n            \"id\": 1,\n            \"name\": \"Chicken Rice\",\n            \"category\": \"chinese cuisine\",\n            \"description\": \"delicious chicken rice\",\n            \"price\": 3.8,\n            \"image\": \"http://image_url\",\n            \"stallId\": 1,\n            \"createdAt\": \"2020-12-09T06:40:05.643Z\",\n            \"updatedAt\": \"2020-12-09T06:40:44.440Z\"\n        }\n    ],\n    \"HawkerCentre\": {\n        \"id\": 1,\n        \"name\": \"Yuhua Village Market\",\n        \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n        \"regionId\": 1,\n        \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n        \"updatedAt\": \"2020-12-09T06:29:04.408Z\",\n        \"Region\": {\n            \"id\": 1,\n            \"name\": \"West\",\n            \"createdAt\": \"2020-12-09T06:22:44.182Z\",\n            \"updatedAt\": \"2020-12-09T06:23:07.436Z\"\n        }\n    }\n}"
 						}
 					]
 				},

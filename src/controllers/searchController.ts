@@ -3,15 +3,16 @@ import {Request, Response, NextFunction} from 'express';
 
 async function searchProduct(req: Request, res: Response, next: NextFunction) {
   try {
+    const query = cleanInput(req.params.query);
     const product = await Product.sequelize?.query(
       `
         SELECT *
         FROM "Products"
-        WHERE _search @@ plainto_tsquery('english', '${req.params.query}');
+        WHERE _search @@ to_tsquery('english', '${query}');
       `,
       {
         model: Product,
-        replacements: {query: req.params.query},
+        replacements: {query: query},
       }
     );
     if (product === null) {
@@ -22,6 +23,11 @@ async function searchProduct(req: Request, res: Response, next: NextFunction) {
   } catch (err) {
     next(err);
   }
+}
+
+// removes all '|' and '&' for to_tsquery
+function cleanInput(input: String) {
+  return input.replace(/[|&]+/g, '').replace(/ /g, '|');
 }
 
 export const searchProductFuncs = [searchProduct];

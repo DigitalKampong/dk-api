@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a5ad478e-2b5a-4cd3-97f5-983d63364632",
+		"_postman_id": "44271826-6192-4372-b34d-a04e44796366",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -422,7 +422,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}
@@ -432,7 +432,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "ed560b65-c7cd-4f54-9566-dfe862bb8739",
+						"id": "26859f89-cd5b-41be-bfeb-0c78fb51811d",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -442,7 +442,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "915a3091-bba4-444a-a07f-6e4c19dbea97",
+						"id": "3b267281-6222-4a79-8c2f-43b1930e8445",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -490,10 +490,6 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{server_url}}/stalls/:id",
 									"host": [
@@ -891,7 +887,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}
@@ -901,7 +897,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "dc9cefcb-ea4f-439c-a02f-5fa62a793c7a",
+						"id": "37ab8a53-17e6-4801-be87-f42e0a1b9233",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -911,7 +907,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ecbec72e-bf3d-4ffd-b989-d856d8cf1395",
+						"id": "680100e3-c545-4b54-bdbf-75b5e92ce702",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1337,7 +1333,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}
@@ -1347,7 +1343,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "4d8b592b-6f4d-412e-9a49-9e4bf12e4cf1",
+						"id": "ccd97d53-0dfa-468a-bdeb-544fd8902ed1",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1357,7 +1353,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d70da20b-2e5a-4bda-bb39-a79e37c5a224",
+						"id": "3a3aa86b-0591-4fcd-a04c-6e5b386ba942",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1783,7 +1779,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}
@@ -1793,7 +1789,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "18d32758-daab-4345-b171-dc1cd5e0cf47",
+						"id": "6f5837bc-77a6-48da-bd99-4e93466d3b54",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1803,12 +1799,43 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e92553fb-c437-4780-a649-933bc4d447f0",
+						"id": "daaed303-a660-4e7a-b9ce-65a34902fc03",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Search products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/search/products/:query",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"search",
+								"products",
+								":query"
+							],
+							"variable": [
+								{
+									"key": "query",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}

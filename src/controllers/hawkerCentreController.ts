@@ -24,7 +24,7 @@ async function indexHawkerCentre(req: Request, res: Response, next: NextFunction
         {
           association: HawkerCentre.associations.Region,
         },
-      ]
+      ],
     });
     res.status(200).json(hawkerCentres);
   } catch (err) {

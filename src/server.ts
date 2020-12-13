@@ -10,6 +10,7 @@ import regions from './routes/regions';
 import hawkerCentres from './routes/hawkerCentres';
 import stalls from './routes/stalls';
 import products from './routes/products';
+import search from './routes/search';
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use('/regions', regions);
 app.use('/hawkerCentres', hawkerCentres);
 app.use('/stalls', stalls);
 app.use('/products', products);
+app.use('/search', search);
 
 app.all('*', (req: Request, res: Response) => res.send('You are at the wrong place. Shoo!'));
 

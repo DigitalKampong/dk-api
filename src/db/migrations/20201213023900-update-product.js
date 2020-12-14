@@ -3,7 +3,10 @@
 const vectorName = '_search';
 
 const searchObjects = {
-  Products: ['name'],
+  Products: ['name', 'description'],
+  Stalls: ['name', 'description'],
+  HawkerCentres: ['name'],
+  Regions: ['name'],
 };
 
 module.exports = {

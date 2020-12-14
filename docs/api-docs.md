@@ -31,7 +31,7 @@
 
 * [Search](#search)
 
-  * [Search products](#1-search-products)
+  * [Search stalls](#1-search-stalls)
 
 * [Stalls](#stalls)
 
@@ -916,7 +916,7 @@ URL: {{server_url}}/regions/:id
 
 
 
-### 1. Search products
+### 1. Search stalls
 
 
 
@@ -925,7 +925,7 @@ URL: {{server_url}}/regions/:id
 ```bash
 Method: GET
 Type: 
-URL: {{server_url}}/search/products/:query
+URL: {{server_url}}/search/:query
 ```
 
 
@@ -1366,4 +1366,4 @@ URL: {{server_url}}/stalls/:id
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-13 14:43:44 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-14 18:04:21 by [docgen](https://github.com/thedevsaddam/docgen)

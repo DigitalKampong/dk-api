@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "44271826-6192-4372-b34d-a04e44796366",
+		"_postman_id": "ebed5f9e-d347-4cce-a593-f85eb62acf79",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -432,7 +432,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "26859f89-cd5b-41be-bfeb-0c78fb51811d",
+						"id": "c2d4cb37-5712-4b8e-b130-79d0116c468c",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -442,7 +442,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3b267281-6222-4a79-8c2f-43b1930e8445",
+						"id": "d86c2065-045d-4058-8349-398e6b49d733",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -897,7 +897,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "37ab8a53-17e6-4801-be87-f42e0a1b9233",
+						"id": "1126b9eb-d83a-41a8-9043-172da7c536be",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -907,7 +907,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "680100e3-c545-4b54-bdbf-75b5e92ce702",
+						"id": "3e011bfa-b3f2-435e-8df3-a10bd14e1d0c",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1343,7 +1343,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "ccd97d53-0dfa-468a-bdeb-544fd8902ed1",
+						"id": "16e842e1-357f-433e-8711-3fe8866a57f4",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1353,7 +1353,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3a3aa86b-0591-4fcd-a04c-6e5b386ba942",
+						"id": "931b2b1d-8c1a-408d-94c9-16b94ea0aae2",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1789,7 +1789,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "6f5837bc-77a6-48da-bd99-4e93466d3b54",
+						"id": "69cc8325-71d5-4003-8105-a12467d557c5",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1799,7 +1799,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "daaed303-a660-4e7a-b9ce-65a34902fc03",
+						"id": "9eed2bb7-1ef0-449f-8822-6e396b582ff1",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1813,18 +1813,17 @@
 			"name": "Search",
 			"item": [
 				{
-					"name": "Search products",
+					"name": "Search stalls",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{server_url}}/search/products/:query",
+							"raw": "{{server_url}}/search/:query",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"search",
-								"products",
 								":query"
 							],
 							"variable": [

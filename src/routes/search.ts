@@ -3,6 +3,6 @@ import * as searchController from '../controllers/searchController';
 
 const router = Router();
 
-router.get('/products/:query', searchController.searchProductFuncs);
+router.get('/:query', searchController.searchFuncs);
 
 export default router;

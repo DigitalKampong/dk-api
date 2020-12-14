@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a5ad478e-2b5a-4cd3-97f5-983d63364632",
+		"_postman_id": "ebed5f9e-d347-4cce-a593-f85eb62acf79",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -422,7 +422,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}
@@ -432,7 +432,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "ed560b65-c7cd-4f54-9566-dfe862bb8739",
+						"id": "c2d4cb37-5712-4b8e-b130-79d0116c468c",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -442,7 +442,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "915a3091-bba4-444a-a07f-6e4c19dbea97",
+						"id": "d86c2065-045d-4058-8349-398e6b49d733",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -490,10 +490,6 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
 								"url": {
 									"raw": "{{server_url}}/stalls/:id",
 									"host": [
@@ -891,7 +887,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}
@@ -901,7 +897,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "dc9cefcb-ea4f-439c-a02f-5fa62a793c7a",
+						"id": "1126b9eb-d83a-41a8-9043-172da7c536be",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -911,7 +907,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ecbec72e-bf3d-4ffd-b989-d856d8cf1395",
+						"id": "3e011bfa-b3f2-435e-8df3-a10bd14e1d0c",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1337,7 +1333,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}
@@ -1347,7 +1343,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "4d8b592b-6f4d-412e-9a49-9e4bf12e4cf1",
+						"id": "16e842e1-357f-433e-8711-3fe8866a57f4",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1357,7 +1353,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d70da20b-2e5a-4bda-bb39-a79e37c5a224",
+						"id": "931b2b1d-8c1a-408d-94c9-16b94ea0aae2",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1783,7 +1779,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						}
 					]
 				}
@@ -1793,7 +1789,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "18d32758-daab-4345-b171-dc1cd5e0cf47",
+						"id": "69cc8325-71d5-4003-8105-a12467d557c5",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1803,12 +1799,42 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e92553fb-c437-4780-a649-933bc4d447f0",
+						"id": "9eed2bb7-1ef0-449f-8822-6e396b582ff1",
 						"type": "text/javascript",
 						"exec": [
 							""
 						]
 					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "Search stalls",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/search/:query",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"search",
+								":query"
+							],
+							"variable": [
+								{
+									"key": "query",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}

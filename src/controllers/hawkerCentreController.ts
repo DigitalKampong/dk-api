@@ -19,7 +19,13 @@ async function retrieveHawkerCentre(req: Request, res: Response, next: NextFunct
 
 async function indexHawkerCentre(req: Request, res: Response, next: NextFunction) {
   try {
-    const hawkerCentres = await HawkerCentre.findAll();
+    const hawkerCentres = await HawkerCentre.findAll({
+      include: [
+        {
+          association: HawkerCentre.associations.Region,
+        },
+      ],
+    });
     res.status(200).json(hawkerCentres);
   } catch (err) {
     next(err);

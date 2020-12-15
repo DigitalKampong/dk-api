@@ -21,6 +21,7 @@ import {
 import sequelize from '../db';
 import Product from './Product';
 import HawkerCentre from './HawkerCentre';
+import Image from './Image';
 
 interface StallAttributes {
   id: number;
@@ -63,12 +64,26 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public removeProducts!: HasManyRemoveAssociationsMixin<Product, number>;
   public setProducts!: HasManySetAssociationsMixin<Product, number>;
 
+  // Stall.hasMany(Image)
+  public addImage!: HasManyAddAssociationMixin<Image, number>;
+  public addImages!: HasManyAddAssociationsMixin<Image, number>;
+  public countImages!: HasManyCountAssociationsMixin;
+  public createImages!: HasManyCreateAssociationMixin<Image>;
+  public getImages!: HasManyGetAssociationsMixin<Image>;
+  public hasImage!: HasManyHasAssociationMixin<Image, number>;
+  public hasImages!: HasManyHasAssociationsMixin<Image, number>;
+  public removeImage!: HasManyRemoveAssociationMixin<Image, number>;
+  public removeImages!: HasManyRemoveAssociationsMixin<Image, number>;
+  public setImages!: HasManySetAssociationsMixin<Image, number>;
+
   public readonly HawkerCentre?: HawkerCentre;
   public readonly Products?: Product[];
+  public readonly Images?: Image[];
 
   public static associations: {
     HawkerCentre: Association<Stall, HawkerCentre>;
     Products: Association<Stall, Product>;
+    Images: Association<Stall, Image>;
   };
 }
 

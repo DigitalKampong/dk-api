@@ -6,10 +6,21 @@ import {
   BelongsToCreateAssociationMixin,
   BelongsToGetAssociationMixin,
   BelongsToSetAssociationMixin,
+  HasManyAddAssociationMixin,
+  HasManyAddAssociationsMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyHasAssociationsMixin,
+  HasManyRemoveAssociationMixin,
+  HasManyRemoveAssociationsMixin,
+  HasManySetAssociationsMixin,
 } from 'sequelize';
 
 import sequelize from '../db';
 import Stall from './Stall';
+import Image from './Image';
 
 interface ProductAttributes {
   id: number;
@@ -42,10 +53,24 @@ class Product
   public getStall!: BelongsToGetAssociationMixin<Stall>;
   public setStall!: BelongsToSetAssociationMixin<Stall, number>;
 
-  public readonly stall?: Stall;
+  // Product.hasMany(Image)
+  public addImage!: HasManyAddAssociationMixin<Image, number>;
+  public addImages!: HasManyAddAssociationsMixin<Image, number>;
+  public countImages!: HasManyCountAssociationsMixin;
+  public createImages!: HasManyCreateAssociationMixin<Image>;
+  public getImages!: HasManyGetAssociationsMixin<Image>;
+  public hasImage!: HasManyHasAssociationMixin<Image, number>;
+  public hasImages!: HasManyHasAssociationsMixin<Image, number>;
+  public removeImage!: HasManyRemoveAssociationMixin<Image, number>;
+  public removeImages!: HasManyRemoveAssociationsMixin<Image, number>;
+  public setImages!: HasManySetAssociationsMixin<Image, number>;
+
+  public readonly Stall?: Stall;
+  public readonly Images?: Image[];
 
   public static associations: {
     Stall: Association<Product, Stall>;
+    Images: Association<Product, Image>;
   };
 }
 
@@ -84,5 +109,7 @@ Product.init(
   },
   {sequelize}
 );
+
+Product.hasMany(Image, {foreignKey: 'productId'});
 
 export default Product;

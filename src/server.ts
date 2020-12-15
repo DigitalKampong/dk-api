@@ -1,8 +1,8 @@
 import express from 'express';
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 
-import {PORT} from './consts';
+import { PORT } from './consts';
 // import {testAuthenticate} from './db/dbUtil';
 import './models'; // import for side effects
 

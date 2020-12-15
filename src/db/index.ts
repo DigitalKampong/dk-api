@@ -1,6 +1,6 @@
-import {Sequelize} from 'sequelize';
+import { Sequelize } from 'sequelize';
 
-import {DATABASE_URL} from '../consts';
+import { DATABASE_URL } from '../consts';
 
 const logging = process.env.NODE_ENV === 'test' ? false : console.log;
 

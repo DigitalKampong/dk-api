@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import * as stallController from '../controllers/stallController';
 
 const router = Router();

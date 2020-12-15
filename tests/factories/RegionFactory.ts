@@ -1,5 +1,5 @@
-import {Factory} from 'rosie';
-import {lorem} from 'faker';
+import { Factory } from 'rosie';
+import { lorem } from 'faker';
 import Region from '../../src/models/Region';
 
 export default class RegionFactory {

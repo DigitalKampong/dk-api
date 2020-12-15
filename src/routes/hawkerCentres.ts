@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import * as hawkerCentreController from '../controllers/hawkerCentreController';
 
 const router = Router();

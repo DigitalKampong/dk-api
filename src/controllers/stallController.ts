@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import Stall from '../models/Stall';
 import HawkerCentre from '../models/HawkerCentre';
 
@@ -6,8 +6,11 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
   try {
     const stall = await Stall.findByPk(req.params.id, {
       include: [
-        {association: Stall.associations.Products},
-        {association: Stall.associations.HawkerCentre, include: [HawkerCentre.associations.Region]},
+        { association: Stall.associations.Products },
+        {
+          association: Stall.associations.HawkerCentre,
+          include: [HawkerCentre.associations.Region],
+        },
       ],
     });
     if (stall === null) {
@@ -25,8 +28,11 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
   try {
     const stalls = await Stall.findAll({
       include: [
-        {association: Stall.associations.Products},
-        {association: Stall.associations.HawkerCentre, include: [HawkerCentre.associations.Region]},
+        { association: Stall.associations.Products },
+        {
+          association: Stall.associations.HawkerCentre,
+          include: [HawkerCentre.associations.Region],
+        },
       ],
     });
     res.status(200).json(stalls);
@@ -48,8 +54,11 @@ async function createStall(req: Request, res: Response, next: NextFunction) {
     const stallId = (await Stall.create(req.body)).id;
     const stall = await Stall.findByPk(stallId, {
       include: [
-        {association: Stall.associations.Products},
-        {association: Stall.associations.HawkerCentre, include: [HawkerCentre.associations.Region]},
+        { association: Stall.associations.Products },
+        {
+          association: Stall.associations.HawkerCentre,
+          include: [HawkerCentre.associations.Region],
+        },
       ],
     });
     res.status(201).json(stall);

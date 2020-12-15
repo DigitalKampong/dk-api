@@ -1,5 +1,5 @@
 import Product from '../models/Product';
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import Stall from '../models/Stall';
 
 async function retrieveProduct(req: Request, res: Response, next: NextFunction) {

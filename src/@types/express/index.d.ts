@@ -1,4 +1,4 @@
-import {Express} from 'express';
+import { Express } from 'express';
 import HawkerCentre from '../../models/HawkerCentre';
 import Region from '../../models/Region';
 import Stall from '../../models/Stall';

@@ -1,4 +1,4 @@
-import {Model, DataTypes, Optional} from 'sequelize';
+import { Model, DataTypes, Optional } from 'sequelize';
 
 import sequelize from '../db';
 
@@ -48,7 +48,7 @@ Image.init(
       },
     },
   },
-  {sequelize}
+  { sequelize }
 );
 
 export default Image;

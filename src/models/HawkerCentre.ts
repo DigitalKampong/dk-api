@@ -92,10 +92,10 @@ HawkerCentre.init(
       },
     },
   },
-  {sequelize}
+  { sequelize }
 );
 
-HawkerCentre.hasMany(Stall, {foreignKey: 'hawkerCentreId'});
-Stall.belongsTo(HawkerCentre, {foreignKey: 'hawkerCentreId'});
+HawkerCentre.hasMany(Stall, { foreignKey: 'hawkerCentreId' });
+Stall.belongsTo(HawkerCentre, { foreignKey: 'hawkerCentreId' });
 
 export default HawkerCentre;

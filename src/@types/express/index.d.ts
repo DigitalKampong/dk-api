@@ -1,3 +1,4 @@
+import {Express} from 'express';
 import HawkerCentre from '../../models/HawkerCentre';
 import Region from '../../models/Region';
 import Stall from '../../models/Stall';
@@ -9,5 +10,8 @@ declare module 'express' {
     region?: Region;
     stall?: Stall;
     product?: Product;
+
+    file?: Express.Multer.File;
+    files?: Express.Multer.File[];
   }
 }

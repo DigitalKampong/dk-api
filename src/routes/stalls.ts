@@ -8,5 +8,6 @@ router.get('/:id', stallController.showStallFuncs);
 router.post('/', stallController.createStallFuncs);
 router.put('/:id', stallController.updateStallFuncs);
 router.delete('/:id', stallController.destroyStallFuncs);
+router.post('/:id/upload', stallController.uploadStallImagesFuncs);
 
 export default router;

@@ -17,13 +17,18 @@ import { GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY, MAX_IMAGE_SIZE } from '.
  */
 
 function fileFilter(req: Request, file: Express.Multer.File, cb: Function) {
+  console.log('HI');
   const regexp = /png|jpe?g|gif/;
   const result = mime.extension(file.mimetype);
 
+  console.log(result);
+
   if (!result || !regexp.test(result)) {
     // TODO: Could throw an error here too
-    cb(null, false);
+    console.log('invalid');
+    return cb(null, false);
   } else {
+    console.log('valid');
     cb(null, true);
   }
 }
@@ -46,6 +51,18 @@ function getPublicUrl(filename: string): string {
   return `https://storage.googleapis.com/${GCS_BUCKET}/${filename}`;
 }
 
+// Resolve name collisions
+async function generateGcsName(ext: string) {
+  let gcsName = `${uuidv4()}.${ext}`;
+
+  // API returns response as [boolean]
+  while (await bucket.file(gcsName).exists()[0]) {
+    gcsName = `${uuidv4()}.${ext}`;
+  }
+
+  return gcsName;
+}
+
 async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) {
   if (!req.files) {
     // TODO: Throw error, next(Error class)
@@ -54,9 +71,9 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
   }
 
   const promises = [];
-  req.files.forEach((file, idx) => {
+  for (const file of req.files) {
     const ext = mime.extension(file.mimetype);
-    const gcsName = `${uuidv4()}.${ext}`;
+    const gcsName = await generateGcsName(ext);
     const gcsFile = bucket.file(gcsName);
 
     const promise = new Promise((resolve, reject) => {
@@ -70,10 +87,12 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
       stream.on('finish', () => {
         resolve(getPublicUrl(gcsName));
       });
+
+      stream.end(file.buffer);
     });
 
     promises.push(promise);
-  });
+  }
 
   try {
     req.downloadUrls = await Promise.all(promises);
@@ -84,7 +103,7 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
   }
 }
 
-function createImages(req: Request, res: Response, next: Function) {
+async function createImages(req: Request, res: Response, next: Function) {
   next();
 }
 

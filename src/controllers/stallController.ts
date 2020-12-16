@@ -89,7 +89,7 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
 }
 
 async function uploadStallImages(req: Request, res: Response, next: NextFunction) {
-  res.status(200).end();
+  res.status(200).json("woots it works");
 }
 
 export const indexStallFuncs = [indexStall];

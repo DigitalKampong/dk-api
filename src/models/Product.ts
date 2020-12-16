@@ -14,7 +14,6 @@ import Stall from './Stall';
 interface ProductAttributes {
   id: number;
   name: string;
-  category: string | null;
   description: string | null;
   price: number | null;
   image: string | null;
@@ -28,7 +27,6 @@ class Product
   implements ProductAttributes {
   public id!: number;
   public name!: string;
-  public category!: string | null;
   public description!: string | null;
   public price!: number | null;
   public image!: string | null;
@@ -60,9 +58,6 @@ Product.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    category: {
-      type: DataTypes.STRING,
     },
     description: {
       type: DataTypes.STRING,

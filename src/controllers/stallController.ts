@@ -53,10 +53,8 @@ async function showStall(req: Request, res: Response, next: NextFunction) {
 
 async function createStall(req: Request, res: Response, next: NextFunction) {
   try {
-    const stallId = (await Stall.create(req.body)).id;
-    const stall = await Stall.findByPk(stallId, {
-      include: getStallInclude(),
-    });
+    let stall = await Stall.create(req.body);
+    stall = await stall.reload({ include: getStallInclude() });
     res.status(201).json(stall);
   } catch (err) {
     next(err);

@@ -1,6 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
+import { upload, sendUploadToGCS, createImages } from './imageController';
 import Stall from '../models/Stall';
 import HawkerCentre from '../models/HawkerCentre';
+
+import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
 
 async function retrieveStall(req: Request, res: Response, next: NextFunction) {
   try {
@@ -85,8 +88,18 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function uploadStallImages(req: Request, res: Response, next: NextFunction) {
+  res.status(200).end();
+}
+
 export const indexStallFuncs = [indexStall];
 export const showStallFuncs = [retrieveStall, showStall];
 export const createStallFuncs = [createStall];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];
+export const uploadStallImagesFuncs = [
+  upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
+  sendUploadToGCS,
+  createImages,
+  uploadStallImages,
+];

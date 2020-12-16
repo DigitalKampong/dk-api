@@ -1,18 +1,39 @@
+import { Request, Response, NextFunction } from 'express';
 import { Storage } from '@google-cloud/storage';
 import multer from 'multer';
+import mime from 'mime-types';
+import { v4 as uuidv4 } from 'uuid';
 
-import { GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY } from '../consts';
+import { GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY, MAX_IMAGE_SIZE } from '../consts';
+
+/**
+ * Image processing pipeline
+ * 1. Multer will extract image data from multipart-form and put it into req.files
+ * 2. The images get uploaded to GCS and their corresponding public url will be in req.downloadUrls (This array will be analogous to req.files)
+ * 3. The images will have corresponding database objects created.
+ * 4. The association of images to product/stall will be done in their respective controllers.
+ *
+ * At any point of time, the request may be short-circuited due to invalid file, file too large etc.
+ */
 
 function fileFilter(req: Request, file: Express.Multer.File, cb: Function) {
+  const regexp = /png|jpe?g|gif/;
+  const result = mime.extension(file.mimetype);
 
-  // use mimetype -> get extension -> reject everything that is not image
-  file.mimetype
+  if (!result || !regexp.test(result)) {
+    // TODO: Could throw an error here too
+    cb(null, false);
+  } else {
+    cb(null, true);
+  }
 }
 
-
 // Limit of 5MB per image
-const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 5 * 1024 * 1024 } });
-
+const upload = multer({
+  storage: multer.memoryStorage(),
+  fileFilter,
+  limits: { fileSize: MAX_IMAGE_SIZE },
+});
 
 const credentials = {
   client_email: GCS_CLIENT_EMAIL,
@@ -25,4 +46,46 @@ function getPublicUrl(filename: string): string {
   return `https://storage.googleapis.com/${GCS_BUCKET}/${filename}`;
 }
 
-function uploadToGCS(req: Request, res: Response, next: NextFunction) {}
+async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) {
+  if (!req.files) {
+    // TODO: Throw error, next(Error class)
+    res.status(400).json('No file in request');
+    return;
+  }
+
+  const promises = [];
+  req.files.forEach((file, idx) => {
+    const ext = mime.extension(file.mimetype);
+    const gcsName = `${uuidv4()}.${ext}`;
+    const gcsFile = bucket.file(gcsName);
+
+    const promise = new Promise((resolve, reject) => {
+      const stream = gcsFile.createWriteStream();
+
+      stream.on('error', err => {
+        // TODO: Create error object with original filename and send back to frontend
+        reject(err);
+      });
+
+      stream.on('finish', () => {
+        resolve(getPublicUrl(gcsName));
+      });
+    });
+
+    promises.push(promise);
+  });
+
+  try {
+    req.downloadUrls = await Promise.all(promises);
+    next();
+  } catch (err) {
+    // This will trip if one of the promise rejects and now handled by general error handler.
+    next(err);
+  }
+}
+
+function createImages(req: Request, res: Response, next: Function) {
+  next();
+}
+
+export { upload, sendUploadToGCS, createImages };

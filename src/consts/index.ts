@@ -9,3 +9,5 @@ export const PORT = process.env.PORT || 3000;
 export const GCS_BUCKET = process.env.GCS_BUCKET;
 export const GCS_CLIENT_EMAIL = process.env.GCS_CLIENT_EMAIL;
 export const GCS_PRIVATE_KEY = process.env.GCS_PRIVATE_KEY;
+
+export * from './upload';

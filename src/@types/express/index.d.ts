@@ -13,5 +13,6 @@ declare module 'express' {
 
     file?: Express.Multer.File;
     files?: Express.Multer.File[];
+    downloadUrls?: string[];
   }
 }

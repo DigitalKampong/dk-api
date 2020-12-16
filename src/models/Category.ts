@@ -70,5 +70,6 @@ Category.init(
 );
 
 Category.hasMany(CategoryStall, {foreignKey: 'categoryId'});
+CategoryStall.belongsTo(Category, {foreignKey: 'categoryId'});
 
 export default Category;

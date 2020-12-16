@@ -77,7 +77,4 @@ CategoryStall.init(
   {sequelize}
 );
 
-CategoryStall.belongsTo(Stall, {foreignKey: 'stallId'});
-CategoryStall.belongsTo(Category, {foreignKey: 'categoryId'});
-
 export default CategoryStall;

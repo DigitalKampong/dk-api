@@ -10,6 +10,7 @@ declare module 'express' {
     region?: Region;
     stall?: Stall;
     product?: Product;
+    images?: Images[];
 
     file?: Express.Multer.File;
     files?: Express.Multer.File[];

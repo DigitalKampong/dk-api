@@ -5,16 +5,21 @@ import HawkerCentre from '../models/HawkerCentre';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
 
+function getStallInclude() {
+  return [
+    { association: Stall.associations.Products },
+    { association: Stall.associations.Images, attributes: ['id', 'downloadUrl'] },
+    {
+      association: Stall.associations.HawkerCentre,
+      include: [HawkerCentre.associations.Region],
+    },
+  ];
+}
+
 async function retrieveStall(req: Request, res: Response, next: NextFunction) {
   try {
     const stall = await Stall.findByPk(req.params.id, {
-      include: [
-        { association: Stall.associations.Products },
-        {
-          association: Stall.associations.HawkerCentre,
-          include: [HawkerCentre.associations.Region],
-        },
-      ],
+      include: getStallInclude(),
     });
     if (stall === null) {
       res.status(404).end();
@@ -30,13 +35,7 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
 async function indexStall(req: Request, res: Response, next: NextFunction) {
   try {
     const stalls = await Stall.findAll({
-      include: [
-        { association: Stall.associations.Products },
-        {
-          association: Stall.associations.HawkerCentre,
-          include: [HawkerCentre.associations.Region],
-        },
-      ],
+      include: getStallInclude(),
     });
     res.status(200).json(stalls);
   } catch (err) {
@@ -56,13 +55,7 @@ async function createStall(req: Request, res: Response, next: NextFunction) {
   try {
     const stallId = (await Stall.create(req.body)).id;
     const stall = await Stall.findByPk(stallId, {
-      include: [
-        { association: Stall.associations.Products },
-        {
-          association: Stall.associations.HawkerCentre,
-          include: [HawkerCentre.associations.Region],
-        },
-      ],
+      include: getStallInclude(),
     });
     res.status(201).json(stall);
   } catch (err) {
@@ -89,7 +82,14 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
 }
 
 async function uploadStallImages(req: Request, res: Response, next: NextFunction) {
-  res.status(200).json("woots it works");
+  try {
+    let stall = req.stall!;
+    await stall.addImages(req.images);
+    stall = await stall.reload({ include: getStallInclude() });
+    res.status(200).json(stall);
+  } catch (err) {
+    next(err);
+  }
 }
 
 export const indexStallFuncs = [indexStall];
@@ -101,5 +101,6 @@ export const uploadStallImagesFuncs = [
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
   sendUploadToGCS,
   createImages,
+  retrieveStall,
   uploadStallImages,
 ];

@@ -125,5 +125,6 @@ Stall.init(
 
 Stall.hasMany(Product, { foreignKey: 'stallId' });
 Product.belongsTo(Stall, { foreignKey: 'stallId' });
+Stall.hasMany(Image, { foreignKey: 'stallId' });
 
 export default Stall;

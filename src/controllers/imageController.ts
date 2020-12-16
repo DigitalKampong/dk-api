@@ -4,13 +4,14 @@ import multer from 'multer';
 import mime from 'mime-types';
 import { v4 as uuidv4 } from 'uuid';
 
+import Image from '../models/Image';
 import { GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY, MAX_IMAGE_SIZE } from '../consts';
 
 /**
  * Image processing pipeline
  * 1. Multer will extract image data from multipart-form and put it into req.files
  * 2. The images get uploaded to GCS and their corresponding public url will be in req.downloadUrls (This array will be analogous to req.files)
- * 3. The images will have corresponding database objects created.
+ * 3. The images will have corresponding database objects created, they will be in req.images.
  * 4. The association of images to product/stall will be done in their respective controllers.
  *
  * At any point of time, the request may be short-circuited due to invalid file, file too large etc.
@@ -24,9 +25,11 @@ function fileFilter(req: Request, file: Express.Multer.File, cb: Function) {
   console.log(result);
 
   if (!result || !regexp.test(result)) {
-    // TODO: Could throw an error here too
+    // TODO: Could throw an error here too and surface to user
+    // return cb(new Error('Invalid mimetype')); // short circuits
+
     console.log('invalid');
-    return cb(null, false);
+    return cb(null, false); // Only reject the specific file
   } else {
     console.log('valid');
     cb(null, true);
@@ -64,7 +67,7 @@ async function generateGcsName(ext: string) {
 }
 
 async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) {
-  if (!req.files) {
+  if (!req.files?.length) {
     // TODO: Throw error, next(Error class)
     res.status(400).json('No file in request');
     return;
@@ -103,8 +106,18 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
   }
 }
 
+// Function expects that req.downloadUrls will be defined
 async function createImages(req: Request, res: Response, next: Function) {
-  next();
+  const promises = req.downloadUrls!.map(url => {
+    return Image.create({ downloadUrl: url });
+  });
+
+  try {
+    req.images = await Promise.all(promises);
+    next();
+  } catch (err) {
+    next(err);
+  }
 }
 
 export { upload, sendUploadToGCS, createImages };

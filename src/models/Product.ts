@@ -28,7 +28,6 @@ interface ProductAttributes {
   category: string | null;
   description: string | null;
   price: number | null;
-  image: string | null;
   stallId: number;
 }
 
@@ -42,7 +41,6 @@ class Product
   public category!: string | null;
   public description!: string | null;
   public price!: number | null;
-  public image!: string | null;
   public stallId!: number;
 
   public readonly createdAt!: Date;
@@ -94,9 +92,6 @@ Product.init(
     },
     price: {
       type: DataTypes.DOUBLE,
-    },
-    image: {
-      type: DataTypes.STRING,
     },
     stallId: {
       type: DataTypes.INTEGER,

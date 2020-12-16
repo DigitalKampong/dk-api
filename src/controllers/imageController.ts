@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, Express } from 'express';
 import { Storage } from '@google-cloud/storage';
 import multer from 'multer';
 import mime from 'mime-types';
@@ -59,7 +59,7 @@ async function generateGcsName(ext: string) {
   let gcsName = `${uuidv4()}.${ext}`;
 
   // API returns response as [boolean]
-  while (await bucket.file(gcsName).exists()[0]) {
+  while ((await bucket.file(gcsName).exists())[0]) {
     gcsName = `${uuidv4()}.${ext}`;
   }
 
@@ -74,8 +74,10 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
   }
 
   const promises = [];
-  for (const file of req.files) {
-    const ext = mime.extension(file.mimetype);
+
+  // There will never be other file fields so this will always be an array.
+  for (const file of req.files as Express.Multer.File[]) {
+    const ext = mime.extension(file.mimetype) as string; // Checked in prev mw
     const gcsName = await generateGcsName(ext);
     const gcsFile = bucket.file(gcsName);
 
@@ -98,7 +100,7 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
   }
 
   try {
-    req.downloadUrls = await Promise.all(promises);
+    req.downloadUrls = (await Promise.all(promises)) as string[];
     next();
   } catch (err) {
     // This will trip if one of the promise rejects and now handled by general error handler.

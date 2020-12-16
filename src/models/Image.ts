@@ -1,4 +1,4 @@
-import { Model, DataTypes, Optional } from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 
 import sequelize from '../db';
 
@@ -9,7 +9,9 @@ interface ImageAttributes {
   stallId: number | null;
 }
 
-interface ImageCreationAttributes extends Optional<ImageAttributes, 'id'> {}
+interface ImageCreationAttributes {
+  downloadUrl: string;
+}
 
 class Image extends Model<ImageAttributes, ImageCreationAttributes> implements ImageAttributes {
   public id!: number;

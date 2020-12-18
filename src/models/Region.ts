@@ -64,10 +64,10 @@ Region.init(
       allowNull: false,
     },
   },
-  {sequelize}
+  { sequelize }
 );
 
-Region.hasMany(HawkerCentre, {foreignKey: 'regionId'});
-HawkerCentre.belongsTo(Region, {foreignKey: 'regionId'});
+Region.hasMany(HawkerCentre, { foreignKey: 'regionId' });
+HawkerCentre.belongsTo(Region, { foreignKey: 'regionId' });
 
 export default Region;

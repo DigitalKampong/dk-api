@@ -77,7 +77,7 @@ Product.init(
       },
     },
   },
-  {sequelize}
+  { sequelize }
 );
 
 export default Product;

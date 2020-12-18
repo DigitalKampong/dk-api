@@ -1,10 +1,10 @@
 import HawkerCentre from '../models/HawkerCentre';
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 async function retrieveHawkerCentre(req: Request, res: Response, next: NextFunction) {
   try {
     const hawkerCentre = await HawkerCentre.findByPk(req.params.id, {
-      include: [{association: HawkerCentre.associations.Stalls}],
+      include: [{ association: HawkerCentre.associations.Stalls }],
     });
     if (hawkerCentre === null) {
       res.status(404).end();

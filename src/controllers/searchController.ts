@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import Stall from '../models/Stall';
 
 async function searchStalls(req: Request, res: Response, next: NextFunction) {
@@ -32,7 +32,7 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
       `,
       {
         model: Stall,
-        replacements: {query: query},
+        replacements: { query: query },
       }
     );
     res.status(200).json(stalls);

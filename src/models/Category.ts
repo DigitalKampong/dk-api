@@ -66,10 +66,10 @@ Category.init(
       type: DataTypes.STRING,
     },
   },
-  {sequelize}
+  { sequelize }
 );
 
-Category.hasMany(CategoryStall, {foreignKey: 'categoryId'});
-CategoryStall.belongsTo(Category, {foreignKey: 'categoryId'});
+Category.hasMany(CategoryStall, { foreignKey: 'categoryId' });
+CategoryStall.belongsTo(Category, { foreignKey: 'categoryId' });
 
 export default Category;

@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import * as categoryStallController from '../controllers/categoryStallController';
 
 const router = Router();

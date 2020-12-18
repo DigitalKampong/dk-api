@@ -1,10 +1,10 @@
 import Category from '../models/Category';
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 async function retrieveCategory(req: Request, res: Response, next: NextFunction) {
   try {
     const category = await Category.findByPk(req.params.id, {
-      include: [{association: Category.associations.CategoryStalls}],
+      include: [{ association: Category.associations.CategoryStalls }],
     });
     if (category === null) {
       res.status(404).end();
@@ -44,7 +44,7 @@ async function createCategory(req: Request, res: Response, next: NextFunction) {
   try {
     const categoryId = (await Category.create(req.body)).id;
     const category = await Category.findByPk(categoryId, {
-      include: [{association: Category.associations.CategoryStalls}],
+      include: [{ association: Category.associations.CategoryStalls }],
     });
     res.status(201).json(category);
   } catch (err) {

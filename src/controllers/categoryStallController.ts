@@ -1,12 +1,12 @@
 import CategoryStall from '../models/CategoryStall';
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 async function retrieveCategoryStall(req: Request, res: Response, next: NextFunction) {
   try {
     const categoryStall = await CategoryStall.findByPk(req.params.id, {
       include: [
-        {association: CategoryStall.associations.Stall},
-        {association: CategoryStall.associations.Category},
+        { association: CategoryStall.associations.Stall },
+        { association: CategoryStall.associations.Category },
       ],
     });
     if (categoryStall === null) {
@@ -24,8 +24,8 @@ async function indexCategoryStall(req: Request, res: Response, next: NextFunctio
   try {
     const categoryStalls = await CategoryStall.findAll({
       include: [
-        {association: CategoryStall.associations.Stall},
-        {association: CategoryStall.associations.Category},
+        { association: CategoryStall.associations.Stall },
+        { association: CategoryStall.associations.Category },
       ],
     });
     res.status(200).json(categoryStalls);
@@ -47,8 +47,8 @@ async function createCategoryStall(req: Request, res: Response, next: NextFuncti
     const categoryStallId = (await CategoryStall.create(req.body)).id;
     const categoryStall = await CategoryStall.findByPk(categoryStallId, {
       include: [
-        {association: CategoryStall.associations.Stall},
-        {association: CategoryStall.associations.Category},
+        { association: CategoryStall.associations.Stall },
+        { association: CategoryStall.associations.Category },
       ],
     });
     res.status(201).json(categoryStall);

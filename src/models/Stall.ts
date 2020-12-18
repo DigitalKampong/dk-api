@@ -106,11 +106,11 @@ Stall.init(
       },
     },
   },
-  {sequelize}
+  { sequelize }
 );
 
-Stall.hasMany(Product, {foreignKey: 'stallId'});
-Product.belongsTo(Stall, {foreignKey: 'stallId'});
-CategoryStall.belongsTo(Stall, {foreignKey: 'stallId'});
+Stall.hasMany(Product, { foreignKey: 'stallId' });
+Product.belongsTo(Stall, { foreignKey: 'stallId' });
+CategoryStall.belongsTo(Stall, { foreignKey: 'stallId' });
 
 export default Stall;

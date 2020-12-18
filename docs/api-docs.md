@@ -5,6 +5,22 @@
 
 ## Indices
 
+* [Categories](#categories)
+
+  * [Create Category](#1-create-category)
+  * [Delete Category](#2-delete-category)
+  * [Get Categories](#3-get-categories)
+  * [Get Category](#4-get-category)
+  * [Update Category](#5-update-category)
+
+* [CategoryStalls](#categorystalls)
+
+  * [Create CategoryStall](#1-create-categorystall)
+  * [Delete CategoryStall](#2-delete-categorystall)
+  * [Get CategoryStall](#3-get-categorystall)
+  * [Get CategoryStalls](#4-get-categorystalls)
+  * [Update CategoryStall](#5-update-categorystall)
+
 * [HawkerCentres](#hawkercentres)
 
   * [Create hawker centre](#1-create-hawker-centre)
@@ -45,6 +61,244 @@
 
 
 --------
+
+
+## Categories
+
+
+
+### 1. Create Category
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/categories
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "name": "Drinks"
+}
+```
+
+
+
+### 2. Delete Category
+
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: 
+URL: {{server_url}}/categories/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
+
+
+
+### 3. Get Categories
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/categories
+```
+
+
+
+### 4. Get Category
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/categories/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
+
+
+
+### 5. Update Category
+
+
+
+***Endpoint:***
+
+```bash
+Method: PUT
+Type: RAW
+URL: {{server_url}}/categories/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "name": "Japanese Food"
+}
+```
+
+
+
+## CategoryStalls
+
+
+
+### 1. Create CategoryStall
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/categoryStalls
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "stallId": "1",
+    "categoryId": "1"
+}
+```
+
+
+
+### 2. Delete CategoryStall
+
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: 
+URL: {{server_url}}/categoryStalls/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
+
+
+
+### 3. Get CategoryStall
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/categoryStalls/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
+
+
+
+### 4. Get CategoryStalls
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/categoryStalls
+```
+
+
+
+### 5. Update CategoryStall
+
+
+
+***Endpoint:***
+
+```bash
+Method: PUT
+Type: RAW
+URL: {{server_url}}/categoryStalls/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "stallId": "1",
+    "categoryId": "2"
+}
+```
+
 
 
 ## HawkerCentres
@@ -1616,4 +1870,4 @@ URL: {{server_url}}/stalls/:id/upload
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-16 17:30:43 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-19 00:41:58 by [docgen](https://github.com/thedevsaddam/docgen)

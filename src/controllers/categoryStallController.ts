@@ -44,7 +44,13 @@ async function showCategoryStall(req: Request, res: Response, next: NextFunction
 
 async function createCategoryStall(req: Request, res: Response, next: NextFunction) {
   try {
-    const categoryStall = await CategoryStall.create(req.body);
+    const categoryStallId = (await CategoryStall.create(req.body)).id;
+    const categoryStall = await CategoryStall.findByPk(categoryStallId, {
+      include: [
+        {association: CategoryStall.associations.Stall},
+        {association: CategoryStall.associations.Category},
+      ],
+    });
     res.status(201).json(categoryStall);
   } catch (err) {
     next(err);

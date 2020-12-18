@@ -42,7 +42,10 @@ async function showCategory(req: Request, res: Response, next: NextFunction) {
 
 async function createCategory(req: Request, res: Response, next: NextFunction) {
   try {
-    const category = await Category.create(req.body);
+    const categoryId = (await Category.create(req.body)).id;
+    const category = await Category.findByPk(categoryId, {
+      include: [{association: Category.associations.CategoryStalls}],
+    });
     res.status(201).json(category);
   } catch (err) {
     next(err);

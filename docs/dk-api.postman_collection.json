@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ebed5f9e-d347-4cce-a593-f85eb62acf79",
+		"_postman_id": "165b11b0-1dd9-400c-8bd4-ae0d0960739d",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -85,7 +85,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 1,\n    \"name\": \"Chicken Rice\",\n    \"category\": \"chinese cuisine\",\n    \"description\": \"delicious chicken rice\",\n    \"price\": 3.8,\n    \"image\": \"http://image_url\",\n    \"stallId\": 1,\n    \"createdAt\": \"2020-12-09T06:40:05.643Z\",\n    \"updatedAt\": \"2020-12-09T06:40:44.440Z\"\n}"
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Chicken Rice\",\n    \"category\": \"chinese cuisine\",\n    \"description\": \"delicious chicken rice\",\n    \"price\": 3.8,\n    \"stallId\": 1,\n    \"createdAt\": \"2020-12-09T06:40:05.643Z\",\n    \"updatedAt\": \"2020-12-09T06:40:44.440Z\"\n}"
 						}
 					]
 				},
@@ -159,7 +159,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n    {\n        \"id\": 2,\n        \"name\": \"Duck Rice\",\n        \"category\": \"chinese cuisine\",\n        \"description\": \"duck rice\",\n        \"price\": 2.5,\n        \"image\": \"http://image_url\",\n        \"stallId\": 1,\n        \"createdAt\": \"2020-12-09T06:41:47.910Z\",\n        \"updatedAt\": \"2020-12-09T06:41:47.910Z\",\n        \"Stall\": {\n            \"id\": 1,\n            \"name\": \"5 Star Chicken Rice Stall\",\n            \"description\": \"newer description\",\n            \"rating\": 4.5,\n            \"contactNo\": \"91234567\",\n            \"unitNo\": \"01-02\",\n            \"hawkerCentreId\": 1,\n            \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n            \"updatedAt\": \"2020-12-09T06:37:35.710Z\",\n            \"HawkerCentre\": {\n                \"id\": 1,\n                \"name\": \"Yuhua Village Market\",\n                \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n                \"regionId\": 1,\n                \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n                \"updatedAt\": \"2020-12-09T06:29:04.408Z\"\n            }\n        }\n    },\n    {\n        \"id\": 1,\n        \"name\": \"Chicken Rice\",\n        \"category\": \"chinese cuisine\",\n        \"description\": \"delicious chicken rice\",\n        \"price\": 3.8,\n        \"image\": \"http://image_url\",\n        \"stallId\": 1,\n        \"createdAt\": \"2020-12-09T06:40:05.643Z\",\n        \"updatedAt\": \"2020-12-09T06:40:44.440Z\",\n        \"Stall\": {\n            \"id\": 1,\n            \"name\": \"5 Star Chicken Rice Stall\",\n            \"description\": \"newer description\",\n            \"rating\": 4.5,\n            \"contactNo\": \"91234567\",\n            \"unitNo\": \"01-02\",\n            \"hawkerCentreId\": 1,\n            \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n            \"updatedAt\": \"2020-12-09T06:37:35.710Z\",\n            \"HawkerCentre\": {\n                \"id\": 1,\n                \"name\": \"Yuhua Village Market\",\n                \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n                \"regionId\": 1,\n                \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n                \"updatedAt\": \"2020-12-09T06:29:04.408Z\"\n            }\n        }\n    }\n]"
+							"body": "[\n    {\n        \"id\": 2,\n        \"name\": \"Duck Rice\",\n        \"category\": \"chinese cuisine\",\n        \"description\": \"duck rice\",\n        \"price\": 2.5,\n        \"stallId\": 1,\n        \"createdAt\": \"2020-12-09T06:41:47.910Z\",\n        \"updatedAt\": \"2020-12-09T06:41:47.910Z\",\n        \"Stall\": {\n            \"id\": 1,\n            \"name\": \"5 Star Chicken Rice Stall\",\n            \"description\": \"newer description\",\n            \"rating\": 4.5,\n            \"contactNo\": \"91234567\",\n            \"unitNo\": \"01-02\",\n            \"hawkerCentreId\": 1,\n            \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n            \"updatedAt\": \"2020-12-09T06:37:35.710Z\",\n            \"HawkerCentre\": {\n                \"id\": 1,\n                \"name\": \"Yuhua Village Market\",\n                \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n                \"regionId\": 1,\n                \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n                \"updatedAt\": \"2020-12-09T06:29:04.408Z\"\n            }\n        }\n    },\n    {\n        \"id\": 1,\n        \"name\": \"Chicken Rice\",\n        \"category\": \"chinese cuisine\",\n        \"description\": \"delicious chicken rice\",\n        \"price\": 3.8,\n        \"stallId\": 1,\n        \"createdAt\": \"2020-12-09T06:40:05.643Z\",\n        \"updatedAt\": \"2020-12-09T06:40:44.440Z\",\n        \"Stall\": {\n            \"id\": 1,\n            \"name\": \"5 Star Chicken Rice Stall\",\n            \"description\": \"newer description\",\n            \"rating\": 4.5,\n            \"contactNo\": \"91234567\",\n            \"unitNo\": \"01-02\",\n            \"hawkerCentreId\": 1,\n            \"createdAt\": \"2020-12-09T06:37:05.828Z\",\n            \"updatedAt\": \"2020-12-09T06:37:35.710Z\",\n            \"HawkerCentre\": {\n                \"id\": 1,\n                \"name\": \"Yuhua Village Market\",\n                \"address\": \"254 Jurong East Street 24, Singapore 600254\",\n                \"regionId\": 1,\n                \"createdAt\": \"2020-12-09T06:26:55.647Z\",\n                \"updatedAt\": \"2020-12-09T06:29:04.408Z\"\n            }\n        }\n    }\n]"
 						}
 					]
 				},
@@ -170,7 +170,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Duck Rice\",\n    \"stallId\": 1,\n    \"category\": \"chinese cuisine\",\n    \"description\": \"duck rice\",\n    \"price\": 2.5,\n    \"image\": \"http://image_url\"\n}",
+							"raw": "{\n    \"name\": \"Duck Rice\",\n    \"stallId\": 1,\n    \"category\": \"chinese cuisine\",\n    \"description\": \"duck rice\",\n    \"price\": 2.5\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -195,7 +195,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Chicken Rice\",\n    \"stallId\": 1,\n    \"category\": \"chinese cuisine\",\n    \"description\": \"delicious chicken rice\",\n    \"price\": 3.5,\n    \"image\": \"http://image_url\"\n}",
+									"raw": "{\n    \"name\": \"Duck Rice\",\n    \"stallId\": 1,\n    \"category\": \"chinese cuisine\",\n    \"description\": \"duck rice\",\n    \"price\": 2.5\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -230,15 +230,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "227"
+									"value": "552"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"e3-XRQwTS8eDi5Hu13ThQXrWxIgysM\""
+									"value": "W/\"228-lYymVigt2iEh82ZwLDbWa8zClt8\""
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 09 Dec 2020 06:40:05 GMT"
+									"value": "Wed, 16 Dec 2020 09:28:29 GMT"
 								},
 								{
 									"key": "Connection",
@@ -250,7 +250,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 1,\n    \"name\": \"Chicken Rice\",\n    \"stallId\": 1,\n    \"category\": \"chinese cuisine\",\n    \"description\": \"delicious chicken rice\",\n    \"price\": 3.5,\n    \"image\": \"http://image_url\",\n    \"updatedAt\": \"2020-12-09T06:40:05.643Z\",\n    \"createdAt\": \"2020-12-09T06:40:05.643Z\"\n}"
+							"body": "{\n    \"id\": 3,\n    \"name\": \"Duck Rice\",\n    \"category\": \"chinese cuisine\",\n    \"description\": \"duck rice\",\n    \"price\": 2.5,\n    \"stallId\": 1,\n    \"createdAt\": \"2020-12-16T09:28:29.783Z\",\n    \"updatedAt\": \"2020-12-16T09:28:29.783Z\",\n    \"Images\": [],\n    \"Stall\": {\n        \"id\": 1,\n        \"name\": \"fav stall\",\n        \"description\": null,\n        \"rating\": null,\n        \"contactNo\": null,\n        \"unitNo\": null,\n        \"hawkerCentreId\": 1,\n        \"createdAt\": \"2020-12-16T06:53:15.271Z\",\n        \"updatedAt\": \"2020-12-16T06:53:15.271Z\",\n        \"HawkerCentre\": {\n            \"id\": 1,\n            \"name\": \"fav hawker centre\",\n            \"address\": \"asdf\",\n            \"regionId\": 2,\n            \"createdAt\": \"2020-12-16T06:52:38.182Z\",\n            \"updatedAt\": \"2020-12-16T06:52:38.182Z\"\n        }\n    }\n}"
 						}
 					]
 				},
@@ -301,13 +301,19 @@
 									}
 								},
 								"url": {
-									"raw": "{{server_url}}/products/1",
+									"raw": "{{server_url}}/products/:id",
 									"host": [
 										"{{server_url}}"
 									],
 									"path": [
 										"products",
-										"1"
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "3"
+										}
 									]
 								}
 							},
@@ -329,15 +335,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "227"
+									"value": "552"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"e3-vCPR6B/96BMrsRfmQGx8m8H4z2U\""
+									"value": "W/\"228-q8U4fboR5+DIwuqUmEgHql8f/lg\""
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 09 Dec 2020 06:40:44 GMT"
+									"value": "Wed, 16 Dec 2020 09:28:55 GMT"
 								},
 								{
 									"key": "Connection",
@@ -349,7 +355,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"id\": 1,\n    \"name\": \"Chicken Rice\",\n    \"category\": \"chinese cuisine\",\n    \"description\": \"delicious chicken rice\",\n    \"price\": 3.8,\n    \"image\": \"http://image_url\",\n    \"stallId\": 1,\n    \"createdAt\": \"2020-12-09T06:40:05.643Z\",\n    \"updatedAt\": \"2020-12-09T06:40:44.440Z\"\n}"
+							"body": "{\n    \"id\": 3,\n    \"name\": \"Duck Rice\",\n    \"category\": \"chinese cuisine\",\n    \"description\": \"duck rice\",\n    \"price\": 3.8,\n    \"stallId\": 1,\n    \"createdAt\": \"2020-12-16T09:28:29.783Z\",\n    \"updatedAt\": \"2020-12-16T09:28:55.954Z\",\n    \"Images\": [],\n    \"Stall\": {\n        \"id\": 1,\n        \"name\": \"fav stall\",\n        \"description\": null,\n        \"rating\": null,\n        \"contactNo\": null,\n        \"unitNo\": null,\n        \"hawkerCentreId\": 1,\n        \"createdAt\": \"2020-12-16T06:53:15.271Z\",\n        \"updatedAt\": \"2020-12-16T06:53:15.271Z\",\n        \"HawkerCentre\": {\n            \"id\": 1,\n            \"name\": \"fav hawker centre\",\n            \"address\": \"asdf\",\n            \"regionId\": 2,\n            \"createdAt\": \"2020-12-16T06:52:38.182Z\",\n            \"updatedAt\": \"2020-12-16T06:52:38.182Z\"\n        }\n    }\n}"
 						}
 					]
 				},
@@ -425,6 +431,115 @@
 							"body": ""
 						}
 					]
+				},
+				{
+					"name": "Upload product images",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/Users/ivan/Desktop/cats/cat-3.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server_url}}/products/:id/upload",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"products",
+								":id",
+								"upload"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Upload product images",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "images",
+											"type": "file",
+											"src": "/Users/ivan/Desktop/cats/cat-3.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{server_url}}/products/:id/upload",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"products",
+										":id",
+										"upload"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "808"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"328-GCgzT4ef+Tma26D1EkuOkA4/Sr0\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 16 Dec 2020 09:18:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"Duck Rice\",\n    \"category\": \"chinese cuisine\",\n    \"description\": \"duck rice\",\n    \"price\": 2.5,\n    \"stallId\": 1,\n    \"createdAt\": \"2020-12-16T09:10:24.065Z\",\n    \"updatedAt\": \"2020-12-16T09:10:24.065Z\",\n    \"Images\": [\n        {\n            \"id\": 6,\n            \"downloadUrl\": \"https://storage.googleapis.com/test-bucket-2314/da21d345-950e-4aca-9a96-ccbb3b8ab5e5.jpeg\"\n        }\n    ],\n    \"Stall\": {\n        \"id\": 1,\n        \"name\": \"fav stall\",\n        \"description\": null,\n        \"rating\": null,\n        \"contactNo\": null,\n        \"unitNo\": null,\n        \"hawkerCentreId\": 1,\n        \"createdAt\": \"2020-12-16T06:53:15.271Z\",\n        \"updatedAt\": \"2020-12-16T06:53:15.271Z\",\n        \"HawkerCentre\": {\n            \"id\": 1,\n            \"name\": \"fav hawker centre\",\n            \"address\": \"asdf\",\n            \"regionId\": 2,\n            \"createdAt\": \"2020-12-16T06:52:38.182Z\",\n            \"updatedAt\": \"2020-12-16T06:52:38.182Z\"\n        }\n    }\n}"
+						}
+					]
 				}
 			],
 			"description": "Fields allowed\n- name: string;\n- category: string | null;\n- description: string | null;\n- price: number | null;\n- image: string | null;\n- stallId: number;",
@@ -432,7 +547,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "c2d4cb37-5712-4b8e-b130-79d0116c468c",
+						"id": "623d5fd7-aa6f-4599-bcf1-17d52b51b667",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -442,7 +557,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d86c2065-045d-4058-8349-398e6b49d733",
+						"id": "2b325f51-8b59-49f9-bcd2-3fe79097cdf1",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -890,6 +1005,115 @@
 							"body": ""
 						}
 					]
+				},
+				{
+					"name": "Upload stall images",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/Users/ivan/Desktop/cats/cat-1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server_url}}/stalls/:id/upload",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls",
+								":id",
+								"upload"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Upload stall images",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "images",
+											"type": "file",
+											"src": "/Users/ivan/Desktop/cats/cat-1.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{server_url}}/stalls/:id/upload",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"stalls",
+										":id",
+										"upload"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1136"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"470-jX8LeP1HZb3t0uIh6yLQJsyQibA\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 16 Dec 2020 09:14:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"fav stall\",\n    \"description\": null,\n    \"rating\": null,\n    \"contactNo\": null,\n    \"unitNo\": null,\n    \"hawkerCentreId\": 1,\n    \"createdAt\": \"2020-12-16T06:53:15.271Z\",\n    \"updatedAt\": \"2020-12-16T06:53:15.271Z\",\n    \"Products\": [\n        {\n            \"id\": 1,\n            \"name\": \"Duck Rice\",\n            \"category\": \"chinese cuisine\",\n            \"description\": \"duck rice\",\n            \"price\": 2.5,\n            \"image\": \"http://image_url\",\n            \"stallId\": 1,\n            \"createdAt\": \"2020-12-16T09:10:24.065Z\",\n            \"updatedAt\": \"2020-12-16T09:10:24.065Z\"\n        }\n    ],\n    \"Images\": [\n        {\n            \"id\": 2,\n            \"downloadUrl\": \"https://storage.googleapis.com/test-bucket-2314/258fb451-c4a8-4804-839b-09401438fb6d.jpeg\"\n        }\n    ],\n    \"HawkerCentre\": {\n        \"id\": 1,\n        \"name\": \"fav hawker centre\",\n        \"address\": \"asdf\",\n        \"regionId\": 2,\n        \"createdAt\": \"2020-12-16T06:52:38.182Z\",\n        \"updatedAt\": \"2020-12-16T06:52:38.182Z\",\n        \"Region\": {\n            \"id\": 2,\n            \"name\": \"North\",\n            \"createdAt\": \"2020-12-16T06:52:03.192Z\",\n            \"updatedAt\": \"2020-12-16T06:52:03.192Z\"\n        }\n    }\n}"
+						}
+					]
 				}
 			],
 			"description": "Fields allowed:\n- name: string;\n- description: string | null;\n- rating: number | null;\n- contactNo: string | null;\n- unitNo: string | null;\n- hawkerCentreId: number;",
@@ -897,7 +1121,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "1126b9eb-d83a-41a8-9043-172da7c536be",
+						"id": "b3631136-c882-4c40-ba61-847970d072e8",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -907,7 +1131,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3e011bfa-b3f2-435e-8df3-a10bd14e1d0c",
+						"id": "6b6a24b1-ea74-4ae9-8ce0-cd4fbee804d9",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1343,7 +1567,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "16e842e1-357f-433e-8711-3fe8866a57f4",
+						"id": "a69f0c9e-9d96-4630-8ad6-f32bb65f5e05",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1353,7 +1577,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "931b2b1d-8c1a-408d-94c9-16b94ea0aae2",
+						"id": "8ff50e6a-ade1-4fae-8423-d6574b091edf",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1789,7 +2013,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "69cc8325-71d5-4003-8105-a12467d557c5",
+						"id": "0824f354-dac0-4a48-9514-decde7ee0edf",
 						"type": "text/javascript",
 						"exec": [
 							""
@@ -1799,7 +2023,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "9eed2bb7-1ef0-449f-8822-6e396b582ff1",
+						"id": "9b711261-507f-4459-bfc9-66553db82d9d",
 						"type": "text/javascript",
 						"exec": [
 							""

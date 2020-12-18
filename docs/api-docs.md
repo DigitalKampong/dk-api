@@ -20,6 +20,7 @@
   * [Get product](#3-get-product)
   * [Get products](#4-get-products)
   * [Update product](#5-update-product)
+  * [Upload product images](#6-upload-product-images)
 
 * [Regions](#regions)
 
@@ -40,6 +41,7 @@
   * [Get stall](#3-get-stall)
   * [Get stalls](#4-get-stalls)
   * [Update stall](#5-update-stall)
+  * [Upload stall images](#6-upload-stall-images)
 
 
 --------
@@ -351,8 +353,7 @@ URL: {{server_url}}/products
     "stallId": 1,
     "category": "chinese cuisine",
     "description": "duck rice",
-    "price": 2.5,
-    "image": "http://image_url"
+    "price": 2.5
 }
 ```
 
@@ -369,12 +370,11 @@ URL: {{server_url}}/products
 
 ```js        
 {
-    "name": "Chicken Rice",
+    "name": "Duck Rice",
     "stallId": 1,
     "category": "chinese cuisine",
-    "description": "delicious chicken rice",
-    "price": 3.5,
-    "image": "http://image_url"
+    "description": "duck rice",
+    "price": 2.5
 }
 ```
 
@@ -383,15 +383,34 @@ URL: {{server_url}}/products
 ##### I. Example Response: Create product
 ```js
 {
-    "id": 1,
-    "name": "Chicken Rice",
-    "stallId": 1,
+    "id": 3,
+    "name": "Duck Rice",
     "category": "chinese cuisine",
-    "description": "delicious chicken rice",
-    "price": 3.5,
-    "image": "http://image_url",
-    "updatedAt": "2020-12-09T06:40:05.643Z",
-    "createdAt": "2020-12-09T06:40:05.643Z"
+    "description": "duck rice",
+    "price": 2.5,
+    "stallId": 1,
+    "createdAt": "2020-12-16T09:28:29.783Z",
+    "updatedAt": "2020-12-16T09:28:29.783Z",
+    "Images": [],
+    "Stall": {
+        "id": 1,
+        "name": "fav stall",
+        "description": null,
+        "rating": null,
+        "contactNo": null,
+        "unitNo": null,
+        "hawkerCentreId": 1,
+        "createdAt": "2020-12-16T06:53:15.271Z",
+        "updatedAt": "2020-12-16T06:53:15.271Z",
+        "HawkerCentre": {
+            "id": 1,
+            "name": "fav hawker centre",
+            "address": "asdf",
+            "regionId": 2,
+            "createdAt": "2020-12-16T06:52:38.182Z",
+            "updatedAt": "2020-12-16T06:52:38.182Z"
+        }
+    }
 }
 ```
 
@@ -474,7 +493,6 @@ URL: {{server_url}}/products/:id
     "category": "chinese cuisine",
     "description": "delicious chicken rice",
     "price": 3.8,
-    "image": "http://image_url",
     "stallId": 1,
     "createdAt": "2020-12-09T06:40:05.643Z",
     "updatedAt": "2020-12-09T06:40:44.440Z"
@@ -520,7 +538,6 @@ URL: {{server_url}}/products
         "category": "chinese cuisine",
         "description": "duck rice",
         "price": 2.5,
-        "image": "http://image_url",
         "stallId": 1,
         "createdAt": "2020-12-09T06:41:47.910Z",
         "updatedAt": "2020-12-09T06:41:47.910Z",
@@ -550,7 +567,6 @@ URL: {{server_url}}/products
         "category": "chinese cuisine",
         "description": "delicious chicken rice",
         "price": 3.8,
-        "image": "http://image_url",
         "stallId": 1,
         "createdAt": "2020-12-09T06:40:05.643Z",
         "updatedAt": "2020-12-09T06:40:44.440Z",
@@ -623,6 +639,14 @@ URL: {{server_url}}/products/:id
 
 
 
+***Query:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 3 |  |
+
+
+
 ***Body:***
 
 ```js        
@@ -636,15 +660,133 @@ URL: {{server_url}}/products/:id
 ##### I. Example Response: Update product
 ```js
 {
-    "id": 1,
-    "name": "Chicken Rice",
+    "id": 3,
+    "name": "Duck Rice",
     "category": "chinese cuisine",
-    "description": "delicious chicken rice",
+    "description": "duck rice",
     "price": 3.8,
-    "image": "http://image_url",
     "stallId": 1,
-    "createdAt": "2020-12-09T06:40:05.643Z",
-    "updatedAt": "2020-12-09T06:40:44.440Z"
+    "createdAt": "2020-12-16T09:28:29.783Z",
+    "updatedAt": "2020-12-16T09:28:55.954Z",
+    "Images": [],
+    "Stall": {
+        "id": 1,
+        "name": "fav stall",
+        "description": null,
+        "rating": null,
+        "contactNo": null,
+        "unitNo": null,
+        "hawkerCentreId": 1,
+        "createdAt": "2020-12-16T06:53:15.271Z",
+        "updatedAt": "2020-12-16T06:53:15.271Z",
+        "HawkerCentre": {
+            "id": 1,
+            "name": "fav hawker centre",
+            "address": "asdf",
+            "regionId": 2,
+            "createdAt": "2020-12-16T06:52:38.182Z",
+            "updatedAt": "2020-12-16T06:52:38.182Z"
+        }
+    }
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 6. Upload product images
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: FORMDATA
+URL: {{server_url}}/products/:id/upload
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 1 |  |
+
+
+
+***Body:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| images |  |  |
+
+
+
+***More example Requests/Responses:***
+
+
+##### I. Example Request: Upload product images
+
+
+
+***Query:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 1 |  |
+
+
+
+***Body:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| images |  |  |
+
+
+
+##### I. Example Response: Upload product images
+```js
+{
+    "id": 1,
+    "name": "Duck Rice",
+    "category": "chinese cuisine",
+    "description": "duck rice",
+    "price": 2.5,
+    "stallId": 1,
+    "createdAt": "2020-12-16T09:10:24.065Z",
+    "updatedAt": "2020-12-16T09:10:24.065Z",
+    "Images": [
+        {
+            "id": 6,
+            "downloadUrl": "https://storage.googleapis.com/test-bucket-2314/da21d345-950e-4aca-9a96-ccbb3b8ab5e5.jpeg"
+        }
+    ],
+    "Stall": {
+        "id": 1,
+        "name": "fav stall",
+        "description": null,
+        "rating": null,
+        "contactNo": null,
+        "unitNo": null,
+        "hawkerCentreId": 1,
+        "createdAt": "2020-12-16T06:53:15.271Z",
+        "updatedAt": "2020-12-16T06:53:15.271Z",
+        "HawkerCentre": {
+            "id": 1,
+            "name": "fav hawker centre",
+            "address": "asdf",
+            "regionId": 2,
+            "createdAt": "2020-12-16T06:52:38.182Z",
+            "updatedAt": "2020-12-16T06:52:38.182Z"
+        }
+    }
 }
 ```
 
@@ -1364,6 +1506,114 @@ URL: {{server_url}}/stalls/:id
 
 
 
+### 6. Upload stall images
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: FORMDATA
+URL: {{server_url}}/stalls/:id/upload
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 1 |  |
+
+
+
+***Body:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| images |  |  |
+
+
+
+***More example Requests/Responses:***
+
+
+##### I. Example Request: Upload stall images
+
+
+
+***Query:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 1 |  |
+
+
+
+***Body:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| images |  |  |
+
+
+
+##### I. Example Response: Upload stall images
+```js
+{
+    "id": 1,
+    "name": "fav stall",
+    "description": null,
+    "rating": null,
+    "contactNo": null,
+    "unitNo": null,
+    "hawkerCentreId": 1,
+    "createdAt": "2020-12-16T06:53:15.271Z",
+    "updatedAt": "2020-12-16T06:53:15.271Z",
+    "Products": [
+        {
+            "id": 1,
+            "name": "Duck Rice",
+            "category": "chinese cuisine",
+            "description": "duck rice",
+            "price": 2.5,
+            "image": "http://image_url",
+            "stallId": 1,
+            "createdAt": "2020-12-16T09:10:24.065Z",
+            "updatedAt": "2020-12-16T09:10:24.065Z"
+        }
+    ],
+    "Images": [
+        {
+            "id": 2,
+            "downloadUrl": "https://storage.googleapis.com/test-bucket-2314/258fb451-c4a8-4804-839b-09401438fb6d.jpeg"
+        }
+    ],
+    "HawkerCentre": {
+        "id": 1,
+        "name": "fav hawker centre",
+        "address": "asdf",
+        "regionId": 2,
+        "createdAt": "2020-12-16T06:52:38.182Z",
+        "updatedAt": "2020-12-16T06:52:38.182Z",
+        "Region": {
+            "id": 2,
+            "name": "North",
+            "createdAt": "2020-12-16T06:52:03.192Z",
+            "updatedAt": "2020-12-16T06:52:03.192Z"
+        }
+    }
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-14 18:04:21 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-16 17:30:43 by [docgen](https://github.com/thedevsaddam/docgen)

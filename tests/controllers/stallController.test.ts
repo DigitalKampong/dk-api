@@ -10,7 +10,7 @@ describe('POST /stalls', () => {
     const hawkerCentre = await HawkerCentreFact.create();
     const res = await request(app)
       .post('/stalls')
-      .send({name: 'best chicken rice', hawkerCentreId: hawkerCentre.id});
+      .send({ name: 'best chicken rice', hawkerCentreId: hawkerCentre.id });
 
     expect(res.status).toEqual(201);
     expect(res.body).toHaveProperty('name', 'best chicken rice');
@@ -20,7 +20,7 @@ describe('POST /stalls', () => {
     // Change the error code once we figure out a way to handle user errors gracefully
     // it is now caught by the general error handler. The general error handler uses console.error so we hide it away for now.
     const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
-    const res = await request(app).post('/stalls').send({name: ''});
+    const res = await request(app).post('/stalls').send({ name: '' });
 
     expect(res.status).toEqual(500);
     spy.mockRestore();
@@ -40,7 +40,7 @@ describe('GET /stall/:id', () => {
 describe('PUT /stall/:id', () => {
   it('returns an updated store', async () => {
     const stall = await StallFact.create();
-    const res = await request(app).put(`/stalls/${stall.id}`).send({name: 'noodles'});
+    const res = await request(app).put(`/stalls/${stall.id}`).send({ name: 'noodles' });
 
     expect(res.status).toEqual(200);
     expect(res.body).toHaveProperty('name', 'noodles');

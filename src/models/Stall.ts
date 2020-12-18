@@ -22,6 +22,7 @@ import sequelize from '../db';
 import Product from './Product';
 import HawkerCentre from './HawkerCentre';
 import Image from './Image';
+import CategoryStall from './CategoryStall';
 
 interface StallAttributes {
   id: number;
@@ -126,5 +127,6 @@ Stall.init(
 Stall.hasMany(Product, { foreignKey: 'stallId' });
 Product.belongsTo(Stall, { foreignKey: 'stallId' });
 Stall.hasMany(Image, { foreignKey: 'stallId' });
+CategoryStall.belongsTo(Stall, { foreignKey: 'stallId' });
 
 export default Stall;

@@ -25,7 +25,6 @@ import Image from './Image';
 interface ProductAttributes {
   id: number;
   name: string;
-  category: string | null;
   description: string | null;
   price: number | null;
   stallId: number;
@@ -38,7 +37,6 @@ class Product
   implements ProductAttributes {
   public id!: number;
   public name!: string;
-  public category!: string | null;
   public description!: string | null;
   public price!: number | null;
   public stallId!: number;
@@ -83,9 +81,6 @@ Product.init(
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    category: {
-      type: DataTypes.STRING,
     },
     description: {
       type: DataTypes.STRING,

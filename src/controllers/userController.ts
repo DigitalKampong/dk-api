@@ -1,9 +1,9 @@
-import User from '../models/User';
 import { Request, Response, NextFunction } from 'express';
+import { UniqueConstraintError } from 'sequelize';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const { UniqueConstraintError } = require('sequelize');
+import User from '../models/User';
 
 async function register(req: Request, res: Response, next: NextFunction) {
   const { email, password } = req.body;

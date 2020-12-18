@@ -12,6 +12,7 @@ function auth(req: Request, res: Response, next: NextFunction) {
   }
 
   try {
+    // High chance the decoded value is wrong. Payload only contains { id: user.id }, unlikely will take the form of User
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err: Error, decoded: User) => {
       if (err) {
         next(err);
@@ -24,5 +25,8 @@ function auth(req: Request, res: Response, next: NextFunction) {
     next(err);
   }
 }
+
+// To do auth for admin
+// function authAdmin() {}
 
 export default auth;

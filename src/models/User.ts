@@ -1,4 +1,4 @@
-import {Model, DataTypes} from 'sequelize';
+import { Model, DataTypes } from 'sequelize';
 
 import sequelize from '../db';
 
@@ -23,7 +23,7 @@ User.init(
       type: DataTypes.STRING,
     },
   },
-  {sequelize}
+  { sequelize }
 );
 
 export default User;

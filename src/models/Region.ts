@@ -44,7 +44,7 @@ class Region extends Model<RegionAttributes, RegionCreationAttributes> implement
   public removeHawkerCentres!: HasManyRemoveAssociationsMixin<HawkerCentre, number>;
   public setHawkerCentres!: HasManySetAssociationsMixin<HawkerCentre, number>;
 
-  public readonly hawkerCentres?: HawkerCentre[];
+  public readonly HawkerCentres?: HawkerCentre[];
 
   public static associations: {
     HawkerCentres: Association<Region, HawkerCentre>;
@@ -64,10 +64,10 @@ Region.init(
       allowNull: false,
     },
   },
-  {sequelize}
+  { sequelize }
 );
 
-Region.hasMany(HawkerCentre, {foreignKey: 'regionId'});
-HawkerCentre.belongsTo(Region, {foreignKey: 'regionId'});
+Region.hasMany(HawkerCentre, { foreignKey: 'regionId' });
+HawkerCentre.belongsTo(Region, { foreignKey: 'regionId' });
 
 export default Region;

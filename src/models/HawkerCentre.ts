@@ -59,8 +59,8 @@ class HawkerCentre
   public removeStalls!: HasManyRemoveAssociationsMixin<Stall, number>;
   public setStalls!: HasManySetAssociationsMixin<Stall, number>;
 
-  public readonly region?: Region;
-  public readonly stalls?: Stall[];
+  public readonly Region?: Region;
+  public readonly Stalls?: Stall[];
 
   public static associations: {
     Region: Association<HawkerCentre, Region>;
@@ -92,10 +92,10 @@ HawkerCentre.init(
       },
     },
   },
-  {sequelize}
+  { sequelize }
 );
 
-HawkerCentre.hasMany(Stall, {foreignKey: 'hawkerCentreId'});
-Stall.belongsTo(HawkerCentre, {foreignKey: 'hawkerCentreId'});
+HawkerCentre.hasMany(Stall, { foreignKey: 'hawkerCentreId' });
+Stall.belongsTo(HawkerCentre, { foreignKey: 'hawkerCentreId' });
 
 export default HawkerCentre;

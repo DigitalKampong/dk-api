@@ -1,9 +1,9 @@
 import Region from '../models/Region';
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 async function postIdFormatting(req: Request, res: Response, next: NextFunction) {
   try {
-    const region = {id: req.body['regionId'], ...req.body};
+    const region = { id: req.body['regionId'], ...req.body };
     delete region['regionId'];
     req.body = region;
     next();
@@ -15,7 +15,7 @@ async function postIdFormatting(req: Request, res: Response, next: NextFunction)
 async function getIdFormatting(req: Request, res: Response, next: NextFunction) {
   try {
     let plainRegion = JSON.parse(JSON.stringify(req.region));
-    plainRegion = {regionId: plainRegion['id'], ...plainRegion};
+    plainRegion = { regionId: plainRegion['id'], ...plainRegion };
     delete plainRegion['id'];
 
     req.body = plainRegion;
@@ -29,7 +29,7 @@ async function getMultipleIdFormatting(req: Request, res: Response, next: NextFu
   try {
     const changedKeys = req.body.map((x: Region) => {
       let plainRegion = JSON.parse(JSON.stringify(x));
-      plainRegion = {regionId: plainRegion['id'], ...plainRegion};
+      plainRegion = { regionId: plainRegion['id'], ...plainRegion };
       delete plainRegion['id'];
       return plainRegion;
     });

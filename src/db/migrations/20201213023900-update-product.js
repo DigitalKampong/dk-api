@@ -19,7 +19,7 @@ module.exports = {
               `
           ALTER TABLE "${table}" ADD COLUMN ${vectorName} TSVECTOR;
         `,
-              {transaction: t}
+              { transaction: t }
             )
             .then(() =>
               queryInterface.sequelize.query(
@@ -28,7 +28,7 @@ module.exports = {
                   table
                 ].join(" || ' ' || ")});
               `,
-                {transaction: t}
+                { transaction: t }
               )
             )
             .then(() =>
@@ -36,7 +36,7 @@ module.exports = {
                 `
                 CREATE INDEX "${table}_search" ON "${table}" USING gin(${vectorName});
               `,
-                {transaction: t}
+                { transaction: t }
               )
             )
             .then(() =>
@@ -48,7 +48,7 @@ module.exports = {
                   table
                 ].join(', ')});
               `,
-                {transaction: t}
+                { transaction: t }
               )
             )
         )
@@ -64,14 +64,14 @@ module.exports = {
               `
           DROP TRIGGER "${table}_vector_update" ON "${table}";
         `,
-              {transaction: t}
+              { transaction: t }
             )
             .then(() =>
               queryInterface.sequelize.query(
                 `
                 DROP INDEX "${table}_search";
               `,
-                {transaction: t}
+                { transaction: t }
               )
             )
             .then(() =>
@@ -79,7 +79,7 @@ module.exports = {
                 `
                 ALTER TABLE "${table}" DROP COLUMN ${vectorName};
               `,
-                {transaction: t}
+                { transaction: t }
               )
             )
         )

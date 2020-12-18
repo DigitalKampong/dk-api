@@ -1,4 +1,4 @@
-import {Router} from 'express';
+import { Router } from 'express';
 import * as productController from '../controllers/productController';
 
 const router = Router();
@@ -8,5 +8,6 @@ router.get('/:id', productController.showProductFuncs);
 router.post('/', productController.createProductFuncs);
 router.put('/:id', productController.updateProductFuncs);
 router.delete('/:id', productController.destroyProductFuncs);
+router.post('/:id/upload', productController.uploadProductImagesFuncs);
 
 export default router;

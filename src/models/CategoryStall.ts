@@ -74,7 +74,7 @@ CategoryStall.init(
       },
     },
   },
-  {sequelize}
+  { sequelize }
 );
 
 export default CategoryStall;

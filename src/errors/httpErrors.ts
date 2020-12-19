@@ -8,15 +8,27 @@ export class HTTPError extends Error {
   }
 }
 
-export class NotFoundError extends HTTPError {
-  constructor(message: string) {
-    super(message, 'NotFoundError', 404);
-  }
-}
-
 export class BadRequestError extends HTTPError {
   constructor(message: string) {
     super(message, 'BadRequestError', 400);
+  }
+}
+
+export class UnauthorizedError extends HTTPError {
+  constructor(message: string) {
+    super(message, 'UnauthorizedError', 401);
+  }
+}
+
+export class ForbiddenError extends HTTPError {
+  constructor(message: string) {
+    super(message, 'ForbiddenError', 403);
+  }
+}
+
+export class NotFoundError extends HTTPError {
+  constructor(message: string) {
+    super(message, 'NotFoundError', 404);
   }
 }
 

@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 import User from '../models/User';
+import { BadRequestError, UnauthorizedError } from '../errors/httpErrors';
 
 async function register(req: Request, res: Response, next: NextFunction) {
   const { email, password } = req.body;
@@ -31,9 +32,10 @@ async function register(req: Request, res: Response, next: NextFunction) {
     );
   } catch (err) {
     if (err instanceof UniqueConstraintError) {
-      res.status(400).json('User already exists');
+      next(new BadRequestError('User already exists'));
+    } else {
+      next(err);
     }
-    next(err);
   }
 }
 
@@ -42,12 +44,12 @@ async function login(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      res.status(400).json('User does not exist');
+      throw new BadRequestError('User does not exists');
     }
 
     const isMatch = await bcrypt.compare(password, user!.password);
     if (!isMatch) {
-      res.status(400).json('Invalid Credentials');
+      throw new UnauthorizedError('Invalid Credentials');
     }
 
     const payload = {

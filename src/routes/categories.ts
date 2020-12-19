@@ -5,8 +5,8 @@ const router = Router();
 
 router.get('/', categoryController.indexCategoryFuncs);
 router.get('/:id', categoryController.showCategoryFuncs);
-router.post('/', categoryController.createCategoryFuncs);
-router.put('/:id', categoryController.updateCategoryFuncs);
-router.delete('/:id', categoryController.destroyCategoryFuncs);
+router.post('/', auth, categoryController.createCategoryFuncs);
+router.put('/:id', auth, categoryController.updateCategoryFuncs);
+router.delete('/:id', auth, categoryController.destroyCategoryFuncs);
 
 export default router;

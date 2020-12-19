@@ -1,5 +1,6 @@
 import CategoryStall from '../models/CategoryStall';
 import { Request, Response, NextFunction } from 'express';
+import { NotFoundError } from '../errors/httpErrors';
 
 async function retrieveCategoryStall(req: Request, res: Response, next: NextFunction) {
   try {
@@ -10,8 +11,7 @@ async function retrieveCategoryStall(req: Request, res: Response, next: NextFunc
       ],
     });
     if (categoryStall === null) {
-      res.status(404).end();
-      return;
+      throw new NotFoundError('CategoryStall cannot be found');
     }
     req.categoryStall = categoryStall;
     next();

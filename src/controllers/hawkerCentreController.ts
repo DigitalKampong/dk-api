@@ -8,7 +8,7 @@ async function retrieveHawkerCentre(req: Request, res: Response, next: NextFunct
       include: [{ association: HawkerCentre.associations.Stalls }],
     });
     if (hawkerCentre === null) {
-      throw new NotFoundError('Hawker Centre cannot be found');
+      throw new NotFoundError('HawkerCentre cannot be found');
     }
     req.hawkerCentre = hawkerCentre;
     next();

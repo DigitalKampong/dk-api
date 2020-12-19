@@ -1,5 +1,6 @@
-import Category from '../models/Category';
 import { Request, Response, NextFunction } from 'express';
+import Category from '../models/Category';
+import { NotFoundError } from '../errors/httpErrors';
 
 async function retrieveCategory(req: Request, res: Response, next: NextFunction) {
   try {
@@ -7,8 +8,7 @@ async function retrieveCategory(req: Request, res: Response, next: NextFunction)
       include: [{ association: Category.associations.CategoryStalls }],
     });
     if (category === null) {
-      res.status(404).end();
-      return;
+      throw new NotFoundError('Category cannot be found');
     }
     req.category = category;
     next();

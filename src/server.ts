@@ -14,11 +14,8 @@ import hawkerCentres from './routes/hawkerCentres';
 import stalls from './routes/stalls';
 import products from './routes/products';
 import search from './routes/search';
-<<<<<<< HEAD
 import categories from './routes/categories';
 import categoryStalls from './routes/categoryStalls';
-=======
->>>>>>> Add middleware to create, update, delete routes
 import users from './routes/users';
 
 const app = express();
@@ -36,15 +33,8 @@ app.use('/regions', regions);
 app.use('/hawkerCentres', hawkerCentres);
 app.use('/stalls', stalls);
 app.use('/products', products);
-<<<<<<< HEAD
-<<<<<<< HEAD
 app.use('/categories', categories);
 app.use('/categoryStalls', categoryStalls);
-=======
-<<<<<<< HEAD
->>>>>>> Create user model, register and login routes
-=======
->>>>>>> Add middleware to create, update, delete routes
 app.use('/search', search);
 app.use('/', users);
 

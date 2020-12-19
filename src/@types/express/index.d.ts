@@ -15,7 +15,9 @@ declare module 'express' {
     product?: Product;
     category?: Category;
     categoryStall?: CategoryStall;
+
     user?: User;
+    userId?: number;
 
     images?: Image[];
     downloadUrls?: string[];

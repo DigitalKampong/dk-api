@@ -2,8 +2,13 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { TokenExpiredError } from 'jsonwebtoken';
 import { UnauthorizedError } from '../errors/httpErrors';
-import User from '../models/User';
 import { ACCESS_TOKEN_SECRET } from '../consts';
+
+interface UserDecoded {
+  id: number;
+  iat: number; // issued at in epoch time
+  exp: number; // expiry in epoch time
+}
 
 function auth(req: Request, res: Response, next: NextFunction) {
   // Get token from header
@@ -12,22 +17,26 @@ function auth(req: Request, res: Response, next: NextFunction) {
   // Check if no token
   if (!token) {
     next(new UnauthorizedError('No token, authorization denied'));
+    return;
   }
 
   try {
-    // High chance the decoded value is wrong. Payload only contains { id: user.id }, unlikely will take the form of User
-    jwt.verify(token, ACCESS_TOKEN_SECRET, async (err: Error, decoded: User) => {
-      if (err) {
-        if (err instanceof TokenExpiredError) {
-          next(new UnauthorizedError('JWT expired. Please refresh token'));
+    jwt.verify(
+      token,
+      ACCESS_TOKEN_SECRET,
+      async (err: Error | null, decoded: object | undefined) => {
+        if (err) {
+          if (err instanceof TokenExpiredError) {
+            next(new UnauthorizedError('JWT expired. Please refresh token'));
+          } else {
+            next(err);
+          }
         } else {
-          next(err);
+          req.userId = (decoded as UserDecoded).id;
+          next();
         }
-      } else {
-        req.user = decoded;
-        next();
       }
-    });
+    );
   } catch (err) {
     next(err);
   }

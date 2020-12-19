@@ -15,7 +15,7 @@ export const GCS_PRIVATE_KEY = process.env.GCS_PRIVATE_KEY || '';
 
 export * from './upload';
 
-const mustBePresent = {
+const mustBePresent: { [key: string]: string | number } = {
   DATABASE_URL,
   ACCESS_TOKEN_SECRET,
   GCS_BUCKET,

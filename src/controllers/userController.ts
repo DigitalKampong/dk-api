@@ -22,10 +22,15 @@ async function register(req: Request, res: Response, next: NextFunction) {
       id: user.id,
     };
 
-    jwt.sign(payload, ACCESS_TOKEN_SECRET, { expiresIn: '7 days' }, (err: Error, token: String) => {
-      if (err) throw err;
-      res.status(201).json({ token });
-    });
+    jwt.sign(
+      payload,
+      ACCESS_TOKEN_SECRET,
+      { expiresIn: '7 days' },
+      (err: Error | null, token: string | undefined) => {
+        if (err) throw err;
+        res.status(201).json({ token: token! });
+      }
+    );
   } catch (err) {
     if (err instanceof UniqueConstraintError) {
       next(new BadRequestError('User already exists'));
@@ -51,10 +56,15 @@ async function login(req: Request, res: Response, next: NextFunction) {
     const payload = {
       id: user!.id,
     };
-    jwt.sign(payload, ACCESS_TOKEN_SECRET, { expiresIn: '7 days' }, (err: Error, token: String) => {
-      if (err) throw err;
-      res.status(201).json({ token });
-    });
+    jwt.sign(
+      payload,
+      ACCESS_TOKEN_SECRET,
+      { expiresIn: '7 days' },
+      (err: Error | null, token: string | undefined) => {
+        if (err) throw err;
+        res.status(201).json({ token: token! });
+      }
+    );
   } catch (err) {
     next(err);
   }

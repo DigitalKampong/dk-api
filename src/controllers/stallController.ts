@@ -3,6 +3,7 @@ import { upload, sendUploadToGCS, createImages } from './imageController';
 
 import Stall from '../models/Stall';
 import HawkerCentre from '../models/HawkerCentre';
+import { NotFoundError } from '../errors/httpErrors';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
 
@@ -23,8 +24,7 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
       include: getStallInclude(),
     });
     if (stall === null) {
-      res.status(404).end();
-      return;
+      throw new NotFoundError('Stall cannot be found');
     }
     req.stall = stall;
     next();

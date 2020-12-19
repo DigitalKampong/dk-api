@@ -59,6 +59,11 @@
   * [Update stall](#5-update-stall)
   * [Upload stall images](#6-upload-stall-images)
 
+* [Users](#users)
+
+  * [Login user](#1-login-user)
+  * [Register user](#2-register-user)
+
 
 --------
 
@@ -1868,6 +1873,125 @@ URL: {{server_url}}/stalls/:id/upload
 
 
 
+## Users
+Token needs sent in the header with "x-auth-token" as key and the token as value for routes that require authentication.
+
+
+
+### 1. Login user
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/login
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "email": "fake_email@gmail.com",
+    "password": "asdf"
+}
+```
+
+
+
+***More example Requests/Responses:***
+
+
+##### I. Example Request: Login user
+
+
+
+***Body:***
+
+```js        
+{
+    "email": "fake_email@gmail.com",
+    "password": "asdf"
+}
+```
+
+
+
+##### I. Example Response: Login user
+```js
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA4Mzg4ODIwLCJleHAiOjE2MDg5OTM2MjB9.O6nzVJFmMG-bwOWWPjqMw_Ebt7pr9Csmc2A0AXeWruY"
+}
+```
+
+
+***Status Code:*** 201
+
+<br>
+
+
+
+### 2. Register user
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/register
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "email": "fake_email@gmail.com",
+    "password": "asdf"
+}
+```
+
+
+
+***More example Requests/Responses:***
+
+
+##### I. Example Request: Register user
+
+
+
+***Body:***
+
+```js        
+{
+    "email": "fake_email@gmail.com",
+    "password": "asdf"
+}
+```
+
+
+
+##### I. Example Response: Register user
+```js
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA4Mzg3MzE2LCJleHAiOjE2MDg5OTIxMTZ9.HTTRAhau8_we-HlJsRqsJgtBcYmDFROnlLSfgKomNfQ"
+}
+```
+
+
+***Status Code:*** 201
+
+<br>
+
+
+
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-19 00:41:58 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-19 23:07:08 by [docgen](https://github.com/thedevsaddam/docgen)

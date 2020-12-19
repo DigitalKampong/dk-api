@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import Image from '../models/Image';
 import { GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY, MAX_IMAGE_SIZE } from '../consts';
+import { BadRequestError, UploadFileError } from '../errors/httpErrors';
 
 /**
  * Image processing pipeline
@@ -21,18 +22,14 @@ function fileFilter(req: Request, file: Express.Multer.File, cb: Function) {
   const regexp = /png|jpe?g|gif/;
   const result = mime.extension(file.mimetype);
 
-
   if (!result || !regexp.test(result)) {
-    // TODO: Could throw an error here too and surface to user
-    // return cb(new Error('Invalid mimetype')); // short circuits
-
-    return cb(null, false); // Only reject the specific file
+    // Short circuits the request chain
+    cb(new BadRequestError(`Invalid mimetype for ${file.originalname}`));
   } else {
     cb(null, true);
   }
 }
 
-// Limit of 5MB per image
 const upload = multer({
   storage: multer.memoryStorage(),
   fileFilter,
@@ -63,43 +60,39 @@ async function generateGcsName(ext: string) {
 }
 
 async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) {
-  if (!req.files?.length) {
-    // TODO: Throw error, next(Error class)
-    res.status(400).json('No file in request');
-    return;
-  }
-
-  const promises = [];
-
-  // There will never be other file fields so this will always be an array.
-  for (const file of req.files as Express.Multer.File[]) {
-    const ext = mime.extension(file.mimetype) as string; // Checked in prev mw
-    const gcsName = await generateGcsName(ext);
-    const gcsFile = bucket.file(gcsName);
-
-    const promise = new Promise((resolve, reject) => {
-      const stream = gcsFile.createWriteStream();
-
-      stream.on('error', err => {
-        // TODO: Create error object with original filename and send back to frontend
-        reject(err);
-      });
-
-      stream.on('finish', () => {
-        resolve(getPublicUrl(gcsName));
-      });
-
-      stream.end(file.buffer);
-    });
-
-    promises.push(promise);
-  }
-
   try {
+    if (!req.files?.length) {
+      throw new BadRequestError('No files found in request');
+    }
+
+    const promises = [];
+
+    // There will never be other file fields so this will always be an array.
+    for (const file of req.files as Express.Multer.File[]) {
+      const ext = mime.extension(file.mimetype) as string; // Checked in prev mw
+      const gcsName = await generateGcsName(ext);
+      const gcsFile = bucket.file(gcsName);
+
+      const promise = new Promise((resolve, reject) => {
+        const stream = gcsFile.createWriteStream();
+
+        stream.on('error', err => {
+          reject(new UploadFileError(file.originalname, err));
+        });
+
+        stream.on('finish', () => {
+          resolve(getPublicUrl(gcsName));
+        });
+
+        stream.end(file.buffer);
+      });
+
+      promises.push(promise);
+    }
+
     req.downloadUrls = (await Promise.all(promises)) as string[];
     next();
   } catch (err) {
-    // This will trip if one of the promise rejects and now handled by general error handler.
     next(err);
   }
 }

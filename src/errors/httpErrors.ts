@@ -13,3 +13,16 @@ export class NotFoundError extends HTTPError {
     super(message, 'NotFoundError', 404);
   }
 }
+
+export class BadRequestError extends HTTPError {
+  constructor(message: string) {
+    super(message, 'BadRequestError', 400);
+  }
+}
+
+export class UploadFileError extends HTTPError {
+  constructor(filename: string, err: Error) {
+    const msg = `${filename}: ${err.name}: ${err.message}`;
+    super(msg, 'UploadFileError', 400);
+  }
+}

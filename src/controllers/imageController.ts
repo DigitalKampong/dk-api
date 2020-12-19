@@ -18,20 +18,16 @@ import { GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY, MAX_IMAGE_SIZE } from '.
  */
 
 function fileFilter(req: Request, file: Express.Multer.File, cb: Function) {
-  console.log('HI');
   const regexp = /png|jpe?g|gif/;
   const result = mime.extension(file.mimetype);
 
-  console.log(result);
 
   if (!result || !regexp.test(result)) {
     // TODO: Could throw an error here too and surface to user
     // return cb(new Error('Invalid mimetype')); // short circuits
 
-    console.log('invalid');
     return cb(null, false); // Only reject the specific file
   } else {
-    console.log('valid');
     cb(null, true);
   }
 }

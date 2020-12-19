@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { upload, sendUploadToGCS, createImages } from './imageController';
 import Product from '../models/Product';
 import Stall from '../models/Stall';
+import { NotFoundError } from '../errors/httpErrors';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
 
@@ -21,8 +22,7 @@ async function retrieveProduct(req: Request, res: Response, next: NextFunction) 
       include: getProductInclude(),
     });
     if (product === null) {
-      res.status(404).end();
-      return;
+      throw new NotFoundError('Product cannot be found');
     }
     req.product = product;
     next();

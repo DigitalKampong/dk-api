@@ -41,7 +41,7 @@ app.all('*', (req: Request, res: Response) => {
   res.status(404).json(fmtErrorResp(err));
 });
 
-app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof HTTPError) {
     res.status(err.status).json(fmtErrorResp(err));
   } else {

@@ -40,7 +40,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      throw new BadRequestError('User does not exists');
+      throw new BadRequestError('User does not exist');
     }
 
     const isMatch = await bcrypt.compare(password, user!.password);

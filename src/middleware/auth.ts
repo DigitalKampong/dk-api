@@ -19,7 +19,7 @@ function auth(req: Request, res: Response, next: NextFunction) {
     jwt.verify(token, ACCESS_TOKEN_SECRET, async (err: Error, decoded: User) => {
       if (err) {
         if (err instanceof TokenExpiredError) {
-          next(new UnauthorizedError('jwt expired. Please refresh token'));
+          next(new UnauthorizedError('JWT expired. Please refresh token'));
         } else {
           next(err);
         }

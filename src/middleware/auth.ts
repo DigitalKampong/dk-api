@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { TokenExpiredError } from 'jsonwebtoken';
 import { UnauthorizedError } from '../errors/httpErrors';
-import { AUTH_ON, ACCESS_TOKEN_SECRET } from '../consts';
+import { ON_AUTH, ACCESS_TOKEN_SECRET } from '../consts';
 
 interface UserDecoded {
   id: number;
@@ -11,7 +11,7 @@ interface UserDecoded {
 }
 
 function auth(req: Request, res: Response, next: NextFunction) {
-  if (!AUTH_ON) {
+  if (!ON_AUTH) {
     next();
     return;
   }

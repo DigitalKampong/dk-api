@@ -16,6 +16,7 @@ import products from './routes/products';
 import search from './routes/search';
 import categories from './routes/categories';
 import categoryStalls from './routes/categoryStalls';
+import users from './routes/users';
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use('/products', products);
 app.use('/categories', categories);
 app.use('/categoryStalls', categoryStalls);
 app.use('/search', search);
+app.use('/', users);
 
 app.all('*', (req: Request, res: Response) => {
   const err = new NotFoundError('You are at the wrong place. Page cannot be found. Shoo!');

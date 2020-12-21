@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { TokenExpiredError } from 'jsonwebtoken';
 import { UnauthorizedError } from '../errors/httpErrors';
-import { ACCESS_TOKEN_SECRET } from '../consts';
+import { AUTH_ON, ACCESS_TOKEN_SECRET } from '../consts';
 
 interface UserDecoded {
   id: number;
@@ -11,6 +11,11 @@ interface UserDecoded {
 }
 
 function auth(req: Request, res: Response, next: NextFunction) {
+  if (!AUTH_ON) {
+    next();
+    return;
+  }
+
   // Get token from header
   const token = req.header('x-auth-token');
 

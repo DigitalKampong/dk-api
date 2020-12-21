@@ -97,9 +97,9 @@ export const createStallFuncs = [createStall];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];
 export const uploadStallImagesFuncs = [
+  retrieveStall,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
   sendUploadToGCS,
   createImages,
-  retrieveStall,
   uploadStallImages,
 ];

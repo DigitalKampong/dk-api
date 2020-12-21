@@ -95,9 +95,9 @@ export const createProductFuncs = [createProduct];
 export const updateProductFuncs = [retrieveProduct, updateProduct];
 export const destroyProductFuncs = [retrieveProduct, destroyProduct];
 export const uploadProductImagesFuncs = [
+  retrieveProduct,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
   sendUploadToGCS,
   createImages,
-  retrieveProduct,
   uploadProductImages,
 ];

@@ -26,7 +26,7 @@ async function truncateCategories(req: Request, res: Response, next: NextFunctio
 
 async function seedCategories(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = await retrieveDataFromSeed('Categories.csv', ['name']);
+    const data = await retrieveDataFromCsv('Categories.csv', ['name']);
     await Category.bulkCreate(data);
     next();
   } catch (err) {
@@ -48,7 +48,7 @@ async function truncateCategoryStalls(req: Request, res: Response, next: NextFun
 
 async function seedCategoryStalls(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = await retrieveDataFromSeed('CategoryStalls.csv', ['stallId', 'categoryId']);
+    const data = await retrieveDataFromCsv('CategoryStalls.csv', ['stallId', 'categoryId']);
     await CategoryStall.bulkCreate(data);
     next();
   } catch (err) {
@@ -70,7 +70,7 @@ async function truncateHawkerCentres(req: Request, res: Response, next: NextFunc
 
 async function seedHawkerCentres(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = await retrieveDataFromSeed('HawkerCentres.csv', ['name', 'address', 'regionId']);
+    const data = await retrieveDataFromCsv('HawkerCentres.csv', ['name', 'address', 'regionId']);
     await HawkerCentre.bulkCreate(data);
     next();
   } catch (err) {
@@ -104,7 +104,7 @@ async function truncateProducts(req: Request, res: Response, next: NextFunction)
 
 async function seedProducts(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = await retrieveDataFromSeed('Products.csv', [
+    const data = await retrieveDataFromCsv('Products.csv', [
       'name',
       'stallId',
       'description',
@@ -131,7 +131,7 @@ async function truncateRegions(req: Request, res: Response, next: NextFunction) 
 
 async function seedRegions(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = await retrieveDataFromSeed('Regions.csv', ['name']);
+    const data = await retrieveDataFromCsv('Regions.csv', ['name']);
     await Region.bulkCreate(data);
     next();
   } catch (err) {
@@ -153,7 +153,7 @@ async function truncateStalls(req: Request, res: Response, next: NextFunction) {
 
 async function seedStalls(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = await retrieveDataFromSeed('Stalls.csv', [
+    const data = await retrieveDataFromCsv('Stalls.csv', [
       'name',
       'description',
       'rating',
@@ -172,7 +172,12 @@ async function resetComplete(req: Request, res: Response) {
   res.status(200).send('Successfully reset database.');
 }
 
-async function retrieveDataFromSeed(filename: string, headers: (string | undefined)[]) {
+/**
+ * Extracts data from .csv
+ * @param filename Full file name of the .csv file located at {@code SEEDS_FILE_PATH}.
+ * @param headers Customised column names.
+ */
+async function retrieveDataFromCsv(filename: string, headers: (string | undefined)[]) {
   const stream = fs.createReadStream(path.resolve(__dirname, SEEDS_FILE_PATH, filename));
   const data: unknown[] = [];
   await new Promise((resolve, reject) => {

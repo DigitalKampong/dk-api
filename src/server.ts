@@ -17,6 +17,7 @@ import search from './routes/search';
 import categories from './routes/categories';
 import categoryStalls from './routes/categoryStalls';
 import users from './routes/users';
+import reset from './routes/reset';
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use('/products', products);
 app.use('/categories', categories);
 app.use('/categoryStalls', categoryStalls);
 app.use('/search', search);
+app.use('/reset', reset);
 app.use('/', users);
 
 app.all('*', (req: Request, res: Response) => {

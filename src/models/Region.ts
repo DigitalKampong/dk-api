@@ -18,12 +18,12 @@ import {
 import sequelize from '../db';
 import HawkerCentre from './HawkerCentre';
 
-interface RegionAttributes {
+export interface RegionAttributes {
   id: number;
   name: string;
 }
 
-interface RegionCreationAttributes extends Optional<RegionAttributes, 'id'> {}
+export interface RegionCreationAttributes extends Optional<RegionAttributes, 'id'> {}
 
 class Region extends Model<RegionAttributes, RegionCreationAttributes> implements RegionAttributes {
   public id!: number;

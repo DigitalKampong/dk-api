@@ -2,13 +2,13 @@ import { Request, Response, NextFunction } from 'express';
 import * as csv from 'fast-csv';
 import path from 'path';
 import fs from 'fs';
-import Category from '../models/Category';
-import CategoryStall from '../models/CategoryStall';
-import HawkerCentre from '../models/HawkerCentre';
+import Category, { CategoryCreationAttributes } from '../models/Category';
+import CategoryStall, { CategoryStallCreationAttributes } from '../models/CategoryStall';
+import HawkerCentre, { HawkerCentreCreationAttributes } from '../models/HawkerCentre';
 import Image from '../models/Image';
-import Product from '../models/Product';
-import Region from '../models/Region';
-import Stall from '../models/Stall';
+import Product, { ProductCreationAttributes } from '../models/Product';
+import Region, { RegionCreationAttributes } from '../models/Region';
+import Stall, { StallCreationAttributes } from '../models/Stall';
 
 const SEEDS_FILE_PATH = '../db/seeds/';
 
@@ -27,7 +27,7 @@ async function truncateCategories(req: Request, res: Response, next: NextFunctio
 async function seedCategories(req: Request, res: Response, next: NextFunction) {
   try {
     const data = await retrieveDataFromCsv('Categories.csv', ['name']);
-    await Category.bulkCreate(data);
+    await Category.bulkCreate(data as CategoryCreationAttributes[]);
     next();
   } catch (err) {
     next(err);
@@ -49,7 +49,7 @@ async function truncateCategoryStalls(req: Request, res: Response, next: NextFun
 async function seedCategoryStalls(req: Request, res: Response, next: NextFunction) {
   try {
     const data = await retrieveDataFromCsv('CategoryStalls.csv', ['stallId', 'categoryId']);
-    await CategoryStall.bulkCreate(data);
+    await CategoryStall.bulkCreate(data as CategoryStallCreationAttributes[]);
     next();
   } catch (err) {
     next(err);
@@ -71,7 +71,7 @@ async function truncateHawkerCentres(req: Request, res: Response, next: NextFunc
 async function seedHawkerCentres(req: Request, res: Response, next: NextFunction) {
   try {
     const data = await retrieveDataFromCsv('HawkerCentres.csv', ['name', 'address', 'regionId']);
-    await HawkerCentre.bulkCreate(data);
+    await HawkerCentre.bulkCreate(data as HawkerCentreCreationAttributes[]);
     next();
   } catch (err) {
     next(err);
@@ -110,7 +110,7 @@ async function seedProducts(req: Request, res: Response, next: NextFunction) {
       'description',
       'price',
     ]);
-    await Product.bulkCreate(data);
+    await Product.bulkCreate(data as ProductCreationAttributes[]);
     next();
   } catch (err) {
     next(err);
@@ -132,7 +132,7 @@ async function truncateRegions(req: Request, res: Response, next: NextFunction) 
 async function seedRegions(req: Request, res: Response, next: NextFunction) {
   try {
     const data = await retrieveDataFromCsv('Regions.csv', ['name']);
-    await Region.bulkCreate(data);
+    await Region.bulkCreate(data as RegionCreationAttributes[]);
     next();
   } catch (err) {
     next(err);
@@ -161,7 +161,7 @@ async function seedStalls(req: Request, res: Response, next: NextFunction) {
       'unitNo',
       'hawkerCentreId',
     ]);
-    await Stall.bulkCreate(data);
+    await Stall.bulkCreate(data as StallCreationAttributes[]);
     next();
   } catch (err) {
     next(err);

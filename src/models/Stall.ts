@@ -24,7 +24,7 @@ import HawkerCentre from './HawkerCentre';
 import Image from './Image';
 import CategoryStall from './CategoryStall';
 
-interface StallAttributes {
+export interface StallAttributes {
   id: number;
   name: string;
   description: string | null;
@@ -34,7 +34,7 @@ interface StallAttributes {
   hawkerCentreId: number;
 }
 
-interface StallCreationAttributes extends Optional<StallAttributes, 'id'> {}
+export interface StallCreationAttributes extends Optional<StallAttributes, 'id'> {}
 
 class Stall extends Model<StallAttributes, StallCreationAttributes> implements StallAttributes {
   public id!: number;

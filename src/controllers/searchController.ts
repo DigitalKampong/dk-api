@@ -16,6 +16,14 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
           SELECT id
           FROM "Stalls"
           WHERE _search @@ to_tsquery('english', '${query}')
+        ) OR id IN (
+          SELECT "stallId"
+          FROM "CategoryStalls"
+          WHERE "categoryId" IN (
+            SELECT id
+            FROM "Categories"
+            WHERE _search @@ to_tsquery('english', 'drinks')
+          )
         ) OR "hawkerCentreId" IN (
           SELECT id
           FROM "HawkerCentres"

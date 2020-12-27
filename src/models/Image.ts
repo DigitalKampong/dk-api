@@ -2,14 +2,14 @@ import { Model, DataTypes } from 'sequelize';
 
 import sequelize from '../db';
 
-interface ImageAttributes {
+export interface ImageAttributes {
   id: number;
   downloadUrl: string;
   productId: number | null;
   stallId: number | null;
 }
 
-interface ImageCreationAttributes {
+export interface ImageCreationAttributes {
   downloadUrl: string;
 }
 

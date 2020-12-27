@@ -22,14 +22,14 @@ import sequelize from '../db';
 import Stall from './Stall';
 import Region from './Region';
 
-interface HawkerCentreAttributes {
+export interface HawkerCentreAttributes {
   id: number;
   name: string;
   address: string | null;
   regionId: number;
 }
 
-interface HawkerCentreCreationAttributes extends Optional<HawkerCentreAttributes, 'id'> {}
+export interface HawkerCentreCreationAttributes extends Optional<HawkerCentreAttributes, 'id'> {}
 
 class HawkerCentre
   extends Model<HawkerCentreAttributes, HawkerCentreCreationAttributes>

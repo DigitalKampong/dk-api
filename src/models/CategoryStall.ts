@@ -12,13 +12,13 @@ import sequelize from '../db';
 import Category from './Category';
 import Stall from './Stall';
 
-interface CategoryStallAttributes {
+export interface CategoryStallAttributes {
   id: number;
   stallId: number;
   categoryId: number;
 }
 
-interface CategoryStallCreationAttributes extends Optional<CategoryStallAttributes, 'id'> {}
+export interface CategoryStallCreationAttributes extends Optional<CategoryStallAttributes, 'id'> {}
 
 class CategoryStall
   extends Model<CategoryStallAttributes, CategoryStallCreationAttributes>

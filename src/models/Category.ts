@@ -18,12 +18,12 @@ import {
 import sequelize from '../db';
 import CategoryStall from './CategoryStall';
 
-interface CategoryAttributes {
+export interface CategoryAttributes {
   id: number;
   name: string;
 }
 
-interface CategoryCreationAttributes extends Optional<CategoryAttributes, 'id'> {}
+export interface CategoryCreationAttributes extends Optional<CategoryAttributes, 'id'> {}
 
 class Category
   extends Model<CategoryAttributes, CategoryCreationAttributes>

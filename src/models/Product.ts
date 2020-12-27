@@ -22,7 +22,7 @@ import sequelize from '../db';
 import Stall from './Stall';
 import Image from './Image';
 
-interface ProductAttributes {
+export interface ProductAttributes {
   id: number;
   name: string;
   description: string | null;
@@ -30,7 +30,7 @@ interface ProductAttributes {
   stallId: number;
 }
 
-interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
+export interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
 
 class Product
   extends Model<ProductAttributes, ProductCreationAttributes>

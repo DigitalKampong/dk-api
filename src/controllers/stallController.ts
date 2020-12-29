@@ -100,10 +100,7 @@ async function destroyStallImages(req: Request, res: Response, next: NextFunctio
     }
 
     await destroyImages(imageIds as number[]);
-    
-    res.status(200).json('success');
-
-    // destoryImages(req.body['imageIds']);
+    res.status(200).end();
   } catch (err) {
     next(err);
   }

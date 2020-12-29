@@ -119,7 +119,12 @@ async function createImages(fileNames: string[]) {
 }
 
 async function destroyImages(imageIds: number[]) {
-  await Image.destroy({ where: { id: { [Op.in]: imageIds } } });
+  const images = await Image.findAll({ where: { id: imageIds } });
+  const promises = images.map(image => {
+    return bucket.file(image.fileName).delete();
+  });
+  await Promise.all(promises);
+  await Image.destroy({ where: { id: imageIds } });
   return;
 }
 

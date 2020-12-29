@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { upload, sendUploadToGCS, createImages } from './imageController';
+import { upload, sendUploadToGCS, createImages, destroyImages } from './imageController';
 
 import Stall from '../models/Stall';
 import HawkerCentre from '../models/HawkerCentre';
-import { NotFoundError } from '../errors/httpErrors';
+import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
 
@@ -82,10 +82,28 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
 
 async function uploadStallImages(req: Request, res: Response, next: NextFunction) {
   try {
+    const images = await createImages(req.fileNames!);
     let stall = req.stall!;
-    await stall.addImages(req.images);
+    await stall.addImages(images);
     stall = await stall.reload({ include: getStallInclude() });
     res.status(200).json(stall);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function destroyStallImages(req: Request, res: Response, next: NextFunction) {
+  try {
+    const imageIds = req.body['imageIds'];
+    if (!Array.isArray(imageIds)) {
+      throw new BadRequestError('imageIds key not found in body or not an array');
+    }
+
+    await destroyImages(imageIds as number[]);
+    
+    res.status(200).json('success');
+
+    // destoryImages(req.body['imageIds']);
   } catch (err) {
     next(err);
   }
@@ -100,6 +118,6 @@ export const uploadStallImagesFuncs = [
   retrieveStall,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
   sendUploadToGCS,
-  createImages,
   uploadStallImages,
 ];
+export const destroyStallImagesFuncs = [destroyStallImages];

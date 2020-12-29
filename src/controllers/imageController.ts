@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction, Express } from 'express';
+import { Op } from 'sequelize';
 import { Storage } from '@google-cloud/storage';
 import multer from 'multer';
 import mime from 'mime-types';
@@ -97,18 +98,29 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
   }
 }
 
-// Function expects that req.downloadUrls will be defined
-async function createImages(req: Request, res: Response, next: Function) {
-  const promises = req.fileNames!.map(name => {
-    return Image.create({ fileName: name });
-  });
+// Function expects that req.fileNames will be defined
+// async function createImages(req: Request, res: Response, next: Function) {
+//   const promises = req.fileNames!.map(name => {
+//     return Image.create({ fileName: name })
+//   });
 
-  try {
-    req.images = await Promise.all(promises);
-    next();
-  } catch (err) {
-    next(err);
-  }
+//   try {
+//     req.images = await Promise.all(promises);
+//     next();
+//   } catch (err) {
+//     next(err);
+//   }
+// }
+
+async function createImages(fileNames: string[]) {
+  const promises = fileNames.map(name => Image.create({ fileName: name }));
+  const images = await Promise.all(promises);
+  return images;
 }
 
-export { upload, sendUploadToGCS, createImages };
+async function destroyImages(imageIds: number[]) {
+  await Image.destroy({ where: { id: { [Op.in]: imageIds } } });
+  return;
+}
+
+export { upload, sendUploadToGCS, createImages, destroyImages };

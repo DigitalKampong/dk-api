@@ -10,5 +10,6 @@ router.post('/', auth, stallController.createStallFuncs);
 router.put('/:id', auth, stallController.updateStallFuncs);
 router.delete('/:id', auth, stallController.destroyStallFuncs);
 router.post('/:id/upload', auth, stallController.uploadStallImagesFuncs);
+router.post('/:id/delete-images', auth, stallController.destroyStallImagesFuncs);
 
 export default router;

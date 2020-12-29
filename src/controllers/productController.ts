@@ -80,8 +80,9 @@ async function destroyProduct(req: Request, res: Response, next: NextFunction) {
 
 async function uploadProductImages(req: Request, res: Response, next: NextFunction) {
   try {
+    const images = await createImages(req.fileNames!);
     let product = req.product!;
-    await product.addImages(req.images);
+    await product.addImages(images);
     product = await product.reload({ include: getProductInclude() });
     res.status(200).json(product);
   } catch (err) {
@@ -98,6 +99,5 @@ export const uploadProductImagesFuncs = [
   retrieveProduct,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
   sendUploadToGCS,
-  createImages,
   uploadProductImages,
 ];

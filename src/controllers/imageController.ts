@@ -98,20 +98,6 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
   }
 }
 
-// Function expects that req.fileNames will be defined
-// async function createImages(req: Request, res: Response, next: Function) {
-//   const promises = req.fileNames!.map(name => {
-//     return Image.create({ fileName: name })
-//   });
-
-//   try {
-//     req.images = await Promise.all(promises);
-//     next();
-//   } catch (err) {
-//     next(err);
-//   }
-// }
-
 async function createImages(fileNames: string[]) {
   const promises = fileNames.map(name => Image.create({ fileName: name }));
   const images = await Promise.all(promises);

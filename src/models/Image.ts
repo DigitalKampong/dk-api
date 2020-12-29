@@ -6,6 +6,7 @@ import { GCS_BASE_URL, GCS_BUCKET } from '../consts';
 export interface ImageAttributes {
   id: number;
   fileName: string;
+  downloadUrl: string;
   productId: number | null;
   stallId: number | null;
 }
@@ -17,6 +18,7 @@ export interface ImageCreationAttributes {
 class Image extends Model<ImageAttributes, ImageCreationAttributes> implements ImageAttributes {
   public id!: number;
   public fileName!: string;
+  public downloadUrl!: string;
   public productId!: number | null;
   public stallId!: number | null;
 

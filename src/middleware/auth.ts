@@ -11,10 +11,6 @@ interface UserDecoded {
 }
 
 function auth(req: Request, res: Response, next: NextFunction) {
-  next();
-  return;
-
-  // TODO: Fix this auth part later
   if (!ON_AUTH) {
     next();
     return;

@@ -76,10 +76,10 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
   try {
     const stall = req.stall!;
     const products = await stall.getProducts({ include: Product.associations.Images });
-    
+
     let imageIds = (await stall.getImages()).map(image => image.id);
     for (const p of products) {
-      imageIds = imageIds.concat(p.Images.map(image => image.id));
+      imageIds = imageIds.concat(p.Images!.map(image => image.id));
     }
 
     if (imageIds.length > 0) {

@@ -1,11 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
-import { upload, sendUploadToGCS, createImages, destroyImageIds, destroyImages } from './imageController';
+import {
+  upload,
+  sendUploadToGCS,
+  createImages,
+  destroyImageIds,
+  destroyImages,
+} from './imageController';
 import Product from '../models/Product';
 import Stall from '../models/Stall';
-import { NotFoundError } from '../errors/httpErrors';
+import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
-import { image } from 'faker';
 
 function getProductInclude() {
   return [

@@ -13,6 +13,7 @@ export const ON_AUTH = process.env.ON_AUTH || true; // TODO: Remove once develop
 export const GCS_BUCKET = process.env.GCS_BUCKET || '';
 export const GCS_CLIENT_EMAIL = process.env.GCS_CLIENT_EMAIL || '';
 export const GCS_PRIVATE_KEY = process.env.GCS_PRIVATE_KEY || '';
+export const GCS_BASE_URL = 'https://storage.googleapis.com';
 
 export * from './upload';
 

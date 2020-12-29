@@ -43,9 +43,9 @@ const credentials = {
 const storage = new Storage({ credentials });
 const bucket = storage.bucket(GCS_BUCKET);
 
-function getPublicUrl(filename: string): string {
-  return `https://storage.googleapis.com/${GCS_BUCKET}/${filename}`;
-}
+// function getPublicUrl(filename: string): string {
+//   return `https://storage.googleapis.com/${GCS_BUCKET}/${filename}`;
+// }
 
 // Resolve name collisions
 async function generateGcsName(ext: string) {
@@ -81,7 +81,7 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
         });
 
         stream.on('finish', () => {
-          resolve(getPublicUrl(gcsName));
+          resolve(gcsName);
         });
 
         stream.end(file.buffer);
@@ -90,7 +90,7 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
       promises.push(promise);
     }
 
-    req.downloadUrls = (await Promise.all(promises)) as string[];
+    req.fileNames = (await Promise.all(promises)) as string[];
     next();
   } catch (err) {
     next(err);
@@ -99,8 +99,8 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
 
 // Function expects that req.downloadUrls will be defined
 async function createImages(req: Request, res: Response, next: Function) {
-  const promises = req.downloadUrls!.map(url => {
-    return Image.create({ downloadUrl: url });
+  const promises = req.fileNames!.map(name => {
+    return Image.create({ fileName: name });
   });
 
   try {

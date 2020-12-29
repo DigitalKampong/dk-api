@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { upload, sendUploadToGCS, createImages, destroyImages, destroyImageIds } from './imageController';
+import { upload, sendUploadToGCS, createImages, destroyImageIds } from './imageController';
 
 import Stall from '../models/Stall';
 import HawkerCentre from '../models/HawkerCentre';

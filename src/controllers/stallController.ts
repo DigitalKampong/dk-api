@@ -1,11 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
-import { upload, sendUploadToGCS, createImages, destroyImages } from './imageController';
+import { upload, sendUploadToGCS, createImages, destroyImages, destroyImageIds } from './imageController';
 
 import Stall from '../models/Stall';
 import HawkerCentre from '../models/HawkerCentre';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
+import Product from '../models/Product';
 
 function getStallInclude() {
   return [
@@ -73,7 +74,19 @@ async function updateStall(req: Request, res: Response, next: NextFunction) {
 
 async function destroyStall(req: Request, res: Response, next: NextFunction) {
   try {
-    await req.stall!.destroy();
+    const stall = req.stall!;
+    const products = await stall.getProducts({ include: Product.associations.Images });
+    
+    let imageIds = (await stall.getImages()).map(image => image.id);
+    for (const p of products) {
+      imageIds = imageIds.concat(p.Images.map(image => image.id));
+    }
+
+    if (imageIds.length > 0) {
+      await destroyImageIds(imageIds);
+    }
+
+    await stall.destroy();
     res.status(200).end();
   } catch (err) {
     next(err);
@@ -99,7 +112,7 @@ async function destroyStallImages(req: Request, res: Response, next: NextFunctio
       throw new BadRequestError('imageIds key not found in body or not an array');
     }
 
-    await destroyImages(imageIds as number[]);
+    await destroyImageIds(imageIds as number[]);
     res.status(200).end();
   } catch (err) {
     next(err);

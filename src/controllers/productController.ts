@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
-import { upload, sendUploadToGCS, createImages } from './imageController';
+import { upload, sendUploadToGCS, createImages, destroyImageIds, destroyImages } from './imageController';
 import Product from '../models/Product';
 import Stall from '../models/Stall';
 import { NotFoundError } from '../errors/httpErrors';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
+import { image } from 'faker';
 
 function getProductInclude() {
   return [
@@ -71,7 +72,12 @@ async function updateProduct(req: Request, res: Response, next: NextFunction) {
 
 async function destroyProduct(req: Request, res: Response, next: NextFunction) {
   try {
-    await req.product!.destroy();
+    const product = req.product!;
+    const images = await product.getImages();
+    if (images.length > 0) {
+      await destroyImages(images);
+    }
+    await product.destroy();
     res.status(200).end();
   } catch (err) {
     next(err);
@@ -90,6 +96,20 @@ async function uploadProductImages(req: Request, res: Response, next: NextFuncti
   }
 }
 
+async function destroyProductImages(req: Request, res: Response, next: NextFunction) {
+  try {
+    const imageIds = req.body['imageIds'];
+    if (!Array.isArray(imageIds)) {
+      throw new BadRequestError('imageIds key not found in body or not an array');
+    }
+
+    await destroyImageIds(imageIds as number[]);
+    res.status(200).end();
+  } catch (err) {
+    next(err);
+  }
+}
+
 export const indexProductFuncs = [indexProduct];
 export const showProductFuncs = [retrieveProduct, showProduct];
 export const createProductFuncs = [createProduct];
@@ -101,3 +121,4 @@ export const uploadProductImagesFuncs = [
   sendUploadToGCS,
   uploadProductImages,
 ];
+export const destoryProductImagesFuncs = [destroyProductImages];

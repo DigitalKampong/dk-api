@@ -118,14 +118,21 @@ async function createImages(fileNames: string[]) {
   return images;
 }
 
-async function destroyImages(imageIds: number[]) {
+async function destroyImageIds(imageIds: number[]) {
   const images = await Image.findAll({ where: { id: imageIds } });
+  await destroyImages(images);
+  return;
+}
+
+async function destroyImages(images: Image[]) {
+  // Unlink the images first before removing them from gcs
+  const imageIds = images.map(image => image.id);
+  await Image.destroy({ where: { id: imageIds } });
   const promises = images.map(image => {
     return bucket.file(image.fileName).delete();
   });
   await Promise.all(promises);
-  await Image.destroy({ where: { id: imageIds } });
   return;
 }
 
-export { upload, sendUploadToGCS, createImages, destroyImages };
+export { upload, sendUploadToGCS, createImages, destroyImages, destroyImageIds };

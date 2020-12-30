@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Image from '../models/Image';
 import { GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY, MAX_IMAGE_SIZE } from '../consts';
 import { BadRequestError, UploadFileError } from '../errors/httpErrors';
+import { Transaction } from 'sequelize/types';
 
 /**
  * Image processing pipeline
@@ -94,22 +95,22 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
   }
 }
 
-async function createImages(fileNames: string[]) {
-  const promises = fileNames.map(name => Image.create({ fileName: name }));
+async function createImages(fileNames: string[], t?: Transaction) {
+  const promises = fileNames.map(name => Image.create({ fileName: name }, { transaction: t }));
   const images = await Promise.all(promises);
   return images;
 }
 
-async function destroyImageIds(imageIds: number[]) {
-  const images = await Image.findAll({ where: { id: imageIds } });
-  await destroyImages(images);
+async function destroyImageIds(imageIds: number[], t?: Transaction) {
+  const images = await Image.findAll({ where: { id: imageIds }, transaction: t });
+  await destroyImages(images, t);
   return;
 }
 
-async function destroyImages(images: Image[]) {
+async function destroyImages(images: Image[], t?: Transaction) {
   // Unlink the images first before removing them from gcs
   const imageIds = images.map(image => image.id);
-  await Image.destroy({ where: { id: imageIds } });
+  await Image.destroy({ where: { id: imageIds }, transaction: t });
   const promises = images.map(image => {
     return bucket.file(image.fileName).delete();
   });

@@ -11,6 +11,7 @@ import Stall from '../models/Stall';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
+import sequelize from '../db';
 
 function getProductInclude() {
   return [
@@ -78,11 +79,15 @@ async function updateProduct(req: Request, res: Response, next: NextFunction) {
 async function destroyProduct(req: Request, res: Response, next: NextFunction) {
   try {
     const product = req.product!;
-    const images = await product.getImages();
-    if (images.length > 0) {
-      await destroyImages(images);
-    }
-    await product.destroy();
+
+    await sequelize.transaction(async t => {
+      const images = await product.getImages({ transaction: t });
+      if (images.length > 0) {
+        await destroyImages(images, t);
+      }
+      await product.destroy({ transaction: t });
+    });
+
     res.status(200).end();
   } catch (err) {
     next(err);
@@ -91,9 +96,13 @@ async function destroyProduct(req: Request, res: Response, next: NextFunction) {
 
 async function uploadProductImages(req: Request, res: Response, next: NextFunction) {
   try {
-    const images = await createImages(req.fileNames!);
     let product = req.product!;
-    await product.addImages(images);
+
+    await sequelize.transaction(async t => {
+      const images = await createImages(req.fileNames!, t);
+      await product.addImages(images, { transaction: t });
+    });
+
     product = await product.reload({ include: getProductInclude() });
     res.status(200).json(product);
   } catch (err) {

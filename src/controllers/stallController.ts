@@ -7,6 +7,7 @@ import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
 import Product from '../models/Product';
+import sequelize from '../db';
 
 function getStallInclude() {
   return [
@@ -77,16 +78,16 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
     const stall = req.stall!;
     const products = await stall.getProducts({ include: Product.associations.Images });
 
-    let imageIds = (await stall.getImages()).map(image => image.id);
+    let imageIds = (await stall.getImages({ transaction: t })).map(image => image.id);
     for (const p of products) {
       imageIds = imageIds.concat(p.Images!.map(image => image.id));
     }
 
-    if (imageIds.length > 0) {
-      await destroyImageIds(imageIds);
-    }
+    await sequelize.transaction(async t => {
+      if (imageIds.length > 0) await destroyImageIds(imageIds, t);
+      await stall.destroy({ transaction: t });
+    });
 
-    await stall.destroy();
     res.status(200).end();
   } catch (err) {
     next(err);
@@ -95,9 +96,13 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
 
 async function uploadStallImages(req: Request, res: Response, next: NextFunction) {
   try {
-    const images = await createImages(req.fileNames!);
     let stall = req.stall!;
-    await stall.addImages(images);
+
+    await sequelize.transaction(async t => {
+      const images = await createImages(req.fileNames!, t);
+      await stall.addImages(images, { transaction: t });
+    });
+
     stall = await stall.reload({ include: getStallInclude() });
     res.status(200).json(stall);
   } catch (err) {

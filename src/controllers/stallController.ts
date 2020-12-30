@@ -78,7 +78,7 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
     const stall = req.stall!;
     const products = await stall.getProducts({ include: Product.associations.Images });
 
-    let imageIds = (await stall.getImages({ transaction: t })).map(image => image.id);
+    let imageIds = (await stall.getImages()).map(image => image.id);
     for (const p of products) {
       imageIds = imageIds.concat(p.Images!.map(image => image.id));
     }

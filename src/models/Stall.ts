@@ -124,7 +124,7 @@ Stall.init(
   { sequelize }
 );
 
-Stall.hasMany(Product, { foreignKey: 'stallId' });
+Stall.hasMany(Product, { foreignKey: 'stallId', onDelete: 'cascade', hooks: true });
 Product.belongsTo(Stall, { foreignKey: 'stallId' });
 Stall.hasMany(Image, { foreignKey: 'stallId' });
 CategoryStall.belongsTo(Stall, { foreignKey: 'stallId' });

@@ -19,7 +19,8 @@ if (ON_GAE) {
     dialect: 'postgres',
     host: `${GCSQL_DB_SOCKET_PATH!}/${GCSQL_CONNECTION_NAME!}`,
   });
+} else {
+  sequelize = new Sequelize(DATABASE_URL, { logging });
 }
 
-sequelize = sequelize || new Sequelize(DATABASE_URL, { logging });
 export default sequelize;

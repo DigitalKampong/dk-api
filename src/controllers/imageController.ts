@@ -5,7 +5,7 @@ import mime from 'mime-types';
 import { v4 as uuidv4 } from 'uuid';
 
 import Image from '../models/Image';
-import { GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY, MAX_IMAGE_SIZE } from '../consts';
+import { ON_GAE, GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY, MAX_IMAGE_SIZE } from '../consts';
 import { BadRequestError, UploadFileError } from '../errors/httpErrors';
 import { Transaction } from 'sequelize/types';
 
@@ -32,17 +32,24 @@ function fileFilter(req: Request, file: Express.Multer.File, cb: Function) {
   }
 }
 
+let storage: Storage;
+
+if (ON_GAE) {
+  storage = new Storage();
+} else {
+  const credentials = {
+    client_email: GCS_CLIENT_EMAIL,
+    private_key: GCS_PRIVATE_KEY,
+  };
+  storage = new Storage({ credentials });
+}
+
 const upload = multer({
   storage: multer.memoryStorage(),
   fileFilter,
   limits: { fileSize: MAX_IMAGE_SIZE },
 });
 
-const credentials = {
-  client_email: GCS_CLIENT_EMAIL,
-  private_key: GCS_PRIVATE_KEY,
-};
-const storage = new Storage({ credentials });
 const bucket = storage.bucket(GCS_BUCKET);
 
 // Resolve name collisions

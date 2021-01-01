@@ -21,5 +21,5 @@ if (ON_GAE) {
   });
 }
 
-sequelize ||= new Sequelize(DATABASE_URL, { logging });
+sequelize = sequelize || new Sequelize(DATABASE_URL, { logging });
 export default sequelize;

@@ -1,13 +1,15 @@
 import { Request, Response, NextFunction } from 'express';
-import { upload, sendUploadToGCS, createImages } from './imageController';
+import { upload, sendUploadToGCS, createImages, destroyImageIds } from './imageController';
 
 import Stall from '../models/Stall';
 import HawkerCentre from '../models/HawkerCentre';
 import Review from '../models/Review';
-import { NotFoundError } from '../errors/httpErrors';
+import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 import { Sequelize } from 'sequelize';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
+import Product from '../models/Product';
+import sequelize from '../db';
 
 function getStallInclude() {
   return [
@@ -124,7 +126,19 @@ async function updateStall(req: Request, res: Response, next: NextFunction) {
 
 async function destroyStall(req: Request, res: Response, next: NextFunction) {
   try {
-    await req.stall!.destroy();
+    const stall = req.stall!;
+    const products = await stall.getProducts({ include: Product.associations.Images });
+
+    let imageIds = (await stall.getImages()).map(image => image.id);
+    for (const p of products) {
+      imageIds = imageIds.concat(p.Images!.map(image => image.id));
+    }
+
+    await sequelize.transaction(async t => {
+      if (imageIds.length > 0) await destroyImageIds(imageIds, t);
+      await stall.destroy({ transaction: t });
+    });
+
     res.status(200).end();
   } catch (err) {
     next(err);
@@ -134,9 +148,28 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
 async function uploadStallImages(req: Request, res: Response, next: NextFunction) {
   try {
     let stall = req.stall!;
-    await stall.addImages(req.images);
+
+    await sequelize.transaction(async t => {
+      const images = await createImages(req.fileNames!, t);
+      await stall.addImages(images, { transaction: t });
+    });
+
     stall = await stall.reload({ include: getStallInclude() });
     res.status(200).json(stall);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function destroyStallImages(req: Request, res: Response, next: NextFunction) {
+  try {
+    const imageIds = req.body['imageIds'];
+    if (!Array.isArray(imageIds)) {
+      throw new BadRequestError('imageIds key not found in body or not an array');
+    }
+
+    await destroyImageIds(imageIds as number[]);
+    res.status(200).end();
   } catch (err) {
     next(err);
   }
@@ -151,6 +184,6 @@ export const uploadStallImagesFuncs = [
   retrieveStall,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
   sendUploadToGCS,
-  createImages,
   uploadStallImages,
 ];
+export const destroyStallImagesFuncs = [destroyStallImages];

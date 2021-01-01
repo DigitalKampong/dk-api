@@ -1,10 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
-import { upload, sendUploadToGCS, createImages } from './imageController';
+import {
+  upload,
+  sendUploadToGCS,
+  createImages,
+  destroyImageIds,
+  destroyImages,
+} from './imageController';
 import Product from '../models/Product';
 import Stall from '../models/Stall';
-import { NotFoundError } from '../errors/httpErrors';
+import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
+import sequelize from '../db';
 
 function getProductInclude() {
   return [
@@ -71,7 +78,16 @@ async function updateProduct(req: Request, res: Response, next: NextFunction) {
 
 async function destroyProduct(req: Request, res: Response, next: NextFunction) {
   try {
-    await req.product!.destroy();
+    const product = req.product!;
+
+    await sequelize.transaction(async t => {
+      const images = await product.getImages({ transaction: t });
+      if (images.length > 0) {
+        await destroyImages(images, t);
+      }
+      await product.destroy({ transaction: t });
+    });
+
     res.status(200).end();
   } catch (err) {
     next(err);
@@ -81,9 +97,28 @@ async function destroyProduct(req: Request, res: Response, next: NextFunction) {
 async function uploadProductImages(req: Request, res: Response, next: NextFunction) {
   try {
     let product = req.product!;
-    await product.addImages(req.images);
+
+    await sequelize.transaction(async t => {
+      const images = await createImages(req.fileNames!, t);
+      await product.addImages(images, { transaction: t });
+    });
+
     product = await product.reload({ include: getProductInclude() });
     res.status(200).json(product);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function destroyProductImages(req: Request, res: Response, next: NextFunction) {
+  try {
+    const imageIds = req.body['imageIds'];
+    if (!Array.isArray(imageIds)) {
+      throw new BadRequestError('imageIds key not found in body or not an array');
+    }
+
+    await destroyImageIds(imageIds as number[]);
+    res.status(200).end();
   } catch (err) {
     next(err);
   }
@@ -98,6 +133,6 @@ export const uploadProductImagesFuncs = [
   retrieveProduct,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
   sendUploadToGCS,
-  createImages,
   uploadProductImages,
 ];
+export const destoryProductImagesFuncs = [destroyProductImages];

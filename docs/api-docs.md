@@ -33,10 +33,11 @@
 
   * [Create product](#1-create-product)
   * [Delete product](#2-delete-product)
-  * [Get product](#3-get-product)
-  * [Get products](#4-get-products)
-  * [Update product](#5-update-product)
-  * [Upload product images](#6-upload-product-images)
+  * [Delete product images](#3-delete-product-images)
+  * [Get product](#4-get-product)
+  * [Get products](#5-get-products)
+  * [Update product](#6-update-product)
+  * [Upload product images](#7-upload-product-images)
 
 * [Regions](#regions)
 
@@ -54,10 +55,11 @@
 
   * [Create stall](#1-create-stall)
   * [Delete stall](#2-delete-stall)
-  * [Get stall](#3-get-stall)
-  * [Get stalls](#4-get-stalls)
-  * [Update stall](#5-update-stall)
-  * [Upload stall images](#6-upload-stall-images)
+  * [Delete stall images](#3-delete-stall-images)
+  * [Get stall](#4-get-stall)
+  * [Get stalls](#5-get-stalls)
+  * [Update stall](#6-update-stall)
+  * [Upload stall images](#7-upload-stall-images)
 
 * [Users](#users)
 
@@ -715,7 +717,39 @@ URL: {{server_url}}/products/:id
 
 
 
-### 3. Get product
+### 3. Delete product images
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/products/:id/delete-images
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "imageIds": [26]
+}
+```
+
+
+
+### 4. Get product
 
 
 
@@ -765,7 +799,7 @@ URL: {{server_url}}/products/:id
 
 
 
-### 4. Get products
+### 5. Get products
 
 
 Get information of all products. Includes the information of the respective stalls.
@@ -859,7 +893,7 @@ URL: {{server_url}}/products
 
 
 
-### 5. Update product
+### 6. Update product
 
 
 
@@ -957,7 +991,7 @@ URL: {{server_url}}/products/:id
 
 
 
-### 6. Upload product images
+### 7. Upload product images
 
 
 
@@ -1473,7 +1507,39 @@ URL: {{server_url}}/stalls/:id
 
 
 
-### 3. Get stall
+### 3. Delete stall images
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/stalls/:id/delete-images
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 4 |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "imageIds": [30]
+}
+```
+
+
+
+### 4. Get stall
 
 
 
@@ -1561,7 +1627,7 @@ URL: {{server_url}}/stalls/:id
 
 
 
-### 4. Get stalls
+### 5. Get stalls
 
 
 
@@ -1659,7 +1725,7 @@ URL: {{server_url}}/stalls
 
 
 
-### 5. Update stall
+### 6. Update stall
 
 
 
@@ -1765,7 +1831,7 @@ URL: {{server_url}}/stalls/:id
 
 
 
-### 6. Upload stall images
+### 7. Upload stall images
 
 
 
@@ -1994,4 +2060,4 @@ URL: {{server_url}}/register
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-19 23:07:08 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-30 10:44:11 by [docgen](https://github.com/thedevsaddam/docgen)

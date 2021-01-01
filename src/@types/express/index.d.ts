@@ -23,6 +23,6 @@ declare module 'express' {
     userId?: number;
 
     images?: Image[];
-    downloadUrls?: string[];
+    fileNames?: string[];
   }
 }

@@ -23,13 +23,14 @@ import Product from './Product';
 import HawkerCentre from './HawkerCentre';
 import Image from './Image';
 import CategoryStall from './CategoryStall';
+import Review from './Review';
 
 export interface StallAttributes {
   id: number;
   name: string;
   description: string | null;
-  rating: number | null;
   contactNo: string | null;
+  rating: number;
   unitNo: string | null;
   hawkerCentreId: number;
 }
@@ -40,10 +41,10 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public id!: number;
   public name!: string;
   public description!: string | null;
-  public rating!: number | null;
   public contactNo!: string | null;
   public unitNo!: string | null;
   public hawkerCentreId!: number;
+  public rating!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -77,14 +78,28 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public removeImages!: HasManyRemoveAssociationsMixin<Image, number>;
   public setImages!: HasManySetAssociationsMixin<Image, number>;
 
+  // Stall.hasMany(Review)
+  public addReview!: HasManyAddAssociationMixin<Review, number>;
+  public addReviews!: HasManyAddAssociationsMixin<Review, number>;
+  public countReviews!: HasManyCountAssociationsMixin;
+  public createReviews!: HasManyCreateAssociationMixin<Review>;
+  public getReviews!: HasManyGetAssociationsMixin<Review>;
+  public hasReview!: HasManyHasAssociationMixin<Review, number>;
+  public hasReviews!: HasManyHasAssociationsMixin<Review, number>;
+  public removeReview!: HasManyRemoveAssociationMixin<Review, number>;
+  public removeReviews!: HasManyRemoveAssociationsMixin<Review, number>;
+  public setReviews!: HasManySetAssociationsMixin<Review, number>;
+
   public readonly HawkerCentre?: HawkerCentre;
   public readonly Products?: Product[];
   public readonly Images?: Image[];
+  public readonly Reviews?: Review[];
 
   public static associations: {
     HawkerCentre: Association<Stall, HawkerCentre>;
     Products: Association<Stall, Product>;
     Images: Association<Stall, Image>;
+    Reviews: Association<Product, Review>;
   };
 }
 
@@ -103,14 +118,14 @@ Stall.init(
     description: {
       type: DataTypes.STRING,
     },
-    rating: {
-      type: DataTypes.DOUBLE,
-    },
     contactNo: {
       type: DataTypes.STRING,
     },
     unitNo: {
       type: DataTypes.INTEGER,
+    },
+    rating: {
+      type: DataTypes.VIRTUAL,
     },
     hawkerCentreId: {
       type: DataTypes.INTEGER,
@@ -126,7 +141,11 @@ Stall.init(
 
 Stall.hasMany(Product, { foreignKey: 'stallId' });
 Product.belongsTo(Stall, { foreignKey: 'stallId' });
+
 Stall.hasMany(Image, { foreignKey: 'stallId' });
 CategoryStall.belongsTo(Stall, { foreignKey: 'stallId' });
+
+Stall.hasMany(Review, { foreignKey: 'stallId' });
+Review.belongsTo(Stall, { foreignKey: 'stallId' });
 
 export default Stall;

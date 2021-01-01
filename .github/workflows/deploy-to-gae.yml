@@ -1,0 +1,31 @@
+name: Deploy to Google App Engine
+
+on: workflow_dispatch
+
+# Beware not to have variables starting with $ as envsubst will replace them away
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: build app.yaml
+        env:
+          GCS_CLOUD_BUCKET: ${{ secrets.GCS_CLOUD_BUCKET }}
+          GCSQL_DB_USER: ${{ secrets.GCSQL_DB_USER }}
+          GCSQL_DB_PASS: ${{ secrets.GCSQL_DB_PASS }} 
+          GCSQL_DB_NAME: ${{ secrets.GCSQL_DB_NAME }}
+          GCSQL_CONNECTION_NAME: ${{ secrets.GCSQL_CONNECTION_NAME }}
+        run: |
+          envsubst < app.yaml > tmp.yaml && mv tmp.yaml app.yaml
+      
+      - name: Set up cloud sdk
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      # --quiet disables all interactive input and uses default values
+      - name: Deploy to App Engine
+        run: gcloud app deploy --quiet --verbosity=info

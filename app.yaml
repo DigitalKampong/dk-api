@@ -2,7 +2,7 @@ runtime: nodejs12
 
 instance_class: F1
 
-entrypoint: "node build/index.js"
+entrypoint: "node build/src/server.js"
 
 env_variables:
   ON_GAE: true

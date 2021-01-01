@@ -16,9 +16,7 @@ if (ON_GAE !== undefined && ON_GAE === 'true') {
     password: GCSQL_DB_PASS,
     database: GCSQL_DB_NAME,
     dialect: 'postgres',
-    dialectOptions: {
-      host: `${GCSQL_DB_SOCKET_PATH}/${GCSQL_CONNECTION_NAME}`,
-    },
+    host: `${GCSQL_DB_SOCKET_PATH}/${GCSQL_CONNECTION_NAME}`,
   };
 } else {
   productionConfig = {

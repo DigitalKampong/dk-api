@@ -24,6 +24,9 @@ async function retrieveReview(req: Request, res: Response, next: NextFunction) {
 async function indexReview(req: Request, res: Response, next: NextFunction) {
   try {
     const reviews = await Review.findAll({
+      where: {
+        stallId: req.params.id,
+      },
       include: [
         { association: Review.associations.Stall },
         { association: Review.associations.User },
@@ -45,6 +48,8 @@ async function showReview(req: Request, res: Response, next: NextFunction) {
 
 async function createReview(req: Request, res: Response, next: NextFunction) {
   try {
+    const stallId = req.params.id;
+    req.body = { ...req.body, stallId };
     const review = await Review.create(req.body);
     res.status(201).json(review);
   } catch (err) {

@@ -25,48 +25,6 @@ function getStallInclude() {
   ];
 }
 
-async function getRatings(req: Request, res: Response, next: NextFunction) {
-  try {
-    if (req.stall) {
-      const stall = req.stall;
-      const stallId = stall!.getDataValue('id');
-      const rating = (
-        await Review.findAll({
-          where: {
-            stallId,
-          },
-          attributes: [
-            [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
-          ],
-        })
-      )[0].getDataValue('rating');
-      if (rating) stall.setDataValue('rating', rating);
-      else stall.setDataValue('rating', 0);
-    }
-    if (req.stalls) {
-      Promise.all(
-        req.stalls.map(async (stall: Stall) => {
-          let modifiedStall = JSON.parse(JSON.stringify(stall));
-          const stallId: number = modifiedStall['id'];
-          const rating = await Review.findAll({
-            where: {
-              stallId,
-            },
-            attributes: [
-              [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
-            ],
-          });
-
-          modifiedStall = { ...modifiedStall, rating: rating[0].getDataValue('rating') };
-          return modifiedStall;
-        })
-      ).then(result => res.status(200).json(result));
-    }
-  } catch (err) {
-    next(err);
-  }
-}
-
 async function retrieveStall(req: Request, res: Response, next: NextFunction) {
   try {
     const stall = await Stall.findByPk(req.params.id, {
@@ -76,6 +34,21 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
     if (stall === null) {
       throw new NotFoundError('Stall cannot be found');
     }
+
+    // To obtain single stall rating
+    const rating = (
+      await Review.findAll({
+        where: {
+          stallId: stall!.id,
+        },
+        attributes: [
+          [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
+        ],
+      })
+    )[0].rating;
+
+    if (rating) stall.setDataValue('rating', rating);
+    else stall.setDataValue('rating', 0);
 
     req.stall = stall;
     next();
@@ -89,9 +62,28 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
     const stalls = await Stall.findAll({
       include: getStallInclude(),
     });
-    req.stalls = stalls;
-    next();
-    // res.status(200).json(stalls);
+
+    // To obtain all stall ratings
+    const ratings = await Review.findAll({
+      attributes: [
+        'stallId',
+        [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
+      ],
+      group: ['stallId'],
+    });
+
+    stalls.map(async (stall: Stall) => {
+      const filteredRating = ratings.filter(rating => rating.stallId === stall.id);
+      let rating: number;
+      if (filteredRating.length) {
+        rating = filteredRating[0].rating;
+      } else {
+        rating = 0;
+      }
+      await stall.setDataValue('rating', rating);
+    });
+
+    res.status(200).json(stalls);
   } catch (err) {
     next(err);
   }
@@ -175,8 +167,8 @@ async function destroyStallImages(req: Request, res: Response, next: NextFunctio
   }
 }
 
-export const indexStallFuncs = [indexStall, getRatings];
-export const showStallFuncs = [retrieveStall, getRatings, showStall];
+export const indexStallFuncs = [indexStall];
+export const showStallFuncs = [retrieveStall, showStall];
 export const createStallFuncs = [createStall];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];

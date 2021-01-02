@@ -33,7 +33,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/regions', regions);
 app.use('/hawkerCentres', hawkerCentres);
-app.use('/stalls', stalls);
+app.use('/stalls', stalls, reviews);
 app.use('/products', products);
 app.use('/categories', categories);
 app.use('/categoryStalls', categoryStalls);

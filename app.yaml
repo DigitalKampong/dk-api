@@ -1,0 +1,18 @@
+runtime: nodejs12
+
+instance_class: F1
+
+entrypoint: "node build/src/server.js"
+
+# This file will be envsubst in the build process. Beware not to have any variables starting with $ unnecessarily.
+env_variables:
+  ON_GAE: "true"
+  GCSQL_DB_SOCKET_PATH: /cloudsql
+  ACCESS_TOKEN_SECRET: $ACCESS_TOKEN_SECRET
+  ON_AUTH: $ON_AUTH
+  GCS_BUCKET: $GCS_BUCKET
+  GCSQL_DB_USER: $GCSQL_DB_USER
+  GCSQL_DB_PASS: $GCSQL_DB_PASS
+  GCSQL_DB_NAME: $GCSQL_DB_NAME
+  GCSQL_CONNECTION_NAME: $GCSQL_CONNECTION_NAME
+  

@@ -32,12 +32,12 @@ class Review extends Model<ReviewAttributes, ReviewCreationAttributes> implement
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  // Review.belongsTo(Stall)<
+  // Review.belongsTo(Stall)
   public createStall!: BelongsToCreateAssociationMixin<Stall>;
   public getStall!: BelongsToGetAssociationMixin<Stall>;
   public setStall!: BelongsToSetAssociationMixin<Stall, number>;
 
-  // Review.belongsTo(Utall)
+  // Review.belongsTo(Stall)
   public createUser!: BelongsToCreateAssociationMixin<User>;
   public getUser!: BelongsToGetAssociationMixin<User>;
   public setUser!: BelongsToSetAssociationMixin<User, number>;

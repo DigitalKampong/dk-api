@@ -13,7 +13,6 @@ declare module 'express' {
     hawkerCentre?: HawkerCentre;
     region?: Region;
     stall?: Stall;
-    stalls?: Stall[];
     product?: Product;
     category?: Category;
     categoryStall?: CategoryStall;

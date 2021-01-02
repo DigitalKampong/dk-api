@@ -59,6 +59,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "sequelize-cli": "sequelize-cli",
     "heroku-postbuild": "yarn build && sequelize-cli db:migrate",
+    "gcp-build": "./deploy/gcp-build.sh",
     "test": "jest",
     "test:debug": "node --inspect_brk node_modules/.bin/jest --runInBand"
   }

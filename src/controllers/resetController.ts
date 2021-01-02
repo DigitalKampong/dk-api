@@ -9,6 +9,7 @@ import Image from '../models/Image';
 import Product, { ProductCreationAttributes } from '../models/Product';
 import Region, { RegionCreationAttributes } from '../models/Region';
 import Stall, { StallCreationAttributes } from '../models/Stall';
+import { updateLatLngAndRegionId } from '../db/seeds/UpdateHawkerCentre';
 
 const SEEDS_FILE_PATH = '../db/seeds/';
 
@@ -70,7 +71,8 @@ async function truncateHawkerCentres(req: Request, res: Response, next: NextFunc
 
 async function seedHawkerCentres(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = await retrieveDataFromCsv('HawkerCentres.csv', ['name', 'address', 'regionId']);
+    await updateLatLngAndRegionId();
+    const data = await retrieveDataFromCsv('HawkerCentres.csv', ['name', 'address', 'regionId', 'latLng']);
     await HawkerCentre.bulkCreate(data as HawkerCentreCreationAttributes[]);
     next();
   } catch (err) {
@@ -178,13 +180,14 @@ async function resetComplete(req: Request, res: Response) {
  * @param headers Customised column names.
  */
 async function retrieveDataFromCsv(filename: string, headers: (string | undefined)[]) {
+  console.log("start retrieve");
   const stream = fs.createReadStream(path.resolve(__dirname, SEEDS_FILE_PATH, filename));
   const data: unknown[] = [];
   await new Promise((resolve, reject) => {
     stream
       .pipe(csv.parse({ headers: headers }))
       .on('error', error => reject(error))
-      .on('data', row => data.push(row))
+      .on('data', row => { console.log(row); data.push(row);})
       .on('end', (rowCount: number) => resolve(`Parsed ${rowCount} rows`));
   });
   return data;

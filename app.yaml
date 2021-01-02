@@ -4,6 +4,7 @@ instance_class: F1
 
 entrypoint: "node build/src/server.js"
 
+# This file will be envsubst in the build process. Beware not to have any variables starting with $ unnecessarily.
 env_variables:
   ON_GAE: "true"
   GCSQL_DB_SOCKET_PATH: /cloudsql

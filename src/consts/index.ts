@@ -27,16 +27,3 @@ export const GCS_PRIVATE_KEY = process.env.GCS_PRIVATE_KEY || '';
 export const GCS_BASE_URL = 'https://storage.googleapis.com';
 
 export * from './upload';
-
-// const mustBePresent: { [key: string]: string | number } = {
-//   DATABASE_URL,
-//   ACCESS_TOKEN_SECRET,
-//   GCS_BUCKET,
-//   GCS_CLIENT_EMAIL,
-//   GCS_PRIVATE_KEY,
-// };
-
-// const missingKeys = Object.keys(mustBePresent).filter(k => mustBePresent[k] === '');
-// if (missingKeys.length > 0) {
-//   throw new Error(`Missing env variables: ${missingKeys.join(', ')}`);
-// }

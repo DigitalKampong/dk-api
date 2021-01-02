@@ -180,14 +180,13 @@ async function resetComplete(req: Request, res: Response) {
  * @param headers Customised column names.
  */
 async function retrieveDataFromCsv(filename: string, headers: (string | undefined)[]) {
-  console.log("start retrieve");
   const stream = fs.createReadStream(path.resolve(__dirname, SEEDS_FILE_PATH, filename));
   const data: unknown[] = [];
   await new Promise((resolve, reject) => {
     stream
       .pipe(csv.parse({ headers: headers }))
       .on('error', error => reject(error))
-      .on('data', row => { console.log(row); data.push(row);})
+      .on('data', row => data.push(row))
       .on('end', (rowCount: number) => resolve(`Parsed ${rowCount} rows`));
   });
   return data;

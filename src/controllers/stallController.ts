@@ -47,8 +47,7 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
       })
     )[0].rating;
 
-    if (rating) stall.setDataValue('rating', rating);
-    else stall.setDataValue('rating', 0);
+    await stall.setDataValue('rating', rating || 0);
 
     req.stall = stall;
     next();

@@ -47,6 +47,14 @@
   * [Get regions](#4-get-regions)
   * [Update region](#5-update-region)
 
+* [Reviews](#reviews)
+
+  * [Create Review for Stall](#1-create-review-for-stall)
+  * [Delete Review](#2-delete-review)
+  * [Get Review](#3-get-review)
+  * [Get Reviews for Stall](#4-get-reviews-for-stall)
+  * [Update Review](#5-update-review)
+
 * [Search](#search)
 
   * [Search stalls](#1-search-stalls)
@@ -1347,6 +1355,140 @@ URL: {{server_url}}/regions/:id
 
 
 
+## Reviews
+
+
+
+### 1. Create Review for Stall
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/stalls/1/reviews
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "description": "Very Good",
+    "rating": 4,
+    "userId":1
+}
+```
+
+
+
+### 2. Delete Review
+
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: RAW
+URL: {{server_url}}/reviews/10
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "description": "Not Very Good",
+    "rating": 4,
+    "userId":1
+}
+```
+
+
+
+### 3. Get Review
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: RAW
+URL: {{server_url}}/reviews/1
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "description": "Very Good",
+    "rating": 4,
+    "userId":1
+}
+```
+
+
+
+### 4. Get Reviews for Stall
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: RAW
+URL: {{server_url}}/stalls/1/reviews
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "description": "Very Good",
+    "rating": 4,
+    "userId":1
+}
+```
+
+
+
+### 5. Update Review
+
+
+
+***Endpoint:***
+
+```bash
+Method: PUT
+Type: RAW
+URL: {{server_url}}/reviews/1
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "description": "Not Very Good",
+    "rating": 4,
+    "userId":1
+}
+```
+
+
+
 ## Search
 
 
@@ -2060,4 +2202,4 @@ URL: {{server_url}}/register
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2020-12-30 10:44:11 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-02 23:58:39 by [docgen](https://github.com/thedevsaddam/docgen)

@@ -3,7 +3,9 @@ import { upload, sendUploadToGCS, createImages, destroyImageIds } from './imageC
 
 import Stall from '../models/Stall';
 import HawkerCentre from '../models/HawkerCentre';
+import Review from '../models/Review';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
+import { Sequelize } from 'sequelize';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
 import Product from '../models/Product';
@@ -17,6 +19,9 @@ function getStallInclude() {
       association: Stall.associations.HawkerCentre,
       include: [HawkerCentre.associations.Region],
     },
+    {
+      association: Stall.associations.Reviews,
+    },
   ];
 }
 
@@ -25,9 +30,25 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
     const stall = await Stall.findByPk(req.params.id, {
       include: getStallInclude(),
     });
+
     if (stall === null) {
       throw new NotFoundError('Stall cannot be found');
     }
+
+    // To obtain single stall rating
+    const rating = (
+      await Review.findAll({
+        where: {
+          stallId: stall!.id,
+        },
+        attributes: [
+          [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
+        ],
+      })
+    )[0].rating;
+
+    await stall.setDataValue('rating', rating || 0);
+
     req.stall = stall;
     next();
   } catch (err) {
@@ -40,6 +61,27 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
     const stalls = await Stall.findAll({
       include: getStallInclude(),
     });
+
+    // To obtain all stall ratings
+    const ratings = await Review.findAll({
+      attributes: [
+        'stallId',
+        [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
+      ],
+      group: ['stallId'],
+    });
+
+    stalls.map(async (stall: Stall) => {
+      const filteredRating = ratings.filter(rating => rating.stallId === stall.id);
+      let rating: number;
+      if (filteredRating.length) {
+        rating = filteredRating[0].rating;
+      } else {
+        rating = 0;
+      }
+      await stall.setDataValue('rating', rating);
+    });
+
     res.status(200).json(stalls);
   } catch (err) {
     next(err);

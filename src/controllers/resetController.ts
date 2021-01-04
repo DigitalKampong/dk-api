@@ -72,7 +72,12 @@ async function truncateHawkerCentres(req: Request, res: Response, next: NextFunc
 async function seedHawkerCentres(req: Request, res: Response, next: NextFunction) {
   try {
     await updateLatLngAndRegionId();
-    const data = await retrieveDataFromCsv('HawkerCentres.csv', ['name', 'address', 'regionId', 'latLng']);
+    const data = await retrieveDataFromCsv('HawkerCentres.csv', [
+      'name',
+      'address',
+      'regionId',
+      'latLng',
+    ]);
     await HawkerCentre.bulkCreate(data as HawkerCentreCreationAttributes[]);
     next();
   } catch (err) {

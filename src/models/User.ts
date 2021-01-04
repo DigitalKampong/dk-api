@@ -1,6 +1,23 @@
-import { Model, DataTypes, Optional } from 'sequelize';
+import {
+  Model,
+  DataTypes,
+  Optional,
+  Association,
+  HasManyAddAssociationMixin,
+  HasManyAddAssociationsMixin,
+  HasManyCountAssociationsMixin,
+  HasManyCreateAssociationMixin,
+  HasManyGetAssociationsMixin,
+  HasManyHasAssociationMixin,
+  HasManyHasAssociationsMixin,
+  HasManyRemoveAssociationMixin,
+  HasManyRemoveAssociationsMixin,
+  HasManySetAssociationsMixin,
+} from 'sequelize';
 
 import sequelize from '../db';
+
+import Review from './Review';
 
 interface UserAttributes {
   id: number;
@@ -17,6 +34,24 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
+
+  // User.hasMany(Review)
+  public addReview!: HasManyAddAssociationMixin<Review, number>;
+  public addReviews!: HasManyAddAssociationsMixin<Review, number>;
+  public countReviews!: HasManyCountAssociationsMixin;
+  public createReviews!: HasManyCreateAssociationMixin<Review>;
+  public getReviews!: HasManyGetAssociationsMixin<Review>;
+  public hasReview!: HasManyHasAssociationMixin<Review, number>;
+  public hasReviews!: HasManyHasAssociationsMixin<Review, number>;
+  public removeReview!: HasManyRemoveAssociationMixin<Review, number>;
+  public removeReviews!: HasManyRemoveAssociationsMixin<Review, number>;
+  public setReviews!: HasManySetAssociationsMixin<Review, number>;
+
+  public readonly Reviews?: Review[];
+
+  public static associations: {
+    Reviews: Association<User, Review>;
+  };
 }
 
 User.init(
@@ -39,5 +74,8 @@ User.init(
   },
   { sequelize }
 );
+
+User.hasMany(Review, { foreignKey: 'userId' });
+Review.belongsTo(User, { foreignKey: 'userId' });
 
 export default User;

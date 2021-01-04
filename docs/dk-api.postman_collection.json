@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e5f9ab51-5c08-43d7-812c-4922fbc83508",
+		"_postman_id": "432da3d1-859b-426c-b07a-ec6c4a93eff7",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2581,6 +2581,204 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Create Review for Stall",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE2MDM5MTEyMDcsImV4cCI6MTYwMzkxMzAwN30.yuVme1rr0fl9WVepTTTyLoEPO5H47lKZWbfRX3y6dGseyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImlhdCI6MTYwMzkzMzY2MywiZXhwIjoxNjAzOTM3MjYzfQ.wD0G33nxbk1LKHppbjBUHH313z9pl0kM5Du_OlGhxxg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Very Good\",\r\n    \"rating\": 4,\r\n    \"userId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/stalls/1/reviews",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls",
+								"1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reviews for Stall ",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE2MDM5MTEyMDcsImV4cCI6MTYwMzkxMzAwN30.yuVme1rr0fl9WVepTTTyLoEPO5H47lKZWbfRX3y6dGseyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImlhdCI6MTYwMzkzMzY2MywiZXhwIjoxNjAzOTM3MjYzfQ.wD0G33nxbk1LKHppbjBUHH313z9pl0kM5Du_OlGhxxg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Very Good\",\r\n    \"rating\": 4,\r\n    \"userId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/stalls/1/reviews",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls",
+								"1",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Review",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE2MDM5MTEyMDcsImV4cCI6MTYwMzkxMzAwN30.yuVme1rr0fl9WVepTTTyLoEPO5H47lKZWbfRX3y6dGseyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImlhdCI6MTYwMzkzMzY2MywiZXhwIjoxNjAzOTM3MjYzfQ.wD0G33nxbk1LKHppbjBUHH313z9pl0kM5Du_OlGhxxg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Very Good\",\r\n    \"rating\": 4,\r\n    \"userId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/reviews/1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"reviews",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE2MDM5MTEyMDcsImV4cCI6MTYwMzkxMzAwN30.yuVme1rr0fl9WVepTTTyLoEPO5H47lKZWbfRX3y6dGseyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImlhdCI6MTYwMzkzMzY2MywiZXhwIjoxNjAzOTM3MjYzfQ.wD0G33nxbk1LKHppbjBUHH313z9pl0kM5Du_OlGhxxg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Not Very Good\",\r\n    \"rating\": 4,\r\n    \"userId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/reviews/1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"reviews",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE2MDM5MTEyMDcsImV4cCI6MTYwMzkxMzAwN30.yuVme1rr0fl9WVepTTTyLoEPO5H47lKZWbfRX3y6dGseyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImlhdCI6MTYwMzkzMzY2MywiZXhwIjoxNjAzOTM3MjYzfQ.wD0G33nxbk1LKHppbjBUHH313z9pl0kM5Du_OlGhxxg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Not Very Good\",\r\n    \"rating\": 4,\r\n    \"userId\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/reviews/10",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"reviews",
+								"10"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

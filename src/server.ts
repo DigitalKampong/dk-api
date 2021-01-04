@@ -18,6 +18,7 @@ import categories from './routes/categories';
 import categoryStalls from './routes/categoryStalls';
 import users from './routes/users';
 import reset from './routes/reset';
+import reviews from './routes/reviews';
 
 const app = express();
 
@@ -32,13 +33,14 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/regions', regions);
 app.use('/hawkerCentres', hawkerCentres);
-app.use('/stalls', stalls);
+app.use('/stalls', stalls, reviews);
 app.use('/products', products);
 app.use('/categories', categories);
 app.use('/categoryStalls', categoryStalls);
 app.use('/search', search);
 app.use('/reset', reset);
 app.use('/', users);
+app.use('/reviews', reviews);
 
 app.all('*', (req: Request, res: Response) => {
   const err = new NotFoundError('You are at the wrong place. Page cannot be found. Shoo!');

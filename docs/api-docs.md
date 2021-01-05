@@ -1368,8 +1368,23 @@ URL: {{server_url}}/regions/:id
 ```bash
 Method: POST
 Type: RAW
-URL: {{server_url}}/stalls/1/reviews
+URL: {{server_url}}/stalls/:id/reviews
 ```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| 'x-auth-token' |  |  |
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -1378,8 +1393,7 @@ URL: {{server_url}}/stalls/1/reviews
 ```js        
 {
     "description": "Very Good",
-    "rating": 4,
-    "userId":1
+    "rating": 4
 }
 ```
 
@@ -1399,18 +1413,6 @@ URL: {{server_url}}/reviews/10
 
 
 
-***Body:***
-
-```js        
-{
-    "description": "Not Very Good",
-    "rating": 4,
-    "userId":1
-}
-```
-
-
-
 ### 3. Get Review
 
 
@@ -1420,20 +1422,16 @@ URL: {{server_url}}/reviews/10
 ```bash
 Method: GET
 Type: RAW
-URL: {{server_url}}/reviews/1
+URL: {{server_url}}/reviews/:id
 ```
 
 
 
-***Body:***
+***URL variables:***
 
-```js        
-{
-    "description": "Very Good",
-    "rating": 4,
-    "userId":1
-}
-```
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -1446,20 +1444,16 @@ URL: {{server_url}}/reviews/1
 ```bash
 Method: GET
 Type: RAW
-URL: {{server_url}}/stalls/1/reviews
+URL: {{server_url}}/stalls/:id/reviews
 ```
 
 
 
-***Body:***
+***URL variables:***
 
-```js        
-{
-    "description": "Very Good",
-    "rating": 4,
-    "userId":1
-}
-```
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -1472,8 +1466,23 @@ URL: {{server_url}}/stalls/1/reviews
 ```bash
 Method: PUT
 Type: RAW
-URL: {{server_url}}/reviews/1
+URL: {{server_url}}/reviews/:id
 ```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| x-auth-token |  |  |
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -1483,7 +1492,6 @@ URL: {{server_url}}/reviews/1
 {
     "description": "Not Very Good",
     "rating": 4,
-    "userId":1
 }
 ```
 
@@ -2202,4 +2210,4 @@ URL: {{server_url}}/register
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-02 23:58:39 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-05 23:48:00 by [docgen](https://github.com/thedevsaddam/docgen)

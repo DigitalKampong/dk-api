@@ -1,6 +1,8 @@
 import Review from '../models/Review';
 import { Request, Response, NextFunction } from 'express';
 import { NotFoundError } from '../errors/httpErrors';
+import jwt_decode from 'jwt-decode';
+import { JWTPayload } from '../middleware/class/class';
 
 async function retrieveReview(req: Request, res: Response, next: NextFunction) {
   try {
@@ -48,8 +50,11 @@ async function showReview(req: Request, res: Response, next: NextFunction) {
 
 async function createReview(req: Request, res: Response, next: NextFunction) {
   try {
+    const token = req.header('x-auth-token');
+    const payload: JWTPayload = jwt_decode(token!);
+    const userId = payload['id'];
     const stallId = req.params.id;
-    req.body = { ...req.body, stallId };
+    req.body = { ...req.body, stallId, userId };
     const review = await Review.create(req.body);
     res.status(201).json(review);
   } catch (err) {
@@ -59,6 +64,10 @@ async function createReview(req: Request, res: Response, next: NextFunction) {
 
 async function updateReview(req: Request, res: Response, next: NextFunction) {
   try {
+    const token = req.header('x-auth-token');
+    const payload: JWTPayload = jwt_decode(token!);
+    const userId = payload['id'];
+    req.body = { ...req.body, userId };
     const review = await req.review!.update(req.body);
     res.status(200).json(review);
   } catch (err) {

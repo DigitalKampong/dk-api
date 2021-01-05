@@ -2593,8 +2593,8 @@
 						"method": "POST",
 						"header": [
 							{
-								"key": "'x-auth-token'",
-								"value": "",
+								"key": "x-auth-token",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
@@ -2707,13 +2707,13 @@
 						"header": [
 							{
 								"key": "x-auth-token",
-								"value": "",
+								"value": "{{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"Not Very Good\",\r\n    \"rating\": 4,\r\n}",
+							"raw": "{\r\n    \"description\": \"Not Very Good\",\r\n    \"rating\": 4,\r\n    \"stallId\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

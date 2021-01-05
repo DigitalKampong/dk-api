@@ -1376,7 +1376,7 @@ URL: {{server_url}}/stalls/:id/reviews
 
 | Key | Value | Description |
 | --- | ------|-------------|
-| 'x-auth-token' |  |  |
+| x-auth-token | {{token}} |  |
 
 
 
@@ -1474,7 +1474,7 @@ URL: {{server_url}}/reviews/:id
 
 | Key | Value | Description |
 | --- | ------|-------------|
-| x-auth-token |  |  |
+| x-auth-token | {{token}} |  |
 
 
 
@@ -1492,6 +1492,7 @@ URL: {{server_url}}/reviews/:id
 {
     "description": "Not Very Good",
     "rating": 4,
+    "stallId": 1
 }
 ```
 
@@ -2210,4 +2211,4 @@ URL: {{server_url}}/register
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-05 23:48:00 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-06 00:10:40 by [docgen](https://github.com/thedevsaddam/docgen)

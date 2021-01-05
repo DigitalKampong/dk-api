@@ -1,7 +1,8 @@
 import Review from '../models/Review';
 import { Request, Response, NextFunction } from 'express';
-import { NotFoundError } from '../errors/httpErrors';
+import { NotFoundError, BadRequestError } from '../errors/httpErrors';
 import jwt_decode from 'jwt-decode';
+import { UniqueConstraintError } from 'sequelize';
 import { JWTPayload } from '../middleware/class/class';
 
 async function retrieveReview(req: Request, res: Response, next: NextFunction) {
@@ -58,6 +59,9 @@ async function createReview(req: Request, res: Response, next: NextFunction) {
     const review = await Review.create(req.body);
     res.status(201).json(review);
   } catch (err) {
+    if (err instanceof UniqueConstraintError)
+      next(new BadRequestError('A review for this stall already exists!'));
+
     next(err);
   }
 }

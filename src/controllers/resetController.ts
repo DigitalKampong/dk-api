@@ -81,6 +81,9 @@ async function seedHawkerCentres(req: Request, res: Response, next: NextFunction
     await HawkerCentre.bulkCreate(data as HawkerCentreCreationAttributes[]);
     next();
   } catch (err) {
+    if (err instanceof RangeError) {
+      res.send(err.message);
+    }
     next(err);
   }
 }

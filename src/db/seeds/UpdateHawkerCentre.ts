@@ -30,12 +30,11 @@ RegionId | Region | first 2 digits of postal code
 const getRegionId = (address: string) => {
   const postalCode = address.substring(address.indexOf('S(') + 2);
   const firstTwoDigits = parseInt(postalCode.substring(0, 2));
-  const isInNorth: Boolean = firstTwoDigits <= 78 && firstTwoDigits >= 72 && firstTwoDigits !== 74;
-  const isInEast: Boolean = (firstTwoDigits <= 52 && firstTwoDigits >= 46) || firstTwoDigits === 81;
-  const isInWest: Boolean = firstTwoDigits <= 71 && firstTwoDigits >= 60;
-  const isInCentral: Boolean =
-    firstTwoDigits <= 45 || firstTwoDigits === 58 || firstTwoDigits === 59;
-  const isInNorthEast: Boolean =
+  const isInNorth = firstTwoDigits <= 78 && firstTwoDigits >= 72 && firstTwoDigits !== 74;
+  const isInEast = (firstTwoDigits <= 52 && firstTwoDigits >= 46) || firstTwoDigits === 81;
+  const isInWest = firstTwoDigits <= 71 && firstTwoDigits >= 60;
+  const isInCentral = firstTwoDigits <= 45 || firstTwoDigits === 58 || firstTwoDigits === 59;
+  const isInNorthEast =
     (firstTwoDigits <= 57 && firstTwoDigits >= 53) ||
     firstTwoDigits === 79 ||
     firstTwoDigits === 80;
@@ -50,8 +49,7 @@ const getRegionId = (address: string) => {
   } else if (isInNorthEast) {
     return '5';
   } else {
-    //Will never enter here
-    return '1';
+    throw new RangeError('Invalid postalcode. Unable to get region from postalcode');
   }
 };
 
@@ -102,10 +100,15 @@ export const updateLatLngAndRegionId = async () => {
                   resolve('Updated HawkerCentre.csv');
                 });
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+              reject(error);
+            });
         });
     });
   } catch (err) {
+    if (err instanceof RangeError) {
+      throw err;
+    }
     console.log('No update on HawkerCentre.csv');
   }
 };

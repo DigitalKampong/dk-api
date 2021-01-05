@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import Stall from '../models/Stall';
+import stallController, { findStallsByIdsFunc } from './stallController';
 
 async function searchStalls(req: Request, res: Response, next: NextFunction) {
   try {
     const query = cleanInput(req.params.query);
-    const stalls = await Stall.sequelize!.query(
+    const stallIds = await Stall.sequelize!.query(
       `
-        SELECT *
+        SELECT id
         FROM "Stalls"
         WHERE id IN (
           SELECT "stallId"
@@ -43,6 +44,11 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
         replacements: { query: query },
       }
     );
+    const stallIdsArray = stallIds.reduce((acc, cur) => {
+      acc.push(cur.getDataValue('id'));
+      return acc;
+    }, []);
+    const stalls = await findStallsByIdsFunc(stallIdsArray);
     res.status(200).json(stalls);
   } catch (err) {
     next(err);

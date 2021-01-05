@@ -1434,7 +1434,6 @@ URL: {{server_url}}/reviews/:id
 | id |  |  |
 
 
-
 ### 4. Get Reviews for Stall
 
 
@@ -1445,7 +1444,6 @@ URL: {{server_url}}/reviews/:id
 Method: GET
 Type: RAW
 URL: {{server_url}}/stalls/:id/reviews
-```
 
 
 

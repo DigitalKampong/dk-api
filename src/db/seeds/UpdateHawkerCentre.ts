@@ -10,7 +10,7 @@ const geocode = async (address: string) => {
   try {
     const urlEncodedAddress = `address=${encodeURIComponent(address)}`;
     const URL = urlForm + urlEncodedAddress + '&' + apiKey;
-    const response: any = await axios.get(URL);
+    const response = await axios.get(URL);
     const latLng = response.data.results[0].geometry.location;
     return latLng;
   } catch (err) {

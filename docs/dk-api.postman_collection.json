@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "432da3d1-859b-426c-b07a-ec6c4a93eff7",
+		"_postman_id": "cdadc25f-bccb-42ba-98ed-582b12a07346",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2122,7 +2122,7 @@
 			"name": "Categories",
 			"item": [
 				{
-					"name": "Get Category",
+					"name": "Get category",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2146,7 +2146,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Categories",
+					"name": "Get categories",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2163,7 +2163,7 @@
 					"response": []
 				},
 				{
-					"name": "Create Category",
+					"name": "Create category",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -2189,7 +2189,7 @@
 					"response": []
 				},
 				{
-					"name": "Update Category",
+					"name": "Update category",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -2222,7 +2222,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Category",
+					"name": "Delete category",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -2251,7 +2251,7 @@
 			"name": "CategoryStalls",
 			"item": [
 				{
-					"name": "Get CategoryStall",
+					"name": "Get categorystall",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2275,7 +2275,7 @@
 					"response": []
 				},
 				{
-					"name": "Get CategoryStalls",
+					"name": "Get categorystalls",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2292,7 +2292,7 @@
 					"response": []
 				},
 				{
-					"name": "Create CategoryStall",
+					"name": "Create categorystall",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -2318,7 +2318,7 @@
 					"response": []
 				},
 				{
-					"name": "Update CategoryStall",
+					"name": "Update categorystall",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -2351,7 +2351,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete CategoryStall",
+					"name": "Delete categorystall",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -2588,7 +2588,7 @@
 			"name": "Reviews",
 			"item": [
 				{
-					"name": "Create Review for Stall",
+					"name": "Create review for stall",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -2628,7 +2628,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Reviews for Stall ",
+					"name": "Get reviews for stall",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2665,7 +2665,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Review",
+					"name": "Get review",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -2701,7 +2701,7 @@
 					"response": []
 				},
 				{
-					"name": "Update Review",
+					"name": "Update review",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -2740,7 +2740,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Review",
+					"name": "Delete review",
 					"request": {
 						"method": "DELETE",
 						"header": [],

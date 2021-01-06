@@ -1,9 +1,10 @@
 import { Client } from '@googlemaps/google-maps-services-js';
-import { GMAP_API_KEY } from '../consts';
+import { GMAPS_API_KEY } from '../consts';
+
+const client = new Client({});
 
 export async function geocode(address: string) {
-  const client = new Client({});
-  const resp = await client.geocode({ params: { address, key: GMAP_API_KEY } });
+  const resp = await client.geocode({ params: { address, key: GMAPS_API_KEY } });
   return resp.data.results[0].geometry.location;
 }
 
@@ -32,13 +33,13 @@ export function getRegionId(address: string) {
   if (isInNorth) {
     return 1;
   } else if (isInEast) {
-    return '2';
+    return 2;
   } else if (isInWest) {
-    return '3';
+    return 3;
   } else if (isInCentral) {
-    return '4';
+    return 4;
   } else if (isInNorthEast) {
-    return '5';
+    return 5;
   } else {
     throw new RangeError('Invalid postalcode. Unable to get region from postalcode');
   }

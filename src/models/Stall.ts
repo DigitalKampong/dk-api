@@ -99,7 +99,7 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
     HawkerCentre: Association<Stall, HawkerCentre>;
     Products: Association<Stall, Product>;
     Images: Association<Stall, Image>;
-    Reviews: Association<Product, Review>;
+    Reviews: Association<Stall, Review>;
   };
 }
 

@@ -1,4 +1,5 @@
-// This script will read a hawker centre's address and find a suitable regionId and latlng for it.
+// This script will read a hawker centre's address and find a suitable regionId and latlng for it. Can choose whether to refetch
+// data for all rows or only those with missing values.
 
 // import axios from 'axios';
 import * as csv from 'fast-csv';
@@ -66,19 +67,15 @@ interface HawkerCentreRow {
   lng?: number;
 }
 
-const seedFile = path.resolve(__dirname, './seeds', 'hawkerCentre.csv');
+const seedDir = path.resolve(__dirname, '../db/seeds');
+const seedFileName = 'HawkerCentres.csv';
+const seedFilePath = path.join(seedDir, seedFileName);
 
+// Fetch the geocoding API from Google again
 async function updateRow(row: HawkerCentreRow) {
   const { address } = row;
-  let { regionId, lat, lng } = row;
-
-  // Only redo the computations if the fields are not present in the first place
-  regionId = regionId || getRegionId(address);
-  if (!lat || !lng) {
-    const latLng = await geocode(address);
-    lat = latLng.lat;
-    lng = latLng.lng;
-  }
+  const regionId = getRegionId(address);
+  const { lat, lng } = await geocode(address);
 
   return {
     ...row,
@@ -88,51 +85,48 @@ async function updateRow(row: HawkerCentreRow) {
   };
 }
 
-export const updateLatLngAndRegionId = async () => {
-  const stream = fs.createReadStream(seedFile);
-  const promises: Promise[] = [];
+function missingVal(row: HawkerCentreRow) {
+  const { regionId, lat, lng } = row;
+  return !regionId || !lat || !lng;
+}
+
+async function updateLatLngAndRegionId(resetAll = false) {
+  const stream = fs.createReadStream(seedFilePath);
+  const promises: Promise<HawkerCentreRow>[] = [];
 
   try {
-    await new Promise((resolve, reject) => {
-      stream
-        .pipe(csv.parse({ headers: ['name', 'address', 'regionId', 'lat', 'lng'] }))
-        .on('error', error => {
-          reject(error);
-        })
-        .on('data', async row => {
-          promises.push(
-            new Promise(resolve => {
+    stream
+      .pipe(csv.parse({ headers: true }))
+      .on('data', async row => {
+        promises.push(
+          new Promise(resolve => {
+            if (resetAll || missingVal(row)) {
               resolve(updateRow(row));
-            })
-          );
-        })
-        .on('end', async () => {
-          const ws = fs.createWriteStream(
-            path.resolve(__dirname, SEEDS_FILE_PATH, hawkerCentreFilename)
-          );
+            } else {
+              resolve(row);
+            }
+          })
+        );
+      })
+      .on('end', async () => {
+        const ws = fs.createWriteStream(seedFilePath);
+        const updatedRows: HawkerCentreRow[] = await Promise.all(promises);
 
-          console.log("BYE");
-          await Promise.all(promises)
-            .then(updatedRows => {
-              csv
-                .write(updatedRows)
-                .pipe(ws)
-                .on('finish', () => {
-                  resolve('Updated HawkerCentre.csv');
-                });
-            })
-            .catch(error => {
-              reject(error);
-            });
-        });
-    });
+        // const csvStream = csv.format({ headers: true });
+        csv.writeToStream(ws, updatedRows, { headers: true });
+        // csvStream.pipe(ws);
+        // csvStream.write(updatedRows);
+        // csvStream.end();
+      });
   } catch (err) {
-    if (err instanceof RangeError) {
-      throw err;
-    }
-    console.log(err, 'No update on HawkerCentre.csv');
+    console.log(err);
   }
-};
+}
+
+(async function () {
+  await updateLatLngAndRegionId(true);
+})();
+
 
 // export const updateLatLngAndRegionId = async () => {
 //   const stream = fs.createReadStream(seedFile);
@@ -158,7 +152,7 @@ export const updateLatLngAndRegionId = async () => {
 //           );
 
 //           console.log("BYE");
-//           await Promise.all(promises)
+//           Promise.all(promises)
 //             .then(updatedRows => {
 //               csv
 //                 .write(updatedRows)

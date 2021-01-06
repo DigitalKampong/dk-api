@@ -11,6 +11,9 @@
 2. Run `docker-compose up -d` in the project directory to start the services (eg. database) that the backend needs to run.
 3. Run `yarn dev` to start the development server
 
+## ts-node
+1. To run scripts written in Typescript, do `yarn ts-node {script_name}`
+
 ## Testing
 1. Run `NODE_ENV=test yarn sequelize-cli db:create` to create test database after postgres is up
 

@@ -1,22 +1,7 @@
-import {
-  Model,
-  DataTypes,
-  Optional,
-  Association,
-  HasManyAddAssociationMixin,
-  HasManyAddAssociationsMixin,
-  HasManyCountAssociationsMixin,
-  HasManyCreateAssociationMixin,
-  HasManyGetAssociationsMixin,
-  HasManyHasAssociationMixin,
-  HasManyHasAssociationsMixin,
-  HasManyRemoveAssociationMixin,
-  HasManyRemoveAssociationsMixin,
-  HasManySetAssociationsMixin,
-} from 'sequelize';
+import { Model, DataTypes, Optional, Association } from 'sequelize';
 
 import sequelize from '../db';
-import CategoryStall from './CategoryStall';
+import Stall from './Stall';
 
 export interface CategoryAttributes {
   id: number;
@@ -34,22 +19,10 @@ class Category
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  // category.hasMany(CategoryStall)
-  public addCategoryStall!: HasManyAddAssociationMixin<CategoryStall, number>;
-  public addCategoryStalls!: HasManyAddAssociationsMixin<CategoryStall, number>;
-  public countCategoryStalls!: HasManyCountAssociationsMixin;
-  public createCategoryStall!: HasManyCreateAssociationMixin<CategoryStall>;
-  public getCategoryStalls!: HasManyGetAssociationsMixin<CategoryStall>;
-  public hasCategoryStall!: HasManyHasAssociationMixin<CategoryStall, number>;
-  public hasCategoryStalls!: HasManyHasAssociationsMixin<CategoryStall, number>;
-  public removeCategoryStall!: HasManyRemoveAssociationMixin<CategoryStall, number>;
-  public removeCategoryStalls!: HasManyRemoveAssociationsMixin<CategoryStall, number>;
-  public setCategoryStalls!: HasManySetAssociationsMixin<CategoryStall, number>;
-
-  public readonly categoryStalls?: CategoryStall[];
+  public readonly stalls?: Stall[];
 
   public static associations: {
-    CategoryStalls: Association<Category, CategoryStall>;
+    Stalls: Association<Category, Stall>;
   };
 }
 

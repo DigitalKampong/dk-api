@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import Stall from '../models/Stall';
-import { findStallsByIdsFunc, indexStallFuncs } from './stallController';
+import { findStallsByIdsFunc } from './stallController';
 
 async function searchStalls(req: Request, res: Response, next: NextFunction) {
   try {

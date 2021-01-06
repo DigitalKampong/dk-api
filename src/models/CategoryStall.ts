@@ -1,16 +1,6 @@
-import {
-  Model,
-  DataTypes,
-  Optional,
-  Association,
-  BelongsToCreateAssociationMixin,
-  BelongsToGetAssociationMixin,
-  BelongsToSetAssociationMixin,
-} from 'sequelize';
+import { Model, DataTypes, Optional } from 'sequelize';
 
 import sequelize from '../db';
-import Category from './Category';
-import Stall from './Stall';
 
 export interface CategoryStallAttributes {
   id: number;
@@ -29,24 +19,6 @@ class CategoryStall
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
-
-  // CategoryStall.belongsTo(Stall)
-  public createCategory!: BelongsToCreateAssociationMixin<Category>;
-  public getCategory!: BelongsToGetAssociationMixin<Category>;
-  public setCategory!: BelongsToSetAssociationMixin<Category, number>;
-
-  // Category.belongsTo(Category)
-  public createStall!: BelongsToCreateAssociationMixin<Stall>;
-  public getStall!: BelongsToGetAssociationMixin<Stall>;
-  public setStall!: BelongsToSetAssociationMixin<Stall, number>;
-
-  public readonly category?: Category;
-  public readonly stall?: Stall;
-
-  public static associations: {
-    Category: Association<CategoryStall, Category>;
-    Stall: Association<CategoryStall, Stall>;
-  };
 }
 
 CategoryStall.init(

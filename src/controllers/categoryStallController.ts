@@ -4,12 +4,7 @@ import { NotFoundError } from '../errors/httpErrors';
 
 async function retrieveCategoryStall(req: Request, res: Response, next: NextFunction) {
   try {
-    const categoryStall = await CategoryStall.findByPk(req.params.id, {
-      include: [
-        { association: CategoryStall.associations.Stall },
-        { association: CategoryStall.associations.Category },
-      ],
-    });
+    const categoryStall = await CategoryStall.findByPk(req.params.id);
     if (categoryStall === null) {
       throw new NotFoundError('CategoryStall cannot be found');
     }
@@ -22,12 +17,7 @@ async function retrieveCategoryStall(req: Request, res: Response, next: NextFunc
 
 async function indexCategoryStall(req: Request, res: Response, next: NextFunction) {
   try {
-    const categoryStalls = await CategoryStall.findAll({
-      include: [
-        { association: CategoryStall.associations.Stall },
-        { association: CategoryStall.associations.Category },
-      ],
-    });
+    const categoryStalls = await CategoryStall.findAll();
     res.status(200).json(categoryStalls);
   } catch (err) {
     next(err);
@@ -45,12 +35,7 @@ async function showCategoryStall(req: Request, res: Response, next: NextFunction
 async function createCategoryStall(req: Request, res: Response, next: NextFunction) {
   try {
     const categoryStallId = (await CategoryStall.create(req.body)).id;
-    const categoryStall = await CategoryStall.findByPk(categoryStallId, {
-      include: [
-        { association: CategoryStall.associations.Stall },
-        { association: CategoryStall.associations.Category },
-      ],
-    });
+    const categoryStall = await CategoryStall.findByPk(categoryStallId);
     res.status(201).json(categoryStall);
   } catch (err) {
     next(err);

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import Stall from '../models/Stall';
-import stallController, { findStallsByIdsFunc } from './stallController';
+import { findStallsByIdsFunc } from './stallController';
 
 async function searchStalls(req: Request, res: Response, next: NextFunction) {
   try {
@@ -44,7 +44,7 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
         replacements: { query: query },
       }
     );
-    const stallIdsArray = stallIds.reduce((acc, cur) => {
+    const stallIdsArray = stallIds.reduce((acc: number[], cur) => {
       acc.push(cur.getDataValue('id'));
       return acc;
     }, []);

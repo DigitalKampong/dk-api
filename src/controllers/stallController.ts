@@ -136,7 +136,7 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function findStallsByIds(ids) {
+async function findStallsByIds(ids: number[]) {
   const stalls = await Stall.findAll({
     include: getStallInclude(),
     where: {

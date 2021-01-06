@@ -38,11 +38,11 @@ class Category
   public addCategoryStall!: HasManyAddAssociationMixin<CategoryStall, number>;
   public addCategoryStalls!: HasManyAddAssociationsMixin<CategoryStall, number>;
   public countCategoryStalls!: HasManyCountAssociationsMixin;
-  public createCategoryStalls!: HasManyCreateAssociationMixin<CategoryStall>;
+  public createCategoryStall!: HasManyCreateAssociationMixin<CategoryStall>;
   public getCategoryStalls!: HasManyGetAssociationsMixin<CategoryStall>;
-  public hasStall!: HasManyHasAssociationMixin<CategoryStall, number>;
+  public hasCategoryStall!: HasManyHasAssociationMixin<CategoryStall, number>;
   public hasCategoryStalls!: HasManyHasAssociationsMixin<CategoryStall, number>;
-  public removeStall!: HasManyRemoveAssociationMixin<CategoryStall, number>;
+  public removeCategoryStall!: HasManyRemoveAssociationMixin<CategoryStall, number>;
   public removeCategoryStalls!: HasManyRemoveAssociationsMixin<CategoryStall, number>;
   public setCategoryStalls!: HasManySetAssociationsMixin<CategoryStall, number>;
 
@@ -68,8 +68,5 @@ Category.init(
   },
   { sequelize }
 );
-
-Category.hasMany(CategoryStall, { foreignKey: 'categoryId' });
-CategoryStall.belongsTo(Category, { foreignKey: 'categoryId' });
 
 export default Category;

@@ -22,6 +22,9 @@ function getStallInclude() {
     {
       association: Stall.associations.Reviews,
     },
+    {
+      association: Stall.associations.Categories,
+    },
   ];
 }
 

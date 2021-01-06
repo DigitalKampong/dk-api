@@ -9,7 +9,7 @@ import Image from '../models/Image';
 import Product, { ProductCreationAttributes } from '../models/Product';
 import Region, { RegionCreationAttributes } from '../models/Region';
 import Stall, { StallCreationAttributes } from '../models/Stall';
-import { updateLatLngAndRegionId } from '../db/seeds/UpdateHawkerCentre';
+import { updateLatLngAndRegionId } from '../db/hawkerCentreSeedUtil';
 
 const SEEDS_FILE_PATH = '../db/seeds/';
 

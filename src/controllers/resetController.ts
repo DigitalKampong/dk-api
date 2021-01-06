@@ -9,6 +9,7 @@ import Image from '../models/Image';
 import Product, { ProductCreationAttributes } from '../models/Product';
 import Region, { RegionCreationAttributes } from '../models/Region';
 import Stall, { StallCreationAttributes } from '../models/Stall';
+import { updateLatLngAndRegionId } from '../db/seeds/UpdateHawkerCentre';
 
 const SEEDS_FILE_PATH = '../db/seeds/';
 
@@ -70,10 +71,19 @@ async function truncateHawkerCentres(req: Request, res: Response, next: NextFunc
 
 async function seedHawkerCentres(req: Request, res: Response, next: NextFunction) {
   try {
-    const data = await retrieveDataFromCsv('HawkerCentres.csv', ['name', 'address', 'regionId']);
+    await updateLatLngAndRegionId();
+    const data = await retrieveDataFromCsv('HawkerCentres.csv', [
+      'name',
+      'address',
+      'regionId',
+      'latLng',
+    ]);
     await HawkerCentre.bulkCreate(data as HawkerCentreCreationAttributes[]);
     next();
   } catch (err) {
+    if (err instanceof RangeError) {
+      res.send(err.message);
+    }
     next(err);
   }
 }

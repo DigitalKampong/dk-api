@@ -10,7 +10,6 @@ import Product, { ProductCreationAttributes } from '../models/Product';
 import Region, { RegionCreationAttributes } from '../models/Region';
 import Stall, { StallCreationAttributes } from '../models/Stall';
 import { updateLatLngAndRegionId } from '../scripts/populateHawkerCentreDetails';
-import { destroyImages } from './imageController';
 
 const SEEDS_FILE_PATH = '../db/seeds/';
 
@@ -182,14 +181,6 @@ async function seedStalls(req: Request, res: Response, next: NextFunction) {
 async function resetComplete(req: Request, res: Response) {
   res.status(200).send('Successfully reset database.');
 }
-
-// async function reset(req: Request, res: Response) {
-//   // Remove images manually
-
-//   const images = await Image.findAll();
-//   await destroyImages(images);
-  
-// }
 
 /**
  * Extracts data from .csv

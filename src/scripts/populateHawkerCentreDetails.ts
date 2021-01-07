@@ -124,7 +124,7 @@ async function updateLatLngAndRegionId(resetAll = false) {
 }
 
 (async function () {
-  await updateLatLngAndRegionId(true);
+  await updateLatLngAndRegionId();
 })();
 
 

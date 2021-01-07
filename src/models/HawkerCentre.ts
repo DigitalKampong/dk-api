@@ -40,8 +40,8 @@ class HawkerCentre
   public name!: string;
   public address!: string | null;
   public regionId!: number;
-  public lat!: string | null;
-  public lng!: string | null;
+  public lat!: number | null;
+  public lng!: number | null;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -96,10 +96,10 @@ HawkerCentre.init(
       },
     },
     lat: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.DOUBLE,
     },
     lng: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.DOUBLE,
     },
   },
   { sequelize }

@@ -9,7 +9,6 @@ import Image from '../models/Image';
 import Product, { ProductCreationAttributes } from '../models/Product';
 import Region, { RegionCreationAttributes } from '../models/Region';
 import Stall, { StallCreationAttributes } from '../models/Stall';
-import { updateLatLngAndRegionId } from '../scripts/populateHawkerCentreDetails';
 
 const SEEDS_FILE_PATH = '../db/seeds/';
 
@@ -71,7 +70,6 @@ async function truncateHawkerCentres(req: Request, res: Response, next: NextFunc
 
 async function seedHawkerCentres(req: Request, res: Response, next: NextFunction) {
   try {
-    await updateLatLngAndRegionId();
     const data = await retrieveDataFromCsv('HawkerCentres.csv', [
       'name',
       'address',

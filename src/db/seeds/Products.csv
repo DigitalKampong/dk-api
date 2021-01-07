@@ -1,4 +1,5 @@
-﻿Nasi Lemak,1,"Egg, fish, chicken wing and chili with rice.",2.5
+﻿name,stallId,description,price
+Nasi Lemak,1,"Egg, fish, chicken wing and chili with rice.",2.5
 Mee Rebus,1,"Egg, gravy, beansprout with yellow noodle.",3
 Fishball Noodle,2,"Fishball, fishcake and lettuce with yellow noodle soup.",3
 Mee Pok,2,"Minced meat, lettuce with mee pok.",4

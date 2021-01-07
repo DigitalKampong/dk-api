@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { Request, Response, NextFunction, Express } from 'express';
 import { Storage } from '@google-cloud/storage';
 import multer from 'multer';
@@ -54,11 +56,13 @@ const bucket = storage.bucket(GCS_BUCKET);
 
 // Resolve name collisions
 async function generateGcsName(ext: string) {
-  let gcsName = `${uuidv4()}.${ext}`;
+  if (ext[0] !== '.') ext = '.' + ext;
+
+  let gcsName = `${uuidv4()}${ext}`;
 
   // API returns response as [boolean]
   while ((await bucket.file(gcsName).exists())[0]) {
-    gcsName = `${uuidv4()}.${ext}`;
+    gcsName = `${uuidv4()}${ext}`;
   }
 
   return gcsName;
@@ -102,6 +106,29 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
   }
 }
 
+async function uploadImgFromDisk(filepath: string) {
+  const ext = path.extname(filepath);
+  const gcsName = await generateGcsName(ext);
+  const buffer = fs.readFileSync(filepath);
+  const file = bucket.file(gcsName);
+
+  await new Promise((resolve, reject) => {
+    const stream = file.createWriteStream();
+    stream.on('error', () => {
+      reject(err);
+    });
+
+    stream.on('finish', () => {
+      resolve();
+    });
+
+    stream.end(buffer);
+  });
+
+  const img = (await createImages([gcsName]))[0];
+  return img;
+}
+
 async function createImages(fileNames: string[], t?: Transaction) {
   const promises = fileNames.map(name => Image.create({ fileName: name }, { transaction: t }));
   const images = await Promise.all(promises);
@@ -125,4 +152,4 @@ async function destroyImages(images: Image[], t?: Transaction) {
   return;
 }
 
-export { upload, sendUploadToGCS, createImages, destroyImages, destroyImageIds };
+export { upload, sendUploadToGCS, createImages, destroyImages, destroyImageIds, uploadImgFromDisk };

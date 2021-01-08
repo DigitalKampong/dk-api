@@ -1,6 +1,7 @@
 import Review from '../models/Review';
 import { Request, Response, NextFunction } from 'express';
-import { NotFoundError } from '../errors/httpErrors';
+import { NotFoundError, BadRequestError } from '../errors/httpErrors';
+import { UniqueConstraintError } from 'sequelize';
 
 async function retrieveReview(req: Request, res: Response, next: NextFunction) {
   try {
@@ -48,18 +49,19 @@ async function showReview(req: Request, res: Response, next: NextFunction) {
 
 async function createReview(req: Request, res: Response, next: NextFunction) {
   try {
-    const stallId = req.params.id;
-    req.body = { ...req.body, stallId };
-    const review = await Review.create(req.body);
+    const review = await Review.create({ ...req.body, stallId: req.params.Id, userId: req.userId });
     res.status(201).json(review);
   } catch (err) {
+    if (err instanceof UniqueConstraintError)
+      next(new BadRequestError('A review for this stall already exists!'));
+
     next(err);
   }
 }
 
 async function updateReview(req: Request, res: Response, next: NextFunction) {
   try {
-    const review = await req.review!.update(req.body);
+    const review = await req.review!.update({ ...req.body, usserId: req.userId });
     res.status(200).json(review);
   } catch (err) {
     next(err);

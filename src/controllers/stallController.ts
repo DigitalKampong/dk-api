@@ -76,12 +76,7 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
 
     stalls.map(async (stall: Stall) => {
       const filteredRating = ratings.filter(rating => rating.stallId === stall.id);
-      let rating: number;
-      if (filteredRating.length) {
-        rating = filteredRating[0].rating;
-      } else {
-        rating = 0;
-      }
+      const rating: number = filteredRating.length ? filteredRating[0].rating : 0;
       await stall.setDataValue('rating', rating);
     });
 
@@ -150,6 +145,27 @@ async function findStallsByIds(ids: number[]) {
       id: ids,
     },
   });
+
+  // To obtain all stall ratings
+  const ratings = await Review.findAll({
+    where: {
+      stallId: ids,
+    },
+    attributes: [
+      'stallId',
+      [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
+    ],
+    group: ['stallId'],
+  });
+
+  console.log(ratings);
+
+  stalls.map(async (stall: Stall) => {
+    const filteredRating = ratings.filter(rating => rating.stallId === stall.id);
+    const rating: number = filteredRating.length ? filteredRating[0].rating : 0;
+    await stall.setDataValue('rating', rating);
+  });
+
   return stalls;
 }
 

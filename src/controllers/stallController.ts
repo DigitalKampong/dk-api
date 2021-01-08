@@ -77,7 +77,7 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
 
     stalls.map(async (stall: Stall) => {
       const filteredRating = ratings.filter(rating => rating.stallId === stall.id);
-      const rating: number = filteredRating.length ? filteredRating[0].rating : 0;
+      const rating = filteredRating.length ? filteredRating[0].rating : 0;
       await stall.setDataValue('rating', rating);
     });
 

@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Image from '../models/Image';
 import { ON_GAE, GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY, MAX_IMAGE_SIZE } from '../consts';
 import { BadRequestError, UploadFileError } from '../errors/httpErrors';
-import { BulkCreateOptions, DestroyOptions, FindOptions, Transaction } from 'sequelize/types';
+import { BulkCreateOptions, DestroyOptions } from 'sequelize/types';
 
 /**
  * Image processing pipeline
@@ -106,8 +106,8 @@ async function uploadFormImgs(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function uploadDiskImgs(filepaths: string[]): string[] {
-  const promises = filepaths.map(async filepath => {
+async function uploadDiskImgs(filepaths: string[]): Promise<string[]> {
+  const promises: Promise<string>[] = filepaths.map(async filepath => {
     const ext = path.extname(filepath);
     const gcsName = await generateGcsName(ext);
     const buffer = fs.readFileSync(filepath);
@@ -115,7 +115,7 @@ async function uploadDiskImgs(filepaths: string[]): string[] {
     return new Promise((resolve, reject) => {
       const file = bucket.file(gcsName);
       const stream = file.createWriteStream();
-      stream.on('error', () => {
+      stream.on('error', err => {
         reject(err);
       });
 
@@ -130,23 +130,23 @@ async function uploadDiskImgs(filepaths: string[]): string[] {
   return await Promise.all(promises);
 }
 
-async function uploadDiskImg(filepath: string): string {
-  return (await uploadDiskImgs([filepath]))[0];
+async function uploadDiskImg(filepath: string): Promise<string> {
+  return (await uploadDiskImgs([filepath]))[0] as string;
 }
 
-async function createImages(fileNames: string[], opts: BulkCreateOptions = {}): Image[] {
+async function createImages(fileNames: string[], opts: BulkCreateOptions = {}): Promise<Image[]> {
   const data = fileNames.map(name => ({ fileName: name }));
   const images = await Image.bulkCreate(data, opts);
   return images;
 }
 
-async function destroyImageIds(imageIds: number[], opts: DestroyOptions = {}): void {
+async function destroyImageIds(imageIds: number[], opts: DestroyOptions = {}): Promise<void> {
   const images = await Image.findAll({ where: { id: imageIds } });
   await destroyImages(images, opts);
   return;
 }
 
-async function destroyImages(images: Image[], opts: DestroyOptions = {}): void {
+async function destroyImages(images: Image[], opts: DestroyOptions = {}): Promise<void> {
   // Unlink the images first before removing them from gcs
   const imageIds = images.map(image => image.id);
   await Image.destroy({ ...opts, where: { id: imageIds } });

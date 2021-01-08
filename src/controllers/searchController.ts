@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import Stall from '../models/Stall';
-import { findStallsByIdsFunc } from './stallController';
+import { findStallsByIdsFunc, mapStallToCardFunc } from './stallController';
 
 async function searchStalls(req: Request, res: Response, next: NextFunction) {
   try {
@@ -49,7 +49,8 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
       return acc;
     }, []);
     const stalls = await findStallsByIdsFunc(stallIdsArray);
-    res.status(200).json(stalls);
+    const formattedStalls = mapStallToCardFunc(stalls);
+    res.status(200).json(formattedStalls);
   } catch (err) {
     next(err);
   }

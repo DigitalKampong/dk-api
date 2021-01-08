@@ -139,6 +139,10 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+/**
+ * Retrieves all stalls that match a given set of ids.
+ * @param ids Ids of stalls to be retrieved.
+ */
 async function findStallsByIds(ids: number[]) {
   const stalls = await Stall.findAll({
     include: getStallInclude(),
@@ -147,6 +151,21 @@ async function findStallsByIds(ids: number[]) {
     },
   });
   return stalls;
+}
+
+/**
+ * Formats stall information to display them on cards.
+ * @param stalls Sequelize instances of stalls to be formmatted.
+ */
+function mapStallToCard(stalls: Stall[]) {
+  const updatedStalls = stalls.map(stall => {
+    const jsonStall = stall.toJSON();
+    jsonStall.Categories = jsonStall.Categories.map(category => category['name']);
+    const propertiesToDelete = ['description', 'contactNo', 'unitNo', 'Products', 'Reviews'];
+    propertiesToDelete.forEach(property => delete jsonStall[property]);
+    return jsonStall;
+  });
+  return updatedStalls;
 }
 
 async function uploadStallImages(req: Request, res: Response, next: NextFunction) {
@@ -179,12 +198,14 @@ async function destroyStallImages(req: Request, res: Response, next: NextFunctio
   }
 }
 
+export const findStallsByIdsFunc = findStallsByIds;
+export const mapStallToCardFunc = mapStallToCard;
+
 export const indexStallFuncs = [indexStall];
 export const showStallFuncs = [retrieveStall, showStall];
 export const createStallFuncs = [createStall];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];
-export const findStallsByIdsFunc = findStallsByIds;
 export const uploadStallImagesFuncs = [
   retrieveStall,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),

@@ -7,19 +7,19 @@
 
 * [Categories](#categories)
 
-  * [Create Category](#1-create-category)
-  * [Delete Category](#2-delete-category)
-  * [Get Categories](#3-get-categories)
-  * [Get Category](#4-get-category)
-  * [Update Category](#5-update-category)
+  * [Create category](#1-create-category)
+  * [Delete category](#2-delete-category)
+  * [Get categories](#3-get-categories)
+  * [Get category](#4-get-category)
+  * [Update category](#5-update-category)
 
 * [CategoryStalls](#categorystalls)
 
-  * [Create CategoryStall](#1-create-categorystall)
-  * [Delete CategoryStall](#2-delete-categorystall)
-  * [Get CategoryStall](#3-get-categorystall)
-  * [Get CategoryStalls](#4-get-categorystalls)
-  * [Update CategoryStall](#5-update-categorystall)
+  * [Create categorystall](#1-create-categorystall)
+  * [Delete categorystall](#2-delete-categorystall)
+  * [Get categorystall](#3-get-categorystall)
+  * [Get categorystalls](#4-get-categorystalls)
+  * [Update categorystall](#5-update-categorystall)
 
 * [HawkerCentres](#hawkercentres)
 
@@ -53,11 +53,11 @@
 
 * [Reviews](#reviews)
 
-  * [Create Review for Stall](#1-create-review-for-stall)
-  * [Delete Review](#2-delete-review)
-  * [Get Review](#3-get-review)
-  * [Get Reviews for Stall](#4-get-reviews-for-stall)
-  * [Update Review](#5-update-review)
+  * [Create review for stall](#1-create-review-for-stall)
+  * [Delete review](#2-delete-review)
+  * [Get review](#3-get-review)
+  * [Get reviews for stall](#4-get-reviews-for-stall)
+  * [Update review](#5-update-review)
 
 * [Search](#search)
 
@@ -86,7 +86,7 @@
 
 
 
-### 1. Create Category
+### 1. Create category
 
 
 
@@ -110,7 +110,7 @@ URL: {{server_url}}/categories
 
 
 
-### 2. Delete Category
+### 2. Delete category
 
 
 
@@ -132,7 +132,7 @@ URL: {{server_url}}/categories/:id
 
 
 
-### 3. Get Categories
+### 3. Get categories
 
 
 
@@ -146,7 +146,7 @@ URL: {{server_url}}/categories
 
 
 
-### 4. Get Category
+### 4. Get category
 
 
 
@@ -168,7 +168,7 @@ URL: {{server_url}}/categories/:id
 
 
 
-### 5. Update Category
+### 5. Update category
 
 
 
@@ -204,7 +204,7 @@ URL: {{server_url}}/categories/:id
 
 
 
-### 1. Create CategoryStall
+### 1. Create categorystall
 
 
 
@@ -229,7 +229,7 @@ URL: {{server_url}}/categoryStalls
 
 
 
-### 2. Delete CategoryStall
+### 2. Delete categorystall
 
 
 
@@ -251,7 +251,7 @@ URL: {{server_url}}/categoryStalls/:id
 
 
 
-### 3. Get CategoryStall
+### 3. Get categorystall
 
 
 
@@ -273,7 +273,7 @@ URL: {{server_url}}/categoryStalls/:id
 
 
 
-### 4. Get CategoryStalls
+### 4. Get categorystalls
 
 
 
@@ -287,7 +287,7 @@ URL: {{server_url}}/categoryStalls
 
 
 
-### 5. Update CategoryStall
+### 5. Update categorystall
 
 
 
@@ -1381,7 +1381,7 @@ URL: {{server_url}}/reset/
 
 
 
-### 1. Create Review for Stall
+### 1. Create review for stall
 
 
 
@@ -1390,8 +1390,23 @@ URL: {{server_url}}/reset/
 ```bash
 Method: POST
 Type: RAW
-URL: {{server_url}}/stalls/1/reviews
+URL: {{server_url}}/stalls/:id/reviews
 ```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| x-auth-token | {{token}} |  |
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -1400,14 +1415,13 @@ URL: {{server_url}}/stalls/1/reviews
 ```js        
 {
     "description": "Very Good",
-    "rating": 4,
-    "userId":1
+    "rating": 4
 }
 ```
 
 
 
-### 2. Delete Review
+### 2. Delete review
 
 
 
@@ -1421,19 +1435,7 @@ URL: {{server_url}}/reviews/10
 
 
 
-***Body:***
-
-```js        
-{
-    "description": "Not Very Good",
-    "rating": 4,
-    "userId":1
-}
-```
-
-
-
-### 3. Get Review
+### 3. Get review
 
 
 
@@ -1442,24 +1444,20 @@ URL: {{server_url}}/reviews/10
 ```bash
 Method: GET
 Type: RAW
-URL: {{server_url}}/reviews/1
+URL: {{server_url}}/reviews/:id
 ```
 
 
 
-***Body:***
+***URL variables:***
 
-```js        
-{
-    "description": "Very Good",
-    "rating": 4,
-    "userId":1
-}
-```
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
-### 4. Get Reviews for Stall
+### 4. Get reviews for stall
 
 
 
@@ -1468,24 +1466,20 @@ URL: {{server_url}}/reviews/1
 ```bash
 Method: GET
 Type: RAW
-URL: {{server_url}}/stalls/1/reviews
+URL: {{server_url}}/stalls/:id/reviews
 ```
 
 
 
-***Body:***
+***URL variables:***
 
-```js        
-{
-    "description": "Very Good",
-    "rating": 4,
-    "userId":1
-}
-```
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
-### 5. Update Review
+### 5. Update review
 
 
 
@@ -1494,8 +1488,23 @@ URL: {{server_url}}/stalls/1/reviews
 ```bash
 Method: PUT
 Type: RAW
-URL: {{server_url}}/reviews/1
+URL: {{server_url}}/reviews/:id
 ```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| x-auth-token | {{token}} |  |
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
 
 
 
@@ -1505,7 +1514,7 @@ URL: {{server_url}}/reviews/1
 {
     "description": "Not Very Good",
     "rating": 4,
-    "userId":1
+    "stallId": 1
 }
 ```
 
@@ -2224,4 +2233,4 @@ URL: {{server_url}}/register
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-06 23:26:34 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-07 00:25:37 by [docgen](https://github.com/thedevsaddam/docgen)

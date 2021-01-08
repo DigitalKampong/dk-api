@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4b655013-37e9-450f-a750-4add9e7724a6",
+		"_postman_id": "cdadc25f-bccb-42ba-98ed-582b12a07346",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2135,7 +2135,7 @@
 			"name": "Categories",
 			"item": [
 				{
-					"name": "Get Category",
+					"name": "Get category",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2159,7 +2159,7 @@
 					"response": []
 				},
 				{
-					"name": "Get Categories",
+					"name": "Get categories",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2176,7 +2176,7 @@
 					"response": []
 				},
 				{
-					"name": "Create Category",
+					"name": "Create category",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -2202,7 +2202,7 @@
 					"response": []
 				},
 				{
-					"name": "Update Category",
+					"name": "Update category",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -2235,7 +2235,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Category",
+					"name": "Delete category",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -2265,7 +2265,7 @@
 			"name": "CategoryStalls",
 			"item": [
 				{
-					"name": "Get CategoryStall",
+					"name": "Get categorystall",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2289,7 +2289,7 @@
 					"response": []
 				},
 				{
-					"name": "Get CategoryStalls",
+					"name": "Get categorystalls",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2306,7 +2306,7 @@
 					"response": []
 				},
 				{
-					"name": "Create CategoryStall",
+					"name": "Create categorystall",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -2332,7 +2332,7 @@
 					"response": []
 				},
 				{
-					"name": "Update CategoryStall",
+					"name": "Update categorystall",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -2365,7 +2365,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete CategoryStall",
+					"name": "Delete categorystall",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -2606,23 +2606,19 @@
 			"name": "Reviews",
 			"item": [
 				{
-					"name": "Create Review for Stall",
+					"name": "Create review for stall",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE2MDM5MTEyMDcsImV4cCI6MTYwMzkxMzAwN30.yuVme1rr0fl9WVepTTTyLoEPO5H47lKZWbfRX3y6dGseyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImlhdCI6MTYwMzkzMzY2MywiZXhwIjoxNjAzOTM3MjYzfQ.wD0G33nxbk1LKHppbjBUHH313z9pl0kM5Du_OlGhxxg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"Very Good\",\r\n    \"rating\": 4,\r\n    \"userId\":1\r\n}",
+							"raw": "{\r\n    \"description\": \"Very Good\",\r\n    \"rating\": 4\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2630,40 +2626,36 @@
 							}
 						},
 						"url": {
-							"raw": "{{server_url}}/stalls/1/reviews",
+							"raw": "{{server_url}}/stalls/:id/reviews",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"stalls",
-								"1",
+								":id",
 								"reviews"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get Reviews for Stall ",
+					"name": "Get reviews for stall",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE2MDM5MTEyMDcsImV4cCI6MTYwMzkxMzAwN30.yuVme1rr0fl9WVepTTTyLoEPO5H47lKZWbfRX3y6dGseyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImlhdCI6MTYwMzkzMzY2MywiZXhwIjoxNjAzOTM3MjYzfQ.wD0G33nxbk1LKHppbjBUHH313z9pl0kM5Du_OlGhxxg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"Very Good\",\r\n    \"rating\": 4,\r\n    \"userId\":1\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2671,40 +2663,36 @@
 							}
 						},
 						"url": {
-							"raw": "{{server_url}}/stalls/1/reviews",
+							"raw": "{{server_url}}/stalls/:id/reviews",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"stalls",
-								"1",
+								":id",
 								"reviews"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get Review",
+					"name": "Get review",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE2MDM5MTEyMDcsImV4cCI6MTYwMzkxMzAwN30.yuVme1rr0fl9WVepTTTyLoEPO5H47lKZWbfRX3y6dGseyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImlhdCI6MTYwMzkzMzY2MywiZXhwIjoxNjAzOTM3MjYzfQ.wD0G33nxbk1LKHppbjBUHH313z9pl0kM5Du_OlGhxxg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"Very Good\",\r\n    \"rating\": 4,\r\n    \"userId\":1\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2712,36 +2700,38 @@
 							}
 						},
 						"url": {
-							"raw": "{{server_url}}/reviews/1",
+							"raw": "{{server_url}}/reviews/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"reviews",
-								"1"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update Review",
+					"name": "Update review",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE2MDM5MTEyMDcsImV4cCI6MTYwMzkxMzAwN30.yuVme1rr0fl9WVepTTTyLoEPO5H47lKZWbfRX3y6dGseyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImlhdCI6MTYwMzkzMzY2MywiZXhwIjoxNjAzOTM3MjYzfQ.wD0G33nxbk1LKHppbjBUHH313z9pl0kM5Du_OlGhxxg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"Not Very Good\",\r\n    \"rating\": 4,\r\n    \"userId\":1\r\n}",
+							"raw": "{\r\n    \"description\": \"Not Very Good\",\r\n    \"rating\": 4,\r\n    \"stallId\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2749,36 +2739,32 @@
 							}
 						},
 						"url": {
-							"raw": "{{server_url}}/reviews/1",
+							"raw": "{{server_url}}/reviews/:id",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"reviews",
-								"1"
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete Review",
+					"name": "Delete review",
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpYXQiOjE2MDM5MTEyMDcsImV4cCI6MTYwMzkxMzAwN30.yuVme1rr0fl9WVepTTTyLoEPO5H47lKZWbfRX3y6dGseyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImlhdCI6MTYwMzkzMzY2MywiZXhwIjoxNjAzOTM3MjYzfQ.wD0G33nxbk1LKHppbjBUHH313z9pl0kM5Du_OlGhxxg",
-									"type": "string"
-								}
-							]
-						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"description\": \"Not Very Good\",\r\n    \"rating\": 4,\r\n    \"userId\":1\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"

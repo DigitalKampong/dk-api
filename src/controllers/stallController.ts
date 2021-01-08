@@ -4,6 +4,7 @@ import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageCo
 import Stall from '../models/Stall';
 import HawkerCentre from '../models/HawkerCentre';
 import Review from '../models/Review';
+import Category from '../models/Category';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 import { Sequelize } from 'sequelize';
 
@@ -76,12 +77,7 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
 
     stalls.map(async (stall: Stall) => {
       const filteredRating = ratings.filter(rating => rating.stallId === stall.id);
-      let rating: number;
-      if (filteredRating.length) {
-        rating = filteredRating[0].rating;
-      } else {
-        rating = 0;
-      }
+      const rating = filteredRating.length ? filteredRating[0].rating : 0;
       await stall.setDataValue('rating', rating);
     });
 
@@ -139,6 +135,10 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+/**
+ * Retrieves all stalls that match a given set of ids.
+ * @param ids Ids of stalls to be retrieved.
+ */
 async function findStallsByIds(ids: number[]) {
   const stalls = await Stall.findAll({
     include: getStallInclude(),
@@ -146,7 +146,42 @@ async function findStallsByIds(ids: number[]) {
       id: ids,
     },
   });
+
+  // To obtain all stall ratings
+  const ratings = await Review.findAll({
+    where: {
+      stallId: ids,
+    },
+    attributes: [
+      'stallId',
+      [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
+    ],
+    group: ['stallId'],
+  });
+
+  stalls.map(async (stall: Stall) => {
+    const filteredRating = ratings.filter(rating => rating.stallId === stall.id);
+    const rating: number = filteredRating.length ? filteredRating[0].rating : 0;
+    await stall.setDataValue('rating', rating);
+  });
+
   return stalls;
+}
+
+/**
+ * Formats stall information to display them on cards.
+ * @param stalls Sequelize instances of stalls to be formmatted.
+ */
+function mapStallToCard(stalls: Stall[]) {
+  const updatedStalls = stalls.map(stall => {
+    const jsonStall = JSON.parse(JSON.stringify(stall));
+
+    jsonStall['Categories'] = jsonStall['Categories'].map((category: Category) => category['name']);
+    const propertiesToDelete = ['description', 'contactNo', 'unitNo', 'Products', 'Reviews'];
+    propertiesToDelete.forEach(property => delete jsonStall[property]);
+    return jsonStall;
+  });
+  return updatedStalls;
 }
 
 async function uploadStallImages(req: Request, res: Response, next: NextFunction) {
@@ -179,12 +214,14 @@ async function destroyStallImages(req: Request, res: Response, next: NextFunctio
   }
 }
 
+export const findStallsByIdsFunc = findStallsByIds;
+export const mapStallToCardFunc = mapStallToCard;
+
 export const indexStallFuncs = [indexStall];
 export const showStallFuncs = [retrieveStall, showStall];
 export const createStallFuncs = [createStall];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];
-export const findStallsByIdsFunc = findStallsByIds;
 export const uploadStallImagesFuncs = [
   retrieveStall,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),

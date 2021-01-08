@@ -2233,4 +2233,4 @@ URL: {{server_url}}/register
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-07 00:25:37 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-08 20:58:44 by [docgen](https://github.com/thedevsaddam/docgen)

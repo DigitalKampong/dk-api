@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import { Request, Response, NextFunction, Express } from 'express';
 import { Storage } from '@google-cloud/storage';
 import multer from 'multer';
@@ -7,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Image from '../models/Image';
 import { ON_GAE, GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY, MAX_IMAGE_SIZE } from '../consts';
 import { BadRequestError, UploadFileError } from '../errors/httpErrors';
-import { Transaction } from 'sequelize/types';
+import { BulkCreateOptions, DestroyOptions } from 'sequelize/types';
 
 /**
  * Image processing pipeline
@@ -54,17 +56,19 @@ const bucket = storage.bucket(GCS_BUCKET);
 
 // Resolve name collisions
 async function generateGcsName(ext: string) {
-  let gcsName = `${uuidv4()}.${ext}`;
+  if (ext[0] !== '.') ext = '.' + ext;
+
+  let gcsName = `${uuidv4()}${ext}`;
 
   // API returns response as [boolean]
   while ((await bucket.file(gcsName).exists())[0]) {
-    gcsName = `${uuidv4()}.${ext}`;
+    gcsName = `${uuidv4()}${ext}`;
   }
 
   return gcsName;
 }
 
-async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) {
+async function uploadFormImgs(req: Request, res: Response, next: NextFunction) {
   try {
     if (!req.files?.length) {
       throw new BadRequestError('No files found in request');
@@ -102,22 +106,51 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
   }
 }
 
-async function createImages(fileNames: string[], t?: Transaction) {
-  const promises = fileNames.map(name => Image.create({ fileName: name }, { transaction: t }));
-  const images = await Promise.all(promises);
+async function uploadDiskImgs(filepaths: string[]): Promise<string[]> {
+  const promises: Promise<string>[] = filepaths.map(async filepath => {
+    const ext = path.extname(filepath);
+    const gcsName = await generateGcsName(ext);
+    const buffer = fs.readFileSync(filepath);
+
+    return new Promise((resolve, reject) => {
+      const file = bucket.file(gcsName);
+      const stream = file.createWriteStream();
+      stream.on('error', err => {
+        reject(err);
+      });
+
+      stream.on('finish', () => {
+        resolve(gcsName);
+      });
+
+      stream.end(buffer);
+    });
+  });
+
+  return await Promise.all(promises);
+}
+
+async function uploadDiskImg(filepath: string): Promise<string> {
+  return (await uploadDiskImgs([filepath]))[0] as string;
+}
+
+async function createImages(fileNames: string[], opts: BulkCreateOptions = {}): Promise<Image[]> {
+  const data = fileNames.map(name => ({ fileName: name }));
+  const images = await Image.bulkCreate(data, opts);
   return images;
 }
 
-async function destroyImageIds(imageIds: number[], t?: Transaction) {
-  const images = await Image.findAll({ where: { id: imageIds }, transaction: t });
-  await destroyImages(images, t);
+async function destroyImageIds(imageIds: number[], opts: DestroyOptions = {}): Promise<void> {
+  const images = await Image.findAll({ where: { id: imageIds } });
+  await destroyImages(images, opts);
   return;
 }
 
-async function destroyImages(images: Image[], t?: Transaction) {
+async function destroyImages(images: Image[], opts: DestroyOptions = {}): Promise<void> {
   // Unlink the images first before removing them from gcs
   const imageIds = images.map(image => image.id);
-  await Image.destroy({ where: { id: imageIds }, transaction: t });
+  await Image.destroy({ ...opts, where: { id: imageIds } });
+
   const promises = images.map(image => {
     return bucket.file(image.fileName).delete();
   });
@@ -125,4 +158,12 @@ async function destroyImages(images: Image[], t?: Transaction) {
   return;
 }
 
-export { upload, sendUploadToGCS, createImages, destroyImages, destroyImageIds };
+export {
+  upload,
+  uploadFormImgs,
+  createImages,
+  destroyImages,
+  destroyImageIds,
+  uploadDiskImg,
+  uploadDiskImgs,
+};

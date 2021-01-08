@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import {
   upload,
-  sendUploadToGCS,
+  uploadFormImgs,
   createImages,
   destroyImageIds,
   destroyImages,
@@ -83,7 +83,7 @@ async function destroyProduct(req: Request, res: Response, next: NextFunction) {
     await sequelize.transaction(async t => {
       const images = await product.getImages({ transaction: t });
       if (images.length > 0) {
-        await destroyImages(images, t);
+        await destroyImages(images, { transaction: t });
       }
       await product.destroy({ transaction: t });
     });
@@ -99,7 +99,7 @@ async function uploadProductImages(req: Request, res: Response, next: NextFuncti
     let product = req.product!;
 
     await sequelize.transaction(async t => {
-      const images = await createImages(req.fileNames!, t);
+      const images = await createImages(req.fileNames!, { transaction: t });
       await product.addImages(images, { transaction: t });
     });
 
@@ -132,7 +132,7 @@ export const destroyProductFuncs = [retrieveProduct, destroyProduct];
 export const uploadProductImagesFuncs = [
   retrieveProduct,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
-  sendUploadToGCS,
+  uploadFormImgs,
   uploadProductImages,
 ];
 export const destoryProductImagesFuncs = [destroyProductImages];

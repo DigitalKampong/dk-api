@@ -1,51 +1,11 @@
-Adam Food Centre,"2, Adam Road, S(289876)",4,
-Amoy Street Food Centre,"National Development Building, Annex B, Telok Ayer Street, S(069111)",4,
-Bedok Food Centre,"1, Bedok Road, S(469572)",2,
-Beo Crescent Market,"38A, Beo Crescent, S(169982)",4,
-Berseh Food Centre,"166, Jalan Besar, S(208877)",4,
-Bukit Timah Market,"51, Upper Bukit Timah Road, S(588215)",4,
-Chomp Chomp Food Centre,"20, Kensington Park Road, S(557269)",5,
-Commonwealth Crescent Market,"31, Commonwealth Crescent, S(149644)",4,
-Dunman Food Centre,"271, Onan Road, S(424768)",4,
-East Coast Lagoon Food Village,"1220, East Coast Parkway, S(468960)",2,
-Geylang Serai Market,"Geylang Serai, S(402001)",4,
-Golden Mile Food Centre,"505, Beach Road, S(199583)",4,
-Holland Village Market & Food Centre,"1, Lorong Mambong, S(277700)",4,
-Kallang Estate Market,"17, Old Airport Road, S(397972)",4,
-Marsiling Mall Hawker Centre,"4, Woodlands Street 12, S(738623)",1,
-Maxwell Food Centre,"1, Kadayanallur Street, S(069184)",4,
-Newton Food Centre,"500, Clemenceau Ave North, S(229495)",4,
-North Bridge Road Market & Food Centre,"861, North Bridge Road, S(198783)",4,
-Pasir Panjang Food Centre,"121, Pasir Panjang Road, S(118543)",4,
-Sembawang Hills Food Centre,"590, Upper Thomson Road, S(574419)",5,
-Serangoon Garden Market,"49A, Serangoon Garden Way, S(555945)",5,
-Taman Jurong Market & Food Centre,"3, Yung Sheng Road, S(618499)",3,
-Tanglin Halt Market,"48A, Tanglin Halt Road, S(148813)",4,
-Tiong Bahru Market,"30, Seng Poh Road, S(168898)",4,
-Zion Riverside Food Centre,"70, Zion Road, S(247792)",4,
-ABC Brickworks Market & Food Centre,"Blk 6, Jalan Bukit Merah, S(150006)",4,
-Albert Centre Market & Food Centre,"Blk 270, Queen Street, S(180270)",4,
-Alexandra Village Food Centre,"Blk 120, Bukit Merah Lane 1, S(150120)",4,
-Blk 117 Aljunied Ave 2,"Blk 117, Aljunied Ave 2, S(380117)",4,
-Blk 226D Ang Mo Kio Ave 1,"Blk 226D, Ang Mo Kio Ave 1, S(564226)",5,
-Blk 341 Ang Mo Kio Ave 1,"Blk 341, Ang Mo Kio Ave 1, S(560341)",5,
-Blks 160/162 Ang Mo Kio Ave 4,"Blks 160/162, Ang Mo Kio Ave 4, S(560160/560162)",5,
-Blk 628 Ang Mo Kio Ave 4,"Blk 628, Ang Mo Kio Ave 4, S(560628)",5,
-Blk 724 Ang Mo Kio Ave 6,"Blk 724, Ang Mo Kio Ave 6, S(560724)",5,
-Blk 409 Ang Mo Kio Ave 10,"Blk 409, Ang Mo Kio Ave 10, S(560409)",5,
-Blk 453A Ang Mo Kio Ave 10,"Blk 453A, Ang Mo Kio Ave 10, S(561453)",5,
-Blk 527 Ang Mo Kio Ave 10,"Blk 527, Ang Mo Kio Ave 10, S(560527)",5,
-Blk 226H Ang Mo Kio Street 22,"Blk 226H, Ang Mo Kio Street 22, S(568226)",5,
-Blk 216 Bedok North Street 1,"Blk 216, Bedok North Street 1, S(460216)",2,
-Blk 511 Bedok North Street 3,"Blk 511, Bedok North Street 3, S(460511)",2,
-Blk 538 Bedok North Street 3,"Blk 538, Bedok North Street 3, S(460538)",2,
-Blk 85 Bedok North Street 4,"Blk 85, Bedok North Street 4, S(460085)",2,
-Blk 630 Bedok Reservoir Road,"Blk 630, Bedok Reservoir Road, S(470630)",2,
-Blk 16 Bedok South Road,"Blk 16, Bedok South Road, S(460016)",2,
-Blk 29 Bendemeer Road,"Blk 29, Bendemeer Road, S(330029)",4,
-Blks 221A/B Boon Lay Place,"Blks 221A/B, Boon Lay Place, S(641221/642221)",3,
-Blk 163 Bukit Merah Central,"Blk 163, Bukit Merah Central, S(150163)",4,
-Blk 115 Bukit Merah View,"Blk 115, Bukit Merah View, S(151115)",4,
-Blks 2 & 3 Changi Village Road,"Blks 2/3, Changi Village Road, S(500002/500003)",2,
-Chinatown Market,"Blk 335, Smith Street, S(050335)",4,
-Chong Pang Market & Food Centre #,"Blks 104/105, Yishun Ring Road, S(760104/760105)",1,
+name,address,regionId,lat,lng
+Adam Food Centre,"2, Adam Road, S(289876)",4,1.324088,103.814086
+Amoy Street Food Centre,"National Development Building, Annex B, Telok Ayer Street, S(069111)",4,1.279116,103.8465144
+Bedok Food Centre,"1, Bedok Road, S(469572)",2,1.3203848,103.9555055
+Beo Crescent Market,"38A, Beo Crescent, S(169982)",4,1.288766,103.827528
+Berseh Food Centre,"166, Jalan Besar, S(208877)",4,1.3075861,103.8569093
+Bukit Timah Market,"51, Upper Bukit Timah Road, S(588215)",4,1.3394069,103.776049
+Chomp Chomp Food Centre,"20, Kensington Park Road, S(557269)",5,1.3642285,103.8666004
+Commonwealth Crescent Market,"31, Commonwealth Crescent, S(149644)",4,1.306959,103.8003444
+Dunman Food Centre,"271, Onan Road, S(424768)",4,1.3094236,103.9018475
+East Coast Lagoon Food Village,"1220, East Coast Parkway, S(468960)",2,1.30668,103.935039

@@ -158,8 +158,6 @@ async function findStallsByIds(ids: number[]) {
     group: ['stallId'],
   });
 
-  console.log(ratings);
-
   stalls.map(async (stall: Stall) => {
     const filteredRating = ratings.filter(rating => rating.stallId === stall.id);
     const rating: number = filteredRating.length ? filteredRating[0].rating : 0;

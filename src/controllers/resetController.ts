@@ -7,7 +7,7 @@ import inflection from 'inflection';
 import sequelize from '../db';
 import models from '../models';
 import Image from '../models/Image';
-import { uploadImgFromDisk, destroyImages } from '../controllers/imageController';
+import { uploadDiskImg, destroyImages, createImages } from '../controllers/imageController';
 
 const SEEDS_FILE_PATH = '../db/seeds/';
 const SAMPLE_IMG_FILE_PATH = path.resolve(__dirname, SEEDS_FILE_PATH, 'cat.jpg');
@@ -80,10 +80,11 @@ async function createSampleImages(nImages: number) {
 
   const promises = [];
   for (let i = 0; i < nImages; i++) {
-    promises.push(Promise.resolve(uploadImgFromDisk(filepath)));
+    promises.push(Promise.resolve(uploadDiskImg(filepath)));
   }
 
-  return await Promise.all(promises);
+  const names = await Promise.all(promises);
+  return await createImages(names);
 }
 
 async function seedInitData(t: Transaction) {
@@ -106,6 +107,7 @@ async function reset(req: Request, res: Response, next: NextFunction) {
     const images = await createSampleImages(3);
     console.log(images);
 
+
     // await sequelize.transaction(async t => {
     //   // Remove gcp images manually
     //   const images = await Image.findAll({ transaction: t });
@@ -127,6 +129,8 @@ async function reset(req: Request, res: Response, next: NextFunction) {
 
     res.status(200).send('Successfully reset database.');
   } catch (err) {
+    console.log(err);
+    console.log("HI");
     next(err);
   }
 }

@@ -68,7 +68,7 @@ async function generateGcsName(ext: string) {
   return gcsName;
 }
 
-async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) {
+async function uploadFormImgs(req: Request, res: Response, next: NextFunction) {
   try {
     if (!req.files?.length) {
       throw new BadRequestError('No files found in request');
@@ -106,42 +106,48 @@ async function sendUploadToGCS(req: Request, res: Response, next: NextFunction) 
   }
 }
 
-async function uploadImgFromDisk(filepath: string) {
-  const ext = path.extname(filepath);
-  const gcsName = await generateGcsName(ext);
-  const buffer = fs.readFileSync(filepath);
-  const file = bucket.file(gcsName);
+async function uploadDiskImgs(filepaths: string[]): string[] {
+  const promises = filepaths.map(async filepath => {
+    const ext = path.extname(filepath);
+    const gcsName = await generateGcsName(ext);
+    const buffer = fs.readFileSync(filepath);
 
-  await new Promise((resolve, reject) => {
-    const stream = file.createWriteStream();
-    stream.on('error', () => {
-      reject(err);
+    return new Promise((resolve, reject) => {
+      const file = bucket.file(gcsName);
+      const stream = file.createWriteStream();
+      stream.on('error', () => {
+        reject(err);
+      });
+
+      stream.on('finish', () => {
+        console.log(gcsName);
+        resolve(gcsName);
+      });
+
+      stream.end(buffer);
     });
-
-    stream.on('finish', () => {
-      resolve();
-    });
-
-    stream.end(buffer);
   });
 
-  const img = (await createImages([gcsName]))[0];
-  return img;
+  return await Promise.all(promises);
 }
 
-async function createImages(fileNames: string[], t?: Transaction) {
-  const promises = fileNames.map(name => Image.create({ fileName: name }, { transaction: t }));
-  const images = await Promise.all(promises);
+async function uploadDiskImg(filepath: string): string {
+  return (await uploadDiskImgs([filepath]))[0];
+}
+
+async function createImages(fileNames: string[], t?: Transaction): Image[] {
+  const data = fileNames.map(name => ({ fileName: name }));
+  const images = await Image.bulkCreate(data, { transaction: t });
   return images;
 }
 
-async function destroyImageIds(imageIds: number[], t?: Transaction) {
+async function destroyImageIds(imageIds: number[], t?: Transaction): void {
   const images = await Image.findAll({ where: { id: imageIds }, transaction: t });
   await destroyImages(images, t);
   return;
 }
 
-async function destroyImages(images: Image[], t?: Transaction) {
+async function destroyImages(images: Image[], t?: Transaction): void {
   // Unlink the images first before removing them from gcs
   const imageIds = images.map(image => image.id);
   await Image.destroy({ where: { id: imageIds }, transaction: t });
@@ -152,4 +158,12 @@ async function destroyImages(images: Image[], t?: Transaction) {
   return;
 }
 
-export { upload, sendUploadToGCS, createImages, destroyImages, destroyImageIds, uploadImgFromDisk };
+export {
+  upload,
+  uploadFormImgs,
+  createImages,
+  destroyImages,
+  destroyImageIds,
+  uploadDiskImg,
+  uploadDiskImgs,
+};

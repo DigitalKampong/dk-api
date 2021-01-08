@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import {
   upload,
-  sendUploadToGCS,
+  uploadFormImgs,
   createImages,
   destroyImageIds,
   destroyImages,
@@ -132,7 +132,7 @@ export const destroyProductFuncs = [retrieveProduct, destroyProduct];
 export const uploadProductImagesFuncs = [
   retrieveProduct,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
-  sendUploadToGCS,
+  uploadFormImgs,
   uploadProductImages,
 ];
 export const destoryProductImagesFuncs = [destroyProductImages];

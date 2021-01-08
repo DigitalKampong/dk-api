@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { upload, sendUploadToGCS, createImages, destroyImageIds } from './imageController';
+import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
 
 import Stall from '../models/Stall';
 import HawkerCentre from '../models/HawkerCentre';
@@ -174,7 +174,7 @@ export const destroyStallFuncs = [retrieveStall, destroyStall];
 export const uploadStallImagesFuncs = [
   retrieveStall,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
-  sendUploadToGCS,
+  uploadFormImgs,
   uploadStallImages,
 ];
 export const destroyStallImagesFuncs = [destroyStallImages];

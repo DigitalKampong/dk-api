@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
+import Category from '../models/Category';
 import Stall from '../models/Stall';
-import { findStallsByIdsFunc, mapStallToCardFunc } from './stallController';
+import { findAllStallsFunc, findStallsByIdsFunc } from './stallController';
 
 async function searchStalls(req: Request, res: Response, next: NextFunction) {
   try {
@@ -49,8 +50,40 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
       return acc;
     }, []);
     const stalls = await findStallsByIdsFunc(stallIdsArray);
-    const formattedStalls = mapStallToCardFunc(stalls);
-    res.status(200).json(formattedStalls);
+    req.stalls = stalls;
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * Formats stall information to display them on cards.
+ * @param stalls Sequelize instances of stalls to be formmatted.
+ */
+async function mapStallToCard(req: Request, res: Response, next: NextFunction) {
+  try {
+    const stalls = req.stalls!;
+    const updatedStalls = stalls.map(stall => {
+      const jsonStall = JSON.parse(JSON.stringify(stall));
+
+      jsonStall['Categories'] = jsonStall['Categories'].map(
+        (category: Category) => category['name']
+      );
+      const propertiesToDelete = ['description', 'contactNo', 'unitNo', 'Products', 'Reviews'];
+      propertiesToDelete.forEach(property => delete jsonStall[property]);
+      return jsonStall;
+    });
+    req.stalls = updatedStalls;
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function showStalls(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.status(200).json(req.stalls);
   } catch (err) {
     next(err);
   }
@@ -64,4 +97,5 @@ function cleanInput(input: String) {
   return input.replace(/[|&!<>]+/g, '').replace(/ /g, '|');
 }
 
-export const searchFuncs = [searchStalls];
+export const searchFuncs = [searchStalls, mapStallToCard, showStalls];
+export const emptySearchFuncs = [findAllStallsFunc, mapStallToCard, showStalls];

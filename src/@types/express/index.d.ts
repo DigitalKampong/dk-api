@@ -17,6 +17,7 @@ declare module 'express' {
     category?: Category;
     categoryStall?: CategoryStall;
     review?: Review;
+    stalls?: Stall[];
 
     user?: User;
     userId?: number;

@@ -4,7 +4,6 @@ import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageCo
 import Stall from '../models/Stall';
 import HawkerCentre from '../models/HawkerCentre';
 import Review from '../models/Review';
-import Category from '../models/Category';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 import { Sequelize } from 'sequelize';
 
@@ -81,7 +80,8 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
       await stall.setDataValue('rating', rating);
     });
 
-    res.status(200).json(stalls);
+    req.stalls = stalls;
+    next();
   } catch (err) {
     next(err);
   }
@@ -90,6 +90,14 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
 async function showStall(req: Request, res: Response, next: NextFunction) {
   try {
     res.status(200).json(req.stall);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function showStalls(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.status(200).json(req.stalls);
   } catch (err) {
     next(err);
   }
@@ -168,22 +176,6 @@ async function findStallsByIds(ids: number[]) {
   return stalls;
 }
 
-/**
- * Formats stall information to display them on cards.
- * @param stalls Sequelize instances of stalls to be formmatted.
- */
-function mapStallToCard(stalls: Stall[]) {
-  const updatedStalls = stalls.map(stall => {
-    const jsonStall = JSON.parse(JSON.stringify(stall));
-
-    jsonStall['Categories'] = jsonStall['Categories'].map((category: Category) => category['name']);
-    const propertiesToDelete = ['description', 'contactNo', 'unitNo', 'Products', 'Reviews'];
-    propertiesToDelete.forEach(property => delete jsonStall[property]);
-    return jsonStall;
-  });
-  return updatedStalls;
-}
-
 async function uploadStallImages(req: Request, res: Response, next: NextFunction) {
   try {
     let stall = req.stall!;
@@ -215,9 +207,9 @@ async function destroyStallImages(req: Request, res: Response, next: NextFunctio
 }
 
 export const findStallsByIdsFunc = findStallsByIds;
-export const mapStallToCardFunc = mapStallToCard;
+export const findAllStallsFunc = indexStall;
 
-export const indexStallFuncs = [indexStall];
+export const indexStallFuncs = [indexStall, showStalls];
 export const showStallFuncs = [retrieveStall, showStall];
 export const createStallFuncs = [createStall];
 export const updateStallFuncs = [retrieveStall, updateStall];

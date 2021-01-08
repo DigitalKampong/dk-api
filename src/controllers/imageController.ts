@@ -120,7 +120,6 @@ async function uploadDiskImgs(filepaths: string[]): string[] {
       });
 
       stream.on('finish', () => {
-        console.log(gcsName);
         resolve(gcsName);
       });
 

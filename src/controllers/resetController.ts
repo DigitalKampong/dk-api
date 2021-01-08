@@ -8,6 +8,9 @@ import sequelize from '../db';
 import models from '../models';
 import Image from '../models/Image';
 import { uploadDiskImg, destroyImages, createImages } from '../controllers/imageController';
+import Product from '../models/Product';
+import Stall from '../models/Stall';
+import { Transaction } from 'sequelize/types';
 
 const SEEDS_FILE_PATH = '../db/seeds/';
 const SAMPLE_IMG_FILE_PATH = path.resolve(__dirname, SEEDS_FILE_PATH, 'cat.jpg');
@@ -75,16 +78,16 @@ async function truncateClazzes() {
   });
 }
 
-async function createSampleImages(nImages: number) {
+async function createSampleImages(nImages: number, t: Transaction) {
   const filepath = SAMPLE_IMG_FILE_PATH;
 
   const promises = [];
   for (let i = 0; i < nImages; i++) {
-    promises.push(Promise.resolve(uploadDiskImg(filepath)));
+    promises.push(uploadDiskImg(filepath));
   }
 
   const names = await Promise.all(promises);
-  return await createImages(names);
+  return await createImages(names, t);
 }
 
 async function seedInitData(t: Transaction) {
@@ -104,33 +107,38 @@ async function seedDevData(t: Transaction) {
 
 async function reset(req: Request, res: Response, next: NextFunction) {
   try {
-    const images = await createSampleImages(3);
-    console.log(images);
+    await sequelize.transaction(async t => {
+      // Remove gcp images manually
+      const images = await Image.findAll({ transaction: t });
+      await destroyImages(images, t);
+    });
 
+    // Cannot do sequelize.sync({ force: true }) because we got _search fields that are created through migrations
+    await truncateClazzes();
 
-    // await sequelize.transaction(async t => {
-    //   // Remove gcp images manually
-    //   const images = await Image.findAll({ transaction: t });
-    //   await destroyImages(images, t);
-    // });
+    await sequelize.transaction(async t => {
+      await seedInitData(t);
+      await seedDevData(t);
 
-    // // Cannot do sequelize.sync({ force: true }) because we got _search
-    // // fields in tables that cannot be easily emulated by sequelize
-    // await truncateClazzes();
+      // Add sample img to every product and stall
+      const products = await Product.findAll({ transaction: t });
+      const stalls = await Stall.findAll({ transaction: t });
+      const images = await createSampleImages(products.length + stalls.length, t);
 
-    // await sequelize.transaction(async t => {
-    //   await seedInitData(t);
-    //   await seedDevData(t);
+      let imgIdx = 0;
+      for (const p of products) {
+        await p.addImage(images[imgIdx], { transaction: t });
+        imgIdx++;
+      }
 
-    //   // Add a cat to every product and stall
-            
-
-    // });
+      for (const s of stalls) {
+        await s.addImage(images[imgIdx], { transaction: t });
+        imgIdx++;
+      }
+    });
 
     res.status(200).send('Successfully reset database.');
   } catch (err) {
-    console.log(err);
-    console.log("HI");
     next(err);
   }
 }

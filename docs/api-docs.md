@@ -47,6 +47,10 @@
   * [Get regions](#4-get-regions)
   * [Update region](#5-update-region)
 
+* [Reset](#reset)
+
+  * [Reset database](#1-reset-database)
+
 * [Reviews](#reviews)
 
   * [Create review for stall](#1-create-review-for-stall)
@@ -1352,6 +1356,24 @@ URL: {{server_url}}/regions/:id
 ***Status Code:*** 200
 
 <br>
+
+
+
+## Reset
+
+
+
+### 1. Reset database
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/reset/
+```
 
 
 

@@ -87,7 +87,7 @@ async function createSampleImages(nImages: number, t: Transaction) {
   }
 
   const names = await Promise.all(promises);
-  return await createImages(names, t);
+  return await createImages(names, { transaction: t });
 }
 
 async function seedInitData(t: Transaction) {
@@ -110,7 +110,7 @@ async function reset(req: Request, res: Response, next: NextFunction) {
     await sequelize.transaction(async t => {
       // Remove gcp images manually
       const images = await Image.findAll({ transaction: t });
-      await destroyImages(images, t);
+      await destroyImages(images, { transaction: t });
     });
 
     // Cannot do sequelize.sync({ force: true }) because we got _search fields that are created through migrations

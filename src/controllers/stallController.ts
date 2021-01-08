@@ -126,7 +126,7 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
     }
 
     await sequelize.transaction(async t => {
-      if (imageIds.length > 0) await destroyImageIds(imageIds, t);
+      if (imageIds.length > 0) await destroyImageIds(imageIds, { transaction: t });
       await stall.destroy({ transaction: t });
     });
 
@@ -141,7 +141,7 @@ async function uploadStallImages(req: Request, res: Response, next: NextFunction
     let stall = req.stall!;
 
     await sequelize.transaction(async t => {
-      const images = await createImages(req.fileNames!, t);
+      const images = await createImages(req.fileNames!, { transaction: t });
       await stall.addImages(images, { transaction: t });
     });
 

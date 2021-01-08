@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Image from '../models/Image';
 import { ON_GAE, GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY, MAX_IMAGE_SIZE } from '../consts';
 import { BadRequestError, UploadFileError } from '../errors/httpErrors';
-import { Transaction } from 'sequelize/types';
+import { BulkCreateOptions, DestroyOptions, FindOptions, Transaction } from 'sequelize/types';
 
 /**
  * Image processing pipeline
@@ -134,22 +134,23 @@ async function uploadDiskImg(filepath: string): string {
   return (await uploadDiskImgs([filepath]))[0];
 }
 
-async function createImages(fileNames: string[], t?: Transaction): Image[] {
+async function createImages(fileNames: string[], opts: BulkCreateOptions = {}): Image[] {
   const data = fileNames.map(name => ({ fileName: name }));
-  const images = await Image.bulkCreate(data, { transaction: t });
+  const images = await Image.bulkCreate(data, opts);
   return images;
 }
 
-async function destroyImageIds(imageIds: number[], t?: Transaction): void {
-  const images = await Image.findAll({ where: { id: imageIds }, transaction: t });
-  await destroyImages(images, t);
+async function destroyImageIds(imageIds: number[], opts: DestroyOptions = {}): void {
+  const images = await Image.findAll({ where: { id: imageIds } });
+  await destroyImages(images, opts);
   return;
 }
 
-async function destroyImages(images: Image[], t?: Transaction): void {
+async function destroyImages(images: Image[], opts: DestroyOptions = {}): void {
   // Unlink the images first before removing them from gcs
   const imageIds = images.map(image => image.id);
-  await Image.destroy({ where: { id: imageIds }, transaction: t });
+  await Image.destroy({ ...opts, where: { id: imageIds } });
+
   const promises = images.map(image => {
     return bucket.file(image.fileName).delete();
   });

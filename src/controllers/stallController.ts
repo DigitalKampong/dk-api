@@ -4,6 +4,7 @@ import { upload, sendUploadToGCS, createImages, destroyImageIds } from './imageC
 import Stall from '../models/Stall';
 import HawkerCentre from '../models/HawkerCentre';
 import Review from '../models/Review';
+import Category from '../models/Category';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 import { Sequelize } from 'sequelize';
 
@@ -173,8 +174,9 @@ async function findStallsByIds(ids: number[]) {
  */
 function mapStallToCard(stalls: Stall[]) {
   const updatedStalls = stalls.map(stall => {
-    const jsonStall = stall.toJSON();
-    jsonStall.Categories = jsonStall.Categories.map(category => category['name']);
+    const jsonStall = JSON.parse(JSON.stringify(stall));
+
+    jsonStall['Categories'] = jsonStall['Categories'].map((category: Category) => category['name']);
     const propertiesToDelete = ['description', 'contactNo', 'unitNo', 'Products', 'Reviews'];
     propertiesToDelete.forEach(property => delete jsonStall[property]);
     return jsonStall;

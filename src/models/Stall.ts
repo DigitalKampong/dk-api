@@ -3,6 +3,16 @@ import {
   DataTypes,
   Optional,
   Association,
+  BelongsToManyAddAssociationMixin,
+  BelongsToManyCountAssociationsMixin,
+  BelongsToManyCreateAssociationMixin,
+  BelongsToManyGetAssociationsMixin,
+  BelongsToManyHasAssociationMixin,
+  BelongsToManyHasAssociationsMixin,
+  BelongsToManyAddAssociationsMixin,
+  BelongsToManyRemoveAssociationMixin,
+  BelongsToManyRemoveAssociationsMixin,
+  BelongsToManySetAssociationsMixin,
   BelongsToCreateAssociationMixin,
   BelongsToGetAssociationMixin,
   BelongsToSetAssociationMixin,
@@ -22,8 +32,9 @@ import sequelize from '../db';
 import Product from './Product';
 import HawkerCentre from './HawkerCentre';
 import Image from './Image';
-import CategoryStall from './CategoryStall';
 import Review from './Review';
+import Category from './Category';
+// import CategoryStall from './CategoryStall';
 
 export interface StallAttributes {
   id: number;
@@ -70,7 +81,7 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public addImage!: HasManyAddAssociationMixin<Image, number>;
   public addImages!: HasManyAddAssociationsMixin<Image, number>;
   public countImages!: HasManyCountAssociationsMixin;
-  public createImages!: HasManyCreateAssociationMixin<Image>;
+  public createImage!: HasManyCreateAssociationMixin<Image>;
   public getImages!: HasManyGetAssociationsMixin<Image>;
   public hasImage!: HasManyHasAssociationMixin<Image, number>;
   public hasImages!: HasManyHasAssociationsMixin<Image, number>;
@@ -82,7 +93,7 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public addReview!: HasManyAddAssociationMixin<Review, number>;
   public addReviews!: HasManyAddAssociationsMixin<Review, number>;
   public countReviews!: HasManyCountAssociationsMixin;
-  public createReviews!: HasManyCreateAssociationMixin<Review>;
+  public createReview!: HasManyCreateAssociationMixin<Review>;
   public getReviews!: HasManyGetAssociationsMixin<Review>;
   public hasReview!: HasManyHasAssociationMixin<Review, number>;
   public hasReviews!: HasManyHasAssociationsMixin<Review, number>;
@@ -90,16 +101,30 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public removeReviews!: HasManyRemoveAssociationsMixin<Review, number>;
   public setReviews!: HasManySetAssociationsMixin<Review, number>;
 
+  // Stall.belongsToMany(Category)
+  public addCategory!: BelongsToManyAddAssociationMixin<Category, number>;
+  public addCategories!: BelongsToManyAddAssociationsMixin<Category, number>;
+  public countCategories!: BelongsToManyCountAssociationsMixin;
+  public createCategory!: BelongsToManyCreateAssociationMixin<Category>;
+  public getCategories!: BelongsToManyGetAssociationsMixin<Category>;
+  public hasCategory!: BelongsToManyHasAssociationMixin<Category, number>;
+  public hasCategories!: BelongsToManyHasAssociationsMixin<Category, number>;
+  public removeCategory!: BelongsToManyRemoveAssociationMixin<Category, number>;
+  public removeCategories!: BelongsToManyRemoveAssociationsMixin<Category, number>;
+  public setCategories!: BelongsToManySetAssociationsMixin<Category, number>;
+
   public readonly HawkerCentre?: HawkerCentre;
   public readonly Products?: Product[];
   public readonly Images?: Image[];
   public readonly Reviews?: Review[];
+  public readonly Categories?: Category[];
 
   public static associations: {
     HawkerCentre: Association<Stall, HawkerCentre>;
     Products: Association<Stall, Product>;
     Images: Association<Stall, Image>;
     Reviews: Association<Stall, Review>;
+    Categories: Association<Stall, Category>;
   };
 }
 
@@ -143,7 +168,9 @@ Stall.hasMany(Product, { foreignKey: 'stallId', onDelete: 'cascade', hooks: true
 Product.belongsTo(Stall, { foreignKey: 'stallId' });
 
 Stall.hasMany(Image, { foreignKey: 'stallId' });
-CategoryStall.belongsTo(Stall, { foreignKey: 'stallId' });
+
+Stall.belongsToMany(Category, { through: 'CategoryStalls', foreignKey: 'stallId' });
+Category.belongsToMany(Stall, { through: 'CategoryStalls', foreignKey: 'categoryId' });
 
 Stall.hasMany(Review, { foreignKey: 'stallId' });
 Review.belongsTo(Stall, { foreignKey: 'stallId' });

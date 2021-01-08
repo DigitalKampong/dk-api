@@ -5,7 +5,7 @@ import { NotFoundError } from '../errors/httpErrors';
 async function retrieveCategory(req: Request, res: Response, next: NextFunction) {
   try {
     const category = await Category.findByPk(req.params.id, {
-      include: [{ association: Category.associations.CategoryStalls }],
+      include: [{ association: Category.associations.Stalls }],
     });
     if (category === null) {
       throw new NotFoundError('Category cannot be found');
@@ -19,13 +19,7 @@ async function retrieveCategory(req: Request, res: Response, next: NextFunction)
 
 async function indexCategory(req: Request, res: Response, next: NextFunction) {
   try {
-    const categories = await Category.findAll({
-      include: [
-        {
-          association: Category.associations.CategoryStalls,
-        },
-      ],
-    });
+    const categories = await Category.findAll();
     res.status(200).json(categories);
   } catch (err) {
     next(err);
@@ -44,7 +38,7 @@ async function createCategory(req: Request, res: Response, next: NextFunction) {
   try {
     const categoryId = (await Category.create(req.body)).id;
     const category = await Category.findByPk(categoryId, {
-      include: [{ association: Category.associations.CategoryStalls }],
+      include: [{ association: Category.associations.Stalls }],
     });
     res.status(201).json(category);
   } catch (err) {

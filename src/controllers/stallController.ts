@@ -22,6 +22,9 @@ function getStallInclude() {
     {
       association: Stall.associations.Reviews,
     },
+    {
+      association: Stall.associations.Categories,
+    },
   ];
 }
 
@@ -136,6 +139,16 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function findStallsByIds(ids: number[]) {
+  const stalls = await Stall.findAll({
+    include: getStallInclude(),
+    where: {
+      id: ids,
+    },
+  });
+  return stalls;
+}
+
 async function uploadStallImages(req: Request, res: Response, next: NextFunction) {
   try {
     let stall = req.stall!;
@@ -171,6 +184,7 @@ export const showStallFuncs = [retrieveStall, showStall];
 export const createStallFuncs = [createStall];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];
+export const findStallsByIdsFunc = findStallsByIds;
 export const uploadStallImagesFuncs = [
   retrieveStall,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),

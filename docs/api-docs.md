@@ -47,6 +47,10 @@
   * [Get regions](#4-get-regions)
   * [Update region](#5-update-region)
 
+* [Reset](#reset)
+
+  * [Reset database](#1-reset-database)
+
 * [Reviews](#reviews)
 
   * [Create Review for Stall](#1-create-review-for-stall)
@@ -1355,6 +1359,24 @@ URL: {{server_url}}/regions/:id
 
 
 
+## Reset
+
+
+
+### 1. Reset database
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/reset/
+```
+
+
+
 ## Reviews
 
 
@@ -2202,4 +2224,4 @@ URL: {{server_url}}/register
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-02 23:58:39 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-06 23:26:34 by [docgen](https://github.com/thedevsaddam/docgen)

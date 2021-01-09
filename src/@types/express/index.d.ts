@@ -21,6 +21,9 @@ declare module 'express' {
     user?: User;
     userId?: number;
 
+    stalls?: Stall[];
+    stallIds?: number[];
+
     images?: Image[];
     fileNames?: string[];
   }

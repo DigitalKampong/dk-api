@@ -46,58 +46,64 @@
     },
     "Reviews": [],
     "Categories": [
-        {
-            "id": 4,
-            "name": "Malay",
-            "createdAt": "2021-01-08T09:41:06.675Z",
-            "updatedAt": "2021-01-08T09:41:06.675Z",
-            "CategoryStalls": {
-                "createdAt": "2021-01-08T09:41:06.695Z",
-                "updatedAt": "2021-01-08T09:41:06.695Z",
-                "stallId": 1,
-                "categoryId": 4
-            }
-        }
+      "Malay", "Chinese", "India"
     ],
     "rating": 0
 }
 */
 
 // import '../src/models';
-import Stall from '../src/models/Stall';
+// import Stall from '../src/models/Stall';
+import cloneDeep from 'lodash.clonedeep';
+// import { Model } from 'sequelize';
 
-// const format = ['id', 'Products'];
-const format = {
-  id: null,
-  name: null,
-  Products: [{ id: null, price: null }],
-  Categories: [
-    {
-      id: null,
-      name: null,
-    },
-  ],
-  HawkerCentre: {
-    name: null,
-  },
-};
-// const clazzNames = ['Products'];
+// // const format = ['id', 'Products'];
+// const format = {
+//   id: null,
+//   name: null,
+//   Products: [{ id: null, price: null }],
+//   Categories: [
+//     {
+//       id: null,
+//       name: null,
+//     },
+//   ],
+//   HawkerCentre: {
+//     name: null,
+//     Region: {
+//       name: null,
+//     },
+//   },
+// };
 
-function genJson(fields: any, stall: Stall) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function genJsonResp(obj: any, model: Model) {
+  for (const key in obj) {
+    const val = model.get(key);
 
-  // for (const key of fields) {
-  //   console.log(stall.get(key, { plain: true }));
-  // }
+    if (obj[key] === null) {
+      obj[key] = val;
+    } else if (Array.isArray(obj[key])) {
+      const baseObj = obj[key][0];
 
-  for (const key in fields) {
-    fields[key] = stall.get(key);
+      // We assume val is an Array since obj[key] is an Array. We recursively create each new resp in the array.
+      const vals: Model[] = val as Model[];
+      const results = vals.map(val => {
+        return genJsonResp(cloneDeep(baseObj), val as Model);
+      });
+
+      obj[key] = results;
+    } else {
+      obj[key] = genJsonResp(obj[key], val as Model);
+    }
   }
 
-  return JSON.stringify({});
+  return obj;
 }
 
-(async function () {
-  const stall = await Stall.findByPk(1, { include: [Stall.associations.Products] });
-  genJson(format, stall!);
-  // console.log(stall);
-})();
+// (async function () {
+//   const stall = await Stall.findByPk(1, { include: { all: true, nested: true } });
+//   // console.log(stall!.get());
+//   // console.log(stall);
+//   console.log(genJsonResp(format, stall!));
+// })();

@@ -17,10 +17,12 @@ declare module 'express' {
     category?: Category;
     categoryStall?: CategoryStall;
     review?: Review;
-    stalls?: Stall[];
 
     user?: User;
     userId?: number;
+
+    stalls?: Stall[];
+    stallIds?: number[];
 
     images?: Image[];
     fileNames?: string[];

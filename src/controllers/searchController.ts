@@ -139,4 +139,3 @@ function cleanInput(input: String) {
 }
 
 export const searchFuncs = [searchStalls, findStallsByIds, mapStallToCard];
-export const emptySearchFuncs = [searchStalls, findStallsByIds, mapStallToCard];

@@ -1,7 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
 import Category from '../models/Category';
 import Stall from '../models/Stall';
-import { findAllStallsFunc, findStallsByIdsFunc } from './stallController';
+import { Sequelize } from 'sequelize';
+import HawkerCentre from '../models/HawkerCentre';
+import Review from '../models/Review';
+
+function getStallInclude() {
+  return [
+    { association: Stall.associations.Images, attributes: ['id', 'downloadUrl'] },
+    {
+      association: Stall.associations.HawkerCentre,
+      include: [HawkerCentre.associations.Region],
+    },
+    {
+      association: Stall.associations.Categories,
+    },
+  ];
+}
 
 async function searchStalls(req: Request, res: Response, next: NextFunction) {
   try {
@@ -49,7 +64,68 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
       acc.push(cur.getDataValue('id'));
       return acc;
     }, []);
-    const stalls = await findStallsByIdsFunc(stallIdsArray);
+    const stalls = await findStallsByIds(stallIdsArray);
+    req.stalls = stalls;
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * Retrieves all stalls that match a given set of ids.
+ * @param ids Ids of stalls to be retrieved.
+ */
+async function findStallsByIds(ids: number[]) {
+  const stalls = await Stall.findAll({
+    include: getStallInclude(),
+    where: {
+      id: ids,
+    },
+  });
+
+  // To obtain all stall ratings
+  const ratings = await Review.findAll({
+    where: {
+      stallId: ids,
+    },
+    attributes: [
+      'stallId',
+      [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
+    ],
+    group: ['stallId'],
+  });
+
+  stalls.map(async (stall: Stall) => {
+    const filteredRating = ratings.filter(rating => rating.stallId === stall.id);
+    const rating: number = filteredRating.length ? filteredRating[0].rating : 0;
+    await stall.setDataValue('rating', rating);
+  });
+
+  return stalls;
+}
+
+async function findAllStalls(req: Request, res: Response, next: NextFunction) {
+  try {
+    const stalls = await Stall.findAll({
+      include: getStallInclude(),
+    });
+
+    // To obtain all stall ratings
+    const ratings = await Review.findAll({
+      attributes: [
+        'stallId',
+        [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
+      ],
+      group: ['stallId'],
+    });
+
+    stalls.map(async (stall: Stall) => {
+      const filteredRating = ratings.filter(rating => rating.stallId === stall.id);
+      const rating = filteredRating.length ? filteredRating[0].rating : 0;
+      await stall.setDataValue('rating', rating);
+    });
+
     req.stalls = stalls;
     next();
   } catch (err) {
@@ -70,20 +146,11 @@ async function mapStallToCard(req: Request, res: Response, next: NextFunction) {
       jsonStall['Categories'] = jsonStall['Categories'].map(
         (category: Category) => category['name']
       );
-      const propertiesToDelete = ['description', 'contactNo', 'unitNo', 'Products', 'Reviews'];
+      const propertiesToDelete = ['description', 'contactNo', 'unitNo'];
       propertiesToDelete.forEach(property => delete jsonStall[property]);
       return jsonStall;
     });
-    req.stalls = updatedStalls;
-    next();
-  } catch (err) {
-    next(err);
-  }
-}
-
-async function showStalls(req: Request, res: Response, next: NextFunction) {
-  try {
-    res.status(200).json(req.stalls);
+    res.status(200).json(updatedStalls);
   } catch (err) {
     next(err);
   }
@@ -97,5 +164,5 @@ function cleanInput(input: String) {
   return input.replace(/[|&!<>]+/g, '').replace(/ /g, '|');
 }
 
-export const searchFuncs = [searchStalls, mapStallToCard, showStalls];
-export const emptySearchFuncs = [findAllStallsFunc, mapStallToCard, showStalls];
+export const searchFuncs = [searchStalls, mapStallToCard];
+export const emptySearchFuncs = [findAllStalls, mapStallToCard];

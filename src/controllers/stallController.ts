@@ -80,7 +80,7 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
       await stall.setDataValue('rating', rating);
     });
 
-    req.stalls = stalls;
+    res.status(200).json(stalls);
     next();
   } catch (err) {
     next(err);
@@ -90,14 +90,6 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
 async function showStall(req: Request, res: Response, next: NextFunction) {
   try {
     res.status(200).json(req.stall);
-  } catch (err) {
-    next(err);
-  }
-}
-
-async function showStalls(req: Request, res: Response, next: NextFunction) {
-  try {
-    res.status(200).json(req.stalls);
   } catch (err) {
     next(err);
   }
@@ -143,39 +135,6 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-/**
- * Retrieves all stalls that match a given set of ids.
- * @param ids Ids of stalls to be retrieved.
- */
-async function findStallsByIds(ids: number[]) {
-  const stalls = await Stall.findAll({
-    include: getStallInclude(),
-    where: {
-      id: ids,
-    },
-  });
-
-  // To obtain all stall ratings
-  const ratings = await Review.findAll({
-    where: {
-      stallId: ids,
-    },
-    attributes: [
-      'stallId',
-      [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
-    ],
-    group: ['stallId'],
-  });
-
-  stalls.map(async (stall: Stall) => {
-    const filteredRating = ratings.filter(rating => rating.stallId === stall.id);
-    const rating: number = filteredRating.length ? filteredRating[0].rating : 0;
-    await stall.setDataValue('rating', rating);
-  });
-
-  return stalls;
-}
-
 async function uploadStallImages(req: Request, res: Response, next: NextFunction) {
   try {
     let stall = req.stall!;
@@ -206,10 +165,7 @@ async function destroyStallImages(req: Request, res: Response, next: NextFunctio
   }
 }
 
-export const findStallsByIdsFunc = findStallsByIds;
-export const findAllStallsFunc = indexStall;
-
-export const indexStallFuncs = [indexStall, showStalls];
+export const indexStallFuncs = [indexStall];
 export const showStallFuncs = [retrieveStall, showStall];
 export const createStallFuncs = [createStall];
 export const updateStallFuncs = [retrieveStall, updateStall];

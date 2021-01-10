@@ -3,6 +3,7 @@ import { lorem } from 'faker';
 import HawkerCentreFact from './HawkerCentreFactory';
 import Stall from '../../src/models/Stall';
 import BaseFactory from './BaseFactory';
+import CategoryFactory from './CategoryFactory';
 
 class StallFactory extends BaseFactory {
   // private static fact = new Factory()
@@ -18,7 +19,9 @@ class StallFactory extends BaseFactory {
   }
 
   withCategories() {
-    return new StallFactory(new Factory().extend(this.factory).attr('Categories', ['abc', 'def']));
+    return new StallFactory(
+      new Factory().extend(this.factory).attr('Categories', CategoryFactory.buildList(2))
+    );
   }
 
   withReviews() {

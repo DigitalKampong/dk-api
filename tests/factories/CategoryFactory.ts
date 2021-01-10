@@ -1,20 +1,15 @@
 import { IFactory, Factory } from 'rosie';
-import { lorem } from 'faker'
+import { lorem } from 'faker';
+import Category from '../../src/models/Category';
+import BaseFactory from './BaseFactory';
 
-class CategoryFactory {
-  factory: IFactory<any>;
+class CategoryFactory extends BaseFactory<Category> {
+  private static defaultFactory = new Factory().attr('name', lorem.word);
 
-  constructor(factory?: rosie.IFactory<any>) {
-    const defaultFactory = new Factory().attr('name', lorem.word);
-    this.factory = factory ? factory : defaultFactory;
-  }
-
-  public build() {
-    return this.factory.build();
-  }
-
-  public buildList() {
-    return this.factory.buildList();
+  constructor(fact?: IFactory) {
+    const factory = fact ? fact : CategoryFactory.defaultFactory;
+    super(factory, Category);
   }
 }
 
+export default new CategoryFactory();

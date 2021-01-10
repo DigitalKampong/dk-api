@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { IFactory } from 'rosie';
 import { CreateOptions } from 'sequelize/types';
 

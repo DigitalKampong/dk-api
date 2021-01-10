@@ -60,8 +60,9 @@ describe('POST /stalls', () => {
     //   .post('/stalls')
     //   .send({ name: 'best chicken rice', hawkerCentreId: hawkerCentre.id });
 
-    console.log(StallFact.all().build());
-    console.log(StallFact.all().buildList());
+    console.log(StallFact.withAll().build());
+    console.log(StallFact.withAll().buildList(3));
+    await StallFact.create();
 
     // expect(res.status).toEqual(201);
     // expect(res.body).toHaveProperty('name', 'best chicken rice');

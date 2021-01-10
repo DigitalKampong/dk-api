@@ -1,18 +1,30 @@
-import rosie, { IFactory, Factory } from 'rosie';
+import { IFactory } from 'rosie';
+import { CreateOptions } from 'sequelize/types';
 
-class BaseFactory {
-  factory: IFactory<any>
+interface StaticModel<T> {
+  create(values?: T, options?: CreateOptions): Promise<T>;
+}
 
-  constructor(factory: IFactory<any>) {
+class BaseFactory<T = any> {
+  factory: IFactory<T>;
+  clazz: StaticModel<T>;
+
+  constructor(factory: IFactory<T>, clazz: StaticModel<T>) {
     this.factory = factory;
+    this.clazz = clazz;
   }
 
-  build() {
-    return this.factory.build();
+  build(attributes?: { [k in keyof T]?: T[k] }, options?: any): T {
+    return this.factory.build(attributes, options);
   }
 
-  buildList() {
-    return this.factory.buildList(3);
+  buildList(size: number, attributes?: { [k in keyof T]?: T[k] }, options?: any): T[] {
+    return this.factory.buildList(size, attributes, options);
+  }
+
+  create(options?: CreateOptions): Promise<T> {
+    const opts: CreateOptions = options ? options : { include: { all: true, nested: true } };
+    return this.clazz.create(this.build(), opts);
   }
 }
 

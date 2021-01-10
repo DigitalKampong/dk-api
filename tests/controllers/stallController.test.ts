@@ -4,56 +4,76 @@ import HawkerCentreFact from '../factories/HawkerCentreFactory';
 import StallFact from '../factories/StallFactory';
 import app from '../../src/server';
 
-import ReviewFact from '../factories/ReviewFactory';
-
-
-// const stallResp = {
-//   id: null,
-//   name: null,
-//   description: null,
-//   contactNo: null,
-//   hawkerCentreId: null,
-//   createdAt: null,
-//   updatedAt: null,
-//   Products: [
-//     {
-//       id: null,
-//       name: null,
-//       description: null,
-//       stallId: null,
-//       createdAt: null,
-//       updatedAt: null,
-//     },
-//   ],
-//   Images: [
-//     {
-//       id: null,
-//       downloadUrl: null,
-//       fileName: null,
-//     },
-//   ],
-//   HawkerCentre: {
-//     id: null,
-//     name: null,
-//     address: null,
-//     regionId: null,
-//     lat: null,
-//     lng: null,
-//     createdAt: null,
-//     updatedAt: null,
-//     Region: {
-//       id: null,
-//       name: null,
-//       createdAt: null,
-//       updatedAt: null,
-//     },
-//   },
-//   Reviews: [{
-//   }],
-//   Categories: [{
-//   }],
-//   rating: null,
-// };
+const stallResp = {
+  id: null,
+  name: null,
+  description: null,
+  contactNo: null,
+  hawkerCentreId: null,
+  createdAt: null,
+  updatedAt: null,
+  Products: [
+    {
+      id: null,
+      name: null,
+      description: null,
+      stallId: null,
+      createdAt: null,
+      updatedAt: null,
+    },
+  ],
+  Images: [
+    {
+      id: null,
+      downloadUrl: null,
+      fileName: null,
+    },
+  ],
+  HawkerCentre: {
+    id: null,
+    name: null,
+    address: null,
+    regionId: null,
+    lat: null,
+    lng: null,
+    createdAt: null,
+    updatedAt: null,
+    Region: {
+      id: null,
+      name: null,
+      createdAt: null,
+      updatedAt: null,
+    },
+  },
+  Reviews: [
+    {
+      id: null,
+      description: null,
+      rating: null,
+      stallId: null,
+      userId: null,
+      createdAt: null,
+      updatedAt: null,
+    },
+  ],
+  Categories: [
+    {
+      id: null,
+      name: null,
+      createdAt: null,
+      updatedAt: null,
+      CategoryStalls: [
+        {
+          createdAt: null,
+          updatedAt: null,
+          stallId: null,
+          categoryId: null,
+        },
+      ],
+    },
+  ],
+  rating: null,
+};
 
 // describe('POST /stalls', () => {
 //   it('returns a new stall', async () => {

@@ -4,7 +4,9 @@ import RegionFact from './RegionFactory';
 import HawkerCentre from '../../src/models/HawkerCentre';
 
 export default class HawkerCentreFactory {
-  private static fact = new Factory().attr('name', lorem.words).attr('Region', RegionFact.build());
+  private static fact = new Factory()
+    .attr('name', () => lorem.words())
+    .attr('Region', () => RegionFact.build());
 
   public static getInclude() {
     return [{ association: HawkerCentre.associations.Region, include: RegionFact.getInclude() }];

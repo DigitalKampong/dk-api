@@ -3,7 +3,7 @@ import { lorem } from 'faker';
 import Region from '../../src/models/Region';
 
 export default class RegionFactory {
-  private static fact = new Factory().attr('name', lorem.words);
+  private static fact = new Factory().attr('name', () => lorem.words());
 
   public static getInclude() {
     return [];

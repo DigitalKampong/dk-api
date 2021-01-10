@@ -4,63 +4,41 @@ import HawkerCentreFact from './HawkerCentreFactory';
 import Stall from '../../src/models/Stall';
 import BaseFactory from './BaseFactory';
 import CategoryFactory from './CategoryFactory';
+import ReviewFactory from './ReviewFactory';
+import ImageFactory from './ImageFactory';
 
-class StallFactory extends BaseFactory {
-  // private static fact = new Factory()
-  //   .attr('name', lorem.words)
-  //   .attr('HawkerCentre', HawkerCentreFact.build());
+class StallFactory extends BaseFactory<Stall> {
+  private static defaultFactory = new Factory()
+    .attr('name', () => lorem.words())
+    .attr('HawkerCentre', () => HawkerCentreFact.build());
 
-  constructor(factory?: IFactory) {
-    const defaultFactory = new Factory()
-      .attr('name', lorem.words)
-      .attr('HawkerCentre', HawkerCentreFact.build());
-    // this.factory = factory ? factory : defaultFactory;
-    super(factory ? factory : defaultFactory, Stall);
+  constructor(fact?: IFactory<Stall>) {
+    super(StallFactory.defaultFactory, Stall, fact);
   }
 
   withCategories() {
     return new StallFactory(
-      new Factory().extend(this.factory).attr('Categories', CategoryFactory.buildList(2))
+      new Factory().extend(this.factory).attr('Categories', () => CategoryFactory.buildList(2))
     );
   }
 
   withReviews() {
+    // ReviewFactory.build() will have Stall key in atttribute too. Apparently, sequelize is smart enough
+    // not to save that into the db and use the original Stall.
     return new StallFactory(
-      new Factory().extend(this.factory).attr('Reviews', ['review1', 'review2'])
+      new Factory().extend(this.factory).attr('Reviews', () => ReviewFactory.buildList(2))
+    );
+  }
+
+  withImages() {
+    return new StallFactory(
+      new Factory().extend(this.factory).attr('Images', () => ImageFactory.buildList(2))
     );
   }
 
   withAll() {
-    return this.withCategories().withReviews();
+    return this.withCategories().withReviews().withImages();
   }
-
-  // public getInclude() {
-  //   return [
-  //     { association: Stall.associations.HawkerCentre, include: HawkerCentreFact.getInclude() },
-  //   ];
-  // }
-
-  // public build() {
-  //   return this.factory.build();
-  // }
-
-  // public create(): Promise<Stall> {
-  //   // return Stall.create(this.build(), { include: StallFactory.getInclude() });
-  //   return Stall.create(this.build(), { include: { all: true, nested: true } });
-  // }
 }
 
 export default new StallFactory();
-
-// export const stallFactory = new Factory()
-//   .attr('name', lorem.words)
-//   .attr('HawkerCentre', HawkerCentreFact.build());
-
-// export const stallWithImages = stallFactory.attr('Images', ['abc', 'def']);
-// export const stallWithCategories = stallFactory.attr('Categories', ['abc', 'def']);
-// export const stallWithReviews = stallFactory.attr('Reviews', ['review1', 'review2']);
-// export const stallWithAll = stallFactory.extend(stallWithCategories).extend(stallWithReviews);
-
-// export function createWithAll(asdf: any, ) {
-//   Stall.create(asdf, );
-// }

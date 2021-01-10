@@ -4,6 +4,8 @@ import HawkerCentreFact from '../factories/HawkerCentreFactory';
 import StallFact from '../factories/StallFactory';
 import app from '../../src/server';
 
+import ReviewFact from '../factories/ReviewFactory';
+
 
 // const stallResp = {
 //   id: null,
@@ -53,22 +55,23 @@ import app from '../../src/server';
 //   rating: null,
 // };
 
-describe('POST /stalls', () => {
-  it('returns a new stall', async () => {
+// describe('POST /stalls', () => {
+//   it('returns a new stall', async () => {
     // const hawkerCentre = await HawkerCentreFact.create();
     // const res = await request(app)
     //   .post('/stalls')
     //   .send({ name: 'best chicken rice', hawkerCentreId: hawkerCentre.id });
 
     // console.log(StallFact.withAll().build());
+    // console.log(StallFact.withAll().build());
     // console.log(StallFact.withAll().buildList(3));
-    console.log(StallFact.withCategories().build());
+    // console.log(StallFact.withCategories().build());
 
-    await StallFact.withCategories().create();
+    // await StallFact.withAll().create();
 
     // expect(res.status).toEqual(201);
     // expect(res.body).toHaveProperty('name', 'best chicken rice');
-  });
+  // });
 
   // it('returns an error given invalid attributes', async () => {
   //   // Change the error code once we figure out a way to handle user errors gracefully
@@ -79,17 +82,18 @@ describe('POST /stalls', () => {
   //   expect(res.status).toEqual(500);
   //   spy.mockRestore();
   // });
-});
-
-// describe('GET /stall/:id', () => {
-//   it('returns an existing store', async () => {
-//     const stall = await StallFact.create();
-//     const res = await request(app).get(`/stalls/${stall.id}`);
-
-//     expect(res.status).toEqual(200);
-//     expect(res.body).toHaveProperty('name', stall.name);
-//   });
 // });
+
+describe('GET /stall/:id', () => {
+  it('returns an existing store', async () => {
+    const stall = await StallFact.withAll().create();
+    const res = await request(app).get(`/stalls/${stall.id}`);
+
+    expect(res.status).toEqual(200);
+    console.log(res.body);
+    // expect(res.body).toHaveProperty('name', stall.name);
+  });
+});
 
 // describe('PUT /stall/:id', () => {
 //   it('returns an updated store', async () => {

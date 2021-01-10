@@ -11,8 +11,8 @@ class BaseFactory<T = any> {
   factory: IFactory<T>;
   clazz: StaticModel<T>;
 
-  constructor(factory: IFactory<T>, clazz: StaticModel<T>) {
-    this.factory = factory;
+  constructor(defaultFactory: IFactory<T>, clazz: StaticModel<T>, factory?: IFactory<T>) {
+    this.factory = factory ? factory : defaultFactory;
     this.clazz = clazz;
   }
 

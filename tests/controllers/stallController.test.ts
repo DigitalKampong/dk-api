@@ -4,105 +4,27 @@ import HawkerCentreFact from '../factories/HawkerCentreFactory';
 import StallFact from '../factories/StallFactory';
 import app from '../../src/server';
 
-const stallResp = {
-  id: null,
-  name: null,
-  description: null,
-  contactNo: null,
-  hawkerCentreId: null,
-  createdAt: null,
-  updatedAt: null,
-  Products: [
-    {
-      id: null,
-      name: null,
-      description: null,
-      stallId: null,
-      createdAt: null,
-      updatedAt: null,
-    },
-  ],
-  Images: [
-    {
-      id: null,
-      downloadUrl: null,
-      fileName: null,
-    },
-  ],
-  HawkerCentre: {
-    id: null,
-    name: null,
-    address: null,
-    regionId: null,
-    lat: null,
-    lng: null,
-    createdAt: null,
-    updatedAt: null,
-    Region: {
-      id: null,
-      name: null,
-      createdAt: null,
-      updatedAt: null,
-    },
-  },
-  Reviews: [
-    {
-      id: null,
-      description: null,
-      rating: null,
-      stallId: null,
-      userId: null,
-      createdAt: null,
-      updatedAt: null,
-    },
-  ],
-  Categories: [
-    {
-      id: null,
-      name: null,
-      createdAt: null,
-      updatedAt: null,
-      CategoryStalls: [
-        {
-          createdAt: null,
-          updatedAt: null,
-          stallId: null,
-          categoryId: null,
-        },
-      ],
-    },
-  ],
-  rating: null,
-};
+describe('POST /stalls', () => {
+  it('returns a new stall', async () => {
+    const hawkerCentre = await HawkerCentreFact.create();
+    const res = await request(app)
+      .post('/stalls')
+      .send({ name: 'best chicken rice', hawkerCentreId: hawkerCentre.id });
 
-// describe('POST /stalls', () => {
-//   it('returns a new stall', async () => {
-    // const hawkerCentre = await HawkerCentreFact.create();
-    // const res = await request(app)
-    //   .post('/stalls')
-    //   .send({ name: 'best chicken rice', hawkerCentreId: hawkerCentre.id });
+    expect(res.status).toEqual(201);
+    expect(res.body).toHaveProperty('name', 'best chicken rice');
+  });
 
-    // console.log(StallFact.withAll().build());
-    // console.log(StallFact.withAll().build());
-    // console.log(StallFact.withAll().buildList(3));
-    // console.log(StallFact.withCategories().build());
+  it('returns an error given invalid attributes', async () => {
+    // Change the error code once we figure out a way to handle user errors gracefully
+    // it is now caught by the general error handler. The general error handler uses console.error so we hide it away for now.
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const res = await request(app).post('/stalls').send({ name: '' });
 
-    // await StallFact.withAll().create();
-
-    // expect(res.status).toEqual(201);
-    // expect(res.body).toHaveProperty('name', 'best chicken rice');
-  // });
-
-  // it('returns an error given invalid attributes', async () => {
-  //   // Change the error code once we figure out a way to handle user errors gracefully
-  //   // it is now caught by the general error handler. The general error handler uses console.error so we hide it away for now.
-  //   const spy = jest.spyOn(console, 'error').mockImplementation(() => {});
-  //   const res = await request(app).post('/stalls').send({ name: '' });
-
-  //   expect(res.status).toEqual(500);
-  //   spy.mockRestore();
-  // });
-// });
+    expect(res.status).toEqual(500);
+    spy.mockRestore();
+  });
+});
 
 describe('GET /stall/:id', () => {
   it('returns an existing store', async () => {
@@ -110,27 +32,26 @@ describe('GET /stall/:id', () => {
     const res = await request(app).get(`/stalls/${stall.id}`);
 
     expect(res.status).toEqual(200);
-    console.log(res.body);
-    // expect(res.body).toHaveProperty('name', stall.name);
+    expect(res.body).toHaveProperty('name', stall.name);
   });
 });
 
-// describe('PUT /stall/:id', () => {
-//   it('returns an updated store', async () => {
-//     const stall = await StallFact.create();
-//     const res = await request(app).put(`/stalls/${stall.id}`).send({ name: 'noodles' });
+describe('PUT /stall/:id', () => {
+  it('returns an updated store', async () => {
+    const stall = await StallFact.create();
+    const res = await request(app).put(`/stalls/${stall.id}`).send({ name: 'noodles' });
 
-//     expect(res.status).toEqual(200);
-//     expect(res.body).toHaveProperty('name', 'noodles');
-//   });
-// });
+    expect(res.status).toEqual(200);
+    expect(res.body).toHaveProperty('name', 'noodles');
+  });
+});
 
-// describe('DELETE /stall/:id', () => {
-//   it('returns success on successful deletion', async () => {
-//     const stall = await StallFact.create();
-//     const res = await request(app).delete(`/stalls/${stall.id}`);
+describe('DELETE /stall/:id', () => {
+  it('returns success on successful deletion', async () => {
+    const stall = await StallFact.create();
+    const res = await request(app).delete(`/stalls/${stall.id}`);
 
-//     expect(res.status).toEqual(200);
-//     expect(await Stall.findByPk(stall.id)).toBeNull();
-//   });
-// });
+    expect(res.status).toEqual(200);
+    expect(await Stall.findByPk(stall.id)).toBeNull();
+  });
+});

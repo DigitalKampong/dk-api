@@ -56,6 +56,8 @@ async function seedDevData(t: Transaction) {
   await seedClazz('Stall', t);
   await seedClazz('CategoryStall', t);
   await seedClazz('Product', t);
+  await seedClazz('User', t);
+  await seedClazz('Review', t);
 }
 
 async function reset(req: Request, res: Response, next: NextFunction) {

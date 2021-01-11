@@ -41,8 +41,9 @@ export interface StallAttributes {
   name: string;
   description: string | null;
   contactNo: string | null;
-  rating: number;
   unitNo: string | null;
+  rating: number;
+  // categories: string[];
   hawkerCentreId: number;
 }
 
@@ -54,8 +55,9 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public description!: string | null;
   public contactNo!: string | null;
   public unitNo!: string | null;
-  public hawkerCentreId!: number;
   public rating!: number;
+  // public categories!: string[];
+  public hawkerCentreId!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -152,20 +154,20 @@ Stall.init(
     rating: {
       type: DataTypes.VIRTUAL,
     },
+    // categories: {
+    //   type: DataTypes.VIRTUAL,
+    //   get() {
+    //     // this assumes that the call includes Categories
+    //     const categories = this.getDataValue('Categories') as Category[];
+    //     return categories.map(cate => cate.name);
+    //   },
+    // },
     hawkerCentreId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'HawkerCentres',
         key: 'id',
-      },
-    },
-    nasty: {
-      type: DataTypes.VIRTUAL,
-      get() {
-        // this assumes that the call includes Categories
-        const categories: Category[] = this.getDataValue('Categories');
-        return categories.map(cate => cate.name);
       },
     },
   },

@@ -25,36 +25,40 @@ import { associate } from './init/associations';
 //     models[model.default.name] = model.default; // we export default from our models
 //   });
 
-import Categoryzz from './Category';
-import CategoryStallzz from './CategoryStall';
-import HawkerCentrezz from './HawkerCentre';
-import Imagezz from './Image';
-import Productzz from './Product';
-import Regionzz from './Region';
-import Reviewzz from './Review';
-import Stallzz from './Stall';
-import Userzz from './User';
+// import Categoryzz from './Category';
+// import CategoryStallzz from './CategoryStall';
+// import HawkerCentrezz from './HawkerCentre';
+// import Imagezz from './Image';
+// import Productzz from './Product';
+// import Regionzz from './Region';
+// import Reviewzz from './Review';
+// import Stallzz from './Stall';
+// import Userzz from './User';
+
+import Category from './Category';
+import CategoryStall from './CategoryStall';
+import HawkerCentre from './HawkerCentre';
+import Image from './Image';
+import Product from './Product';
+import Region from './Region';
+import Review from './Review';
+import Stall from './Stall';
+import User from './User';
+
 
 // This is done to typecheck correctly for files that import this file.
+// const models = {
+//   Category: Categoryzz,
+//   CategoryStall: CategoryStallzz,
+//   HawkerCentre: HawkerCentrezz,
+//   Image: Imagezz,
+//   Product: Productzz,
+//   Region: Regionzz,
+//   Review: Reviewzz,
+//   Stall: Stallzz,
+//   User: Userzz,
+// };
 const models = {
-  Category: Categoryzz,
-  CategoryStall: CategoryStallzz,
-  HawkerCentre: HawkerCentrezz,
-  Image: Imagezz,
-  Product: Productzz,
-  Region: Regionzz,
-  Review: Reviewzz,
-  Stall: Stallzz,
-  User: Userzz,
-};
-
-type paramType = { [Key: string]: ModelStatic };
-
-associate(models as paramType);
-addScopes(models as paramType);
-
-// Need to do it this way, can't dynamically export from models
-const {
   Category,
   CategoryStall,
   HawkerCentre,
@@ -64,7 +68,49 @@ const {
   Review,
   Stall,
   User,
-} = models;
+};
+
+type paramType = { [Key: string]: ModelStatic };
+
+associate(models as paramType);
+addScopes(models as paramType);
+
+// associate({
+//   Category,
+//   CategoryStall,
+//   HawkerCentre,
+//   Image,
+//   Product,
+//   Region,
+//   Review,
+//   Stall,
+//   User,
+// } as paramType);
+
+// addScopes({
+//   Category,
+//   CategoryStall,
+//   HawkerCentre,
+//   Image,
+//   Product,
+//   Region,
+//   Review,
+//   Stall,
+//   User,
+// } as paramType);
+
+// Need to do it this way, can't dynamically export from models
+// const {
+//   Category,
+//   CategoryStall,
+//   HawkerCentre,
+//   Image,
+//   Product,
+//   Region,
+//   Review,
+//   Stall,
+//   User,
+// } = models;
 
 export { Category, CategoryStall, HawkerCentre, Image, Product, Region, Review, Stall, User };
 

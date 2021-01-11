@@ -5,6 +5,7 @@ import fs from 'fs';
 import inflection from 'inflection';
 import { Transaction } from 'sequelize/types';
 
+import { ModelStatic } from '../types';
 import sequelize from '../db';
 import models from '../models';
 import { Image, Product, Stall } from '../models';
@@ -14,19 +15,13 @@ import { uploadDiskImg, destroyImages, createImages } from '../controllers/image
 const SEEDS_FILE_PATH = '../db/seeds/';
 const SAMPLE_IMG_FILE_PATH = path.resolve(__dirname, SEEDS_FILE_PATH, 'cat.jpg');
 
-interface StaticModel {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  bulkCreate(data: any, options: any): void;
-}
-
 async function seedClazz(clazzName: string, t?: Transaction) {
   const filename = `${inflection.pluralize(clazzName)}.csv`;
   const filepath = path.resolve(__dirname, SEEDS_FILE_PATH, filename);
 
   await fs.promises.access(filepath);
   const data = await retrieveDataFromCsv(filepath);
-  const clazz = models[clazzName] as unknown;
-  await (clazz as StaticModel).bulkCreate(data, { transaction: t });
+  await (models[clazzName] as ModelStatic).bulkCreate(data, { transaction: t });
 }
 
 async function createSampleImages(nImages: number, t: Transaction) {

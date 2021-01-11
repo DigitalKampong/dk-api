@@ -100,6 +100,5 @@ Product.init(
   { sequelize }
 );
 
-Product.hasMany(Image, { foreignKey: 'productId' });
-
+// Product.hasMany(Image, { foreignKey: 'productId' });
 export default Product;

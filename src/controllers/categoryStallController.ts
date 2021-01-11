@@ -1,5 +1,5 @@
-import CategoryStall from '../models/CategoryStall';
 import { Request, Response, NextFunction } from 'express';
+import { CategoryStall } from '../models';
 import { NotFoundError } from '../errors/httpErrors';
 
 async function retrieveCategoryStall(req: Request, res: Response, next: NextFunction) {

@@ -1,9 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import Category from '../models/Category';
-import Stall from '../models/Stall';
 import { Sequelize } from 'sequelize';
-import HawkerCentre from '../models/HawkerCentre';
-import Review from '../models/Review';
+import { Request, Response, NextFunction } from 'express';
+import { HawkerCentre, Review, Stall, Category } from '../models';
 
 function getStallInclude() {
   return [

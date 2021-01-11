@@ -20,33 +20,35 @@
 //   User,
 // } from '../index';
 
-import { Model } from 'sequelize/types';
+import { ModelStatic } from '../../types/';
 
-export function associate(models: { [Key: string]: typeof Model }) {
-  const {
-    Category,
-    CategoryStall,
-    HawkerCentre,
-    Image,
-    Product,
-    Region,
-    Review,
-    Stall,
-    User,
-  } = models;
+// type ModelStatic = typeof Model & {
+//   new (values?: object, options?: Sequelize.BuildOptions): Model;
+// };
 
-  Stall.hasMany(Product, { foreignKey: 'stallId', onDelete: 'cascade', hooks: true });
-  Product.belongsTo(Stall, { foreignKey: 'stallId' });
+export function associate(models: { [Key: string]: ModelStatic }) {
+  const { Category, HawkerCentre, Image, Product, Region, Review, Stall, User } = models;
 
-  Stall.hasMany(Image, { foreignKey: 'stallId' });
-
-  Stall.belongsToMany(Category, { through: 'CategoryStalls', foreignKey: 'stallId' });
   Category.belongsToMany(Stall, { through: 'CategoryStalls', foreignKey: 'categoryId' });
 
-  Stall.hasMany(Review, { foreignKey: 'stallId' });
-  Review.belongsTo(Stall, { foreignKey: 'stallId' });
+  HawkerCentre.belongsTo(Region, { foreignKey: 'regionId' });
+  HawkerCentre.hasMany(Stall, { foreignKey: 'hawkerCentreId' });
 
-  Stall.addScope('asdf', { include: [{ association: Stall.associations.Categories }] });
+  Product.belongsTo(Stall, { foreignKey: 'stallId' });
+  Product.hasMany(Image, { foreignKey: 'productId' });
+
+  Region.hasMany(HawkerCentre, { foreignKey: 'regionId' });
+
+  Review.belongsTo(Stall, { foreignKey: 'stallId' });
+  Review.belongsTo(User, { foreignKey: 'userId' });
+
+  Stall.belongsTo(HawkerCentre, { foreignKey: 'hawkerCentreId' });
+  Stall.belongsToMany(Category, { through: 'CategoryStalls', foreignKey: 'stallId' });
+  Stall.hasMany(Image, { foreignKey: 'stallId' });
+  Stall.hasMany(Product, { foreignKey: 'stallId', onDelete: 'cascade', hooks: true });
+  Stall.hasMany(Review, { foreignKey: 'stallId' });
+
+  User.hasMany(Review, { foreignKey: 'userId' });
 }
 
 // Stall.hasMany(Product, { foreignKey: 'stallId', onDelete: 'cascade', hooks: true });

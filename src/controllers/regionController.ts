@@ -1,4 +1,4 @@
-import Region from '../models/Region';
+import { Region } from '../models/';
 import { Request, Response, NextFunction } from 'express';
 import { NotFoundError } from '../errors/httpErrors';
 

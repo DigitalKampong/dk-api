@@ -1,4 +1,4 @@
-import HawkerCentre from '../models/HawkerCentre';
+import { HawkerCentre } from '../models';
 import { Request, Response, NextFunction } from 'express';
 import { NotFoundError } from '../errors/httpErrors';
 

@@ -34,7 +34,6 @@ import HawkerCentre from './HawkerCentre';
 import Image from './Image';
 import Review from './Review';
 import Category from './Category';
-import { showCategoryStallFuncs } from '../controllers/categoryStallController';
 // import CategoryStall from './CategoryStall';
 
 export interface StallAttributes {
@@ -173,16 +172,16 @@ Stall.init(
   { sequelize }
 );
 
-Stall.hasMany(Product, { foreignKey: 'stallId', onDelete: 'cascade', hooks: true });
-Product.belongsTo(Stall, { foreignKey: 'stallId' });
+// Stall.hasMany(Product, { foreignKey: 'stallId', onDelete: 'cascade', hooks: true });
+// Product.belongsTo(Stall, { foreignKey: 'stallId' });
 
-Stall.hasMany(Image, { foreignKey: 'stallId' });
+// Stall.hasMany(Image, { foreignKey: 'stallId' });
 
-Stall.belongsToMany(Category, { through: 'CategoryStalls', foreignKey: 'stallId' });
-Category.belongsToMany(Stall, { through: 'CategoryStalls', foreignKey: 'categoryId' });
+// Stall.belongsToMany(Category, { through: 'CategoryStalls', foreignKey: 'stallId' });
+// Category.belongsToMany(Stall, { through: 'CategoryStalls', foreignKey: 'categoryId' });
 
-Stall.hasMany(Review, { foreignKey: 'stallId' });
-Review.belongsTo(Stall, { foreignKey: 'stallId' });
+// Stall.hasMany(Review, { foreignKey: 'stallId' });
+// Review.belongsTo(Stall, { foreignKey: 'stallId' });
 
 // Stall.addScope('asdf', { include: [{ association: Stall.associations.Categories }] });
 

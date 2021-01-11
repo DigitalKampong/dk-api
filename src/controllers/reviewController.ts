@@ -1,4 +1,4 @@
-import Review from '../models/Review';
+import { Review } from '../models';
 import { Request, Response, NextFunction } from 'express';
 import { NotFoundError, BadRequestError } from '../errors/httpErrors';
 import { UniqueConstraintError } from 'sequelize';

@@ -44,7 +44,7 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
     //   include: getStallInclude(),
     // });
 
-    const stall = await Stall.scope('asdf').findAll({ where: { id: req.params.id } });
+    const stall = await Stall.findAll({ where: { id: req.params.id } });
 
     // console.log(stall?.getDataValue('Categories'));
     console.log(stall);

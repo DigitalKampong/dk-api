@@ -1,6 +1,6 @@
 import { IFactory, Factory } from 'rosie';
 import { lorem } from 'faker';
-import Region from '../../src/models/Region';
+import { Region } from '../../src/models';
 import BaseFactory from './BaseFactory';
 
 class RegionFactory extends BaseFactory<Region> {

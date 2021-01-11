@@ -6,8 +6,7 @@ import {
   destroyImageIds,
   destroyImages,
 } from './imageController';
-import Product from '../models/Product';
-import Stall from '../models/Stall';
+import { Product, Stall } from '../models';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';

@@ -7,9 +7,7 @@ import { Transaction } from 'sequelize/types';
 
 import sequelize from '../db';
 import models from '../models';
-import Image from '../models/Image';
-import Product from '../models/Product';
-import Stall from '../models/Stall';
+import { Image, Product, Stall } from '../models';
 import { truncateClazzes } from '../utils/dbUtil';
 import { uploadDiskImg, destroyImages, createImages } from '../controllers/imageController';
 

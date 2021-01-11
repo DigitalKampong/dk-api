@@ -1,7 +1,7 @@
 import { IFactory, Factory } from 'rosie';
 import { random } from 'faker';
 import BaseFactory from './BaseFactory';
-import Image from '../../src/models/Image';
+import { Image } from '../../src/models';
 
 class ImageFactory extends BaseFactory<Image> {
   private static defaultFactory = new Factory().attr('fileName', () => `${random.uuid()}.jpeg`);

@@ -1,7 +1,7 @@
 import { IFactory, Factory } from 'rosie';
 import { random } from 'faker';
 import BaseFactory from './BaseFactory';
-import Review from '../../src/models/Review';
+import { Review } from '../../src/models';
 import UserFactory from './UserFactory';
 import StallFactory from './StallFactory';
 

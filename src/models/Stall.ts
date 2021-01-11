@@ -34,6 +34,7 @@ import HawkerCentre from './HawkerCentre';
 import Image from './Image';
 import Review from './Review';
 import Category from './Category';
+import { showCategoryStallFuncs } from '../controllers/categoryStallController';
 // import CategoryStall from './CategoryStall';
 
 export interface StallAttributes {
@@ -160,6 +161,14 @@ Stall.init(
         key: 'id',
       },
     },
+    nasty: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        // this assumes that the call includes Categories
+        const categories: Category[] = this.getDataValue('Categories');
+        return categories.map(cate => cate.name);
+      },
+    },
   },
   { sequelize }
 );
@@ -174,5 +183,7 @@ Category.belongsToMany(Stall, { through: 'CategoryStalls', foreignKey: 'category
 
 Stall.hasMany(Review, { foreignKey: 'stallId' });
 Review.belongsTo(Stall, { foreignKey: 'stallId' });
+
+// Stall.addScope('asdf', { include: [{ association: Stall.associations.Categories }] });
 
 export default Stall;

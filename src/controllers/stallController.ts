@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
 
-import Stall from '../models/Stall';
-import HawkerCentre from '../models/HawkerCentre';
-import Review from '../models/Review';
+// import Stall from '../models/Stall';
+// import HawkerCentre from '../models/HawkerCentre';
+// import Review from '../models/Review';
+import { Stall, HawkerCentre, Review } from '../models';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 import { Sequelize } from 'sequelize';
 
@@ -11,6 +12,9 @@ import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
 import Product from '../models/Product';
 import sequelize from '../db';
 
+/*
+ * Returns the includes needed to fetch associated models for a single stall response
+ */
 function getStallInclude() {
   return [
     { association: Stall.associations.Products },
@@ -28,29 +32,40 @@ function getStallInclude() {
   ];
 }
 
+/*
+ * Returns the includes needed to fetch associated models for a multiple stalls response
+ */
+function getStallsInclude() {
+}
+
 async function retrieveStall(req: Request, res: Response, next: NextFunction) {
   try {
-    const stall = await Stall.findByPk(req.params.id, {
-      include: getStallInclude(),
-    });
+    // const stall = await Stall.findByPk(req.params.id, {
+    //   include: getStallInclude(),
+    // });
+
+    const stall = await Stall.scope('asdf').findAll({ where: { id: req.params.id } });
+
+    // console.log(stall?.getDataValue('Categories'));
+    console.log(stall);
 
     if (stall === null) {
       throw new NotFoundError('Stall cannot be found');
     }
 
     // To obtain single stall rating
-    const rating = (
-      await Review.findAll({
-        where: {
-          stallId: stall!.id,
-        },
-        attributes: [
-          [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
-        ],
-      })
-    )[0].rating;
+    // const rating = (
+    //   await Review.findAll({
+    //     where: {
+    //       stallId: stall!.id,
+    //     },
+    //     attributes: [
+    //       [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
+    //     ],
+    //   })
+    // )[0].rating;
 
-    await stall.setDataValue('rating', rating || 0);
+    // await stall.setDataValue('rating', rating || 0);
 
     req.stall = stall;
     next();
@@ -81,7 +96,6 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
     });
 
     res.status(200).json(stalls);
-    next();
   } catch (err) {
     next(err);
   }

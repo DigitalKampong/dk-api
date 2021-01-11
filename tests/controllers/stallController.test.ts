@@ -2,7 +2,6 @@ import request from 'supertest';
 import Stall from '../../src/models/Stall';
 import HawkerCentreFact from '../factories/HawkerCentreFactory';
 import StallFact from '../factories/StallFactory';
-
 import app from '../../src/server';
 
 describe('POST /stalls', () => {
@@ -29,7 +28,7 @@ describe('POST /stalls', () => {
 
 describe('GET /stall/:id', () => {
   it('returns an existing store', async () => {
-    const stall = await StallFact.create();
+    const stall = await StallFact.withAll().create();
     const res = await request(app).get(`/stalls/${stall.id}`);
 
     expect(res.status).toEqual(200);

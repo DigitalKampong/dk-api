@@ -3,23 +3,22 @@ import * as csv from 'fast-csv';
 import path from 'path';
 import fs from 'fs';
 import inflection from 'inflection';
+import { Transaction } from 'sequelize/types';
 
 import sequelize from '../db';
 import models from '../models';
 import Image from '../models/Image';
-import { uploadDiskImg, destroyImages, createImages } from '../controllers/imageController';
 import Product from '../models/Product';
 import Stall from '../models/Stall';
-import { Transaction } from 'sequelize/types';
+import { truncateClazzes } from '../utils/dbUtil';
+import { uploadDiskImg, destroyImages, createImages } from '../controllers/imageController';
 
 const SEEDS_FILE_PATH = '../db/seeds/';
 const SAMPLE_IMG_FILE_PATH = path.resolve(__dirname, SEEDS_FILE_PATH, 'cat.jpg');
 
 interface StaticModel {
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  truncate(options: any): void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   bulkCreate(data: any, options: any): void;
-  /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
 async function seedClazz(clazzName: string, t?: Transaction) {
@@ -30,17 +29,6 @@ async function seedClazz(clazzName: string, t?: Transaction) {
   const data = await retrieveDataFromCsv(filepath);
   const clazz = models[clazzName] as unknown;
   await (clazz as StaticModel).bulkCreate(data, { transaction: t });
-}
-
-async function truncateClazzes() {
-  Object.keys(models).forEach(async key => {
-    // Cast to unknown then to StaticModel for tsc to work
-    const clazz: unknown = models[key];
-    await (clazz as StaticModel).truncate({
-      cascade: true,
-      restartIdentity: true,
-    });
-  });
 }
 
 async function createSampleImages(nImages: number, t: Transaction) {

@@ -67,7 +67,4 @@ Region.init(
   { sequelize }
 );
 
-// Region.hasMany(HawkerCentre, { foreignKey: 'regionId' });
-// HawkerCentre.belongsTo(Region, { foreignKey: 'regionId' });
-
 export default Region;

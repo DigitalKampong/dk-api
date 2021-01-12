@@ -75,7 +75,4 @@ User.init(
   { sequelize }
 );
 
-// User.hasMany(Review, { foreignKey: 'userId' });
-// Review.belongsTo(User, { foreignKey: 'userId' });
-
 export default User;

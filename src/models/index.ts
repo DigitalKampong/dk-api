@@ -1,115 +1,42 @@
-// import fs from 'fs';
-// import path from 'path';
-import { Models, ModelStatic } from '../types';
+import fs from 'fs';
+import path from 'path';
+import { Models } from '../types';
 import { addScopes } from './init/addScopes';
 import { associate } from './init/associations';
 
-// const basename = path.basename(__filename);
-// const models: { [Key: string]: typeof Model } = {};
+const basename = path.basename(__filename);
+const models: Models = {};
 
-// fs.readdirSync(__dirname)
-//   .filter(file => {
-//     // console.log(file);
-//     return (
-//       // exclude out build artifacts and init folder
-//       file.indexOf('.') !== 0 &&
-//       file !== basename &&
-//       file !== 'init' &&
-//       !file.endsWith('d.ts') &&
-//       !file.endsWith('.map')
-//     );
-//   })
-//   .forEach(file => {
-//     const clazzName = file.substring(0, file.length - 3); // remove .ts or .js from the back
-//     const model = require(path.join(__dirname, clazzName)); // this is the class
-//     models[model.default.name] = model.default; // we export default from our models
-//   });
+fs.readdirSync(__dirname)
+  .filter(file => {
+    return (
+      // exclude out build artifacts and init folder
+      file.indexOf('.') !== 0 &&
+      file !== basename &&
+      file !== 'init' &&
+      !file.endsWith('d.ts') &&
+      !file.endsWith('.map')
+    );
+  })
+  .forEach(file => {
+    const clazzName = file.substring(0, file.length - 3); // remove .ts or .js from the back
+    const model = require(path.join(__dirname, clazzName)); // this is the class
+    models[model.default.name] = model.default; // we export default from our models
+  });
 
-// import Categoryzz from './Category';
-// import CategoryStallzz from './CategoryStall';
-// import HawkerCentrezz from './HawkerCentre';
-// import Imagezz from './Image';
-// import Productzz from './Product';
-// import Regionzz from './Region';
-// import Reviewzz from './Review';
-// import Stallzz from './Stall';
-// import Userzz from './User';
+// For some reason, when we pass the class itself, the modifications (e.g. associations and scoping) to the class is retained.
+// There is a good chance the class is already in the "global" scope.
+associate(models);
+addScopes(models);
 
-import Category from './Category';
-import CategoryStall from './CategoryStall';
-import HawkerCentre from './HawkerCentre';
-import Image from './Image';
-import Product from './Product';
-import Region from './Region';
-import Review from './Review';
-import Stall from './Stall';
-import User from './User';
-
-
-// This is done to typecheck correctly for files that import this file.
-// const models = {
-//   Category: Categoryzz,
-//   CategoryStall: CategoryStallzz,
-//   HawkerCentre: HawkerCentrezz,
-//   Image: Imagezz,
-//   Product: Productzz,
-//   Region: Regionzz,
-//   Review: Reviewzz,
-//   Stall: Stallzz,
-//   User: Userzz,
-// };
-const models = {
-  Category,
-  CategoryStall,
-  HawkerCentre,
-  Image,
-  Product,
-  Region,
-  Review,
-  Stall,
-  User,
-};
-
-associate(models as Models);
-addScopes(models as Models);
-
-// associate({
-//   Category,
-//   CategoryStall,
-//   HawkerCentre,
-//   Image,
-//   Product,
-//   Region,
-//   Review,
-//   Stall,
-//   User,
-// } as paramType);
-
-// addScopes({
-//   Category,
-//   CategoryStall,
-//   HawkerCentre,
-//   Image,
-//   Product,
-//   Region,
-//   Review,
-//   Stall,
-//   User,
-// } as paramType);
-
-// Need to do it this way, can't dynamically export from models
-// const {
-//   Category,
-//   CategoryStall,
-//   HawkerCentre,
-//   Image,
-//   Product,
-//   Region,
-//   Review,
-//   Stall,
-//   User,
-// } = models;
-
-export { Category, CategoryStall, HawkerCentre, Image, Product, Region, Review, Stall, User };
+export { default as Category } from './Category';
+export { default as CategoryStall } from './CategoryStall';
+export { default as HawkerCentre } from './HawkerCentre';
+export { default as Image } from './Image';
+export { default as Product } from './Product';
+export { default as Region } from './Region';
+export { default as Review } from './Review';
+export { default as Stall } from './Stall';
+export { default as User } from './User';
 
 export default models;

@@ -20,13 +20,13 @@
 //   User,
 // } from '../index';
 
-import { ModelStatic } from '../../types/';
+import { Models } from '../../types/';
 
 // type ModelStatic = typeof Model & {
 //   new (values?: object, options?: Sequelize.BuildOptions): Model;
 // };
 
-export function associate(models: { [Key: string]: ModelStatic }) {
+export function associate(models: Models) {
   const { Category, HawkerCentre, Image, Product, Region, Review, Stall, User } = models;
 
   Category.belongsToMany(Stall, { through: 'CategoryStalls', foreignKey: 'categoryId' });

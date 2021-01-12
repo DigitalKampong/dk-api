@@ -5,7 +5,7 @@ import fs from 'fs';
 import inflection from 'inflection';
 import { Transaction } from 'sequelize/types';
 
-import { ModelStatic } from '../types';
+import { Models } from '../types';
 import sequelize from '../db';
 import models from '../models';
 import { Image, Product, Stall } from '../models';
@@ -21,8 +21,9 @@ async function seedClazz(clazzName: string, t?: Transaction) {
 
   await fs.promises.access(filepath);
   const data = await retrieveDataFromCsv(filepath);
-  //@ts-ignore
-  await (models[clazzName] as ModelStatic).bulkCreate(data, { transaction: t });
+
+  const modelszz = models as Models; // force typecast so can index into models using string
+  await modelszz[clazzName].bulkCreate(data, { transaction: t });
 }
 
 async function createSampleImages(nImages: number, t: Transaction) {

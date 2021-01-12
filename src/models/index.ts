@@ -1,6 +1,6 @@
 // import fs from 'fs';
 // import path from 'path';
-import { ModelStatic } from '../types';
+import { Models, ModelStatic } from '../types';
 import { addScopes } from './init/addScopes';
 import { associate } from './init/associations';
 
@@ -70,10 +70,8 @@ const models = {
   User,
 };
 
-type paramType = { [Key: string]: ModelStatic };
-
-associate(models as paramType);
-addScopes(models as paramType);
+associate(models as Models);
+addScopes(models as Models);
 
 // associate({
 //   Category,

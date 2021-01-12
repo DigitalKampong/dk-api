@@ -1,7 +1,7 @@
 import { IFactory, Factory } from 'rosie';
 import { internet } from 'faker';
 import BaseFactory from './BaseFactory';
-import User from '../../src/models/User';
+import { User } from '../../src/models';
 
 class UserFactory extends BaseFactory<User> {
   private static defaultFactory = new Factory()

@@ -6,7 +6,7 @@ import multer from 'multer';
 import mime from 'mime-types';
 import { v4 as uuidv4 } from 'uuid';
 
-import Image from '../models/Image';
+import { Image } from '../models';
 import { ON_GAE, GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY, MAX_IMAGE_SIZE } from '../consts';
 import { BadRequestError, UploadFileError } from '../errors/httpErrors';
 import { BulkCreateOptions, DestroyOptions } from 'sequelize/types';

@@ -105,7 +105,4 @@ HawkerCentre.init(
   { sequelize }
 );
 
-HawkerCentre.hasMany(Stall, { foreignKey: 'hawkerCentreId' });
-Stall.belongsTo(HawkerCentre, { foreignKey: 'hawkerCentreId' });
-
 export default HawkerCentre;

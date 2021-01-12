@@ -2,7 +2,7 @@ import { IFactory, Factory } from 'rosie';
 import { lorem } from 'faker';
 import BaseFactory from './BaseFactory';
 import RegionFact from './RegionFactory';
-import HawkerCentre from '../../src/models/HawkerCentre';
+import { HawkerCentre } from '../../src/models';
 
 class HawkerCentreFactory extends BaseFactory<HawkerCentre> {
   private static defaultFactory = new Factory()

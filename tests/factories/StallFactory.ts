@@ -1,7 +1,7 @@
 import { IFactory, Factory } from 'rosie';
 import { lorem } from 'faker';
 import HawkerCentreFact from './HawkerCentreFactory';
-import Stall from '../../src/models/Stall';
+import { Stall } from '../../src/models';
 import BaseFactory from './BaseFactory';
 import CategoryFactory from './CategoryFactory';
 import ReviewFactory from './ReviewFactory';

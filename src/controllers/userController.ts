@@ -3,7 +3,7 @@ import { UniqueConstraintError } from 'sequelize';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
-import User from '../models/User';
+import { User } from '../models';
 import { BadRequestError, UnauthorizedError } from '../errors/httpErrors';
 import { ACCESS_TOKEN_SECRET } from '../consts';
 

@@ -34,14 +34,12 @@ import HawkerCentre from './HawkerCentre';
 import Image from './Image';
 import Review from './Review';
 import Category from './Category';
-// import CategoryStall from './CategoryStall';
 
 export interface StallAttributes {
   id: number;
   name: string;
   description: string | null;
   contactNo: string | null;
-  rating: number;
   unitNo: string | null;
   hawkerCentreId: number;
 }
@@ -55,7 +53,6 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public contactNo!: string | null;
   public unitNo!: string | null;
   public hawkerCentreId!: number;
-  public rating!: number;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -149,9 +146,6 @@ Stall.init(
     unitNo: {
       type: DataTypes.INTEGER,
     },
-    rating: {
-      type: DataTypes.VIRTUAL,
-    },
     hawkerCentreId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -163,16 +157,5 @@ Stall.init(
   },
   { sequelize }
 );
-
-Stall.hasMany(Product, { foreignKey: 'stallId', onDelete: 'cascade', hooks: true });
-Product.belongsTo(Stall, { foreignKey: 'stallId' });
-
-Stall.hasMany(Image, { foreignKey: 'stallId' });
-
-Stall.belongsToMany(Category, { through: 'CategoryStalls', foreignKey: 'stallId' });
-Category.belongsToMany(Stall, { through: 'CategoryStalls', foreignKey: 'categoryId' });
-
-Stall.hasMany(Review, { foreignKey: 'stallId' });
-Review.belongsTo(Stall, { foreignKey: 'stallId' });
 
 export default Stall;

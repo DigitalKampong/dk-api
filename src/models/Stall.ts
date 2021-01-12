@@ -42,7 +42,7 @@ export interface StallAttributes {
   description: string | null;
   contactNo: string | null;
   unitNo: string | null;
-  rating: number;
+  // rating: number;
   // categories: string[];
   hawkerCentreId: number;
 }
@@ -55,7 +55,7 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public description!: string | null;
   public contactNo!: string | null;
   public unitNo!: string | null;
-  public rating!: number;
+  // public rating!: number;
   // public categories!: string[];
   public hawkerCentreId!: number;
 
@@ -151,9 +151,9 @@ Stall.init(
     unitNo: {
       type: DataTypes.INTEGER,
     },
-    rating: {
-      type: DataTypes.VIRTUAL,
-    },
+    // rating: {
+    //   type: DataTypes.VIRTUAL,
+    // },
     // categories: {
     //   type: DataTypes.VIRTUAL,
     //   get() {

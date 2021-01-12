@@ -58,7 +58,6 @@ function getStallsInclude(): Includeable[] {
 }
 
 async function getRating(stall: Stall) {
-  // Code this out later
   if (stall.Reviews === undefined) {
     await stall.reload({ include: Stall.associations.Reviews });
   }
@@ -79,7 +78,7 @@ async function getCategories(stall: Stall) {
 /*
  *
  */
-async function fmtStallJson(stall: Stall) {
+async function fmtStallResp(stall: Stall) {
   const rating = await getRating(stall);
   const categories = await getCategories(stall);
 
@@ -93,7 +92,7 @@ async function fmtStallJson(stall: Stall) {
   return stallObj;
 }
 
-async function fmtStallsJson(stalls: Stall[]) {
+async function fmtStallsResp(stalls: Stall[]) {
   const propertiesToDelete = ['description', 'contactNo', 'unitNo', 'Categories', 'Reviews'];
 
   const result = await Promise.all(
@@ -167,7 +166,7 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
     //   await stall.setDataValue('rating', rating);
     // });
 
-    res.status(200).json(await fmtStallsJson(stalls));
+    res.status(200).json(await fmtStallsResp(stalls));
   } catch (err) {
     next(err);
   }
@@ -175,7 +174,7 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
 
 async function showStall(req: Request, res: Response, next: NextFunction) {
   try {
-    res.status(200).json(await fmtStallJson(req.stall!));
+    res.status(200).json(await fmtStallResp(req.stall!));
   } catch (err) {
     next(err);
   }
@@ -185,7 +184,7 @@ async function createStall(req: Request, res: Response, next: NextFunction) {
   try {
     const stall = await Stall.create(req.body);
     await stall.reload({ include: getStallInclude() });
-    res.status(201).json(await fmtStallJson(stall));
+    res.status(201).json(await fmtStallResp(stall));
   } catch (err) {
     next(err);
   }
@@ -195,7 +194,7 @@ async function updateStall(req: Request, res: Response, next: NextFunction) {
   try {
     const stall = await req.stall!.update(req.body);
     await stall.reload({ include: getStallInclude() });
-    res.status(200).json(await fmtStallJson(stall));
+    res.status(200).json(await fmtStallResp(stall));
   } catch (err) {
     next(err);
   }
@@ -232,7 +231,7 @@ async function uploadStallImages(req: Request, res: Response, next: NextFunction
     });
 
     await stall.reload({ include: getStallInclude() });
-    res.status(200).json(await fmtStallJson(stall));
+    res.status(200).json(await fmtStallResp(stall));
   } catch (err) {
     next(err);
   }
@@ -251,6 +250,8 @@ async function destroyStallImages(req: Request, res: Response, next: NextFunctio
     next(err);
   }
 }
+
+export { getStallInclude, getStallsInclude, fmtStallResp, fmtStallsResp };
 
 export const indexStallFuncs = [indexStall];
 export const showStallFuncs = [retrieveStall, showStall];

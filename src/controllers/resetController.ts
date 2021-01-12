@@ -21,6 +21,7 @@ async function seedClazz(clazzName: string, t?: Transaction) {
 
   await fs.promises.access(filepath);
   const data = await retrieveDataFromCsv(filepath);
+  //@ts-ignore
   await (models[clazzName] as ModelStatic).bulkCreate(data, { transaction: t });
 }
 

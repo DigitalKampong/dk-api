@@ -71,8 +71,9 @@ async function getCategories(stall: Stall) {
   return stall.Categories!.map(cate => cate.name);
 }
 
-/*
- *
+/**
+ * Format a single stall response
+ * @param stall Stall instance
  */
 async function fmtStallResp(stall: Stall) {
   const rating = await getRating(stall);
@@ -88,6 +89,10 @@ async function fmtStallResp(stall: Stall) {
   return stallObj;
 }
 
+/**
+ * Format multiple stalls response
+ * @param stalls An array of Stall instances
+ */
 async function fmtStallsResp(stalls: Stall[]) {
   const propertiesToDelete = ['description', 'contactNo', 'unitNo', 'Categories', 'Reviews'];
 

@@ -1,12 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
 
-// import Stall from '../models/Stall';
-// import HawkerCentre from '../models/HawkerCentre';
-// import Review from '../models/Review';
 import { Stall, HawkerCentre, Review } from '../models';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
-import { Sequelize } from 'sequelize';
 import { Includeable } from 'sequelize/types';
 
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
@@ -124,20 +120,6 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
       throw new NotFoundError('Stall cannot be found');
     }
 
-    // To obtain single stall rating
-    // const rating = (
-    //   await Review.findAll({
-    //     where: {
-    //       stallId: stall!.id,
-    //     },
-    //     attributes: [
-    //       [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
-    //     ],
-    //   })
-    // )[0].rating;
-
-    // await stall.setDataValue('rating', rating || 0);
-
     req.stall = stall;
     next();
   } catch (err) {
@@ -150,21 +132,6 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
     const stalls = await Stall.findAll({
       include: getStallsInclude(),
     });
-
-    // To obtain all stall ratings
-    // const ratings = await Review.findAll({
-    //   attributes: [
-    //     'stallId',
-    //     [Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('rating')), 2), 'rating'],
-    //   ],
-    //   group: ['stallId'],
-    // });
-
-    // stalls.map(async (stall: Stall) => {
-    //   const filteredRating = ratings.filter(rating => rating.stallId === stall.id);
-    //   const rating = filteredRating.length ? filteredRating[0].rating : 0;
-    //   await stall.setDataValue('rating', rating);
-    // });
 
     res.status(200).json(await fmtStallsResp(stalls));
   } catch (err) {

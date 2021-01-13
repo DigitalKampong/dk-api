@@ -58,7 +58,7 @@
   "scripts": {
     "lint": "gts lint",
     "clean": "gts clean",
-    "build": "tsc && copyfiles src/db/seeds/*.csv build",
+    "build": "tsc && copyfiles src/db/seeds/* build",
     "fix": "gts fix",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "sequelize-cli": "sequelize-cli",

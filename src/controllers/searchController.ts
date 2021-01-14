@@ -14,7 +14,7 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
             FROM "CategoryStalls"
             WHERE "categoryId" in (${categoryFilter!
               .split(',')
-              .map(id => `'${id}'`)
+              .map((id: string) => `'${id}'`)
               .join(',')})
           )`
       : '';
@@ -26,7 +26,7 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
             FROM "HawkerCentres"
             WHERE "regionId" in (${regionFilter!
               .split(',')
-              .map(id => `'${id}'`)
+              .map((id: string) => `'${id}'`)
               .join(',')})
           )`
       : '';

@@ -1,6 +1,10 @@
 import express from 'express';
 import { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import AdminBro from 'admin-bro';
+import AdminBroExpress from '@admin-bro/express';
+import AdminBroSequelize from '@admin-bro/sequelize';
+import sequelize from './db/index';
 
 import { PORT } from './consts';
 // import { testAuthenticate } from './utils/dbUtil';
@@ -22,10 +26,42 @@ import reviews from './routes/reviews';
 
 const app = express();
 
-// testAuthenticate();
+AdminBro.registerAdapter(AdminBroSequelize);
 
+console.log(sequelize);
+
+const adminBro = new AdminBro({
+  databases: [sequelize],
+  rootPath: '/admin',
+  // resources: [
+  //   {
+  //     resource: sequelize.models.User,
+  //   },
+  // ],
+});
+
+//const router = AdminBroExpress.buildRouter(adminBro)
+
+const ADMIN = {
+  email: 'test@example.com',
+  password: 'password',
+};
+
+const router = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
+  authenticate: async (email, password) => {
+    if (ADMIN.password === password && ADMIN.email === email) {
+      return ADMIN;
+    }
+    return null;
+  },
+  cookieName: 'adminbro',
+  cookiePassword: 'somePassword',
+});
+
+// testAuthenticate();
 app.use(cors());
 app.use(express.json());
+app.use(adminBro.options.rootPath, router);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
@@ -41,6 +77,8 @@ app.use('/search', search);
 app.use('/reset', reset);
 app.use('/', users);
 app.use('/reviews', reviews);
+
+console.log('Test'.split('.'));
 
 app.all('*', (req: Request, res: Response) => {
   const err = new NotFoundError('You are at the wrong place. Page cannot be found. Shoo!');

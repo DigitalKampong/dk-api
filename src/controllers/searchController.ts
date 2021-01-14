@@ -7,7 +7,7 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
   try {
     const rawQuery: string | undefined = req.params.query?.trim();
 
-    const categoryFilter = req.query.category;
+    const categoryFilter = req.query.category as string;
     const categoryFilterCondition = categoryFilter
       ? `AND id IN (
             SELECT "stallId"
@@ -19,7 +19,7 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
           )`
       : '';
 
-    const regionFilter = req.query.region;
+    const regionFilter = req.query.region as string;
     const regionFilterCondition = regionFilter
       ? `AND "hawkerCentreId" IN (
             SELECT id

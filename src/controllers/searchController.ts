@@ -7,27 +7,27 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
   try {
     const rawQuery: string | undefined = req.params.query?.trim();
 
-    const categoryFilter = req.query.category as string;
+    const categoryFilter = req.query.category as string[];
+    const categoryFilterQueries = categoryFilter
+      ? categoryFilter.map((id: string) => `&category=${id}`).join('')
+      : '';
     const categoryFilterCondition = categoryFilter
       ? `AND id IN (
             SELECT "stallId"
             FROM "CategoryStalls"
-            WHERE "categoryId" in (${categoryFilter!
-              .split(',')
-              .map((id: string) => `'${id}'`)
-              .join(',')})
+            WHERE "categoryId" in (${categoryFilter!.map((id: string) => `'${id}'`).join(',')})
           )`
       : '';
 
-    const regionFilter = req.query.region as string;
+    const regionFilter = req.query.region as string[];
+    const regionFilterQueries = regionFilter
+      ? regionFilter.map((id: string) => `&region=${id}`).join('')
+      : '';
     const regionFilterCondition = regionFilter
       ? `AND "hawkerCentreId" IN (
             SELECT id
             FROM "HawkerCentres"
-            WHERE "regionId" in (${regionFilter!
-              .split(',')
-              .map((id: string) => `'${id}'`)
-              .join(',')})
+            WHERE "regionId" in (${regionFilter!.map((id: string) => `'${id}'`).join(',')})
           )`
       : '';
 
@@ -49,7 +49,7 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
         page,
         stalls.count,
         '/search/',
-        `&category=${categoryFilter}&region=${regionFilter}`
+        categoryFilterQueries + regionFilterQueries
       );
       res.status(200).json(stalls);
       return;
@@ -99,10 +99,12 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
         replacements: { query: query },
       }
     );
+
     const stallIds = result.reduce((acc: number[], cur) => {
       acc.push(cur.getDataValue('id'));
       return acc;
     }, []);
+
     const stalls = await Stall.findAndCountAll({
       where: { id: stallIds },
       order: [['id', 'ASC']],
@@ -111,13 +113,15 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
       offset: offset,
       distinct: true,
     });
+
     stalls.rows = await fmtStallsResp(stalls.rows);
+
     stalls.pagination = generatePaginationWithQueries(
       limit,
       page,
       stalls.count,
       '/search/',
-      `&category=${categoryFilter}&region=${regionFilter}`
+      categoryFilterQueries + regionFilterQueries
     );
     res.status(200).json(stalls);
   } catch (err) {

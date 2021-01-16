@@ -1,63 +1,122 @@
 import { Request, Response, NextFunction } from 'express';
 import { getStallsInclude, fmtStallsResp } from './stallController';
 import { Stall } from '../models';
+import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
 
 async function searchStalls(req: Request, res: Response, next: NextFunction) {
   try {
     const rawQuery: string | undefined = req.params.query?.trim();
 
-    if (!rawQuery) {
-      const stalls = await Stall.findAll({ include: getStallsInclude() });
-      res.status(200).json(await fmtStallsResp(stalls));
-      return;
-    }
-
-    const query = cleanInput(rawQuery);
-    const result = await Stall.sequelize!.query(
-      `
-          SELECT id
-          FROM "Stalls"
-          WHERE id IN (
-            SELECT "stallId"
-            FROM "Products"
-            WHERE _search @@ to_tsquery('english', '${query}')
-          ) OR id IN (
-            SELECT id
-            FROM "Stalls"
-            WHERE _search @@ to_tsquery('english', '${query}')
-          ) OR id IN (
+    const categoryFilter = req.query.category as string;
+    const categoryFilterQueries = categoryFilter ? `&category=${categoryFilter}` : '';
+    const categoryFilterCondition = categoryFilter
+      ? `id IN (
             SELECT "stallId"
             FROM "CategoryStalls"
-            WHERE "categoryId" IN (
-              SELECT id
-              FROM "Categories"
-              WHERE _search @@ to_tsquery('english', '${query}')
-            )
-          ) OR "hawkerCentreId" IN (
+            WHERE "categoryId" in (${categoryFilter!
+              .split(',')
+              .map((id: string) => `'${id}'`)
+              .join(',')})
+            UNION
+            SELECT "Stalls".id
+            FROM "Stalls"
+            LEFT JOIN "CategoryStalls"
+            ON "Stalls".id = "CategoryStalls"."stallId"
+            WHERE "CategoryStalls"."stallId" ISNULL
+          )`
+      : undefined;
+
+    const regionFilter = req.query.region as string;
+    const regionFilterQueries = regionFilter ? `&region=${regionFilter}` : '';
+    const regionFilterCondition = regionFilter
+      ? `"hawkerCentreId" IN (
             SELECT id
             FROM "HawkerCentres"
-            WHERE _search @@ to_tsquery('english', '${query}')
-          ) OR "hawkerCentreId" IN (
-            SELECT id
-            FROM "HawkerCentres"
-            WHERE "regionId" IN (
-              SELECT id
-              FROM "Regions"
-              WHERE _search @@ to_tsquery('english', '${query}')
-            )
-          )
-        `,
-      {
-        model: Stall,
-        replacements: { query: query },
-      }
-    );
+            WHERE "regionId" in (${regionFilter!
+              .split(',')
+              .map((id: string) => `'${id}'`)
+              .join(',')})
+          )`
+      : undefined;
+
+    const limit = parseInt(req.query.limit as string);
+    const page = parseInt(req.query.page as string);
+    const offset = (page - 1) * limit;
+    let query, queryString, sourceRoute;
+
+    if (!rawQuery) {
+      queryString = ` SELECT id
+                      FROM "Stalls"
+                      WHERE ${categoryFilterCondition || 'TRUE'}
+                      AND ${regionFilterCondition || 'TRUE'}`;
+      sourceRoute = '/search';
+    } else {
+      query = cleanInput(rawQuery);
+      queryString = ` SELECT id
+                      FROM "Stalls"
+                      WHERE (
+                        id IN (
+                          SELECT "stallId"
+                          FROM "Products"
+                          WHERE _search @@ to_tsquery('english', '${query}')
+                        ) OR id IN (
+                          SELECT id
+                          FROM "Stalls"
+                          WHERE _search @@ to_tsquery('english', '${query}')
+                        ) OR id IN (
+                          SELECT "stallId"
+                          FROM "CategoryStalls"
+                          WHERE "categoryId" IN (
+                            SELECT id
+                            FROM "Categories"
+                            WHERE _search @@ to_tsquery('english', '${query}')
+                          )
+                        ) OR "hawkerCentreId" IN (
+                          SELECT id
+                          FROM "HawkerCentres"
+                          WHERE _search @@ to_tsquery('english', '${query}')
+                        ) OR "hawkerCentreId" IN (
+                          SELECT id
+                          FROM "HawkerCentres"
+                          WHERE "regionId" IN (
+                            SELECT id
+                            FROM "Regions"
+                            WHERE _search @@ to_tsquery('english', '${query}')
+                          )
+                        )
+                      )
+                      AND ${categoryFilterCondition || 'TRUE'}
+                      AND ${regionFilterCondition || 'TRUE'}`;
+      sourceRoute = `/search/${rawQuery}`;
+    }
+
+    const result = await Stall.sequelize!.query(queryString, {
+      model: Stall,
+    });
+
     const stallIds = result.reduce((acc: number[], cur) => {
       acc.push(cur.getDataValue('id'));
       return acc;
     }, []);
-    const stalls = await Stall.findAll({ where: { id: stallIds }, include: getStallsInclude() });
-    res.status(200).json(await fmtStallsResp(stalls));
+
+    const stalls = await Stall.findAndCountAll({
+      where: { id: stallIds },
+      order: [['id', 'ASC']],
+      include: getStallsInclude(),
+      limit: limit,
+      offset: offset,
+      distinct: true,
+    });
+
+    const rows = await fmtStallsResp(stalls.rows);
+    const pagination = generatePagination(
+      limit,
+      page,
+      stalls.count,
+      sourceRoute,
+      categoryFilterQueries + regionFilterQueries
+    );
+    res.status(200).json(fmtPaginationResp(rows, pagination));
   } catch (err) {
     next(err);
   }

@@ -1,3 +1,10 @@
+interface IPagination {
+  next: string | null;
+  prev: string | null;
+  err: string | null;
+  pagination: string[];
+}
+
 /**
  * Generates links for pagination.
  * @param limit Max number of items per page.
@@ -12,11 +19,11 @@ function generatePagination(
   count: number,
   sourceRoute: string,
   queries = ''
-) {
+): IPagination {
   const lastPage = Math.ceil(count / limit);
   let next = null;
   let prev = null;
-  let err;
+  let err = null;
   if (currPage >= 1 && currPage <= lastPage) {
     next = currPage >= lastPage ? null : generateRoute(limit, currPage + 1, sourceRoute, queries);
     prev = currPage <= 1 ? null : generateRoute(limit, currPage - 1, sourceRoute, queries);
@@ -40,4 +47,12 @@ function generateRoute(limit: number, page: number, sourceRoute: string, queries
   return `${sourceRoute}?limit=${limit}&page=${page}${queries}`;
 }
 
-export { generatePagination };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function fmtPaginationResp(rows: any, pagination: IPagination) {
+  return {
+    rows,
+    pagination,
+  };
+}
+
+export { IPagination, generatePagination, fmtPaginationResp };

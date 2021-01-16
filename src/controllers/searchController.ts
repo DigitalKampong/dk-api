@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { getStallsInclude, fmtStallsResp } from './stallController';
 import { Stall } from '../models';
-import { generatePagination } from '../utils/paginationUtil';
+import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
 
 async function searchStalls(req: Request, res: Response, next: NextFunction) {
   try {
@@ -108,16 +108,15 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
       distinct: true,
     });
 
-    stalls.rows = await fmtStallsResp(stalls.rows);
-    stalls.pagination = generatePagination(
+    const rows = await fmtStallsResp(stalls.rows);
+    const pagination = generatePagination(
       limit,
       page,
       stalls.count,
       sourceRoute,
       categoryFilterQueries + regionFilterQueries
     );
-    res.status(200).json(stalls);
-    return;
+    res.status(200).json(fmtPaginationResp(rows, pagination));
   } catch (err) {
     next(err);
   }

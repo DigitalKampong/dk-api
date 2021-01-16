@@ -1538,11 +1538,22 @@ URL: {{server_url}}/search/:query
 
 
 
+***Query params:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| limit | 3 |  |
+| page | 1 |  |
+| category | 1,2 |  |
+| region | 2,4 |  |
+
+
+
 ***URL variables:***
 
 | Key | Value | Description |
 | --- | ------|-------------|
-| query |  |  |
+| query | adam |  |
 
 
 
@@ -1811,6 +1822,15 @@ Method: GET
 Type: 
 URL: {{server_url}}/stalls
 ```
+
+
+
+***Query params:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| limit | 3 |  |
+| page | 1 |  |
 
 
 
@@ -2233,4 +2253,4 @@ URL: {{server_url}}/register
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-08 20:58:44 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-16 18:15:48 by [docgen](https://github.com/thedevsaddam/docgen)

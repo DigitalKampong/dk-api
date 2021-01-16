@@ -43,14 +43,12 @@ function getStallsInclude(): Includeable[] {
     {
       association: Stall.associations.HawkerCentre,
       include: [HawkerCentre.associations.Region],
-      required: true,
     },
     {
       association: Stall.associations.Reviews,
     },
     {
       association: Stall.associations.Categories,
-      required: true,
     },
   ];
 }

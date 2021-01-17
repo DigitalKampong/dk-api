@@ -60,8 +60,6 @@ app.use('/reset', reset);
 app.use('/', users);
 app.use('/reviews', reviews);
 
-console.log('Test'.split('.'));
-
 app.all('*', (req: Request, res: Response) => {
   const err = new NotFoundError('You are at the wrong place. Page cannot be found. Shoo!');
   res.status(404).json(fmtErrorResp(err));

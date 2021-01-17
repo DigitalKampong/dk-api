@@ -29,6 +29,8 @@ export interface HawkerCentreAttributes {
   regionId: number;
   lat: number | null;
   lng: number | null;
+  bus: string | null;
+  mrt: string | null;
 }
 
 export interface HawkerCentreCreationAttributes extends Optional<HawkerCentreAttributes, 'id'> {}
@@ -42,6 +44,8 @@ class HawkerCentre
   public regionId!: number;
   public lat!: number | null;
   public lng!: number | null;
+  public bus!: string | null;
+  public mrt!: string | null;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -100,6 +104,12 @@ HawkerCentre.init(
     },
     lng: {
       type: DataTypes.DOUBLE,
+    },
+    bus: {
+      type: DataTypes.STRING,
+    },
+    mrt: {
+      type: DataTypes.STRING,
     },
   },
   { sequelize }

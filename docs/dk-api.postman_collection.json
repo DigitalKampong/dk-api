@@ -25,8 +25,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -281,8 +280,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -378,8 +376,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -463,8 +460,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1",
-									"type": "string"
+									"value": "1"
 								}
 							]
 						}
@@ -572,8 +568,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -630,8 +625,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -901,8 +895,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -998,8 +991,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -1083,8 +1075,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1",
-									"type": "string"
+									"value": "1"
 								}
 							]
 						}
@@ -1192,8 +1183,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "4",
-									"type": "string"
+									"value": "4"
 								}
 							]
 						}
@@ -1243,8 +1233,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -1385,10 +1374,16 @@
 					"name": "Create hawker centre",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Fake hawker centre\",\n    \"address\": \"Fake address\",\n    \"regionId\": 1\n}",
+							"raw": "{\n    \"name\": \"Fake hawker centre\",\n    \"address\": \"Fake address\",\n    \"regionId\": 1,\n    \"bus\": \"9, 12, 21\",\n    \"mrt\": \"Bugis MRT Station\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1498,8 +1493,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -1589,8 +1583,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -1689,8 +1682,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -1944,8 +1936,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -2035,8 +2026,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -2183,8 +2173,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -2260,8 +2249,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -2285,8 +2273,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -2315,8 +2302,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -2392,8 +2378,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -2417,8 +2402,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -2671,8 +2655,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -2709,8 +2692,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -2746,8 +2728,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}
@@ -2786,8 +2767,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "",
-									"type": "string"
+									"value": ""
 								}
 							]
 						}

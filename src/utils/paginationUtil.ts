@@ -48,8 +48,9 @@ function generateRoute(limit: number, page: number, sourceRoute: string, queries
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function fmtPaginationResp(rows: any, pagination: IPagination) {
+function fmtPaginationResp(count: number, rows: any, pagination: IPagination) {
   return {
+    count,
     rows,
     pagination,
   };

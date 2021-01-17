@@ -341,6 +341,13 @@ URL: {{server_url}}/hawkercentres
 ```
 
 
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| x-auth-token | {{token}} |  |
+
+
 
 ***Body:***
 
@@ -348,7 +355,9 @@ URL: {{server_url}}/hawkercentres
 {
     "name": "Fake hawker centre",
     "address": "Fake address",
-    "regionId": 1
+    "regionId": 1,
+    "bus": "9, 12, 21",
+    "mrt": "Bugis MRT Station"
 }
 ```
 
@@ -2253,4 +2262,4 @@ URL: {{server_url}}/register
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-16 18:15:48 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-17 19:18:56 by [docgen](https://github.com/thedevsaddam/docgen)

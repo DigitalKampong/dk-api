@@ -23,45 +23,27 @@ import categoryStalls from './routes/categoryStalls';
 import users from './routes/users';
 import reset from './routes/reset';
 import reviews from './routes/reviews';
+import adminAuth from './middleware/adminAuth';
 
 const app = express();
 
 AdminBro.registerAdapter(AdminBroSequelize);
 
-console.log(sequelize);
-
 const adminBro = new AdminBro({
   databases: [sequelize],
   rootPath: '/admin',
-  // resources: [
-  //   {
-  //     resource: sequelize.models.User,
-  //   },
-  // ],
 });
 
-//const router = AdminBroExpress.buildRouter(adminBro)
-
-const ADMIN = {
-  email: 'test@example.com',
-  password: 'password',
-};
-
-const router = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
-  authenticate: async (email, password) => {
-    if (ADMIN.password === password && ADMIN.email === email) {
-      return ADMIN;
-    }
-    return null;
-  },
-  cookieName: 'adminbro',
-  cookiePassword: 'somePassword',
+const adminBroRouter = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
+  authenticate: adminAuth,
+  cookieName: 'admin',
+  cookiePassword: 'password',
 });
 
 // testAuthenticate();
 app.use(cors());
 app.use(express.json());
-app.use(adminBro.options.rootPath, router);
+app.use(adminBro.options.rootPath, adminBroRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');

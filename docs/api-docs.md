@@ -341,6 +341,13 @@ URL: {{server_url}}/hawkercentres
 ```
 
 
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| x-auth-token | {{token}} |  |
+
+
 
 ***Body:***
 
@@ -348,7 +355,9 @@ URL: {{server_url}}/hawkercentres
 {
     "name": "Fake hawker centre",
     "address": "Fake address",
-    "regionId": 1
+    "regionId": 1,
+    "bus": "9, 12, 21",
+    "mrt": "Bugis MRT Station"
 }
 ```
 
@@ -1538,11 +1547,22 @@ URL: {{server_url}}/search/:query
 
 
 
+***Query params:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| limit | 3 |  |
+| page | 1 |  |
+| category | 1,2 |  |
+| region | 2,4 |  |
+
+
+
 ***URL variables:***
 
 | Key | Value | Description |
 | --- | ------|-------------|
-| query |  |  |
+| query | adam |  |
 
 
 
@@ -1811,6 +1831,15 @@ Method: GET
 Type: 
 URL: {{server_url}}/stalls
 ```
+
+
+
+***Query params:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| limit | 3 |  |
+| page | 1 |  |
 
 
 
@@ -2233,4 +2262,4 @@ URL: {{server_url}}/register
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-08 20:58:44 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-17 19:18:56 by [docgen](https://github.com/thedevsaddam/docgen)

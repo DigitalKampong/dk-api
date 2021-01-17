@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "4b655013-37e9-450f-a750-4add9e7724a6",
+		"_postman_id": "70834a0c-e683-4015-a671-897a3a10ce4c",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -584,8 +584,7 @@
 						"type": "text/javascript",
 						"exec": [
 							""
-						],
-						"id": "0161758a-e46b-4d53-888a-77e9892dc24f"
+						]
 					}
 				},
 				{
@@ -594,12 +593,10 @@
 						"type": "text/javascript",
 						"exec": [
 							""
-						],
-						"id": "850daeaf-64fa-4a41-a084-f9131f11bb49"
+						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Stalls",
@@ -704,12 +701,22 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{server_url}}/stalls",
+							"raw": "{{server_url}}/stalls?limit=3&page=1",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"stalls"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -1192,8 +1199,7 @@
 						"type": "text/javascript",
 						"exec": [
 							""
-						],
-						"id": "b7b99a9a-aa4f-4b92-97e8-13c681a63bf2"
+						]
 					}
 				},
 				{
@@ -1202,12 +1208,10 @@
 						"type": "text/javascript",
 						"exec": [
 							""
-						],
-						"id": "ef438132-cc96-4eff-8494-0aff8ba697cb"
+						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "HawkerCentres",
@@ -1370,10 +1374,16 @@
 					"name": "Create hawker centre",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Fake hawker centre\",\n    \"address\": \"Fake address\",\n    \"regionId\": 1\n}",
+							"raw": "{\n    \"name\": \"Fake hawker centre\",\n    \"address\": \"Fake address\",\n    \"regionId\": 1,\n    \"bus\": \"9, 12, 21\",\n    \"mrt\": \"Bugis MRT Station\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1638,8 +1648,7 @@
 						"type": "text/javascript",
 						"exec": [
 							""
-						],
-						"id": "3d71aac5-14a2-43f2-96bd-5edd7383b0b8"
+						]
 					}
 				},
 				{
@@ -1648,12 +1657,10 @@
 						"type": "text/javascript",
 						"exec": [
 							""
-						],
-						"id": "2411c914-1b6a-4436-a6d3-b95c2260bf28"
+						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Regions",
@@ -2084,8 +2091,7 @@
 						"type": "text/javascript",
 						"exec": [
 							""
-						],
-						"id": "45e43602-21fe-4941-9267-00f4b7df4e48"
+						]
 					}
 				},
 				{
@@ -2094,12 +2100,10 @@
 						"type": "text/javascript",
 						"exec": [
 							""
-						],
-						"id": "6370ed20-0eb1-4961-83f3-d52d74824431"
+						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Search",
@@ -2110,7 +2114,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{server_url}}/search/:query",
+							"raw": "{{server_url}}/search/:query?limit=3&page=1&category=1,2&region=2,4",
 							"host": [
 								"{{server_url}}"
 							],
@@ -2118,18 +2122,36 @@
 								"search",
 								":query"
 							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "3"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "category",
+									"value": "1,2"
+								},
+								{
+									"key": "region",
+									"value": "2,4"
+								}
+							],
 							"variable": [
 								{
 									"key": "query",
-									"value": ""
+									"value": "adam",
+									"type": "string"
 								}
 							]
 						}
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Categories",
@@ -2258,8 +2280,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "CategoryStalls",
@@ -2388,8 +2409,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Users",
@@ -2585,8 +2605,7 @@
 						"type": "text/javascript",
 						"exec": [
 							""
-						],
-						"id": "ea0eae81-be9d-4e00-b57c-dc15d495b7b5"
+						]
 					}
 				},
 				{
@@ -2595,12 +2614,10 @@
 						"type": "text/javascript",
 						"exec": [
 							""
-						],
-						"id": "784ff0b9-37d7-469e-9fdc-9372dc175e70"
+						]
 					}
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Reviews",
@@ -2784,8 +2801,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Reset",
@@ -2808,9 +2824,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

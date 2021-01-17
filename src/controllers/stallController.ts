@@ -4,7 +4,7 @@ import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageCo
 import { Stall, HawkerCentre, Review } from '../models';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 import { Includeable } from 'sequelize/types';
-
+import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
 import Product from '../models/Product';
 import sequelize from '../db';
@@ -134,11 +134,21 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
 
 async function indexStall(req: Request, res: Response, next: NextFunction) {
   try {
-    const stalls = await Stall.findAll({
+    const limit = +req.query.limit!;
+    const page = +req.query.page!;
+    const offset = (page - 1) * limit;
+
+    const stalls = await Stall.findAndCountAll({
+      order: [['id', 'ASC']],
       include: getStallsInclude(),
+      limit: limit,
+      offset: offset,
+      distinct: true,
     });
 
-    res.status(200).json(await fmtStallsResp(stalls));
+    const rows = await fmtStallsResp(stalls.rows);
+    const pagination = generatePagination(limit, page, stalls.count, '/stalls');
+    res.status(200).json(fmtPaginationResp(stalls.count, rows, pagination));
   } catch (err) {
     next(err);
   }

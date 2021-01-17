@@ -116,7 +116,7 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
       sourceRoute,
       categoryFilterQueries + regionFilterQueries
     );
-    res.status(200).json(fmtPaginationResp(rows, pagination));
+    res.status(200).json(fmtPaginationResp(stalls.count, rows, pagination));
   } catch (err) {
     next(err);
   }

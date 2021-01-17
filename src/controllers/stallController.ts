@@ -148,7 +148,7 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
 
     const rows = await fmtStallsResp(stalls.rows);
     const pagination = generatePagination(limit, page, stalls.count, '/stalls');
-    res.status(200).json(fmtPaginationResp(rows, pagination));
+    res.status(200).json(fmtPaginationResp(stalls.count, rows, pagination));
   } catch (err) {
     next(err);
   }

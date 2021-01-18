@@ -29,7 +29,7 @@ async function seedClazz(clazzName: string, t?: Transaction) {
 async function createSampleImages(nImages: number, t: Transaction) {
   const filepath = SAMPLE_IMG_FILE_PATH;
 
-  const promises = [];
+  const promises: Promise<string>[] = [];
   for (let i = 0; i < nImages; i++) {
     promises.push(uploadDiskImg(filepath));
   }

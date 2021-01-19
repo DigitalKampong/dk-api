@@ -1,7 +1,5 @@
 import { UnauthorizedError } from '../errors/httpErrors';
 
-import { UnauthorizedError } from '../errors/httpErrors';
-
 const ADMIN = {
   email: 'test@example.com',
   password: 'password',

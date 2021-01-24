@@ -1,14 +1,37 @@
 {
-  "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
     "rootDir": ".",
-    "outDir": "build",
-    "esModuleInterop": true
+    "outDir": "./build",
+    "esModuleInterop": true,
+
+    // from gts
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "declaration": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es2018"],
+    "module": "commonjs",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "pretty": true,
+    "sourceMap": true,
+    "target": "es2018",
+
+    // strict options
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": false, // switched off thanks to adminbro
+    "noImplicitThis": true,
   },
   "include": [
     "src/**/*.ts"
   ],
   "exclude": [
+    "node_modules",
     "tests/**/*.ts"
   ],
   "typeRoots": [

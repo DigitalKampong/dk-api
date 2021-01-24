@@ -21,9 +21,9 @@ function generatePagination(
   queries = ''
 ): IPagination {
   const lastPage = Math.ceil(count / limit);
-  let next = null;
-  let prev = null;
-  let err = null;
+  let next: string | null = null;
+  let prev: string | null = null;
+  let err: string | null = null;
   if (currPage >= 1 && currPage <= lastPage) {
     next = currPage >= lastPage ? null : generateRoute(limit, currPage + 1, sourceRoute, queries);
     prev = currPage <= 1 ? null : generateRoute(limit, currPage - 1, sourceRoute, queries);
@@ -31,7 +31,7 @@ function generatePagination(
     err = 'Page not found.';
   }
 
-  const pagination = [];
+  const pagination: string[] = [];
   for (let i = 1; i <= lastPage; i++) {
     pagination.push(generateRoute(limit, i, sourceRoute, queries));
   }

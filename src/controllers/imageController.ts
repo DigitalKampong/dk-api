@@ -74,7 +74,7 @@ async function uploadFormImgs(req: Request, res: Response, next: NextFunction) {
       throw new BadRequestError('No files found in request');
     }
 
-    const promises = [];
+    const promises: Promise<string>[] = [];
 
     // There will never be other file fields so this will always be an array.
     for (const file of req.files as Express.Multer.File[]) {
@@ -82,7 +82,7 @@ async function uploadFormImgs(req: Request, res: Response, next: NextFunction) {
       const gcsName = await generateGcsName(ext);
       const gcsFile = bucket.file(gcsName);
 
-      const promise = new Promise((resolve, reject) => {
+      const promise: Promise<string> = new Promise((resolve, reject) => {
         const stream = gcsFile.createWriteStream();
 
         stream.on('error', err => {

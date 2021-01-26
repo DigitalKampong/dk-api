@@ -1,0 +1,34 @@
+name: Deploy to Google App Engine
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-gae:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build app.yaml and deploy/source_env.sh
+        env:
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+          ON_AUTH: ${{ secrets.ON_AUTH }}
+          GCS_BUCKET: ${{ secrets.GCS_BUCKET }}
+          GCSQL_DB_USER: ${{ secrets.GCSQL_DB_USER }}
+          GCSQL_DB_PASS: ${{ secrets.GCSQL_DB_PASS }} 
+          GCSQL_DB_NAME: ${{ secrets.GCSQL_DB_NAME }}
+          GCSQL_CONNECTION_NAME: ${{ secrets.GCSQL_CONNECTION_NAME }}
+        run: |
+          envsubst < app.yaml > tmp.yaml && mv tmp.yaml app.yaml
+          envsubst < deploy/source_env.sh > tmp.yaml && mv tmp.yaml deploy/source_env.sh
+
+      - name: Set up cloud sdk
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      # --quiet disables all interactive input and uses default values
+      - name: Deploy to App Engine
+        run: gcloud app deploy --quiet

@@ -22,14 +22,18 @@ import sequelize from '../db';
 import Stall from './Stall';
 import Region from './Region';
 
-interface HawkerCentreAttributes {
+export interface HawkerCentreAttributes {
   id: number;
   name: string;
   address: string | null;
   regionId: number;
+  lat: number | null;
+  lng: number | null;
+  bus: string | null;
+  mrt: string | null;
 }
 
-interface HawkerCentreCreationAttributes extends Optional<HawkerCentreAttributes, 'id'> {}
+export interface HawkerCentreCreationAttributes extends Optional<HawkerCentreAttributes, 'id'> {}
 
 class HawkerCentre
   extends Model<HawkerCentreAttributes, HawkerCentreCreationAttributes>
@@ -38,6 +42,10 @@ class HawkerCentre
   public name!: string;
   public address!: string | null;
   public regionId!: number;
+  public lat!: number | null;
+  public lng!: number | null;
+  public bus!: string | null;
+  public mrt!: string | null;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -59,8 +67,8 @@ class HawkerCentre
   public removeStalls!: HasManyRemoveAssociationsMixin<Stall, number>;
   public setStalls!: HasManySetAssociationsMixin<Stall, number>;
 
-  public readonly region?: Region;
-  public readonly stalls?: Stall[];
+  public readonly Region?: Region;
+  public readonly Stalls?: Stall[];
 
   public static associations: {
     Region: Association<HawkerCentre, Region>;
@@ -91,11 +99,20 @@ HawkerCentre.init(
         key: 'id',
       },
     },
+    lat: {
+      type: DataTypes.DOUBLE,
+    },
+    lng: {
+      type: DataTypes.DOUBLE,
+    },
+    bus: {
+      type: DataTypes.STRING,
+    },
+    mrt: {
+      type: DataTypes.STRING,
+    },
   },
-  {sequelize}
+  { sequelize }
 );
-
-HawkerCentre.hasMany(Stall, {foreignKey: 'hawkerCentreId'});
-Stall.belongsTo(HawkerCentre, {foreignKey: 'hawkerCentreId'});
 
 export default HawkerCentre;

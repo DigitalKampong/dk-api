@@ -1,22 +1,49 @@
 import express from 'express';
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
+import AdminBro from 'admin-bro';
+import AdminBroExpress from '@admin-bro/express';
+import AdminBroSequelize from '@admin-bro/sequelize';
+import sequelize from './db/index';
 
-import {PORT} from './consts';
-// import {testAuthenticate} from './db/dbUtil';
+import { PORT } from './consts';
+// import { testAuthenticate } from './utils/dbUtil';
 import './models'; // import for side effects
+
+import { HTTPError, NotFoundError } from './errors/httpErrors';
+import { fmtErrorResp } from './errors/errorUtil';
 
 import regions from './routes/regions';
 import hawkerCentres from './routes/hawkerCentres';
 import stalls from './routes/stalls';
 import products from './routes/products';
+import search from './routes/search';
+import categories from './routes/categories';
+import categoryStalls from './routes/categoryStalls';
+import users from './routes/users';
+import reset from './routes/reset';
+import reviews from './routes/reviews';
+import adminAuth from './middleware/adminAuth';
 
 const app = express();
 
-// testAuthenticate();
+AdminBro.registerAdapter(AdminBroSequelize);
 
+const adminBro = new AdminBro({
+  databases: [sequelize],
+  rootPath: '/admin',
+});
+
+const adminBroRouter = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
+  authenticate: adminAuth,
+  cookieName: 'admin',
+  cookiePassword: 'password',
+});
+
+// testAuthenticate();
 app.use(cors());
 app.use(express.json());
+app.use(adminBro.options.rootPath, adminBroRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
@@ -24,14 +51,32 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use('/regions', regions);
 app.use('/hawkerCentres', hawkerCentres);
-app.use('/stalls', stalls);
+app.use('/stalls', stalls, reviews);
 app.use('/products', products);
+app.use('/categories', categories);
+app.use('/categoryStalls', categoryStalls);
+app.use('/search', search);
+app.use('/reset', reset);
+app.use('/', users);
+app.use('/reviews', reviews);
 
-app.all('*', (req: Request, res: Response) => res.send('You are at the wrong place. Shoo!'));
+app.all('*', (req: Request, res: Response) => {
+  const err = new NotFoundError('You are at the wrong place. Page cannot be found. Shoo!');
+  res.status(404).json(fmtErrorResp(err));
+});
 
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  if (err instanceof HTTPError) {
+    res.status(err.status).json(fmtErrorResp(err));
+  } else {
+    next(err);
+  }
+});
+
+// Handle all non-user related errors here (e.g. cannot connect to db)
 app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
   console.error(err.stack);
-  res.status(500).send('Something broke! Please try again later.');
+  res.status(500).json(fmtErrorResp(err));
 });
 
 if (process.env.NODE_ENV !== 'test') {

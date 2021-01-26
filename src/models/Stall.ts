@@ -3,6 +3,16 @@ import {
   DataTypes,
   Optional,
   Association,
+  BelongsToManyAddAssociationMixin,
+  BelongsToManyCountAssociationsMixin,
+  BelongsToManyCreateAssociationMixin,
+  BelongsToManyGetAssociationsMixin,
+  BelongsToManyHasAssociationMixin,
+  BelongsToManyHasAssociationsMixin,
+  BelongsToManyAddAssociationsMixin,
+  BelongsToManyRemoveAssociationMixin,
+  BelongsToManyRemoveAssociationsMixin,
+  BelongsToManySetAssociationsMixin,
   BelongsToCreateAssociationMixin,
   BelongsToGetAssociationMixin,
   BelongsToSetAssociationMixin,
@@ -21,24 +31,25 @@ import {
 import sequelize from '../db';
 import Product from './Product';
 import HawkerCentre from './HawkerCentre';
+import Image from './Image';
+import Review from './Review';
+import Category from './Category';
 
-interface StallAttributes {
+export interface StallAttributes {
   id: number;
   name: string;
   description: string | null;
-  rating: number | null;
   contactNo: string | null;
   unitNo: string | null;
   hawkerCentreId: number;
 }
 
-interface StallCreationAttributes extends Optional<StallAttributes, 'id'> {}
+export interface StallCreationAttributes extends Optional<StallAttributes, 'id'> {}
 
 class Stall extends Model<StallAttributes, StallCreationAttributes> implements StallAttributes {
   public id!: number;
   public name!: string;
   public description!: string | null;
-  public rating!: number | null;
   public contactNo!: string | null;
   public unitNo!: string | null;
   public hawkerCentreId!: number;
@@ -63,12 +74,54 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public removeProducts!: HasManyRemoveAssociationsMixin<Product, number>;
   public setProducts!: HasManySetAssociationsMixin<Product, number>;
 
+  // Stall.hasMany(Image)
+  public addImage!: HasManyAddAssociationMixin<Image, number>;
+  public addImages!: HasManyAddAssociationsMixin<Image, number>;
+  public countImages!: HasManyCountAssociationsMixin;
+  public createImage!: HasManyCreateAssociationMixin<Image>;
+  public getImages!: HasManyGetAssociationsMixin<Image>;
+  public hasImage!: HasManyHasAssociationMixin<Image, number>;
+  public hasImages!: HasManyHasAssociationsMixin<Image, number>;
+  public removeImage!: HasManyRemoveAssociationMixin<Image, number>;
+  public removeImages!: HasManyRemoveAssociationsMixin<Image, number>;
+  public setImages!: HasManySetAssociationsMixin<Image, number>;
+
+  // Stall.hasMany(Review)
+  public addReview!: HasManyAddAssociationMixin<Review, number>;
+  public addReviews!: HasManyAddAssociationsMixin<Review, number>;
+  public countReviews!: HasManyCountAssociationsMixin;
+  public createReview!: HasManyCreateAssociationMixin<Review>;
+  public getReviews!: HasManyGetAssociationsMixin<Review>;
+  public hasReview!: HasManyHasAssociationMixin<Review, number>;
+  public hasReviews!: HasManyHasAssociationsMixin<Review, number>;
+  public removeReview!: HasManyRemoveAssociationMixin<Review, number>;
+  public removeReviews!: HasManyRemoveAssociationsMixin<Review, number>;
+  public setReviews!: HasManySetAssociationsMixin<Review, number>;
+
+  // Stall.belongsToMany(Category)
+  public addCategory!: BelongsToManyAddAssociationMixin<Category, number>;
+  public addCategories!: BelongsToManyAddAssociationsMixin<Category, number>;
+  public countCategories!: BelongsToManyCountAssociationsMixin;
+  public createCategory!: BelongsToManyCreateAssociationMixin<Category>;
+  public getCategories!: BelongsToManyGetAssociationsMixin<Category>;
+  public hasCategory!: BelongsToManyHasAssociationMixin<Category, number>;
+  public hasCategories!: BelongsToManyHasAssociationsMixin<Category, number>;
+  public removeCategory!: BelongsToManyRemoveAssociationMixin<Category, number>;
+  public removeCategories!: BelongsToManyRemoveAssociationsMixin<Category, number>;
+  public setCategories!: BelongsToManySetAssociationsMixin<Category, number>;
+
   public readonly HawkerCentre?: HawkerCentre;
   public readonly Products?: Product[];
+  public readonly Images?: Image[];
+  public readonly Reviews?: Review[];
+  public readonly Categories?: Category[];
 
   public static associations: {
     HawkerCentre: Association<Stall, HawkerCentre>;
     Products: Association<Stall, Product>;
+    Images: Association<Stall, Image>;
+    Reviews: Association<Stall, Review>;
+    Categories: Association<Stall, Category>;
   };
 }
 
@@ -87,9 +140,6 @@ Stall.init(
     description: {
       type: DataTypes.STRING,
     },
-    rating: {
-      type: DataTypes.DOUBLE,
-    },
     contactNo: {
       type: DataTypes.STRING,
     },
@@ -105,10 +155,7 @@ Stall.init(
       },
     },
   },
-  {sequelize}
+  { sequelize }
 );
-
-Stall.hasMany(Product, {foreignKey: 'stallId'});
-Product.belongsTo(Stall, {foreignKey: 'stallId'});
 
 export default Stall;

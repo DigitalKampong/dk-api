@@ -18,12 +18,12 @@ import {
 import sequelize from '../db';
 import HawkerCentre from './HawkerCentre';
 
-interface RegionAttributes {
+export interface RegionAttributes {
   id: number;
   name: string;
 }
 
-interface RegionCreationAttributes extends Optional<RegionAttributes, 'id'> {}
+export interface RegionCreationAttributes extends Optional<RegionAttributes, 'id'> {}
 
 class Region extends Model<RegionAttributes, RegionCreationAttributes> implements RegionAttributes {
   public id!: number;
@@ -44,7 +44,7 @@ class Region extends Model<RegionAttributes, RegionCreationAttributes> implement
   public removeHawkerCentres!: HasManyRemoveAssociationsMixin<HawkerCentre, number>;
   public setHawkerCentres!: HasManySetAssociationsMixin<HawkerCentre, number>;
 
-  public readonly hawkerCentres?: HawkerCentre[];
+  public readonly HawkerCentres?: HawkerCentre[];
 
   public static associations: {
     HawkerCentres: Association<Region, HawkerCentre>;
@@ -64,10 +64,7 @@ Region.init(
       allowNull: false,
     },
   },
-  {sequelize}
+  { sequelize }
 );
-
-Region.hasMany(HawkerCentre, {foreignKey: 'regionId'});
-HawkerCentre.belongsTo(Region, {foreignKey: 'regionId'});
 
 export default Region;

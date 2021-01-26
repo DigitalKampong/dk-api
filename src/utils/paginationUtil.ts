@@ -2,7 +2,7 @@ interface IPagination {
   next: string | null;
   prev: string | null;
   err: string | null;
-  pagination: string[];
+  pages: string[];
 }
 
 /**
@@ -31,15 +31,15 @@ function generatePagination(
     err = 'Page not found.';
   }
 
-  const pagination: string[] = [];
+  const pages: string[] = [];
   for (let i = 1; i <= lastPage; i++) {
-    pagination.push(generateRoute(limit, i, sourceRoute, queries));
+    pages.push(generateRoute(limit, i, sourceRoute, queries));
   }
   return {
     next: next,
     prev: prev,
     err: err,
-    pagination: pagination,
+    pages: pages,
   };
 }
 

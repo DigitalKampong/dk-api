@@ -1,11 +1,22 @@
-import { HawkerCentre } from '../models';
+import { HawkerCentre, Stall } from '../models';
 import { Request, Response, NextFunction } from 'express';
 import { NotFoundError } from '../errors/httpErrors';
 
 async function retrieveHawkerCentre(req: Request, res: Response, next: NextFunction) {
   try {
     const hawkerCentre = await HawkerCentre.findByPk(req.params.id, {
-      include: [{ association: HawkerCentre.associations.Stalls }],
+      include: [
+        {
+          association: HawkerCentre.associations.Stalls,
+          include: [
+            {
+              association: Stall.associations.Images,
+              attributes: ['id', 'downloadUrl'],
+            },
+          ],
+        },
+        { association: HawkerCentre.associations.Images, attributes: ['id', 'downloadUrl'] },
+      ],
     });
     if (hawkerCentre === null) {
       throw new NotFoundError('HawkerCentre cannot be found');
@@ -24,6 +35,7 @@ async function indexHawkerCentre(req: Request, res: Response, next: NextFunction
         {
           association: HawkerCentre.associations.Region,
         },
+        { association: HawkerCentre.associations.Images, attributes: ['id', 'downloadUrl'] },
       ],
     });
     res.status(200).json(hawkerCentres);

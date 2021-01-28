@@ -21,6 +21,7 @@ import {
 import sequelize from '../db';
 import Stall from './Stall';
 import Region from './Region';
+import Image from './Image';
 
 export interface HawkerCentreAttributes {
   id: number;
@@ -67,12 +68,26 @@ class HawkerCentre
   public removeStalls!: HasManyRemoveAssociationsMixin<Stall, number>;
   public setStalls!: HasManySetAssociationsMixin<Stall, number>;
 
+  // HawkerCentre.hasMany(Image)
+  public addImage!: HasManyAddAssociationMixin<Image, number>;
+  public addImages!: HasManyAddAssociationsMixin<Image, number>;
+  public countImages!: HasManyCountAssociationsMixin;
+  public createImage!: HasManyCreateAssociationMixin<Image>;
+  public getImages!: HasManyGetAssociationsMixin<Image>;
+  public hasImage!: HasManyHasAssociationMixin<Image, number>;
+  public hasImages!: HasManyHasAssociationsMixin<Image, number>;
+  public removeImage!: HasManyRemoveAssociationMixin<Image, number>;
+  public removeImages!: HasManyRemoveAssociationsMixin<Image, number>;
+  public setImages!: HasManySetAssociationsMixin<Image, number>;
+
   public readonly Region?: Region;
   public readonly Stalls?: Stall[];
+  public readonly Images?: Image[];
 
   public static associations: {
     Region: Association<HawkerCentre, Region>;
     Stalls: Association<HawkerCentre, Stall>;
+    Images: Association<Stall, Image>;
   };
 }
 

@@ -87,7 +87,7 @@ class HawkerCentre
   public static associations: {
     Region: Association<HawkerCentre, Region>;
     Stalls: Association<HawkerCentre, Stall>;
-    Images: Association<Stall, Image>;
+    Images: Association<HawkerCentre, Image>;
   };
 }
 

@@ -15,6 +15,7 @@ async function retrieveHawkerCentre(req: Request, res: Response, next: NextFunct
             },
           ],
         },
+        { association: HawkerCentre.associations.Images, attributes: ['id', 'downloadUrl'] },
       ],
     });
     if (hawkerCentre === null) {
@@ -34,6 +35,7 @@ async function indexHawkerCentre(req: Request, res: Response, next: NextFunction
         {
           association: HawkerCentre.associations.Region,
         },
+        { association: HawkerCentre.associations.Images, attributes: ['id', 'downloadUrl'] },
       ],
     });
     res.status(200).json(hawkerCentres);

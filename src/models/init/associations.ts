@@ -7,6 +7,7 @@ export function associate(models: Models) {
 
   HawkerCentre.belongsTo(Region, { foreignKey: 'regionId' });
   HawkerCentre.hasMany(Stall, { foreignKey: 'hawkerCentreId' });
+  HawkerCentre.hasMany(Image, { foreignKey: 'hawkerCentreId' });
 
   Product.belongsTo(Stall, { foreignKey: 'stallId' });
   Product.hasMany(Image, { foreignKey: 'productId' });

@@ -172,6 +172,19 @@ async function createStall(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function createStalls(req: Request, res: Response, next: NextFunction) {
+  try {
+    const stalls = await Stall.bulkCreate(req.body);
+    stalls.forEach(async stall => {
+      await stall.reload({ include: getStallInclude() });
+      await fmtStallResp(stall);
+    });
+    res.status(201).json(stalls);
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function updateStall(req: Request, res: Response, next: NextFunction) {
   try {
     const stall = await req.stall!.update(req.body);
@@ -238,6 +251,7 @@ export { getStallInclude, getStallsInclude, fmtStallResp, fmtStallsResp };
 export const indexStallFuncs = [indexStall];
 export const showStallFuncs = [retrieveStall, showStall];
 export const createStallFuncs = [createStall];
+export const createStallsFuncs = [createStalls];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];
 export const uploadStallImagesFuncs = [

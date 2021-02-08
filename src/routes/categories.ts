@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import * as categoryController from '../controllers/categoryController';
-import { auth } from '../middleware/auth';
+import { adminAuth } from '../middleware/auth';
 
 const router = Router();
 
 router.get('/', categoryController.indexCategoryFuncs);
 router.get('/:id', categoryController.showCategoryFuncs);
-router.post('/', auth, categoryController.createCategoryFuncs);
-router.put('/:id', auth, categoryController.updateCategoryFuncs);
-router.delete('/:id', auth, categoryController.destroyCategoryFuncs);
+router.post('/', adminAuth, categoryController.createCategoryFuncs);
+router.put('/:id', adminAuth, categoryController.updateCategoryFuncs);
+router.delete('/:id', adminAuth, categoryController.destroyCategoryFuncs);
 
 export default router;

@@ -28,7 +28,11 @@ interface UserAttributes {
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
-const ALLOWED_ROLES = ['user', 'admin'];
+export enum ROLES {
+  USER = 'user',
+  ADMIN = 'admin',
+}
+const ALLOWED_ROLES = [ROLES.USER, ROLES.ADMIN];
 
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
   public id!: number;

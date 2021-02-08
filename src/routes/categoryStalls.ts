@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import * as categoryStallController from '../controllers/categoryStallController';
-import auth from '../middleware/auth';
+import { auth } from '../middleware/auth';
 
 const router = Router();
 

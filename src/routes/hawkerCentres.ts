@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import * as hawkerCentreController from '../controllers/hawkerCentreController';
-import auth from '../middleware/auth';
+import { auth } from '../middleware/auth';
 
 const router = Router();
 

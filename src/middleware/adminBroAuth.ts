@@ -1,15 +1,15 @@
 import { UnauthorizedError } from '../errors/httpErrors';
 
-const ADMIN = {
+const ADMIN_BRO_CRED = {
   email: 'test@example.com',
   password: 'password',
 };
 
-const adminAuth = (email: string, password: string) => {
-  if (ADMIN.password !== password || ADMIN.email !== email)
+const adminBroAuth = (email: string, password: string) => {
+  if (ADMIN_BRO_CRED.password !== password || ADMIN_BRO_CRED.email !== email)
     throw new UnauthorizedError('Invalid Admin Credentials!');
 
   return ADMIN;
 };
 
-export default adminAuth;
+export default adminBroAuth;

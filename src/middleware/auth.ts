@@ -48,4 +48,6 @@ function auth(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+function adminAuth()
+
 export default auth;

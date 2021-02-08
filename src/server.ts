@@ -23,7 +23,7 @@ import categoryStalls from './routes/categoryStalls';
 import users from './routes/users';
 import reset from './routes/reset';
 import reviews from './routes/reviews';
-import adminAuth from './middleware/adminAuth';
+import adminBroAuth from './middleware/adminBroAuth';
 
 const app = express();
 
@@ -35,7 +35,7 @@ const adminBro = new AdminBro({
 });
 
 const adminBroRouter = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
-  authenticate: adminAuth,
+  authenticate: adminBroAuth,
   cookieName: 'admin',
   cookiePassword: 'password',
 });

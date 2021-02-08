@@ -8,19 +8,7 @@ import { BadRequestError, UnauthorizedError } from '../errors/httpErrors';
 import { ACCESS_TOKEN_SECRET } from '../consts';
 
 async function register(req: Request, res: Response, next: NextFunction) {
-  // console.log(req.body);
-  // res.status(200).json("ok");
-  // return;
-
   try {
-    // const salt = await bcrypt.genSalt(10);
-    // const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-    // const user = await User.create({
-    //   ...req.body,
-    //   // password: password,
-    // });
-
     const user = await User.create({ ...req.body });
 
     const payload = {

@@ -27,6 +27,8 @@ interface UserAttributes {
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
+const ALLOWED_ROLES = ['user', 'admin'];
+
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
   public id!: number;
   public email!: string;
@@ -66,13 +68,50 @@ User.init(
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
+      validate: {
+        isEmail: true,
+        notEmpty: true,
+      },
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: false,
+      },
+    },
+    role: {
+      type: DataTypes.ENUM(...ALLOWED_ROLES),
+      allowNull: false,
+      defaultValue: 'user',
+      validate: {
+        isIn: [ALLOWED_ROLES],
+      },
     },
   },
   { sequelize }
 );
+
+async function hashPassword(password) {
+  const salt = await bcrypt.genSalt(10);
+  return await bcrypt.hash(password, salt);
+}
+
+User.addHook('beforeCreate', async (user, _options) => {
+  user.password = await hashPassword(user.password);
+});
+
+User.addHook('beforeUpdate', async (user, _options) => {
+  if (user.changed('password')) {
+    user.password = await hashPassword(user.password);
+  }
+});
 
 export default User;

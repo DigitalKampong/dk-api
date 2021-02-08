@@ -36,10 +36,11 @@ function auth(req: Request, res: Response, next: NextFunction) {
           } else {
             next(err);
           }
-        } else {
-          req.userId = (decoded as UserDecoded).id;
-          next();
+          return;
         }
+
+        req.userId = (decoded as UserDecoded).id;
+        next();
       }
     );
   } catch (err) {

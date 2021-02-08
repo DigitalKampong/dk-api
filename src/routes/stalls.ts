@@ -8,7 +8,7 @@ const router = Router();
 router.get('/', stallController.indexStallFuncs);
 router.get('/:id', stallController.showStallFuncs);
 router.post('/', auth, stallController.createStallFuncs);
-router.post('/bulkCreate', auth, stallController.createStallsFuncs);
+router.post('/bulkCreate', auth, stallController.bulkCreateStallsFuncs);
 router.put('/:id', auth, stallController.updateStallFuncs);
 router.delete('/:id', auth, stallController.destroyStallFuncs);
 router.post('/:id/upload', auth, stallController.uploadStallImagesFuncs);

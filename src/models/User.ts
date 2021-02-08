@@ -14,6 +14,7 @@ import {
   HasManyRemoveAssociationsMixin,
   HasManySetAssociationsMixin,
 } from 'sequelize';
+import bcrypt from 'bcryptjs';
 
 import sequelize from '../db';
 

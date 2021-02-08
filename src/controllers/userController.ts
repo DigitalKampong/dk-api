@@ -61,6 +61,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
     const payload = {
       id: user!.id,
     };
+
     jwt.sign(
       payload,
       ACCESS_TOKEN_SECRET,
@@ -75,5 +76,23 @@ async function login(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function updateUser(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await User.findByPk(req.userId);
+    await user!.update({ ...req.body });
+    await user.reload();
+
+    // Scrub password from user before returning
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const userObj: any = user!.get({ plain: true });
+    delete userObj['password'];
+
+    res.status(200).json(userObj);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export const registerFuncs = [register];
 export const loginFuncs = [login];
+export const updateUserFuncs = [updateUser];

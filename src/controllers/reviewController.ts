@@ -49,7 +49,11 @@ async function showReview(req: Request, res: Response, next: NextFunction) {
 
 async function createReview(req: Request, res: Response, next: NextFunction) {
   try {
-    const review = await Review.create({ ...req.body, stallId: req.params.id, userId: req.userId });
+    const review = await Review.create({
+      ...req.body,
+      stallId: req.params.id,
+      userId: req.user!.id,
+    });
     res.status(201).json(review);
   } catch (err) {
     if (err instanceof UniqueConstraintError)
@@ -61,7 +65,7 @@ async function createReview(req: Request, res: Response, next: NextFunction) {
 
 async function updateReview(req: Request, res: Response, next: NextFunction) {
   try {
-    const review = await req.review!.update({ ...req.body, userId: req.userId });
+    const review = await req.review!.update({ ...req.body, userId: req.user!.id });
     res.status(200).json(review);
   } catch (err) {
     next(err);

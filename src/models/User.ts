@@ -24,6 +24,8 @@ interface UserAttributes {
   id: number;
   email: string;
   password: string;
+  username: string;
+  role: string;
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
@@ -38,6 +40,8 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
   public id!: number;
   public email!: string;
   public password!: string;
+  public username!: string;
+  public role!: string;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -109,11 +113,16 @@ async function hashPassword(password) {
   return await bcrypt.hash(password, salt);
 }
 
-User.addHook('beforeCreate', async (user, _options) => {
+// Typescript registers user as Model<UserAttributes, UserCreationAttributes> but reports that password property is missing.
+// Can relook this later when we have the time.
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+User.addHook('beforeCreate', async (user: any, _options) => {
   user.password = await hashPassword(user.password);
 });
 
-User.addHook('beforeUpdate', async (user, _options) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+User.addHook('beforeUpdate', async (user: any, _options) => {
   if (user.changed('password')) {
     user.password = await hashPassword(user.password);
   }

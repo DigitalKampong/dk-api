@@ -5,6 +5,7 @@ import { UnauthorizedError } from '../errors/httpErrors';
 import { ON_AUTH, ACCESS_TOKEN_SECRET } from '../consts';
 import User from '../models/User';
 import { ROLES } from '../models/User';
+import { NotFoundError } from '../errors/httpErrors';
 
 interface UserDecoded {
   id: number;
@@ -28,8 +29,12 @@ async function authImpl(req: Request, res: Response, next: NextFunction) {
   }
 
   try {
-    const decoded: UserDecoded = jwt.verify(token, ACCESS_TOKEN_SECRET);
-    req.userId = decoded.id;
+    const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET) as UserDecoded;
+    const user = await User.findByPk(decoded.id);
+    if (user === null) {
+      throw new NotFoundError('User cannot found with x-auth-token');
+    }
+
     next();
   } catch (err) {
     if (err instanceof TokenExpiredError) {
@@ -48,7 +53,8 @@ async function adminAuthImpl(req: Request, res: Response, next: NextFunction) {
   }
 
   try {
-    const role = (await User.findByPk(req.userId)).role;
+    const role = req.user!.role;
+
     if (role !== ROLES.ADMIN) {
       throw new UnauthorizedError('Only admins can use this api route.');
     }

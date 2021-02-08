@@ -66,8 +66,8 @@ async function login(req: Request, res: Response, next: NextFunction) {
 
 async function updateUser(req: Request, res: Response, next: NextFunction) {
   try {
-    const user = await User.findByPk(req.userId);
-    await user!.update({ ...req.body });
+    const user = req.user!;
+    await user.update({ ...req.body });
     await user.reload();
 
     // Scrub password from user before returning

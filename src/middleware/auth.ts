@@ -35,6 +35,7 @@ async function authImpl(req: Request, res: Response, next: NextFunction) {
       throw new NotFoundError('User cannot found with x-auth-token');
     }
 
+    req.user = user;
     next();
   } catch (err) {
     if (err instanceof TokenExpiredError) {

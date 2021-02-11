@@ -23,7 +23,7 @@ async function seedClazz(clazzName: string, t?: Transaction) {
   const data = await retrieveDataFromCsv(filepath);
 
   const modelszz = models as Models; // force typecast so can index into models using string
-  await modelszz[clazzName].bulkCreate(data, { transaction: t });
+  await modelszz[clazzName].bulkCreate(data, { transaction: t, individualHooks: true });
 }
 
 async function createSampleImages(nImages: number, t: Transaction) {

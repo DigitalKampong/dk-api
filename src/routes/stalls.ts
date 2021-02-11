@@ -1,18 +1,18 @@
 import { Router } from 'express';
 import * as stallController from '../controllers/stallController';
 import * as reviewController from '../controllers/reviewController';
-import auth from '../middleware/auth';
+import { auth, adminAuth } from '../middleware/auth';
 
 const router = Router();
 
 router.get('/', stallController.indexStallFuncs);
 router.get('/:id', stallController.showStallFuncs);
-router.post('/', auth, stallController.createStallFuncs);
-router.post('/bulkCreate', auth, stallController.createStallsFuncs);
-router.put('/:id', auth, stallController.updateStallFuncs);
-router.delete('/:id', auth, stallController.destroyStallFuncs);
-router.post('/:id/upload', auth, stallController.uploadStallImagesFuncs);
-router.post('/:id/delete-images', auth, stallController.destroyStallImagesFuncs);
+router.post('/', adminAuth, stallController.createStallFuncs);
+router.post('/bulkCreate', adminAuth, stallController.bulkCreateStallsFuncs);
+router.put('/:id', adminAuth, stallController.updateStallFuncs);
+router.delete('/:id', adminAuth, stallController.destroyStallFuncs);
+router.post('/:id/upload', adminAuth, stallController.uploadStallImagesFuncs);
+router.post('/:id/delete-images', adminAuth, stallController.destroyStallImagesFuncs);
 router.get('/:id/reviews', reviewController.indexReviewFuncs);
 router.post('/:id/reviews', auth, reviewController.createReviewFuncs);
 

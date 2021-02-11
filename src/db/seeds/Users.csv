@@ -1,4 +1,5 @@
-email,password
-Stevie75@gmail.com,fRDBnAWsdSDSljp
-Braden_OKon80@outlook.com,JU7xn0589tDak0n
-Alexandre59@gmail.com,V2refAIC5vpNSsH
+username,email,password,role
+stevie,Stevie75@gmail.com,fRDBnAWsdSDSljp,user
+braden,Braden_OKon80@outlook.com,JU7xn0589tDak0n,user
+alexandra,Alexandre59@gmail.com,V2refAIC5vpNSsH,user
+john,john@gmail.com,secret_password,admin

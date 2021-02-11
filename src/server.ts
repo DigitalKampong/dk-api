@@ -4,12 +4,13 @@ import cors from 'cors';
 import AdminBro from 'admin-bro';
 import AdminBroExpress from '@admin-bro/express';
 import AdminBroSequelize from '@admin-bro/sequelize';
-import sequelize from './db/index';
+import { ValidationError } from 'sequelize';
 
-import { PORT } from './consts';
 // import { testAuthenticate } from './utils/dbUtil';
+import sequelize from './db/index';
 import './models'; // import for side effects
 
+import { PORT } from './consts';
 import { HTTPError, NotFoundError } from './errors/httpErrors';
 import { fmtErrorResp } from './errors/errorUtil';
 
@@ -23,7 +24,7 @@ import categoryStalls from './routes/categoryStalls';
 import users from './routes/users';
 import reset from './routes/reset';
 import reviews from './routes/reviews';
-import adminAuth from './middleware/adminAuth';
+import adminBroAuth from './middleware/adminBroAuth';
 
 const app = express();
 
@@ -35,7 +36,7 @@ const adminBro = new AdminBro({
 });
 
 const adminBroRouter = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
-  authenticate: adminAuth,
+  authenticate: adminBroAuth,
   cookieName: 'admin',
   cookiePassword: 'password',
 });
@@ -68,9 +69,16 @@ app.all('*', (req: Request, res: Response) => {
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof HTTPError) {
     res.status(err.status).json(fmtErrorResp(err));
-  } else {
-    next(err);
+    return;
   }
+
+  // Catch-all for Sequelize.ValidationError, happens when the model cannot get validated by sequelize
+  if (err instanceof ValidationError) {
+    res.status(400).json(fmtErrorResp(err));
+    return;
+  }
+
+  next(err);
 });
 
 // Handle all non-user related errors here (e.g. cannot connect to db)

@@ -172,7 +172,7 @@ async function createStall(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function createStalls(req: Request, res: Response, next: NextFunction) {
+async function bulkCreateStalls(req: Request, res: Response, next: NextFunction) {
   try {
     const stalls = await Stall.bulkCreate(req.body);
     stalls.forEach(async stall => {
@@ -251,7 +251,7 @@ export { getStallInclude, getStallsInclude, fmtStallResp, fmtStallsResp };
 export const indexStallFuncs = [indexStall];
 export const showStallFuncs = [retrieveStall, showStall];
 export const createStallFuncs = [createStall];
-export const createStallsFuncs = [createStalls];
+export const bulkCreateStallsFuncs = [bulkCreateStalls];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];
 export const uploadStallImagesFuncs = [

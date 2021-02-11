@@ -3,6 +3,9 @@ import jwt from 'jsonwebtoken';
 import { TokenExpiredError } from 'jsonwebtoken';
 import { UnauthorizedError } from '../errors/httpErrors';
 import { ON_AUTH, ACCESS_TOKEN_SECRET } from '../consts';
+import User from '../models/User';
+import { ROLES } from '../models/User';
+import { NotFoundError } from '../errors/httpErrors';
 
 interface UserDecoded {
   id: number;
@@ -10,7 +13,7 @@ interface UserDecoded {
   exp: number; // expiry in epoch time
 }
 
-function auth(req: Request, res: Response, next: NextFunction) {
+async function authImpl(req: Request, res: Response, next: NextFunction) {
   if (!ON_AUTH) {
     next();
     return;
@@ -26,25 +29,40 @@ function auth(req: Request, res: Response, next: NextFunction) {
   }
 
   try {
-    jwt.verify(
-      token,
-      ACCESS_TOKEN_SECRET,
-      async (err: Error | null, decoded: object | undefined) => {
-        if (err) {
-          if (err instanceof TokenExpiredError) {
-            next(new UnauthorizedError('JWT expired. Please refresh token'));
-          } else {
-            next(err);
-          }
-        } else {
-          req.userId = (decoded as UserDecoded).id;
-          next();
-        }
-      }
-    );
+    const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET) as UserDecoded;
+    const user = await User.findByPk(decoded.id);
+    if (user === null) {
+      throw new NotFoundError('User cannot found with x-auth-token');
+    }
+
+    next();
+  } catch (err) {
+    if (err instanceof TokenExpiredError) {
+      next(new UnauthorizedError('JWT expired. Please refresh token'));
+      return;
+    }
+
+    next(err);
+  }
+}
+
+async function adminAuthImpl(req: Request, res: Response, next: NextFunction) {
+  if (!ON_AUTH) {
+    next();
+    return;
+  }
+
+  try {
+    const role = req.user!.role;
+
+    if (role !== ROLES.ADMIN) {
+      throw new UnauthorizedError('Only admins can use this api route.');
+    }
+    next();
   } catch (err) {
     next(err);
   }
 }
 
-export default auth;
+export const auth = authImpl;
+export const adminAuth = [authImpl, adminAuthImpl];

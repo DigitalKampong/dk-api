@@ -8,15 +8,8 @@ import { BadRequestError, UnauthorizedError } from '../errors/httpErrors';
 import { ACCESS_TOKEN_SECRET } from '../consts';
 
 async function register(req: Request, res: Response, next: NextFunction) {
-  const { email, password } = req.body;
-  const salt = await bcrypt.genSalt(10);
   try {
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const user = await User.create({
-      email,
-      password: hashedPassword,
-    });
+    const user = await User.create({ ...req.body });
 
     const payload = {
       id: user.id,
@@ -56,6 +49,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
     const payload = {
       id: user!.id,
     };
+
     jwt.sign(
       payload,
       ACCESS_TOKEN_SECRET,
@@ -70,5 +64,23 @@ async function login(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function updateUser(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = req.user!;
+    await user.update({ ...req.body });
+    await user.reload();
+
+    // Scrub password from user before returning
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const userObj: any = user!.get({ plain: true });
+    delete userObj['password'];
+
+    res.status(200).json(userObj);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export const registerFuncs = [register];
 export const loginFuncs = [login];
+export const updateUserFuncs = [updateUser];

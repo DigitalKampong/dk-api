@@ -19,7 +19,6 @@ declare module 'express' {
     review?: Review;
 
     user?: User;
-    userId?: number;
 
     stalls?: Stall[];
     stallIds?: number[];

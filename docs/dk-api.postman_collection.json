@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "70834a0c-e683-4015-a671-897a3a10ce4c",
+		"_postman_id": "3fca4727-3afb-4f6b-80d8-ee227c2592ce",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2143,8 +2143,7 @@
 							"variable": [
 								{
 									"key": "query",
-									"value": "adam",
-									"type": "string"
+									"value": "adam"
 								}
 							]
 						}
@@ -2421,7 +2420,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"fake_email@gmail.com\",\n    \"password\": \"asdf\"\n}",
+							"raw": "{\n    \"email\": \"fake_email@gmail.com\",\n    \"username\": \"fake_username\",\n    \"password\": \"asdf\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2595,9 +2594,56 @@
 							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA4Mzg4ODIwLCJleHAiOjE2MDg5OTM2MjB9.O6nzVJFmMG-bwOWWPjqMw_Ebt7pr9Csmc2A0AXeWruY\"\n}"
 						}
 					]
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTYxMjc3MDAxMiwiZXhwIjoxNjEzMzc0ODEyfQ.HN5xQQP8v6fQeCmtWL0ZQFYj6nVNVDa2IAwl8fE1voU",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"hello\",\n    \"password\": \"password\",\n    \"role\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/updateUser",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"updateUser"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"description": "Token needs sent in the header with \"x-auth-token\" as key and the token as value for routes that require authentication.",
+			"description": "Token needs sent in the header with \"x-auth-token\" as key and the token as value for routes that require authentication.\n\nFields allowed:\n- email: string;\n- username: string;\n- password: string;\n- role: one of [admin, user]; (default is 'user' if 'role' value is not sent with the request)",
 			"event": [
 				{
 					"listen": "prerequest",

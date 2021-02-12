@@ -41,6 +41,7 @@ export interface StallAttributes {
   description: string | null;
   contactNo: string | null;
   unitNo: string | null;
+  openingHours: JSON | null;
   hawkerCentreId: number;
 }
 
@@ -52,6 +53,7 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public description!: string | null;
   public contactNo!: string | null;
   public unitNo!: string | null;
+  public openingHours!: JSON | null;
   public hawkerCentreId!: number;
 
   public readonly createdAt!: Date;
@@ -145,6 +147,9 @@ Stall.init(
     },
     unitNo: {
       type: DataTypes.INTEGER,
+    },
+    openingHours: {
+      type: DataTypes.JSON,
     },
     hawkerCentreId: {
       type: DataTypes.INTEGER,

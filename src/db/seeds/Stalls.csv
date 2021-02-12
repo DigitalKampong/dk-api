@@ -1,4 +1,4 @@
-﻿name,description,rating,contactNo,unitNo,hawkerCentreId
+﻿name,description,rating,contactNo,unitNo,openingHours,hawkerCentreId
 Selera Rasa Nasi Lemak,"Serving traditional Nasi Lemak since 1998, when The Undertaker threw Mankind off Hell In A Cell, and plummeted 16 ft through an announcer's table.",4,97654321,#01-02,1
 Adam Fishball Noodles,"Serving traditional Fishball Noodle since 1998, when The Undertaker threw Mankind off Hell In A Cell, and plummeted 16 ft through an announcer's table.",4.6,98473647,#01-25,1
 Stall 22 Hokkien Mee,"Serving traditional Hokkien Prawn Mee since 1998, when The Undertaker threw Mankind off Hell In A Cell, and plummeted 16 ft through an announcer's table.",4.8,92837253,#01-22,1

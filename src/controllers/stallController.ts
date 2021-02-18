@@ -138,6 +138,14 @@ async function indexStall(req: Request, res: Response, next: NextFunction) {
     const page = +req.query.page!;
     const offset = (page - 1) * limit;
 
+    if (!limit || !page) {
+      const stalls = await Stall.findAll({
+        include: getStallInclude(),
+      });
+      res.status(200).json(await fmtStallsResp(stalls));
+      return;
+    }
+
     const stalls = await Stall.findAndCountAll({
       order: [['id', 'ASC']],
       include: getStallsInclude(),

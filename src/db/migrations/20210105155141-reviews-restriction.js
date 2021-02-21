@@ -10,6 +10,6 @@ module.exports = {
   },
 
   down: async queryInterface => {
-    await queryInterface.removeConstraint('Reviews', "'Review_unique_per_stall_constraint");
+    await queryInterface.removeConstraint('Reviews', 'Review_unique_per_stall_constraint');
   },
 };

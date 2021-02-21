@@ -21,7 +21,7 @@ async function register(req: Request, res: Response, next: NextFunction) {
       { expiresIn: '7 days' },
       (err: Error | null, token: string | undefined) => {
         if (err) throw err;
-        res.status(201).json({ token: token! });
+        res.status(201).json({ token: token!, role: user.role });
       }
     );
   } catch (err) {
@@ -56,7 +56,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
       { expiresIn: '7 days' },
       (err: Error | null, token: string | undefined) => {
         if (err) throw err;
-        res.status(201).json({ token: token! });
+        res.status(201).json({ token: token!, role: user.role });
       }
     );
   } catch (err) {

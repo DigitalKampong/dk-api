@@ -1,14 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
-import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
-
-import { Stall, HawkerCentre, Review } from '../models';
-import { BadRequestError, NotFoundError } from '../errors/httpErrors';
+import { UniqueConstraintError } from 'sequelize';
 import { Includeable } from 'sequelize/types';
-import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
+
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
-import Product from '../models/Product';
+import { BadRequestError, NotFoundError } from '../errors/httpErrors';
+
 import sequelize from '../db';
-import Favourite from '../models/Favourite';
+import { Stall, HawkerCentre, Review, Product, Favourite } from '../models';
+import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
+import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
 
 /*
  * Returns the includes needed to fetch associated models for a single stall response
@@ -287,22 +287,24 @@ async function createStallReview(req: Request, res: Response, next: NextFunction
 
 async function createStallFavourite(req: Request, res: Response, next: NextFunction) {
   try {
-    const fav = await Favourite.create({
-      stallId: req.params.id,
-      userId: req.user!.id,
-    });
+    // Ignores the request if favourite has already been created
+    const fav = (
+      await Favourite.findOrCreate({
+        where: {
+          stallId: req.params.id,
+          userId: req.user!.id,
+        },
+      })
+    )[0];
     res.status(201).json(fav);
   } catch (err) {
-    if (err instanceof UniqueConstraintError)
-      next(new BadRequestError('A favourite for this stall already exists'));
-
     next(err);
   }
 }
 
 async function destroyStallFavourite(req: Request, res: Response, next: NextFunction) {
   try {
-    await Favourite.destroy({ where: { userId: req.user!.id, stallId: req.params.id }});
+    await Favourite.destroy({ where: { userId: req.user!.id, stallId: req.params.id } });
     res.status(200).end();
   } catch (err) {
     next(err);

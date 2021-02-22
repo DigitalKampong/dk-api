@@ -1,7 +1,6 @@
 import { Review } from '../models';
 import { Request, Response, NextFunction } from 'express';
-import { NotFoundError, BadRequestError } from '../errors/httpErrors';
-import { UniqueConstraintError } from 'sequelize';
+import { NotFoundError } from '../errors/httpErrors';
 
 async function retrieveReview(req: Request, res: Response, next: NextFunction) {
   try {

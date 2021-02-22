@@ -251,6 +251,50 @@ async function destroyStallImages(req: Request, res: Response, next: NextFunctio
   }
 }
 
+async function indexStallReview(req: Request, res: Response, next: NextFunction) {
+  try {
+    const reviews = await Review.findAll({
+      where: {
+        stallId: req.params.id,
+      },
+      include: [
+        { association: Review.associations.Stall },
+        { association: Review.associations.User },
+      ],
+    });
+    res.status(200).json(reviews);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function createStallReview(req: Request, res: Response, next: NextFunction) {
+  try {
+    const review = await Review.create({
+      ...req.body,
+      stallId: req.params.id,
+      userId: req.user!.id,
+    });
+    res.status(201).json(review);
+  } catch (err) {
+    if (err instanceof UniqueConstraintError)
+      next(new BadRequestError('A review for this stall already exists!'));
+
+    next(err);
+  }
+}
+
+async function createStallFavourite(req: Request, res: Response, next: NextFunction) {
+  // try {
+    // const fav = await F
+  // }
+  res.status(200).json("ok");
+}
+
+async function deleteStallFavourite(req: Request, res: Response, next: NextFunction) {
+  res.status(200).json("ok");
+}
+
 export { getStallInclude, getStallsInclude, fmtStallResp, fmtStallsResp };
 
 export const indexStallFuncs = [indexStall];
@@ -259,6 +303,7 @@ export const createStallFuncs = [createStall];
 export const bulkCreateStallsFuncs = [bulkCreateStalls];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];
+
 export const uploadStallImagesFuncs = [
   retrieveStall,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
@@ -266,3 +311,6 @@ export const uploadStallImagesFuncs = [
   uploadStallImages,
 ];
 export const destroyStallImagesFuncs = [destroyStallImages];
+
+export const indexStallReviewFuncs = [indexStallReview];
+export const createStallReviewFuncs = [createStallReview];

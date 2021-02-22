@@ -1,4 +1,5 @@
 import { Models } from '../../types/';
+import Favourite from '../Favourite';
 
 export function associate(models: Models) {
   const { Category, HawkerCentre, Image, Product, Region, Review, Stall, User } = models;
@@ -22,6 +23,8 @@ export function associate(models: Models) {
   Stall.hasMany(Image, { foreignKey: 'stallId' });
   Stall.hasMany(Product, { foreignKey: 'stallId', onDelete: 'cascade', hooks: true });
   Stall.hasMany(Review, { foreignKey: 'stallId' });
+  Stall.hasMany(Favourite, { foreignKey: 'stallId' });
 
   User.hasMany(Review, { foreignKey: 'userId' });
+  User.hasMany(Favourite, { foreignKey: 'userId' });
 }

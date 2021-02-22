@@ -112,11 +112,24 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public removeCategories!: BelongsToManyRemoveAssociationsMixin<Category, number>;
   public setCategories!: BelongsToManySetAssociationsMixin<Category, number>;
 
+  // Stall.hasMany(Favourite)
+  public addFavourite!: HasManyAddAssociationMixin<Favourite, number>;
+  public addFavourites!: HasManyAddAssociationsMixin<Favourite, number>;
+  public countFavourites!: HasManyCountAssociationsMixin;
+  public createFavourite!: HasManyCreateAssociationMixin<Favourite>;
+  public getFavourites!: HasManyGetAssociationsMixin<Favourite>;
+  public hasFavourite!: HasManyHasAssociationMixin<Favourite, number>;
+  public hasFavourites!: HasManyHasAssociationsMixin<Favourite, number>;
+  public removeFavourite!: HasManyRemoveAssociationMixin<Favourite, number>;
+  public removeFavourites!: HasManyRemoveAssociationsMixin<Favourite, number>;
+  public setFavourites!: HasManySetAssociationsMixin<Favourite, number>;
+
   public readonly HawkerCentre?: HawkerCentre;
   public readonly Products?: Product[];
   public readonly Images?: Image[];
   public readonly Reviews?: Review[];
   public readonly Categories?: Category[];
+  public readonly Favourites?: Favourite[];
 
   public static associations: {
     HawkerCentre: Association<Stall, HawkerCentre>;
@@ -124,6 +137,7 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
     Images: Association<Stall, Image>;
     Reviews: Association<Stall, Review>;
     Categories: Association<Stall, Category>;
+    Favourites: Association<Stall, Favourite>;
   };
 }
 

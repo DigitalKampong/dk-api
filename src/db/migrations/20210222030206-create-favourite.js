@@ -9,19 +9,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      userId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Users',
-          key: 'id',
-        },
-      },
       stallId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Stalls',
+          key: 'id',
+        },
+      },
+      userId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
           key: 'id',
         },
       },
@@ -44,6 +44,5 @@ module.exports = {
 
   down: async queryInterface => {
     await queryInterface.dropTable('Favourites');
-    await queryInterface.removeConstraint('Favourites', 'Favourite_unique_per_stall_constraint');
   },
 };

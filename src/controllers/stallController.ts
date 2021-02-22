@@ -134,10 +134,15 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
 
 async function indexStall(req: Request, res: Response, next: NextFunction) {
   try {
-    const limit = +req.query.limit!;
-    const page = +req.query.page!;
-    const offset = (page - 1) * limit;
+    let limit = parseInt(req.query.limit!);
+    let page = parseInt(req.query.page!);
 
+    if (!limit || !page) {
+      limit = 20;
+      page = 1;
+    }
+
+    const offset = (page - 1) * limit;
     const stalls = await Stall.findAndCountAll({
       order: [['id', 'ASC']],
       include: getStallsInclude(),

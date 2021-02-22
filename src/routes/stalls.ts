@@ -13,7 +13,11 @@ router.put('/:id', adminAuth, stallController.updateStallFuncs);
 router.delete('/:id', adminAuth, stallController.destroyStallFuncs);
 router.post('/:id/upload', adminAuth, stallController.uploadStallImagesFuncs);
 router.post('/:id/delete-images', adminAuth, stallController.destroyStallImagesFuncs);
+
 router.get('/:id/reviews', reviewController.indexReviewFuncs);
 router.post('/:id/reviews', auth, reviewController.createReviewFuncs);
+
+router.post('/:id/favourites', auth, favouriteController.createFavouriteFuncs);
+router.delete('/:id/favourites', auth, favouriteController.deleteFavouriteFuncs);
 
 export default router;

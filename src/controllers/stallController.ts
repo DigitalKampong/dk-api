@@ -135,8 +135,8 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
 
 async function indexStall(req: Request, res: Response, next: NextFunction) {
   try {
-    let limit = parseInt(req.query.limit!);
-    let page = parseInt(req.query.page!);
+    let limit = parseInt(req.query.limit! as string);
+    let page = parseInt(req.query.page! as string);
 
     if (!limit || !page) {
       limit = 20;

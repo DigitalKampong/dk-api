@@ -34,6 +34,7 @@ import HawkerCentre from './HawkerCentre';
 import Image from './Image';
 import Review from './Review';
 import Category from './Category';
+import Favourite from './Favourite';
 
 export interface StallAttributes {
   id: number;

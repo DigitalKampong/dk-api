@@ -24,7 +24,7 @@ async function authImpl(req: Request, res: Response, next: NextFunction) {
 
   // Check if no token
   if (!token) {
-    next(new UnauthorizedError('No token, authorization denied'));
+    next(new UnauthorizedError('No token, unable to authenticate user'));
     return;
   }
 

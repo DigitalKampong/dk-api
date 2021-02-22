@@ -20,6 +20,7 @@ import categoryStalls from './routes/categoryStalls';
 import users from './routes/users';
 import reset from './routes/reset';
 import reviews from './routes/reviews';
+import favourites from './routes/favourites';
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use('/search', search);
 app.use('/reset', reset);
 app.use('/', users);
 app.use('/reviews', reviews);
+app.use('/favourites', favourites);
 
 app.all('*', (req: Request, res: Response) => {
   const err = new NotFoundError('You are at the wrong place. Page cannot be found. Shoo!');

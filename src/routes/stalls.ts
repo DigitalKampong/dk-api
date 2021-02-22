@@ -17,7 +17,7 @@ router.post('/:id/delete-images', adminAuth, stallController.destroyStallImagesF
 router.get('/:id/reviews', stallController.indexStallReviewFuncs);
 router.post('/:id/reviews', auth, stallController.createStallReviewFuncs);
 
-router.post('/:id/favourites', auth, favouriteController.createFavouriteFuncs);
-router.delete('/:id/favourites', auth, favouriteController.deleteFavouriteFuncs);
+router.post('/:id/favourites', auth, stallController.createStallFavouriteFuncs);
+router.delete('/:id/favourites', auth, stallController.destroyStallFavouriteFuncs);
 
 export default router;

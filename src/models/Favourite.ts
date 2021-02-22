@@ -1,4 +1,4 @@
-import { Model, Optional, Association } from 'sequelize';
+import { Model, Optional, Association, DataTypes } from 'sequelize';
 
 import sequelize from '../db';
 import Stall from './Stall';

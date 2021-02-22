@@ -8,6 +8,7 @@ import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
 import Product from '../models/Product';
 import sequelize from '../db';
+import Favourite from '../models/Favourite';
 
 /*
  * Returns the includes needed to fetch associated models for a single stall response
@@ -285,14 +286,27 @@ async function createStallReview(req: Request, res: Response, next: NextFunction
 }
 
 async function createStallFavourite(req: Request, res: Response, next: NextFunction) {
-  // try {
-    // const fav = await F
-  // }
-  res.status(200).json("ok");
+  try {
+    const fav = await Favourite.create({
+      stallId: req.params.id,
+      userId: req.user!.id,
+    });
+    res.status(201).json(fav);
+  } catch (err) {
+    if (err instanceof UniqueConstraintError)
+      next(new BadRequestError('A favourite for this stall already exists'));
+
+    next(err);
+  }
 }
 
-async function deleteStallFavourite(req: Request, res: Response, next: NextFunction) {
-  res.status(200).json("ok");
+async function destroyStallFavourite(req: Request, res: Response, next: NextFunction) {
+  try {
+    await Favourite.destroy({ where: { userId: req.user!.id, stallId: req.params.id }});
+    res.status(200).end();
+  } catch (err) {
+    next(err);
+  }
 }
 
 export { getStallInclude, getStallsInclude, fmtStallResp, fmtStallsResp };
@@ -314,3 +328,6 @@ export const destroyStallImagesFuncs = [destroyStallImages];
 
 export const indexStallReviewFuncs = [indexStallReview];
 export const createStallReviewFuncs = [createStallReview];
+
+export const createStallFavouriteFuncs = [createStallFavourite];
+export const destroyStallFavouriteFuncs = [destroyStallFavourite];

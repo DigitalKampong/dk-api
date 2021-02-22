@@ -21,6 +21,13 @@
   * [Get categorystalls](#4-get-categorystalls)
   * [Update categorystall](#5-update-categorystall)
 
+* [Favourites](#favourites)
+
+  * [Create favourite for stall](#1-create-favourite-for-stall)
+  * [Delete favourite](#2-delete-favourite)
+  * [Delete favourite from stall](#3-delete-favourite-from-stall)
+  * [Get favourites](#4-get-favourites)
+
 * [HawkerCentres](#hawkercentres)
 
   * [Create hawker centre](#1-create-hawker-centre)
@@ -75,8 +82,10 @@
 
 * [Users](#users)
 
-  * [Login user](#1-login-user)
-  * [Register user](#2-register-user)
+  * [Get users](#1-get-users)
+  * [Login user](#2-login-user)
+  * [Register user](#3-register-user)
+  * [Update user](#4-update-user)
 
 
 --------
@@ -316,6 +325,90 @@ URL: {{server_url}}/categoryStalls/:id
     "stallId": "1",
     "categoryId": "2"
 }
+```
+
+
+
+## Favourites
+
+
+
+### 1. Create favourite for stall
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: 
+URL: {{server_url}}/stalls/:id/favourites
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 3 |  |
+
+
+
+### 2. Delete favourite
+
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: 
+URL: {{server_url}}/favourites/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 8 |  |
+
+
+
+### 3. Delete favourite from stall
+
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: 
+URL: {{server_url}}/stalls/:id/favourites
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 3 |  |
+
+
+
+### 4. Get favourites
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/favourites
 ```
 
 
@@ -2144,9 +2237,31 @@ URL: {{server_url}}/stalls/:id/upload
 ## Users
 Token needs sent in the header with "x-auth-token" as key and the token as value for routes that require authentication.
 
+Fields allowed:
+- email: string;
+- username: string;
+- password: string;
+- role: one of [admin, user]; (default is 'user' if 'role' value is not sent with the request)
 
 
-### 1. Login user
+
+### 1. Get users
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/users
+```
+
+
+
+### 2. Login user
 
 
 
@@ -2203,7 +2318,7 @@ URL: {{server_url}}/login
 
 
 
-### 2. Register user
+### 3. Register user
 
 
 
@@ -2222,6 +2337,7 @@ URL: {{server_url}}/register
 ```js        
 {
     "email": "fake_email@gmail.com",
+    "username": "fake_username",
     "password": "asdf"
 }
 ```
@@ -2260,6 +2376,39 @@ URL: {{server_url}}/register
 
 
 
+### 4. Update user
+
+
+
+***Endpoint:***
+
+```bash
+Method: PUT
+Type: RAW
+URL: {{server_url}}/updateUser
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+|  |  |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "username": "hello",
+    "password": "password",
+    "role": "admin"
+}
+```
+
+
+
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-01-17 19:18:56 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-02-22 13:49:30 by [docgen](https://github.com/thedevsaddam/docgen)

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3fca4727-3afb-4f6b-80d8-ee227c2592ce",
+		"_postman_id": "c33417d7-d9f8-472d-ae76-201bf04d8d9e",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2596,6 +2596,39 @@
 					]
 				},
 				{
+					"name": "Get users",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/users",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": "Requires admin token"
+					},
+					"response": []
+				},
+				{
 					"name": "Update user",
 					"request": {
 						"auth": {
@@ -2842,6 +2875,162 @@
 							"path": [
 								"reviews",
 								"10"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Favourites",
+			"item": [
+				{
+					"name": "Create favourite for stall",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{user_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/stalls/:id/favourites",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls",
+								":id",
+								"favourites"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete favourite from stall",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{user_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/stalls/:id/favourites",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls",
+								":id",
+								"favourites"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get favourites",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{user_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/favourites",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"favourites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete favourite",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{user_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/favourites/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"favourites",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "8"
+								}
 							]
 						}
 					},

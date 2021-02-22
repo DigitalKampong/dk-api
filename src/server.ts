@@ -1,13 +1,9 @@
 import express from 'express';
 import { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
-import AdminBro from 'admin-bro';
-import AdminBroExpress from '@admin-bro/express';
-import AdminBroSequelize from '@admin-bro/sequelize';
 import { ValidationError } from 'sequelize';
 
 // import { testAuthenticate } from './utils/dbUtil';
-import sequelize from './db/index';
 import './models'; // import for side effects
 
 import { PORT } from './consts';
@@ -24,27 +20,12 @@ import categoryStalls from './routes/categoryStalls';
 import users from './routes/users';
 import reset from './routes/reset';
 import reviews from './routes/reviews';
-import adminBroAuth from './middleware/adminBroAuth';
 
 const app = express();
-
-AdminBro.registerAdapter(AdminBroSequelize);
-
-const adminBro = new AdminBro({
-  databases: [sequelize],
-  rootPath: '/admin',
-});
-
-const adminBroRouter = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
-  authenticate: adminBroAuth,
-  cookieName: 'admin',
-  cookiePassword: 'password',
-});
 
 // testAuthenticate();
 app.use(cors());
 app.use(express.json());
-app.use(adminBro.options.rootPath, adminBroRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');

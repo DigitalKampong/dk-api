@@ -108,7 +108,7 @@ User.init(
   { sequelize }
 );
 
-async function hashPassword(password) {
+async function hashPassword(password: string) {
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);
 }

@@ -1373,6 +1373,21 @@
 				{
 					"name": "Create hawker centre",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -1470,6 +1485,21 @@
 				{
 					"name": "Update hawker centre",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -1569,6 +1599,21 @@
 				{
 					"name": "Delete hawker centre",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {

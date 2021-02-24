@@ -39,8 +39,14 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
           )`
       : undefined;
 
-    const limit = parseInt(req.query.limit as string);
-    const page = parseInt(req.query.page as string);
+    let limit = parseInt(req.query.limit! as string);
+    let page = parseInt(req.query.page! as string);
+
+    if (!limit || !page) {
+      limit = 20;
+      page = 1;
+    }
+
     const offset = (page - 1) * limit;
     let query, queryString, sourceRoute;
 

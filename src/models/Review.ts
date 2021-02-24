@@ -37,7 +37,7 @@ class Review extends Model<ReviewAttributes, ReviewCreationAttributes> implement
   public getStall!: BelongsToGetAssociationMixin<Stall>;
   public setStall!: BelongsToSetAssociationMixin<Stall, number>;
 
-  // Review.belongsTo(Stall)
+  // Review.belongsTo(User)
   public createUser!: BelongsToCreateAssociationMixin<User>;
   public getUser!: BelongsToGetAssociationMixin<User>;
   public setUser!: BelongsToSetAssociationMixin<User, number>;

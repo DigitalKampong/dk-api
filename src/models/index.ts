@@ -38,5 +38,6 @@ export { default as Region } from './Region';
 export { default as Review } from './Review';
 export { default as Stall } from './Stall';
 export { default as User } from './User';
+export { default as Favourite } from './Favourite';
 
 export default models;

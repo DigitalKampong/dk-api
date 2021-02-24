@@ -19,6 +19,7 @@ import bcrypt from 'bcryptjs';
 import sequelize from '../db';
 
 import Review from './Review';
+import Favourite from './Favourite';
 
 interface UserAttributes {
   id: number;
@@ -58,10 +59,24 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
   public removeReviews!: HasManyRemoveAssociationsMixin<Review, number>;
   public setReviews!: HasManySetAssociationsMixin<Review, number>;
 
+  // User.hasMany(Favourite)
+  public addFavourite!: HasManyAddAssociationMixin<Favourite, number>;
+  public addFavourites!: HasManyAddAssociationsMixin<Favourite, number>;
+  public countFavourites!: HasManyCountAssociationsMixin;
+  public createFavourite!: HasManyCreateAssociationMixin<Favourite>;
+  public getFavourites!: HasManyGetAssociationsMixin<Favourite>;
+  public hasFavourite!: HasManyHasAssociationMixin<Favourite, number>;
+  public hasFavourites!: HasManyHasAssociationsMixin<Favourite, number>;
+  public removeFavourite!: HasManyRemoveAssociationMixin<Favourite, number>;
+  public removeFavourites!: HasManyRemoveAssociationsMixin<Favourite, number>;
+  public setFavourites!: HasManySetAssociationsMixin<Favourite, number>;
+
   public readonly Reviews?: Review[];
+  public readonly Favourites?: Favourite[];
 
   public static associations: {
     Reviews: Association<User, Review>;
+    Favourites: Association<User, Favourite>;
   };
 }
 

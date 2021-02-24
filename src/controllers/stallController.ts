@@ -1,13 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
-import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
-
-import { Stall, HawkerCentre, Review } from '../models';
-import { BadRequestError, NotFoundError } from '../errors/httpErrors';
+import { UniqueConstraintError } from 'sequelize';
 import { Includeable } from 'sequelize/types';
-import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
+
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
-import Product from '../models/Product';
+import { BadRequestError, NotFoundError } from '../errors/httpErrors';
+
 import sequelize from '../db';
+import { Stall, HawkerCentre, Review, Product, Favourite } from '../models';
+import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
+import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
 
 /*
  * Returns the includes needed to fetch associated models for a single stall response
@@ -134,10 +135,15 @@ async function retrieveStall(req: Request, res: Response, next: NextFunction) {
 
 async function indexStall(req: Request, res: Response, next: NextFunction) {
   try {
-    const limit = +req.query.limit!;
-    const page = +req.query.page!;
-    const offset = (page - 1) * limit;
+    let limit = parseInt(req.query.limit! as string);
+    let page = parseInt(req.query.page! as string);
 
+    if (!limit || !page) {
+      limit = 20;
+      page = 1;
+    }
+
+    const offset = (page - 1) * limit;
     const stalls = await Stall.findAndCountAll({
       order: [['id', 'ASC']],
       include: getStallsInclude(),
@@ -246,6 +252,65 @@ async function destroyStallImages(req: Request, res: Response, next: NextFunctio
   }
 }
 
+async function indexStallReview(req: Request, res: Response, next: NextFunction) {
+  try {
+    const reviews = await Review.findAll({
+      where: {
+        stallId: req.params.id,
+      },
+      include: [
+        { association: Review.associations.Stall },
+        { association: Review.associations.User },
+      ],
+    });
+    res.status(200).json(reviews);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function createStallReview(req: Request, res: Response, next: NextFunction) {
+  try {
+    const review = await Review.create({
+      ...req.body,
+      stallId: req.params.id,
+      userId: req.user!.id,
+    });
+    res.status(201).json(review);
+  } catch (err) {
+    if (err instanceof UniqueConstraintError)
+      next(new BadRequestError('A review for this stall already exists!'));
+
+    next(err);
+  }
+}
+
+async function createStallFavourite(req: Request, res: Response, next: NextFunction) {
+  try {
+    // Ignores the request if favourite has already been created
+    const fav = (
+      await Favourite.findOrCreate({
+        where: {
+          stallId: req.params.id,
+          userId: req.user!.id,
+        },
+      })
+    )[0];
+    res.status(201).json(fav);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function destroyStallFavourite(req: Request, res: Response, next: NextFunction) {
+  try {
+    await Favourite.destroy({ where: { userId: req.user!.id, stallId: req.params.id } });
+    res.status(200).end();
+  } catch (err) {
+    next(err);
+  }
+}
+
 export { getStallInclude, getStallsInclude, fmtStallResp, fmtStallsResp };
 
 export const indexStallFuncs = [indexStall];
@@ -254,6 +319,7 @@ export const createStallFuncs = [createStall];
 export const bulkCreateStallsFuncs = [bulkCreateStalls];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];
+
 export const uploadStallImagesFuncs = [
   retrieveStall,
   upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
@@ -261,3 +327,9 @@ export const uploadStallImagesFuncs = [
   uploadStallImages,
 ];
 export const destroyStallImagesFuncs = [destroyStallImages];
+
+export const indexStallReviewFuncs = [indexStallReview];
+export const createStallReviewFuncs = [createStallReview];
+
+export const createStallFavouriteFuncs = [createStallFavourite];
+export const destroyStallFavouriteFuncs = [destroyStallFavourite];

@@ -64,6 +64,15 @@ async function login(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function indexUser(req: Request, res: Response, next: NextFunction) {
+  try {
+    const users = await User.findAll({ attributes: { exclude: ['password'] } });
+    res.status(200).json(users);
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function updateUser(req: Request, res: Response, next: NextFunction) {
   try {
     const user = req.user!;
@@ -83,4 +92,5 @@ async function updateUser(req: Request, res: Response, next: NextFunction) {
 
 export const registerFuncs = [register];
 export const loginFuncs = [login];
+export const indexUserFuncs = [indexUser];
 export const updateUserFuncs = [updateUser];

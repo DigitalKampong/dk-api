@@ -94,13 +94,12 @@ async function fmtStallResp(stall: Stall) {
  * Format multiple stalls response
  * @param stalls An array of Stall instances
  */
-async function fmtStallsResp(stalls: Stall[], propertiesToExclude?: string[]) {
-  // These properties are formatted and returned again.
+async function fmtStallsResp(
+  stalls: Stall[],
+  propertiesToExclude = ['description', 'contactNo', 'unitNo', 'Reviews']
+) {
+  // Properties here will be formatted and returned again.
   const defaultPropertiesToExclude = ['Categories'];
-
-  if (propertiesToExclude === undefined) {
-    propertiesToExclude = ['description', 'contactNo', 'unitNo', 'Reviews'];
-  }
 
   propertiesToExclude = propertiesToExclude.concat(defaultPropertiesToExclude);
 

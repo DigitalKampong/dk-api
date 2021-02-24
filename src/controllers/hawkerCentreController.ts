@@ -35,8 +35,12 @@ async function fmtHawkerCentreResp(hawkerCentre: HawkerCentre) {
     await hawkerCentre.reload({ include: HawkerCentre.associations.Stalls });
   }
 
-  const stallsObj = await fmtStallsResp(hawkerCentre.Stalls, ['Reviews']);
-  const hcObj = hawkerCentre.get({ plain: true });
+  // Use the one from stallController, beware of infinite loop when fmtStallsResp uses
+  // this method to format its hawkerCentre
+  const stallsObj = await fmtStallsResp(hawkerCentre.Stalls!, ['Reviews']);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hcObj: any = hawkerCentre.get({ plain: true });
 
   hcObj['Stalls'] = stallsObj;
   return hcObj;
@@ -72,7 +76,7 @@ async function indexHawkerCentre(req: Request, res: Response, next: NextFunction
 
 async function showHawkerCentre(req: Request, res: Response, next: NextFunction) {
   try {
-    const hcResp = await fmtHawkerCentreResp(req.hawkerCentre);
+    const hcResp = await fmtHawkerCentreResp(req.hawkerCentre!);
     res.status(200).json(hcResp);
   } catch (err) {
     next(err);

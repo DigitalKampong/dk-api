@@ -8,11 +8,13 @@ import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
 import sequelize from '../db';
 import { Includeable } from 'sequelize/types';
 
-function getHawkerCentreStallsInclude() {
-  return {
-    association: Stall.associations.Images,
-    attributes: ['id', 'downloadUrl'],
-  };
+function getHawkerCentreStallsInclude(): Includeable[] {
+  return [
+    {
+      association: Stall.associations.Images,
+      attributes: ['id', 'downloadUrl'],
+    },
+  ];
 }
 
 function getHawkerCentreInclude(): Includeable[] {
@@ -37,7 +39,7 @@ async function fmtHawkerCentreResp(hawkerCentre: HawkerCentre) {
 
   // It is assumed that if hawkerCentre comes with Stalls,
   // Stalls already has include from getHawkerCentreStallsInclude()
-  if (hawkerCentre.Stalls === undefined) {
+  if (stalls === undefined) {
     stalls = await hawkerCentre.getStalls({ include: getHawkerCentreStallsInclude() });
   }
 

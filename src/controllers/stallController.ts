@@ -55,21 +55,25 @@ function getStallsInclude(): Includeable[] {
 }
 
 async function getRating(stall: Stall) {
-  if (stall.Reviews === undefined) {
-    await stall.reload({ include: Stall.associations.Reviews });
+  let reviews = stall.Reviews;
+
+  if (reviews === undefined) {
+    reviews = await stall.getReviews();
   }
 
-  const total = stall.Reviews!.reduce((accum, review) => accum + review.rating, 0);
-  const rating = total ? (total / stall.Reviews!.length).toFixed(2) : '0';
+  const total = reviews.reduce((accum, review) => accum + review.rating, 0);
+  const rating = total ? (total / reviews!.length).toFixed(2) : '0';
   return rating;
 }
 
 async function getCategories(stall: Stall) {
-  if (stall.Categories === undefined) {
-    await stall.reload({ include: Stall.associations.Categories });
+  let categories = stall.Categories;
+
+  if (categories === undefined) {
+    categories = await stall.getCategories();
   }
 
-  return stall.Categories!.map(cate => cate.name);
+  return categories.map(c => c.name);
 }
 
 /**
@@ -99,9 +103,9 @@ async function fmtStallsResp(
   propertiesToExclude = ['description', 'contactNo', 'unitNo', 'Reviews']
 ) {
   // Properties here will be formatted and returned again.
-  const defaultPropertiesToExclude = ['Categories'];
+  const mustExclude = ['Categories'];
 
-  propertiesToExclude = propertiesToExclude.concat(defaultPropertiesToExclude);
+  propertiesToExclude = propertiesToExclude.concat(mustExclude);
 
   const result = await Promise.all(
     stalls.map(async stall => {

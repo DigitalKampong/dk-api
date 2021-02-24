@@ -3,28 +3,55 @@ import { Request, Response, NextFunction } from 'express';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
 import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
+import { fmtStallsResp } from './stallController';
 import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
 import sequelize from '../db';
+import { Includeable } from 'sequelize/types';
+
+function getHawkerCentreInclude(): Includeable[] {
+  return [
+    {
+      association: HawkerCentre.associations.Stalls,
+      include: [
+        {
+          association: Stall.associations.Images,
+          attributes: ['id', 'downloadUrl'],
+        },
+      ],
+    },
+    { association: HawkerCentre.associations.Images, attributes: ['id', 'downloadUrl'] },
+  ];
+}
+
+function getHawkerCentresInclude(): Includeable[] {
+  return [
+    { association: HawkerCentre.associations.Region },
+    { association: HawkerCentre.associations.Images, attributes: ['id', 'downloadUrl'] },
+  ];
+}
+
+async function fmtHawkerCentreResp(hawkerCentre: HawkerCentre) {
+  if (hawkerCentre.Stalls === undefined) {
+    await hawkerCentre.reload({ include: HawkerCentre.associations.Stalls });
+  }
+
+  const stallsObj = await fmtStallsResp(hawkerCentre.Stalls, ['Reviews']);
+  const hcObj = hawkerCentre.get({ plain: true });
+
+  hcObj['Stalls'] = stallsObj;
+  return hcObj;
+}
 
 async function retrieveHawkerCentre(req: Request, res: Response, next: NextFunction) {
   try {
     const hawkerCentre = await HawkerCentre.findByPk(req.params.id, {
-      include: [
-        {
-          association: HawkerCentre.associations.Stalls,
-          include: [
-            {
-              association: Stall.associations.Images,
-              attributes: ['id', 'downloadUrl'],
-            },
-          ],
-        },
-        { association: HawkerCentre.associations.Images, attributes: ['id', 'downloadUrl'] },
-      ],
+      include: getHawkerCentreInclude(),
     });
+
     if (hawkerCentre === null) {
       throw new NotFoundError('HawkerCentre cannot be found');
     }
+
     req.hawkerCentre = hawkerCentre;
     next();
   } catch (err) {
@@ -35,12 +62,7 @@ async function retrieveHawkerCentre(req: Request, res: Response, next: NextFunct
 async function indexHawkerCentre(req: Request, res: Response, next: NextFunction) {
   try {
     const hawkerCentres = await HawkerCentre.findAll({
-      include: [
-        {
-          association: HawkerCentre.associations.Region,
-        },
-        { association: HawkerCentre.associations.Images, attributes: ['id', 'downloadUrl'] },
-      ],
+      include: getHawkerCentresInclude(),
     });
     res.status(200).json(hawkerCentres);
   } catch (err) {
@@ -50,7 +72,8 @@ async function indexHawkerCentre(req: Request, res: Response, next: NextFunction
 
 async function showHawkerCentre(req: Request, res: Response, next: NextFunction) {
   try {
-    res.status(200).json(req.hawkerCentre);
+    const hcResp = await fmtHawkerCentreResp(req.hawkerCentre);
+    res.status(200).json(hcResp);
   } catch (err) {
     next(err);
   }
@@ -59,7 +82,8 @@ async function showHawkerCentre(req: Request, res: Response, next: NextFunction)
 async function createHawkerCentre(req: Request, res: Response, next: NextFunction) {
   try {
     const hawkerCentre = await HawkerCentre.create(req.body);
-    res.status(201).json(hawkerCentre);
+    const hcResp = await fmtHawkerCentreResp(hawkerCentre);
+    res.status(201).json(hcResp);
   } catch (err) {
     next(err);
   }
@@ -68,7 +92,8 @@ async function createHawkerCentre(req: Request, res: Response, next: NextFunctio
 async function updateHawkerCentre(req: Request, res: Response, next: NextFunction) {
   try {
     const hawkerCentre = await req.hawkerCentre!.update(req.body);
-    res.status(200).json(hawkerCentre);
+    const hcResp = await fmtHawkerCentreResp(hawkerCentre);
+    res.status(200).json(hcResp);
   } catch (err) {
     next(err);
   }
@@ -93,20 +118,10 @@ async function uploadHawkerCentreImages(req: Request, res: Response, next: NextF
     });
 
     await hawkerCentre.reload({
-      include: [
-        {
-          association: HawkerCentre.associations.Stalls,
-          include: [
-            {
-              association: Stall.associations.Images,
-              attributes: ['id', 'downloadUrl'],
-            },
-          ],
-        },
-        { association: HawkerCentre.associations.Images, attributes: ['id', 'downloadUrl'] },
-      ],
+      include: getHawkerCentreInclude(),
     });
-    res.status(200).json(hawkerCentre);
+
+    res.status(200).json(await fmtHawkerCentreResp(hawkerCentre));
   } catch (err) {
     next(err);
   }

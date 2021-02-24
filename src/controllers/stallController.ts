@@ -94,8 +94,15 @@ async function fmtStallResp(stall: Stall) {
  * Format multiple stalls response
  * @param stalls An array of Stall instances
  */
-async function fmtStallsResp(stalls: Stall[]) {
-  const propertiesToDelete = ['description', 'contactNo', 'unitNo', 'Categories', 'Reviews'];
+async function fmtStallsResp(stalls: Stall[], propertiesToExclude?: string[]) {
+  // These properties are formatted and returned again.
+  const defaultPropertiesToExclude = ['Categories'];
+
+  if (propertiesToExclude === undefined) {
+    propertiesToExclude = ['description', 'contactNo', 'unitNo', 'Reviews'];
+  }
+
+  propertiesToExclude = propertiesToExclude.concat(defaultPropertiesToExclude);
 
   const result = await Promise.all(
     stalls.map(async stall => {
@@ -108,7 +115,7 @@ async function fmtStallsResp(stalls: Stall[]) {
       stallObj['categories'] = categories;
       stallObj['rating'] = rating;
 
-      propertiesToDelete.forEach(prop => delete stallObj[prop]);
+      propertiesToExclude.forEach(prop => delete stallObj[prop]);
       return stallObj;
     })
   );

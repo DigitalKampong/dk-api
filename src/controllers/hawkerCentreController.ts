@@ -8,16 +8,18 @@ import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
 import sequelize from '../db';
 import { Includeable } from 'sequelize/types';
 
+function getHawkerCentreStallsInclude() {
+  return {
+    association: Stall.associations.Images,
+    attributes: ['id', 'downloadUrl'],
+  };
+}
+
 function getHawkerCentreInclude(): Includeable[] {
   return [
     {
       association: HawkerCentre.associations.Stalls,
-      include: [
-        {
-          association: Stall.associations.Images,
-          attributes: ['id', 'downloadUrl'],
-        },
-      ],
+      include: getHawkerCentreStallsInclude(),
     },
     { association: HawkerCentre.associations.Images, attributes: ['id', 'downloadUrl'] },
   ];
@@ -31,13 +33,17 @@ function getHawkerCentresInclude(): Includeable[] {
 }
 
 async function fmtHawkerCentreResp(hawkerCentre: HawkerCentre) {
+  let stalls = hawkerCentre.Stalls;
+
+  // It is assumed that if hawkerCentre comes with Stalls,
+  // Stalls already has include from getHawkerCentreStallsInclude()
   if (hawkerCentre.Stalls === undefined) {
-    await hawkerCentre.reload({ include: HawkerCentre.associations.Stalls });
+    stalls = await hawkerCentre.getStalls({ include: getHawkerCentreStallsInclude() });
   }
 
   // Use the one from stallController, beware of infinite loop when fmtStallsResp uses
   // this method to format its hawkerCentre
-  const stallsObj = await fmtStallsResp(hawkerCentre.Stalls!, ['Reviews']);
+  const stallsObj = await fmtStallsResp(stalls);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hcObj: any = hawkerCentre.get({ plain: true });

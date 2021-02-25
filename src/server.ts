@@ -18,7 +18,7 @@ import search from './routes/search';
 import categories from './routes/categories';
 import categoryStalls from './routes/categoryStalls';
 import users from './routes/users';
-import reset from './routes/reset';
+// import reset from './routes/reset';
 import reviews from './routes/reviews';
 import favourites from './routes/favourites';
 
@@ -39,7 +39,7 @@ app.use('/products', products);
 app.use('/categories', categories);
 app.use('/categoryStalls', categoryStalls);
 app.use('/search', search);
-app.use('/reset', reset);
+// app.use('/reset', reset);
 app.use('/', users);
 app.use('/reviews', reviews);
 app.use('/favourites', favourites);

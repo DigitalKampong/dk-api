@@ -100,7 +100,7 @@ async function fmtStallResp(stall: Stall) {
  */
 async function fmtStallsResp(
   stalls: Stall[],
-  propertiesToExclude = ['description', 'contactNo', 'unitNo', 'Reviews']
+  propertiesToExclude = ['description', 'contactNo', 'Reviews']
 ) {
   // Properties here will be formatted and returned again.
   const mustExclude = ['Categories'];

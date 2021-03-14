@@ -73,7 +73,7 @@ async function getCategories(stall: Stall) {
     categories = await stall.getCategories();
   }
 
-  return categories.map(c => c.name);
+  return categories;
 }
 
 /**

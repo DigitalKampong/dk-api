@@ -19,8 +19,17 @@ if (ON_GAE) {
     dialect: 'postgres',
     host: `${GCSQL_DB_SOCKET_PATH!}/${GCSQL_CONNECTION_NAME!}`,
   });
+} else if (process.env.NODE_ENV === 'production') {
+  // See https://github.com/sequelize/sequelize/issues/956 for more info
+  sequelize = new Sequelize(DATABASE_URL, {
+    logging,
+    dialectOptions: { ssl: { require: true, rejectUnauthorized: false } },
+  });
 } else {
-  sequelize = new Sequelize(DATABASE_URL, { logging });
+  // Local development
+  sequelize = new Sequelize(DATABASE_URL, {
+    logging,
+  });
 }
 
 export default sequelize;

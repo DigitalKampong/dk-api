@@ -17,9 +17,6 @@ if (ON_GAE) {
   sequelize = new Sequelize(GCSQL_DB_NAME!, GCSQL_DB_USER!, GCSQL_DB_PASS!, {
     logging,
     dialect: 'postgres',
-    dialectOptions: {
-      ssl: true,
-    },
     host: `${GCSQL_DB_SOCKET_PATH!}/${GCSQL_CONNECTION_NAME!}`,
   });
 } else {

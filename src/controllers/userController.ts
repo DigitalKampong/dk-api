@@ -100,7 +100,7 @@ async function indexUser(req: Request, res: Response, next: NextFunction) {
 async function updateUser(req: Request, res: Response, next: NextFunction) {
   try {
     const user = req.user!;
-    await user.update({ ...req.body });
+    await user.update({ ...req.body, role: user.role });
     await user.reload();
 
     // Scrub password from user before returning

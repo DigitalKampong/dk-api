@@ -72,20 +72,23 @@
 
 * [Stalls](#stalls)
 
-  * [Create stall](#1-create-stall)
-  * [Delete stall](#2-delete-stall)
-  * [Delete stall images](#3-delete-stall-images)
-  * [Get stall](#4-get-stall)
-  * [Get stalls](#5-get-stalls)
-  * [Update stall](#6-update-stall)
-  * [Upload stall images](#7-upload-stall-images)
+  * [Bulk Destroy stalls](#1-bulk-destroy-stalls)
+  * [Create stall](#2-create-stall)
+  * [Delete stall](#3-delete-stall)
+  * [Delete stall images](#4-delete-stall-images)
+  * [Get stall](#5-get-stall)
+  * [Get stalls](#6-get-stalls)
+  * [Update stall](#7-update-stall)
+  * [Upload stall images](#8-upload-stall-images)
 
 * [Users](#users)
 
   * [Get users](#1-get-users)
   * [Login user](#2-login-user)
-  * [Register user](#3-register-user)
-  * [Update user](#4-update-user)
+  * [Register admin](#3-register-admin)
+  * [Register user](#4-register-user)
+  * [Update other user](#5-update-other-user)
+  * [Update user](#6-update-user)
 
 
 --------
@@ -725,7 +728,7 @@ URL: {{server_url}}/products
 ```js        
 {
     "name": "Duck Rice",
-    "stallId": 1,
+    "stallId": 10,
     "category": "chinese cuisine",
     "description": "duck rice",
     "price": 2.5
@@ -1123,7 +1126,7 @@ URL: {{server_url}}/products/:id/upload
 
 | Key | Value | Description |
 | --- | ------|-------------|
-| id | 1 |  |
+| id | 16 |  |
 
 
 
@@ -1508,7 +1511,7 @@ URL: {{server_url}}/stalls/:id/reviews
 
 | Key | Value | Description |
 | --- | ------|-------------|
-| id |  |  |
+| id | 15 |  |
 
 
 
@@ -1670,7 +1673,31 @@ Fields allowed:
 
 
 
-### 1. Create stall
+### 1. Bulk Destroy stalls
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/stalls/bulkDestroy
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "ids": [18, 19]
+}
+```
+
+
+
+### 2. Create stall
 
 
 
@@ -1758,7 +1785,7 @@ URL: {{server_url}}/stalls
 
 
 
-### 2. Delete stall
+### 3. Delete stall
 
 
 
@@ -1776,7 +1803,7 @@ URL: {{server_url}}/stalls/:id
 
 | Key | Value | Description |
 | --- | ------|-------------|
-| id |  |  |
+| id | 10 |  |
 
 
 
@@ -1793,7 +1820,7 @@ URL: {{server_url}}/stalls/:id
 
 
 
-### 3. Delete stall images
+### 4. Delete stall images
 
 
 
@@ -1825,7 +1852,7 @@ URL: {{server_url}}/stalls/:id/delete-images
 
 
 
-### 4. Get stall
+### 5. Get stall
 
 
 
@@ -1913,7 +1940,7 @@ URL: {{server_url}}/stalls/:id
 
 
 
-### 5. Get stalls
+### 6. Get stalls
 
 
 
@@ -2020,7 +2047,7 @@ URL: {{server_url}}/stalls
 
 
 
-### 6. Update stall
+### 7. Update stall
 
 
 
@@ -2126,7 +2153,7 @@ URL: {{server_url}}/stalls/:id
 
 
 
-### 7. Upload stall images
+### 8. Upload stall images
 
 
 
@@ -2144,7 +2171,7 @@ URL: {{server_url}}/stalls/:id/upload
 
 | Key | Value | Description |
 | --- | ------|-------------|
-| id | 1 |  |
+| id | 16 |  |
 
 
 
@@ -2318,7 +2345,33 @@ URL: {{server_url}}/login
 
 
 
-### 3. Register user
+### 3. Register admin
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/register-admin
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "email": "fake_admin_@gmail.com",
+    "username": "fake_username",
+    "password": "asdf"
+}
+```
+
+
+
+### 4. Register user
 
 
 
@@ -2376,7 +2429,41 @@ URL: {{server_url}}/register
 
 
 
-### 4. Update user
+### 5. Update other user
+
+
+
+***Endpoint:***
+
+```bash
+Method: PUT
+Type: RAW
+URL: {{server_url}}/users/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 18 |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "username": "updated_fake_email@gmail.com",
+    "role": "admin",
+    "password": "password"
+}
+```
+
+
+
+### 6. Update user
 
 
 
@@ -2401,7 +2488,7 @@ URL: {{server_url}}/updateUser
 
 ```js        
 {
-    "username": "hello",
+    "username": "helloaa",
     "password": "password",
     "role": "admin"
 }
@@ -2411,4 +2498,4 @@ URL: {{server_url}}/updateUser
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-02-22 13:49:30 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-15 14:59:43 by [docgen](https://github.com/thedevsaddam/docgen)

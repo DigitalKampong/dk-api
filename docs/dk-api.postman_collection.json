@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c33417d7-d9f8-472d-ae76-201bf04d8d9e",
+		"_postman_id": "9deacad6-7c5c-475d-a3f6-8a089cf4a2cb",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -166,11 +166,26 @@
 				{
 					"name": "Create product",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Duck Rice\",\n    \"stallId\": 1,\n    \"category\": \"chinese cuisine\",\n    \"description\": \"duck rice\",\n    \"price\": 2.5\n}",
+							"raw": "{\n    \"name\": \"Duck Rice\",\n    \"stallId\": 10,\n    \"category\": \"chinese cuisine\",\n    \"description\": \"duck rice\",\n    \"price\": 2.5\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -435,6 +450,21 @@
 				{
 					"name": "Upload product images",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -443,7 +473,7 @@
 								{
 									"key": "images",
 									"type": "file",
-									"src": "/Users/ivan/Desktop/cats/cat-3.jpg"
+									"src": "/Users/ivan/Desktop/cats/cat-1.jpg"
 								}
 							]
 						},
@@ -460,7 +490,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "16"
 								}
 							]
 						}
@@ -781,6 +811,21 @@
 				{
 					"name": "Create stall",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -977,6 +1022,21 @@
 				{
 					"name": "Delete stall",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -991,7 +1051,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "10"
 								}
 							]
 						}
@@ -1048,8 +1108,65 @@
 					]
 				},
 				{
+					"name": "Bulk Destroy stalls",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ids\": [18, 19]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/stalls/bulkDestroy",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls",
+								"bulkDestroy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Upload stall images",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1075,7 +1192,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "16"
 								}
 							]
 						}
@@ -2550,6 +2667,47 @@
 					]
 				},
 				{
+					"name": "Register admin",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"fake_admin_@gmail.com\",\n    \"username\": \"fake_username\",\n    \"password\": \"asdf\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/register-admin",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"register-admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Login user",
 					"request": {
 						"method": "POST",
@@ -2681,7 +2839,7 @@
 							"apikey": [
 								{
 									"key": "value",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImlhdCI6MTYxMjc3MDAxMiwiZXhwIjoxNjEzMzc0ODEyfQ.HN5xQQP8v6fQeCmtWL0ZQFYj6nVNVDa2IAwl8fE1voU",
+									"value": "{{user_token}}",
 									"type": "string"
 								},
 								{
@@ -2701,7 +2859,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"hello\",\n    \"password\": \"password\",\n    \"role\": \"admin\"\n}",
+							"raw": "{\n    \"username\": \"helloaa\",\n    \"password\": \"password\",\n    \"role\": \"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2715,6 +2873,61 @@
 							],
 							"path": [
 								"updateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update other user",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"updated_fake_email@gmail.com\",\n    \"role\": \"admin\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/users/:id",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "18"
+								}
 							]
 						}
 					},
@@ -2749,6 +2962,21 @@
 				{
 					"name": "Create review for stall",
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{user_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -2779,7 +3007,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "15"
 								}
 							]
 						}

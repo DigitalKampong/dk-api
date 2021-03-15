@@ -29,7 +29,7 @@ interface UserAttributes {
   role: string;
 }
 
-export interface UserCreationAttributes extends Optional<UserAttributes, 'id', 'role'> {}
+export interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
 
 export enum ROLES {
   USER = 'user',

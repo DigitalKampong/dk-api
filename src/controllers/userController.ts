@@ -50,7 +50,7 @@ async function register(req: Request, res: Response, next: NextFunction) {
 async function registerAdmin(req: Request, res: Response, next: NextFunction) {
   try {
     let user = await createUser({ ...req.body, role: 'admin' });
-    user = await User.findByPk(user.id, { attributes: { exclude: ['password'] } });
+    user = (await User.findByPk(user.id, { attributes: { exclude: ['password'] } })) as User;
     res.status(201).json(user);
   } catch (err) {
     next(err);

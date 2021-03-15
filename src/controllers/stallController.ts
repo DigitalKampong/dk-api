@@ -234,13 +234,17 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
 
 async function bulkDestroyStalls(req: Request, res: Response, next: NextFunction) {
   try {
-    const idsToDestroy = req.body['ids'] as Array<Integer>;
+    const idsToDestroy = req.body['ids'] as Array<number>;
     const stalls = await Stall.findAll({
       where: { id: idsToDestroy },
       include: [
         {
           association: Stall.associations.Products,
-          include: Product.associations.Images,
+          include: [
+            {
+              association: Product.associations.Images,
+            },
+          ],
         },
         {
           association: Stall.associations.Images,
@@ -249,11 +253,11 @@ async function bulkDestroyStalls(req: Request, res: Response, next: NextFunction
     });
 
     // Retrieve all images from stalls and its products
-    let imageIds = [];
+    let imageIds: Array<number> = [];
     for (const stall of stalls) {
       imageIds = imageIds.concat(stall.Images!.map(image => image.id));
 
-      for (const product of stall.Products) {
+      for (const product of stall.Products!) {
         imageIds = imageIds.concat(product.Images!.map(image => image.id));
       }
     }

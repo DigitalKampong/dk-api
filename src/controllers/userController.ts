@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 
 import { User } from '../models';
 import { UserCreationAttributes } from '../models/User';
-import { BadRequestError, UnauthorizedError } from '../errors/httpErrors';
+import { BadRequestError, NotFoundError, UnauthorizedError } from '../errors/httpErrors';
 import { ACCESS_TOKEN_SECRET } from '../consts';
 
 async function createUser(attributes: UserCreationAttributes) {
@@ -97,6 +97,24 @@ async function indexUser(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function updateOtherUser(req: Request, res: Response, next: NextFunction) {
+  try {
+    const idToEdit = req.params.id;
+    let user = await User.findByPk(idToEdit);
+
+    if (!user) {
+      throw new NotFoundError('User to edit cannot be found');
+    }
+
+    await user.update({ ...req.body });
+    user = await User.findByPk(user.id, { attributes: { exclude: ['password'] } });
+
+    res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function updateUser(req: Request, res: Response, next: NextFunction) {
   try {
     const user = req.user!;
@@ -119,3 +137,4 @@ export const registerAdminFuncs = [registerAdmin];
 export const loginFuncs = [login];
 export const indexUserFuncs = [indexUser];
 export const updateUserFuncs = [updateUser];
+export const updateOtherUserFuncs = [updateOtherUser];

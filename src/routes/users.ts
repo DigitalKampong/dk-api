@@ -9,5 +9,6 @@ router.post('/register', userController.registerFuncs);
 router.post('/register-admin', adminAuth, userController.registerAdminFuncs);
 router.put('/updateUser', auth, userController.updateUserFuncs);
 router.get('/users', adminAuth, userController.indexUserFuncs);
+router.put('/users/:id', adminAuth, userController.updateOtherUserFuncs);
 
 export default router;

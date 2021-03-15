@@ -4,12 +4,30 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 import { User } from '../models';
+import { UserCreationAttributes } from '../models/User';
 import { BadRequestError, UnauthorizedError } from '../errors/httpErrors';
 import { ACCESS_TOKEN_SECRET } from '../consts';
 
+async function createUser(attributes: UserCreationAttributes) {
+  try {
+    const user = await User.create(attributes);
+    return user;
+  } catch (err) {
+    if (err instanceof UniqueConstraintError) {
+      throw new BadRequestError('User already exists');
+    }
+
+    throw err;
+  }
+}
+
 async function register(req: Request, res: Response, next: NextFunction) {
   try {
-    const user = await User.create({ ...req.body });
+    if (req.body['role'] === 'admin') {
+      throw new UnauthorizedError('You are not authorized to create a admin.');
+    }
+
+    const user = await createUser({ ...req.body, role: 'user' });
 
     const payload = {
       id: user.id,
@@ -25,11 +43,17 @@ async function register(req: Request, res: Response, next: NextFunction) {
       }
     );
   } catch (err) {
-    if (err instanceof UniqueConstraintError) {
-      next(new BadRequestError('User already exists'));
-    } else {
-      next(err);
-    }
+    next(err);
+  }
+}
+
+async function registerAdmin(req: Request, res: Response, next: NextFunction) {
+  try {
+    let user = await createUser({ ...req.body, role: 'admin' });
+    user = await User.findByPk(user.id, { attributes: { exclude: ['password'] } });
+    res.status(201).json(user);
+  } catch (err) {
+    next(err);
   }
 }
 
@@ -91,6 +115,7 @@ async function updateUser(req: Request, res: Response, next: NextFunction) {
 }
 
 export const registerFuncs = [register];
+export const registerAdminFuncs = [registerAdmin];
 export const loginFuncs = [login];
 export const indexUserFuncs = [indexUser];
 export const updateUserFuncs = [updateUser];

@@ -2488,9 +2488,14 @@ URL: {{server_url}}/updateUser
 
 ```js        
 {
+<<<<<<< HEAD
     "username": "helloaa",
     "password": "password",
     "role": "admin"
+=======
+    "username": "hello",
+    "password": "password"
+>>>>>>> a7ddb732d90b20fbbc7846d7b29041a6b8898e71
 }
 ```
 
@@ -2498,4 +2503,8 @@ URL: {{server_url}}/updateUser
 
 ---
 [Back to top](#dk-api)
+<<<<<<< HEAD
 > Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-15 14:59:43 by [docgen](https://github.com/thedevsaddam/docgen)
+=======
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-17 20:37:06 by [docgen](https://github.com/thedevsaddam/docgen)
+>>>>>>> a7ddb732d90b20fbbc7846d7b29041a6b8898e71

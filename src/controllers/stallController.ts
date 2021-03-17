@@ -232,6 +232,50 @@ async function destroyStall(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function bulkDestroyStalls(req: Request, res: Response, next: NextFunction) {
+  try {
+    const idsToDestroy = req.body['ids'] as Array<number>;
+    const stalls = await Stall.findAll({
+      where: { id: idsToDestroy },
+      include: [
+        {
+          association: Stall.associations.Products,
+          include: [
+            {
+              association: Product.associations.Images,
+            },
+          ],
+        },
+        {
+          association: Stall.associations.Images,
+        },
+      ],
+    });
+
+    // Retrieve all images from stalls and its products
+    let imageIds: Array<number> = [];
+    for (const stall of stalls) {
+      imageIds = imageIds.concat(stall.Images!.map(image => image.id));
+
+      for (const product of stall.Products!) {
+        imageIds = imageIds.concat(product.Images!.map(image => image.id));
+      }
+    }
+
+    await sequelize.transaction(async t => {
+      if (imageIds.length > 0) await destroyImageIds(imageIds, { transaction: t });
+
+      for (const stall of stalls) {
+        await stall.destroy({ transaction: t });
+      }
+    });
+
+    res.status(200).end();
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function uploadStallImages(req: Request, res: Response, next: NextFunction) {
   try {
     const stall = req.stall!;
@@ -329,6 +373,7 @@ export const createStallFuncs = [createStall];
 export const bulkCreateStallsFuncs = [bulkCreateStalls];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];
+export const bulkDestroyStallsFuncs = [bulkDestroyStalls];
 
 export const uploadStallImagesFuncs = [
   retrieveStall,

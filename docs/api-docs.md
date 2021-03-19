@@ -1,108 +1,99 @@
-
 # dk-api
-
-
 
 ## Indices
 
-* [Categories](#categories)
+- [Categories](#categories)
 
-  * [Create category](#1-create-category)
-  * [Delete category](#2-delete-category)
-  * [Get categories](#3-get-categories)
-  * [Get category](#4-get-category)
-  * [Update category](#5-update-category)
+  - [Create category](#1-create-category)
+  - [Delete category](#2-delete-category)
+  - [Get categories](#3-get-categories)
+  - [Get category](#4-get-category)
+  - [Update category](#5-update-category)
 
-* [CategoryStalls](#categorystalls)
+- [CategoryStalls](#categorystalls)
 
-  * [Create categorystall](#1-create-categorystall)
-  * [Delete categorystall](#2-delete-categorystall)
-  * [Get categorystall](#3-get-categorystall)
-  * [Get categorystalls](#4-get-categorystalls)
-  * [Update categorystall](#5-update-categorystall)
+  - [Create categorystall](#1-create-categorystall)
+  - [Delete categorystall](#2-delete-categorystall)
+  - [Get categorystall](#3-get-categorystall)
+  - [Get categorystalls](#4-get-categorystalls)
+  - [Update categorystall](#5-update-categorystall)
 
-* [Favourites](#favourites)
+- [Favourites](#favourites)
 
-  * [Create favourite for stall](#1-create-favourite-for-stall)
-  * [Delete favourite](#2-delete-favourite)
-  * [Delete favourite from stall](#3-delete-favourite-from-stall)
-  * [Get favourites](#4-get-favourites)
+  - [Create favourite for stall](#1-create-favourite-for-stall)
+  - [Delete favourite](#2-delete-favourite)
+  - [Delete favourite from stall](#3-delete-favourite-from-stall)
+  - [Get favourites](#4-get-favourites)
 
-* [HawkerCentres](#hawkercentres)
+- [HawkerCentres](#hawkercentres)
 
-  * [Create hawker centre](#1-create-hawker-centre)
-  * [Delete hawker centre](#2-delete-hawker-centre)
-  * [Get hawker centre](#3-get-hawker-centre)
-  * [Get hawker centres](#4-get-hawker-centres)
-  * [Update hawker centre](#5-update-hawker-centre)
+  - [Create hawker centre](#1-create-hawker-centre)
+  - [Delete hawker centre](#2-delete-hawker-centre)
+  - [Get hawker centre](#3-get-hawker-centre)
+  - [Get hawker centres](#4-get-hawker-centres)
+  - [Update hawker centre](#5-update-hawker-centre)
 
-* [Products](#products)
+- [Products](#products)
 
-  * [Create product](#1-create-product)
-  * [Delete product](#2-delete-product)
-  * [Delete product images](#3-delete-product-images)
-  * [Get product](#4-get-product)
-  * [Get products](#5-get-products)
-  * [Update product](#6-update-product)
-  * [Upload product images](#7-upload-product-images)
+  - [Create product](#1-create-product)
+  - [Delete product](#2-delete-product)
+  - [Delete product images](#3-delete-product-images)
+  - [Get product](#4-get-product)
+  - [Get products](#5-get-products)
+  - [Update product](#6-update-product)
+  - [Upload product images](#7-upload-product-images)
 
-* [Regions](#regions)
+- [Regions](#regions)
 
-  * [Create region](#1-create-region)
-  * [Delete region](#2-delete-region)
-  * [Get region](#3-get-region)
-  * [Get regions](#4-get-regions)
-  * [Update region](#5-update-region)
+  - [Create region](#1-create-region)
+  - [Delete region](#2-delete-region)
+  - [Get region](#3-get-region)
+  - [Get regions](#4-get-regions)
+  - [Update region](#5-update-region)
 
-* [Reset](#reset)
+- [Reset](#reset)
 
-  * [Reset database](#1-reset-database)
+  - [Reset database](#1-reset-database)
 
-* [Reviews](#reviews)
+- [Reviews](#reviews)
 
-  * [Create review for stall](#1-create-review-for-stall)
-  * [Delete review](#2-delete-review)
-  * [Get review](#3-get-review)
-  * [Get reviews for stall](#4-get-reviews-for-stall)
-  * [Update review](#5-update-review)
+  - [Create review for stall](#1-create-review-for-stall)
+  - [Delete review](#2-delete-review)
+  - [Get review](#3-get-review)
+  - [Get reviews for stall](#4-get-reviews-for-stall)
+  - [Update review](#5-update-review)
 
-* [Search](#search)
+- [Search](#search)
 
-  * [Search stalls](#1-search-stalls)
+  - [Search stalls](#1-search-stalls)
 
-* [Stalls](#stalls)
+- [Stalls](#stalls)
 
-  * [Bulk Destroy stalls](#1-bulk-destroy-stalls)
-  * [Create stall](#2-create-stall)
-  * [Delete stall](#3-delete-stall)
-  * [Delete stall images](#4-delete-stall-images)
-  * [Get stall](#5-get-stall)
-  * [Get stalls](#6-get-stalls)
-  * [Update stall](#7-update-stall)
-  * [Upload stall images](#8-upload-stall-images)
+  - [Bulk Destroy stalls](#1-bulk-destroy-stalls)
+  - [Create stall](#2-create-stall)
+  - [Delete stall](#3-delete-stall)
+  - [Delete stall images](#4-delete-stall-images)
+  - [Get stall](#5-get-stall)
+  - [Get stalls](#6-get-stalls)
+  - [Update stall](#7-update-stall)
+  - [Upload stall images](#8-upload-stall-images)
 
-* [Users](#users)
+- [Users](#users)
 
-  * [Get users](#1-get-users)
-  * [Login user](#2-login-user)
-  * [Register admin](#3-register-admin)
-  * [Register user](#4-register-user)
-  * [Update other user](#5-update-other-user)
-  * [Update user](#6-update-user)
+  - [Get users](#1-get-users)
+  - [Login user](#2-login-user)
+  - [Register admin](#3-register-admin)
+  - [Register user](#4-register-user)
+  - [Update other user](#5-update-other-user)
+  - [Update user](#6-update-user)
 
-
---------
-
+---
 
 ## Categories
 
-
-
 ### 1. Create category
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -110,81 +101,59 @@ Type: RAW
 URL: {{server_url}}/categories
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "name": "Drinks"
 }
 ```
 
-
-
 ### 2. Delete category
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
-Type: 
+Type:
 URL: {{server_url}}/categories/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
-
-
+| --- | ----- | ----------- |
+| id  |       |             |
 
 ### 3. Get categories
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/categories
 ```
 
-
-
 ### 4. Get category
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/categories/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
-
-
+| --- | ----- | ----------- |
+| id  |       |             |
 
 ### 5. Update category
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: PUT
@@ -192,35 +161,25 @@ Type: RAW
 URL: {{server_url}}/categories/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "name": "Japanese Food"
 }
 ```
 
-
-
 ## CategoryStalls
-
-
 
 ### 1. Create categorystall
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -228,82 +187,60 @@ Type: RAW
 URL: {{server_url}}/categoryStalls
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "stallId": "1",
     "categoryId": "1"
 }
 ```
 
-
-
 ### 2. Delete categorystall
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
-Type: 
+Type:
 URL: {{server_url}}/categoryStalls/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
-
-
+| --- | ----- | ----------- |
+| id  |       |             |
 
 ### 3. Get categorystall
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/categoryStalls/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
-
-
+| --- | ----- | ----------- |
+| id  |       |             |
 
 ### 4. Get categorystalls
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/categoryStalls
 ```
 
-
-
 ### 5. Update categorystall
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: PUT
@@ -311,124 +248,92 @@ Type: RAW
 URL: {{server_url}}/categoryStalls/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "stallId": "1",
     "categoryId": "2"
 }
 ```
 
-
-
 ## Favourites
-
-
 
 ### 1. Create favourite for stall
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
-Type: 
+Type:
 URL: {{server_url}}/stalls/:id/favourites
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 3 |  |
-
-
+| --- | ----- | ----------- |
+| id  | 3     |             |
 
 ### 2. Delete favourite
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
-Type: 
+Type:
 URL: {{server_url}}/favourites/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 8 |  |
-
-
+| --- | ----- | ----------- |
+| id  | 8     |             |
 
 ### 3. Delete favourite from stall
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
-Type: 
+Type:
 URL: {{server_url}}/stalls/:id/favourites
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 3 |  |
-
-
+| --- | ----- | ----------- |
+| id  | 3     |             |
 
 ### 4. Get favourites
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/favourites
 ```
 
-
-
 ## HawkerCentres
+
 Fields needed
+
 - name: string;
 - address: string | null;
 - regionId: number;
 
-
-
 ### 1. Create hawker centre
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -436,18 +341,15 @@ Type: RAW
 URL: {{server_url}}/hawkercentres
 ```
 
+**_Headers:_**
 
-***Headers:***
+| Key          | Value     | Description |
+| ------------ | --------- | ----------- |
+| x-auth-token | {{token}} |             |
 
-| Key | Value | Description |
-| --- | ------|-------------|
-| x-auth-token | {{token}} |  |
+**_Body:_**
 
-
-
-***Body:***
-
-```js        
+```js
 {
     "name": "Fake hawker centre",
     "address": "Fake address",
@@ -457,18 +359,13 @@ URL: {{server_url}}/hawkercentres
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Create hawker centre
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "name": "Yuhua Village Market and Food Centre",
     "address": "254 Jurong East Street 24, Singapore 600254",
@@ -476,9 +373,8 @@ URL: {{server_url}}/hawkercentres
 }
 ```
 
-
-
 ##### I. Example Response: Create hawker centre
+
 ```js
 {
     "id": 1,
@@ -490,78 +386,56 @@ URL: {{server_url}}/hawkercentres
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
-
-
 
 ### 2. Delete hawker centre
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
-Type: 
+Type:
 URL: {{server_url}}/hawkercentres/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Delete hawker centre
 
-
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 3. Get hawker centre
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/hawkercentres/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Get hawker centre
 
-
-
 ##### I. Example Response: Get hawker centre
+
 ```js
 {
     "hawkerCentreId": 1,
@@ -573,68 +447,54 @@ URL: {{server_url}}/hawkercentres/:id
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
-
-
 
 ### 4. Get hawker centres
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/hawkercentres
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Get hawker centres
 
-
-
 ##### I. Example Response: Get hawker centres
+
 ```js
 [
-    {
-        "hawkerCentreId": 1,
-        "name": "Yuhua Village Market",
-        "address": "254 Jurong East Street 24, Singapore 600254",
-        "regionId": 1,
-        "createdAt": "2020-12-09T06:26:55.647Z",
-        "updatedAt": "2020-12-09T06:29:04.408Z"
-    },
-    {
-        "hawkerCentreId": 2,
-        "name": "Fake hawker centre",
-        "address": "Fake address",
-        "regionId": 1,
-        "createdAt": "2020-12-09T06:32:50.473Z",
-        "updatedAt": "2020-12-09T06:32:50.473Z"
-    }
-]
+  {
+    hawkerCentreId: 1,
+    name: 'Yuhua Village Market',
+    address: '254 Jurong East Street 24, Singapore 600254',
+    regionId: 1,
+    createdAt: '2020-12-09T06:26:55.647Z',
+    updatedAt: '2020-12-09T06:29:04.408Z',
+  },
+  {
+    hawkerCentreId: 2,
+    name: 'Fake hawker centre',
+    address: 'Fake address',
+    regionId: 1,
+    createdAt: '2020-12-09T06:32:50.473Z',
+    updatedAt: '2020-12-09T06:32:50.473Z',
+  },
+];
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
 
-
-
 ### 5. Update hawker centre
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: PUT
@@ -642,44 +502,34 @@ Type: RAW
 URL: {{server_url}}/hawkercentres/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "name": "Yuhua Village Market"
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Update hawker centre
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "name": "Yuhua Village Market"
 }
 ```
 
-
-
 ##### I. Example Response: Update hawker centre
+
 ```js
 {
     "id": 1,
@@ -691,15 +541,14 @@ URL: {{server_url}}/hawkercentres/:id
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ## Products
+
 Fields allowed
+
 - name: string;
 - category: string | null;
 - description: string | null;
@@ -707,13 +556,9 @@ Fields allowed
 - image: string | null;
 - stallId: number;
 
-
-
 ### 1. Create product
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -721,11 +566,9 @@ Type: RAW
 URL: {{server_url}}/products
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "name": "Duck Rice",
     "stallId": 10,
@@ -735,18 +578,13 @@ URL: {{server_url}}/products
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Create product
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "name": "Duck Rice",
     "stallId": 1,
@@ -756,9 +594,8 @@ URL: {{server_url}}/products
 }
 ```
 
-
-
 ##### I. Example Response: Create product
+
 ```js
 {
     "id": 3,
@@ -792,53 +629,37 @@ URL: {{server_url}}/products
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
-
-
 
 ### 2. Delete product
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
-Type: 
+Type:
 URL: {{server_url}}/products/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Delete product
 
-
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 3. Delete product images
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -846,56 +667,42 @@ Type: RAW
 URL: {{server_url}}/products/:id/delete-images
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "imageIds": [26]
 }
 ```
 
-
-
 ### 4. Get product
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/products/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Get product
 
-
-
 ##### I. Example Response: Get product
+
 ```js
 {
     "id": 1,
@@ -909,112 +716,98 @@ URL: {{server_url}}/products/:id
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
-
-
 
 ### 5. Get products
 
-
 Get information of all products. Includes the information of the respective stalls.
 
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/products
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Get products
 
-
-
 ##### I. Example Response: Get products
+
 ```js
 [
-    {
-        "id": 2,
-        "name": "Duck Rice",
-        "category": "chinese cuisine",
-        "description": "duck rice",
-        "price": 2.5,
-        "stallId": 1,
-        "createdAt": "2020-12-09T06:41:47.910Z",
-        "updatedAt": "2020-12-09T06:41:47.910Z",
-        "Stall": {
-            "id": 1,
-            "name": "5 Star Chicken Rice Stall",
-            "description": "newer description",
-            "rating": 4.5,
-            "contactNo": "91234567",
-            "unitNo": "01-02",
-            "hawkerCentreId": 1,
-            "createdAt": "2020-12-09T06:37:05.828Z",
-            "updatedAt": "2020-12-09T06:37:35.710Z",
-            "HawkerCentre": {
-                "id": 1,
-                "name": "Yuhua Village Market",
-                "address": "254 Jurong East Street 24, Singapore 600254",
-                "regionId": 1,
-                "createdAt": "2020-12-09T06:26:55.647Z",
-                "updatedAt": "2020-12-09T06:29:04.408Z"
-            }
-        }
+  {
+    id: 2,
+    name: 'Duck Rice',
+    category: 'chinese cuisine',
+    description: 'duck rice',
+    price: 2.5,
+    stallId: 1,
+    createdAt: '2020-12-09T06:41:47.910Z',
+    updatedAt: '2020-12-09T06:41:47.910Z',
+    Stall: {
+      id: 1,
+      name: '5 Star Chicken Rice Stall',
+      description: 'newer description',
+      rating: 4.5,
+      contactNo: '91234567',
+      unitNo: '01-02',
+      hawkerCentreId: 1,
+      createdAt: '2020-12-09T06:37:05.828Z',
+      updatedAt: '2020-12-09T06:37:35.710Z',
+      HawkerCentre: {
+        id: 1,
+        name: 'Yuhua Village Market',
+        address: '254 Jurong East Street 24, Singapore 600254',
+        regionId: 1,
+        createdAt: '2020-12-09T06:26:55.647Z',
+        updatedAt: '2020-12-09T06:29:04.408Z',
+      },
     },
-    {
-        "id": 1,
-        "name": "Chicken Rice",
-        "category": "chinese cuisine",
-        "description": "delicious chicken rice",
-        "price": 3.8,
-        "stallId": 1,
-        "createdAt": "2020-12-09T06:40:05.643Z",
-        "updatedAt": "2020-12-09T06:40:44.440Z",
-        "Stall": {
-            "id": 1,
-            "name": "5 Star Chicken Rice Stall",
-            "description": "newer description",
-            "rating": 4.5,
-            "contactNo": "91234567",
-            "unitNo": "01-02",
-            "hawkerCentreId": 1,
-            "createdAt": "2020-12-09T06:37:05.828Z",
-            "updatedAt": "2020-12-09T06:37:35.710Z",
-            "HawkerCentre": {
-                "id": 1,
-                "name": "Yuhua Village Market",
-                "address": "254 Jurong East Street 24, Singapore 600254",
-                "regionId": 1,
-                "createdAt": "2020-12-09T06:26:55.647Z",
-                "updatedAt": "2020-12-09T06:29:04.408Z"
-            }
-        }
-    }
-]
+  },
+  {
+    id: 1,
+    name: 'Chicken Rice',
+    category: 'chinese cuisine',
+    description: 'delicious chicken rice',
+    price: 3.8,
+    stallId: 1,
+    createdAt: '2020-12-09T06:40:05.643Z',
+    updatedAt: '2020-12-09T06:40:44.440Z',
+    Stall: {
+      id: 1,
+      name: '5 Star Chicken Rice Stall',
+      description: 'newer description',
+      rating: 4.5,
+      contactNo: '91234567',
+      unitNo: '01-02',
+      hawkerCentreId: 1,
+      createdAt: '2020-12-09T06:37:05.828Z',
+      updatedAt: '2020-12-09T06:37:35.710Z',
+      HawkerCentre: {
+        id: 1,
+        name: 'Yuhua Village Market',
+        address: '254 Jurong East Street 24, Singapore 600254',
+        regionId: 1,
+        createdAt: '2020-12-09T06:26:55.647Z',
+        updatedAt: '2020-12-09T06:29:04.408Z',
+      },
+    },
+  },
+];
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 6. Update product
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: PUT
@@ -1022,52 +815,40 @@ Type: RAW
 URL: {{server_url}}/products/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "price": 3.8
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Update product
 
-
-
-***Query:***
+**_Query:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 3 |  |
+| --- | ----- | ----------- |
+| id  | 3     |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "price": 3.8
 }
 ```
 
-
-
 ##### I. Example Response: Update product
+
 ```js
 {
     "id": 3,
@@ -1101,18 +882,13 @@ URL: {{server_url}}/products/:id
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 7. Upload product images
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -1120,48 +896,36 @@ Type: FORMDATA
 URL: {{server_url}}/products/:id/upload
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 16 |  |
+| --- | ----- | ----------- |
+| id  | 16    |             |
 
+**_Body:_**
 
+| Key    | Value | Description |
+| ------ | ----- | ----------- |
+| images |       |             |
 
-***Body:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| images |  |  |
-
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Upload product images
 
-
-
-***Query:***
+**_Query:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 1 |  |
+| --- | ----- | ----------- |
+| id  | 1     |             |
 
+**_Body:_**
 
-
-***Body:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| images |  |  |
-
-
+| Key    | Value | Description |
+| ------ | ----- | ----------- |
+| images |       |             |
 
 ##### I. Example Response: Upload product images
+
 ```js
 {
     "id": 1,
@@ -1200,24 +964,19 @@ URL: {{server_url}}/products/:id/upload
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ## Regions
+
 Fields allowed
+
 - name: string;
-
-
 
 ### 1. Create region
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -1225,36 +984,28 @@ Type: RAW
 URL: {{server_url}}/regions
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "name": "East"
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Create region
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "name": "North"
 }
 ```
 
-
-
 ##### I. Example Response: Create region
+
 ```js
 {
     "id": 1,
@@ -1264,78 +1015,56 @@ URL: {{server_url}}/regions
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
-
-
 
 ### 2. Delete region
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
-Type: 
+Type:
 URL: {{server_url}}/regions/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Delete region
 
-
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 3. Get region
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/regions/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Get region
 
-
-
 ##### I. Example Response: Get region
+
 ```js
 {
     "regionId": 1,
@@ -1345,64 +1074,50 @@ URL: {{server_url}}/regions/:id
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
-
-
 
 ### 4. Get regions
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/regions
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Get regions
 
-
-
 ##### I. Example Response: Get regions
+
 ```js
 [
-    {
-        "regionId": 1,
-        "name": "West",
-        "createdAt": "2020-12-09T06:22:44.182Z",
-        "updatedAt": "2020-12-09T06:23:07.436Z"
-    },
-    {
-        "regionId": 2,
-        "name": "East",
-        "createdAt": "2020-12-09T06:23:41.635Z",
-        "updatedAt": "2020-12-09T06:23:41.635Z"
-    }
-]
+  {
+    regionId: 1,
+    name: 'West',
+    createdAt: '2020-12-09T06:22:44.182Z',
+    updatedAt: '2020-12-09T06:23:07.436Z',
+  },
+  {
+    regionId: 2,
+    name: 'East',
+    createdAt: '2020-12-09T06:23:41.635Z',
+    updatedAt: '2020-12-09T06:23:41.635Z',
+  },
+];
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
 
-
-
 ### 5. Update region
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: PUT
@@ -1410,44 +1125,34 @@ Type: RAW
 URL: {{server_url}}/regions/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "name": "West"
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Update region
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "name": "West"
 }
 ```
 
-
-
 ##### I. Example Response: Update region
+
 ```js
 {
     "id": 1,
@@ -1457,40 +1162,27 @@ URL: {{server_url}}/regions/:id
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ## Reset
-
-
 
 ### 1. Reset database
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/reset/
 ```
 
-
-
 ## Reviews
-
-
 
 ### 1. Create review for stall
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -1498,39 +1190,30 @@ Type: RAW
 URL: {{server_url}}/stalls/:id/reviews
 ```
 
+**_Headers:_**
 
-***Headers:***
+| Key          | Value     | Description |
+| ------------ | --------- | ----------- |
+| x-auth-token | {{token}} |             |
 
-| Key | Value | Description |
-| --- | ------|-------------|
-| x-auth-token | {{token}} |  |
-
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 15 |  |
+| --- | ----- | ----------- |
+| id  | 15    |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "description": "Very Good",
     "rating": 4
 }
 ```
 
-
-
 ### 2. Delete review
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
@@ -1538,13 +1221,9 @@ Type: RAW
 URL: {{server_url}}/reviews/10
 ```
 
-
-
 ### 3. Get review
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
@@ -1552,21 +1231,15 @@ Type: RAW
 URL: {{server_url}}/reviews/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
-
-
+| --- | ----- | ----------- |
+| id  |       |             |
 
 ### 4. Get reviews for stall
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
@@ -1574,21 +1247,15 @@ Type: RAW
 URL: {{server_url}}/stalls/:id/reviews
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
-
-
+| --- | ----- | ----------- |
+| id  |       |             |
 
 ### 5. Update review
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: PUT
@@ -1596,26 +1263,21 @@ Type: RAW
 URL: {{server_url}}/reviews/:id
 ```
 
+**_Headers:_**
 
-***Headers:***
+| Key          | Value     | Description |
+| ------------ | --------- | ----------- |
+| x-auth-token | {{token}} |             |
 
-| Key | Value | Description |
-| --- | ------|-------------|
-| x-auth-token | {{token}} |  |
-
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "description": "Not Very Good",
     "rating": 4,
@@ -1623,47 +1285,37 @@ URL: {{server_url}}/reviews/:id
 }
 ```
 
-
-
 ## Search
-
-
 
 ### 1. Search stalls
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/search/:query
 ```
 
+**_Query params:_**
 
+| Key      | Value | Description |
+| -------- | ----- | ----------- |
+| limit    | 3     |             |
+| page     | 1     |             |
+| category | 1,2   |             |
+| region   | 2,4   |             |
 
-***Query params:***
+**_URL variables:_**
 
-| Key | Value | Description |
-| --- | ------|-------------|
-| limit | 3 |  |
-| page | 1 |  |
-| category | 1,2 |  |
-| region | 2,4 |  |
-
-
-
-***URL variables:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| query | adam |  |
-
-
+| Key   | Value | Description |
+| ----- | ----- | ----------- |
+| query | adam  |             |
 
 ## Stalls
+
 Fields allowed:
+
 - name: string;
 - description: string | null;
 - rating: number | null;
@@ -1671,13 +1323,9 @@ Fields allowed:
 - unitNo: string | null;
 - hawkerCentreId: number;
 
-
-
 ### 1. Bulk Destroy stalls
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -1685,23 +1333,17 @@ Type: RAW
 URL: {{server_url}}/stalls/bulkDestroy
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "ids": [18, 19]
 }
 ```
 
-
-
 ### 2. Create stall
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -1709,11 +1351,9 @@ Type: RAW
 URL: {{server_url}}/stalls
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "name": "3rd chicken Rice Stall",
     "description": "some description",
@@ -1724,18 +1364,13 @@ URL: {{server_url}}/stalls
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Create stall
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "name": "3rd chicken Rice Stall",
     "description": "some description",
@@ -1746,9 +1381,8 @@ URL: {{server_url}}/stalls
 }
 ```
 
-
-
 ##### I. Example Response: Create stall
+
 ```js
 {
     "id": 4,
@@ -1778,53 +1412,37 @@ URL: {{server_url}}/stalls
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
-
-
 
 ### 3. Delete stall
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
-Type: 
+Type:
 URL: {{server_url}}/stalls/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 10 |  |
+| --- | ----- | ----------- |
+| id  | 10    |             |
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Delete stall
 
-
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 4. Delete stall images
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -1832,31 +1450,23 @@ Type: RAW
 URL: {{server_url}}/stalls/:id/delete-images
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 4 |  |
+| --- | ----- | ----------- |
+| id  | 4     |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "imageIds": [30]
 }
 ```
 
-
-
 ### 5. Get stall
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
@@ -1864,194 +1474,170 @@ Type: RAW
 URL: {{server_url}}/stalls/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Get stall
 
-
-
-***Query:***
+**_Query:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
-
-
+| --- | ----- | ----------- |
+| id  |       |             |
 
 ##### I. Example Response: Get stall
+
 ```js
 [
-    {
-        "id": 1,
-        "name": "5 Star Chicken Rice Stall",
-        "description": "newer description",
-        "rating": 4.5,
-        "contactNo": "91234567",
-        "unitNo": "01-02",
-        "hawkerCentreId": 1,
-        "createdAt": "2020-12-09T06:37:05.828Z",
-        "updatedAt": "2020-12-09T06:37:35.710Z",
-        "Products": [
-            {
-                "id": 1,
-                "name": "Chicken Rice",
-                "category": "chinese cuisine",
-                "description": "delicious chicken rice",
-                "price": 3.8,
-                "image": "http://image_url",
-                "stallId": 1,
-                "createdAt": "2020-12-09T06:40:05.643Z",
-                "updatedAt": "2020-12-09T06:40:44.440Z"
-            }
-        ],
-        "HawkerCentre": {
-            "id": 1,
-            "name": "Yuhua Village Market",
-            "address": "254 Jurong East Street 24, Singapore 600254",
-            "regionId": 1,
-            "createdAt": "2020-12-09T06:26:55.647Z",
-            "updatedAt": "2020-12-09T06:29:04.408Z",
-            "Region": {
-                "id": 1,
-                "name": "West",
-                "createdAt": "2020-12-09T06:22:44.182Z",
-                "updatedAt": "2020-12-09T06:23:07.436Z"
-            }
-        }
-    }
-]
+  {
+    id: 1,
+    name: '5 Star Chicken Rice Stall',
+    description: 'newer description',
+    rating: 4.5,
+    contactNo: '91234567',
+    unitNo: '01-02',
+    hawkerCentreId: 1,
+    createdAt: '2020-12-09T06:37:05.828Z',
+    updatedAt: '2020-12-09T06:37:35.710Z',
+    Products: [
+      {
+        id: 1,
+        name: 'Chicken Rice',
+        category: 'chinese cuisine',
+        description: 'delicious chicken rice',
+        price: 3.8,
+        image: 'http://image_url',
+        stallId: 1,
+        createdAt: '2020-12-09T06:40:05.643Z',
+        updatedAt: '2020-12-09T06:40:44.440Z',
+      },
+    ],
+    HawkerCentre: {
+      id: 1,
+      name: 'Yuhua Village Market',
+      address: '254 Jurong East Street 24, Singapore 600254',
+      regionId: 1,
+      createdAt: '2020-12-09T06:26:55.647Z',
+      updatedAt: '2020-12-09T06:29:04.408Z',
+      Region: {
+        id: 1,
+        name: 'West',
+        createdAt: '2020-12-09T06:22:44.182Z',
+        updatedAt: '2020-12-09T06:23:07.436Z',
+      },
+    },
+  },
+];
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
-
-
 
 ### 6. Get stalls
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/stalls
 ```
 
+**_Query params:_**
 
+| Key   | Value | Description |
+| ----- | ----- | ----------- |
+| limit | 3     |             |
+| page  | 1     |             |
 
-***Query params:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| limit | 3 |  |
-| page | 1 |  |
-
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Get stalls
 
-
-
 ##### I. Example Response: Get stalls
+
 ```js
 [
-    {
-        "id": 1,
-        "name": "5 Star Chicken Rice Stall",
-        "description": "newer description",
-        "rating": 4.5,
-        "contactNo": "91234567",
-        "unitNo": "01-02",
-        "hawkerCentreId": 1,
-        "createdAt": "2020-12-09T06:37:05.828Z",
-        "updatedAt": "2020-12-09T06:37:35.710Z",
-        "Products": [
-            {
-                "id": 1,
-                "name": "Chicken Rice",
-                "category": "chinese cuisine",
-                "description": "delicious chicken rice",
-                "price": 3.8,
-                "image": "http://image_url",
-                "stallId": 1,
-                "createdAt": "2020-12-09T06:40:05.643Z",
-                "updatedAt": "2020-12-09T06:40:44.440Z"
-            }
-        ],
-        "HawkerCentre": {
-            "id": 1,
-            "name": "Yuhua Village Market",
-            "address": "254 Jurong East Street 24, Singapore 600254",
-            "regionId": 1,
-            "createdAt": "2020-12-09T06:26:55.647Z",
-            "updatedAt": "2020-12-09T06:29:04.408Z",
-            "Region": {
-                "id": 1,
-                "name": "West",
-                "createdAt": "2020-12-09T06:22:44.182Z",
-                "updatedAt": "2020-12-09T06:23:07.436Z"
-            }
-        }
+  {
+    id: 1,
+    name: '5 Star Chicken Rice Stall',
+    description: 'newer description',
+    rating: 4.5,
+    contactNo: '91234567',
+    unitNo: '01-02',
+    hawkerCentreId: 1,
+    createdAt: '2020-12-09T06:37:05.828Z',
+    updatedAt: '2020-12-09T06:37:35.710Z',
+    Products: [
+      {
+        id: 1,
+        name: 'Chicken Rice',
+        category: 'chinese cuisine',
+        description: 'delicious chicken rice',
+        price: 3.8,
+        image: 'http://image_url',
+        stallId: 1,
+        createdAt: '2020-12-09T06:40:05.643Z',
+        updatedAt: '2020-12-09T06:40:44.440Z',
+      },
+    ],
+    HawkerCentre: {
+      id: 1,
+      name: 'Yuhua Village Market',
+      address: '254 Jurong East Street 24, Singapore 600254',
+      regionId: 1,
+      createdAt: '2020-12-09T06:26:55.647Z',
+      updatedAt: '2020-12-09T06:29:04.408Z',
+      Region: {
+        id: 1,
+        name: 'West',
+        createdAt: '2020-12-09T06:22:44.182Z',
+        updatedAt: '2020-12-09T06:23:07.436Z',
+      },
     },
-    {
-        "id": 4,
-        "name": "3rd chicken Rice Stall",
-        "description": "some description",
-        "rating": 1.5,
-        "contactNo": "97654321",
-        "unitNo": "01-03",
-        "hawkerCentreId": 1,
-        "createdAt": "2020-12-10T07:40:42.437Z",
-        "updatedAt": "2020-12-10T07:40:42.437Z",
-        "Products": [],
-        "HawkerCentre": {
-            "id": 1,
-            "name": "Yuhua Village Market",
-            "address": "254 Jurong East Street 24, Singapore 600254",
-            "regionId": 1,
-            "createdAt": "2020-12-09T06:26:55.647Z",
-            "updatedAt": "2020-12-09T06:29:04.408Z",
-            "Region": {
-                "id": 1,
-                "name": "West",
-                "createdAt": "2020-12-09T06:22:44.182Z",
-                "updatedAt": "2020-12-09T06:23:07.436Z"
-            }
-        }
-    }
-]
+  },
+  {
+    id: 4,
+    name: '3rd chicken Rice Stall',
+    description: 'some description',
+    rating: 1.5,
+    contactNo: '97654321',
+    unitNo: '01-03',
+    hawkerCentreId: 1,
+    createdAt: '2020-12-10T07:40:42.437Z',
+    updatedAt: '2020-12-10T07:40:42.437Z',
+    Products: [],
+    HawkerCentre: {
+      id: 1,
+      name: 'Yuhua Village Market',
+      address: '254 Jurong East Street 24, Singapore 600254',
+      regionId: 1,
+      createdAt: '2020-12-09T06:26:55.647Z',
+      updatedAt: '2020-12-09T06:29:04.408Z',
+      Region: {
+        id: 1,
+        name: 'West',
+        createdAt: '2020-12-09T06:22:44.182Z',
+        updatedAt: '2020-12-09T06:23:07.436Z',
+      },
+    },
+  },
+];
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 7. Update stall
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: PUT
@@ -2059,52 +1645,40 @@ Type: RAW
 URL: {{server_url}}/stalls/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
+| --- | ----- | ----------- |
+| id  |       |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "description": "extremely updated description"
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Update stall
 
-
-
-***Query:***
+**_Query:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 1 |  |
+| --- | ----- | ----------- |
+| id  | 1     |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "description": "extremely updated description"
 }
 ```
 
-
-
 ##### I. Example Response: Update stall
+
 ```js
 {
     "id": 1,
@@ -2146,18 +1720,13 @@ URL: {{server_url}}/stalls/:id
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 8. Upload stall images
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -2165,48 +1734,36 @@ Type: FORMDATA
 URL: {{server_url}}/stalls/:id/upload
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 16 |  |
+| --- | ----- | ----------- |
+| id  | 16    |             |
 
+**_Body:_**
 
+| Key    | Value | Description |
+| ------ | ----- | ----------- |
+| images |       |             |
 
-***Body:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| images |  |  |
-
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Upload stall images
 
-
-
-***Query:***
+**_Query:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 1 |  |
+| --- | ----- | ----------- |
+| id  | 1     |             |
 
+**_Body:_**
 
-
-***Body:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| images |  |  |
-
-
+| Key    | Value | Description |
+| ------ | ----- | ----------- |
+| images |       |             |
 
 ##### I. Example Response: Upload stall images
+
 ```js
 {
     "id": 1,
@@ -2254,45 +1811,36 @@ URL: {{server_url}}/stalls/:id/upload
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ## Users
+
 Token needs sent in the header with "x-auth-token" as key and the token as value for routes that require authentication.
 
 Fields allowed:
+
 - email: string;
 - username: string;
 - password: string;
 - role: one of [admin, user]; (default is 'user' if 'role' value is not sent with the request)
 
-
-
 ### 1. Get users
-
 
 Requires admin token
 
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/users
 ```
 
-
-
 ### 2. Login user
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -2300,56 +1848,43 @@ Type: RAW
 URL: {{server_url}}/login
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "email": "fake_email@gmail.com",
     "password": "asdf"
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Login user
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "email": "fake_email@gmail.com",
     "password": "asdf"
 }
 ```
 
-
-
 ##### I. Example Response: Login user
+
 ```js
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA4Mzg4ODIwLCJleHAiOjE2MDg5OTM2MjB9.O6nzVJFmMG-bwOWWPjqMw_Ebt7pr9Csmc2A0AXeWruY"
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
 
-
-
 ### 3. Register admin
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -2357,11 +1892,9 @@ Type: RAW
 URL: {{server_url}}/register-admin
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "email": "fake_admin_@gmail.com",
     "username": "fake_username",
@@ -2369,13 +1902,9 @@ URL: {{server_url}}/register-admin
 }
 ```
 
-
-
 ### 4. Register user
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -2383,11 +1912,9 @@ Type: RAW
 URL: {{server_url}}/register
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "email": "fake_email@gmail.com",
     "username": "fake_username",
@@ -2395,45 +1922,34 @@ URL: {{server_url}}/register
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: Register user
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "email": "fake_email@gmail.com",
     "password": "asdf"
 }
 ```
 
-
-
 ##### I. Example Response: Register user
+
 ```js
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA4Mzg3MzE2LCJleHAiOjE2MDg5OTIxMTZ9.HTTRAhau8_we-HlJsRqsJgtBcYmDFROnlLSfgKomNfQ"
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
 
-
-
 ### 5. Update other user
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: PUT
@@ -2441,19 +1957,15 @@ Type: RAW
 URL: {{server_url}}/users/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 18 |  |
+| --- | ----- | ----------- |
+| id  | 18    |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "username": "updated_fake_email@gmail.com",
     "role": "admin",
@@ -2461,13 +1973,9 @@ URL: {{server_url}}/users/:id
 }
 ```
 
-
-
 ### 6. Update user
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: PUT
@@ -2475,36 +1983,23 @@ Type: RAW
 URL: {{server_url}}/updateUser
 ```
 
-
-***Headers:***
+**_Headers:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-|  |  |  |
+| --- | ----- | ----------- |
+|     |       |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
-<<<<<<< HEAD
-    "username": "helloaa",
-    "password": "password",
-    "role": "admin"
-=======
     "username": "hello",
     "password": "password"
->>>>>>> a7ddb732d90b20fbbc7846d7b29041a6b8898e71
 }
 ```
 
-
-
 ---
+
 [Back to top](#dk-api)
-<<<<<<< HEAD
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-15 14:59:43 by [docgen](https://github.com/thedevsaddam/docgen)
-=======
+
 > Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-17 20:37:06 by [docgen](https://github.com/thedevsaddam/docgen)
->>>>>>> a7ddb732d90b20fbbc7846d7b29041a6b8898e71

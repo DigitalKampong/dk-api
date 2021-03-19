@@ -365,10 +365,41 @@ async function destroyStallFavourite(req: Request, res: Response, next: NextFunc
   }
 }
 
+async function retrieveFeatureStalls(req: Request, res: Response, next: NextFunction) {
+  try {
+    let limit = parseInt(req.query.limit! as string);
+    let page = parseInt(req.query.page! as string);
+
+    if (!limit || !page) {
+      limit = 20;
+      page = 1;
+    }
+
+    const offset = (page - 1) * limit;
+    const stalls = await Stall.findAndCountAll({
+      where: {
+        isFeatured: true,
+      },
+      order: [['id', 'ASC']],
+      include: getStallsInclude(),
+      limit: limit,
+      offset: offset,
+      distinct: true,
+    });
+
+    const rows = await fmtStallsResp(stalls.rows);
+    const pagination = generatePagination(limit, page, stalls.count, '/stalls/featured');
+    res.status(200).json(fmtPaginationResp(stalls.count, rows, pagination));
+  } catch (err) {
+    next(err);
+  }
+}
+
 export { getStallInclude, getStallsInclude, fmtStallResp, fmtStallsResp };
 
 export const indexStallFuncs = [indexStall];
 export const showStallFuncs = [retrieveStall, showStall];
+export const showFeaturedStallFuncs = [retrieveFeatureStalls];
 export const createStallFuncs = [createStall];
 export const bulkCreateStallsFuncs = [bulkCreateStalls];
 export const updateStallFuncs = [retrieveStall, updateStall];

@@ -10,11 +10,5 @@ router.get('/:id', securityQuestionController.showSecurityQuestionFuncs);
 router.post('/', adminAuth, securityQuestionController.createSecurityQuestionFuncs);
 router.put('/:id', adminAuth, securityQuestionController.updateSecurityQuestionFuncs);
 router.delete('/:id', adminAuth, securityQuestionController.destroySecurityQuestionFuncs);
-router.put('/:id/activate', adminAuth, securityQuestionController.activateSecurityQuestionFuncs);
-router.put(
-  '/:id/deactivate',
-  adminAuth,
-  securityQuestionController.deactivateSecurityQuestionFuncs
-);
 
 export default router;

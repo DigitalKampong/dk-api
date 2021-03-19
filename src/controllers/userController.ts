@@ -103,9 +103,16 @@ async function retrieveUserByEmail(req: Request, res: Response, next: NextFuncti
       where: {
         email: req.query.email,
       },
+
+      //Exclude these attribtues for security reasons, only return usedId and email which is sufficient
+      //for FE to get the user Id to send a POST request during validation
+
+      attributes: {
+        exclude: ['password', 'role', 'username'],
+      },
     });
 
-    if (!user) throw new Error('User with email does not exist!');
+    if (!user) throw new NotFoundError('User with email does not exist!');
 
     res.status(200).json(user);
   } catch (err) {

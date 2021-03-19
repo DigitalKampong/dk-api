@@ -1,8 +1,13 @@
-import { UserAnswer, User } from '../models/';
+import { UserAnswer, SecurityQuestion } from '../models/';
 import { Request, Response, NextFunction } from 'express';
 import { NotFoundError, BadRequestError, UnauthorizedError } from '../errors/httpErrors';
 import { UniqueConstraintError } from 'sequelize';
 import bcrypt from 'bcryptjs';
+
+interface questionAnswerSet {
+  questionId: number;
+  answer: string;
+}
 
 async function retrieveUserAnswer(req: Request, res: Response, next: NextFunction) {
   try {
@@ -17,41 +22,23 @@ async function retrieveUserAnswer(req: Request, res: Response, next: NextFunctio
   }
 }
 
-async function indexUserAnswer(req: Request, res: Response, next: NextFunction) {
-  try {
-    const userAnswers = await UserAnswer.findAll();
-    res.status(200).json(userAnswers);
-  } catch (err) {
-    next(err);
-  }
-}
-
-async function showUserAnswer(req: Request, res: Response, next: NextFunction) {
-  try {
-    res.status(200).json(req.userAnswer);
-  } catch (err) {
-    next(err);
-  }
-}
-
 async function createUserAnswer(req: Request, res: Response, next: NextFunction) {
   try {
-    if (req.body.cotent) req.body.content = req.body.content.trim(); // Remove whitespace before hashing
+    if (!req.body.content)
+      throw new BadRequestError('Answer for security question must not be empty!');
+
+    req.body.content = req.body.content.trim();
+
+    const question = await SecurityQuestion.findByPk(req.body.securityQuestionId);
+
+    if (!question || !question.isActive)
+      throw new BadRequestError('Question does not exist or is not active!');
 
     const userAnswer = await UserAnswer.create(req.body);
     res.status(201).json(userAnswer);
   } catch (err) {
     if (err instanceof UniqueConstraintError)
       next(new BadRequestError('The User already has already used this question!'));
-    next(err);
-  }
-}
-
-async function updateUserAnswer(req: Request, res: Response, next: NextFunction) {
-  try {
-    const userAnswer = await req.userAnswer!.update(req.body);
-    res.status(200).json(userAnswer);
-  } catch (err) {
     next(err);
   }
 }
@@ -67,22 +54,30 @@ async function destroyUserAnswer(req: Request, res: Response, next: NextFunction
 
 async function validateSecurityQuestionAnswer(req: Request, res: Response, next: NextFunction) {
   try {
-    const { userId, questionId, answer } = req.body;
-    const userAnswer = await UserAnswer.findOne({
-      where: {
-        userId,
-        securityQuestionId: questionId,
-      },
-    });
+    const { userId, questionAnswerSet } = req.body;
 
-    if (!userAnswer) {
-      throw new BadRequestError('Answer cannot be found!');
-    }
+    await Promise.all(
+      questionAnswerSet.map(async (questionAnswer: questionAnswerSet) => {
+        const questionId = questionAnswer.questionId;
+        const answer = questionAnswer.answer;
 
-    const isMatch = await bcrypt.compare(answer.trim(), userAnswer!.content);
-    if (!isMatch) {
-      throw new UnauthorizedError('Wrong answer!');
-    }
+        const userAnswer = await UserAnswer.findOne({
+          where: {
+            userId,
+            securityQuestionId: questionId,
+          },
+        });
+
+        if (!userAnswer) {
+          throw new BadRequestError('Answer cannot be found!');
+        }
+
+        const isMatch = await bcrypt.compare(answer.trim(), userAnswer!.content);
+        if (!isMatch) {
+          throw new UnauthorizedError('Wrong answer!');
+        }
+      })
+    );
 
     res.status(200).json('Answered Question Successfully!');
   } catch (err) {
@@ -90,9 +85,6 @@ async function validateSecurityQuestionAnswer(req: Request, res: Response, next:
   }
 }
 
-export const indexUserAnswerFuncs = [indexUserAnswer];
-export const showUserAnswerFuncs = [retrieveUserAnswer, showUserAnswer];
 export const createUserAnswerFuncs = [createUserAnswer];
-export const updateUserAnswerFuncs = [retrieveUserAnswer, updateUserAnswer];
 export const destroyUserAnswerFuncs = [retrieveUserAnswer, destroyUserAnswer];
 export const validateUserAnswerFuncs = [validateSecurityQuestionAnswer];

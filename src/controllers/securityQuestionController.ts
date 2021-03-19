@@ -72,30 +72,6 @@ async function destroySecurityQuestion(req: Request, res: Response, next: NextFu
   }
 }
 
-async function activateSecurityQuestion(req: Request, res: Response, next: NextFunction) {
-  try {
-    const updatedQuestion = { ...req.securityQuestion };
-    updatedQuestion.isActive = true;
-
-    const securityQuestion = await req.securityQuestion!.update(updatedQuestion);
-    res.status(200).json(securityQuestion);
-  } catch (err) {
-    next(err);
-  }
-}
-
-async function deactivateSecurityQuestion(req: Request, res: Response, next: NextFunction) {
-  try {
-    const updatedQuestion = { ...req.securityQuestion };
-    updatedQuestion.isActive = false;
-
-    const securityQuestion = await req.securityQuestion!.update(updatedQuestion);
-    res.status(200).json(securityQuestion);
-  } catch (err) {
-    next(err);
-  }
-}
-
 export const indexSecurityQuestionFuncs = [indexSecurityQuestion];
 export const showSecurityQuestionFuncs = [retrieveSecurityQuestion, showSecurityQuestion];
 export const createSecurityQuestionFuncs = [createSecurityQuestion];
@@ -104,10 +80,3 @@ export const destroySecurityQuestionFuncs = [retrieveSecurityQuestion, destroySe
 
 // Get all isActive Security Questions
 export const indexActiveSecurityQuestionFuncs = [indexActiveSecurityQuestion];
-
-// For Easy toggling of isActive on admin console side
-export const activateSecurityQuestionFuncs = [retrieveSecurityQuestion, activateSecurityQuestion];
-export const deactivateSecurityQuestionFuncs = [
-  retrieveSecurityQuestion,
-  deactivateSecurityQuestion,
-];

@@ -75,18 +75,18 @@ UserAnswer.init(
   { sequelize }
 );
 
-async function hashPassword(password: string) {
+async function hashAnswer(password: string) {
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);
 }
 
 UserAnswer.addHook('beforeCreate', async (userAnswer: UserAnswer, _options) => {
-  userAnswer.content = await hashPassword(userAnswer.content);
+  userAnswer.content = await hashAnswer(userAnswer.content);
 });
 
 UserAnswer.addHook('beforeUpdate', async (userAnswer: UserAnswer, _options) => {
   if (userAnswer.changed('content')) {
-    userAnswer.content = await hashPassword(userAnswer.content);
+    userAnswer.content = await hashAnswer(userAnswer.content);
   }
 });
 

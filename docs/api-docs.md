@@ -1993,13 +1993,13 @@ URL: {{server_url}}/updateUser
 
 ```js
 {
-    "username": "helloaa",
-    "password": "password",
-    "role": "admin"
+    "username": "hello",
+    "password": "password"
 }
 ```
 
 ---
 
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-15 14:59:43 by [docgen](https://github.com/thedevsaddam/docgen)
+
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-17 20:37:06 by [docgen](https://github.com/thedevsaddam/docgen)

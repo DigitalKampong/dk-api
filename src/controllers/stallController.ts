@@ -223,26 +223,32 @@ async function importStalls(req: Request, res: Response, next: NextFunction) {
       throw new BadRequestError('No file found in request');
     }
 
-    const csvString = req.file.buffer.toString('utf-8');
+    const csvString = req.file.buffer.toString('utf-8').trim();
     const data = [];
-    const parseErrors = [];
+    let parseError = '';
+    let currRow = 1;
 
     await new Promise((resolve, _reject) => {
       const stream = parse({ headers: true })
         .on('error', err => {
-          console.error(err);
-          parseErrors.push(err);
+          // Stream will automatically exit once a parsing error is detected.
+          const errMsg = `Row ${currRow}: ${err.message}`;
+          console.error(errMsg);
+          parseError = errMsg;
+          currRow += 1;
         })
-        .on('data', row => data.push(row))
+        .on('data', row => {
+          data.push(row);
+          currRow += 1;
+        })
         .on('end', (rowCount: number) => resolve(rowCount));
 
       stream.write(csvString);
       stream.end();
     });
 
-    if (parseErrors.length > 0) {
-      console.log(parseErrors);
-      throw new BadRequestError(parseErrors);
+    if (parseError !== '') {
+      throw new BadRequestError(parseError);
     }
 
     const stalls = await Stall.bulkCreate(data);

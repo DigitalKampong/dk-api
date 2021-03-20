@@ -201,6 +201,17 @@ async function bulkCreateStalls(req: Request, res: Response, next: NextFunction)
   }
 }
 
+async function importStalls(req: Request, res: Response, next: NextFunction) {
+
+  // try {
+    
+  // } catch (err) {
+  //   next(err);
+  // }
+
+  res.status(200).json('success');
+}
+
 async function updateStall(req: Request, res: Response, next: NextFunction) {
   try {
     const stall = await req.stall!.update(req.body);
@@ -371,6 +382,7 @@ export const indexStallFuncs = [indexStall];
 export const showStallFuncs = [retrieveStall, showStall];
 export const createStallFuncs = [createStall];
 export const bulkCreateStallsFuncs = [bulkCreateStalls];
+export const importStallsFuncs = [importStalls];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];
 export const bulkDestroyStallsFuncs = [bulkDestroyStalls];

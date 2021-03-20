@@ -2859,7 +2859,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"hello\",\n    \"password\": \"password\"\n}",
+							"raw": "{\n    \"username\": \"helloaa\",\n    \"password\": \"password\",\n    \"role\": \"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"

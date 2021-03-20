@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 import { User } from '../models';
-import { UserCreationAttributes } from '../models/User';
+import { UserCreationAttributes, hashPassword } from '../models/User';
 import { BadRequestError, NotFoundError, UnauthorizedError } from '../errors/httpErrors';
 import { ACCESS_TOKEN_SECRET } from '../consts';
 
@@ -155,6 +155,20 @@ async function updateUser(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function updateUserPassword(req: Request, res: Response, next: NextFunction) {
+  try {
+    const newPassword = req.body.newPassword;
+
+    const updatedUser = await req.user!.update({
+      password: newPassword,
+    });
+
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export const registerFuncs = [register];
 export const registerAdminFuncs = [registerAdmin];
 export const loginFuncs = [login];
@@ -162,3 +176,4 @@ export const indexUserFuncs = [indexUser];
 export const retrieveUserByEmailFuncs = [retrieveUserByEmail];
 export const updateUserFuncs = [updateUser];
 export const updateOtherUserFuncs = [updateOtherUser];
+export const updateUserPasswordFuncs = [updateUserPassword];

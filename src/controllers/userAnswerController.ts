@@ -1,8 +1,9 @@
-import { UserAnswer, SecurityQuestion } from '../models/';
+import { UserAnswer, SecurityQuestion, User } from '../models/';
 import { Request, Response, NextFunction } from 'express';
 import { NotFoundError, BadRequestError, UnauthorizedError } from '../errors/httpErrors';
 import { UniqueConstraintError } from 'sequelize';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 interface questionAnswerSet {
   questionId: number;
@@ -79,7 +80,27 @@ async function validateSecurityQuestionAnswer(req: Request, res: Response, next:
       })
     );
 
-    res.status(200).json('Answered Question Successfully!');
+    const user = await User.findByPk(userId);
+
+    if (!user) throw new NotFoundError('No user with this id found!');
+
+    const password = user.password;
+
+    const payload = {
+      id: user.id,
+    };
+
+    console.log(password);
+
+    jwt.sign(
+      payload,
+      password,
+      { expiresIn: '1d' }, //600s -> 10 mins
+      (err: Error | null, token: string | undefined) => {
+        if (err) throw err;
+        res.status(201).json({ token: token! });
+      }
+    );
   } catch (err) {
     next(err);
   }

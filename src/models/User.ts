@@ -123,10 +123,10 @@ User.init(
   { sequelize }
 );
 
-async function hashPassword(password: string) {
+export const hashPassword = async (password: string) => {
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);
-}
+};
 
 // Typescript registers user as Model<UserAttributes, UserCreationAttributes> but reports that password property is missing.
 // Can relook this later when we have the time.

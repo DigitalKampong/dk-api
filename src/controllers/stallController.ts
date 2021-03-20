@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { json, UniqueConstraintError } from 'sequelize';
+import { UniqueConstraintError } from 'sequelize';
 import { Includeable } from 'sequelize/types';
 import multer from 'multer';
 import { parse } from 'fast-csv';
@@ -17,6 +17,7 @@ import { Stall, HawkerCentre, Review, Product, Favourite } from '../models';
 import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
 import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
 import { generateFileFilter } from '../utils/uploadUtil';
+import { StallCreationAttributes } from '../models/Stall';
 
 /*
  * Returns the includes needed to fetch associated models for a single stall response
@@ -232,7 +233,7 @@ async function importStalls(req: Request, res: Response, next: NextFunction) {
     }
 
     const csvString = req.file.buffer.toString('utf-8').trim();
-    const data = [];
+    const data: StallCreationAttributes[] = [];
     let parseError = '';
     let currRow = 2; // header is on first row
 

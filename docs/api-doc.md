@@ -70,6 +70,15 @@
 
   * [Search stalls](#1-search-stalls)
 
+* [SecurityQuestions](#securityquestions)
+
+  * [Create SecurityQuestion](#1-create-securityquestion)
+  * [Create SecurityQuestion Copy](#2-create-securityquestion-copy)
+  * [Delete SecurityQuestions](#3-delete-securityquestions)
+  * [Get Active SecurityQuestions](#4-get-active-securityquestions)
+  * [Get All SecurityQuestions](#5-get-all-securityquestions)
+  * [Get SecurityQuestion](#6-get-securityquestion)
+
 * [Stalls](#stalls)
 
   * [Bulk Destroy stalls](#1-bulk-destroy-stalls)
@@ -81,14 +90,21 @@
   * [Update stall](#7-update-stall)
   * [Upload stall images](#8-upload-stall-images)
 
+* [UserAnswers](#useranswers)
+
+  * [Create User Answer](#1-create-user-answer)
+  * [Delete User Answer](#2-delete-user-answer)
+  * [Validate User Answers](#3-validate-user-answers)
+
 * [Users](#users)
 
-  * [Get users](#1-get-users)
-  * [Login user](#2-login-user)
-  * [Register admin](#3-register-admin)
-  * [Register user](#4-register-user)
-  * [Update other user](#5-update-other-user)
-  * [Update user](#6-update-user)
+  * [Get user by email](#1-get-user-by-email)
+  * [Get users](#2-get-users)
+  * [Login user](#3-login-user)
+  * [Register admin](#4-register-admin)
+  * [Register user](#5-register-user)
+  * [Update other user](#6-update-other-user)
+  * [Update user](#7-update-user)
 
 
 --------
@@ -1662,6 +1678,152 @@ URL: {{server_url}}/search/:query
 
 
 
+## SecurityQuestions
+
+
+
+### 1. Create SecurityQuestion
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/securityQuestions
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "content": "What is the name of your primary school?",
+    "isActive": "true"
+}
+```
+
+
+
+### 2. Create SecurityQuestion Copy
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: PUT
+Type: RAW
+URL: {{server_url}}/securityQuestions/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 1 |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "content": "What is the name of your primary school?",
+    "isActive": "false"
+}
+```
+
+
+
+### 3. Delete SecurityQuestions
+
+
+Request will only be successful if there is no current user using this question
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: 
+URL: {{server_url}}/securityQuestions/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 1 |  |
+
+
+
+### 4. Get Active SecurityQuestions
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/securityQuestions
+```
+
+
+
+### 5. Get All SecurityQuestions
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/securityQuestions/all
+```
+
+
+
+### 6. Get SecurityQuestion
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/securityQuestions/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 1 |  |
+
+
+
 ## Stalls
 Fields allowed:
 - name: string;
@@ -2261,6 +2423,103 @@ URL: {{server_url}}/stalls/:id/upload
 
 
 
+## UserAnswers
+
+
+
+### 1. Create User Answer
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/userAnswers
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "content": "My dog name is Scooby",
+    "userId": 2,
+    "securityQuestionId": 1
+}
+```
+
+
+
+### 2. Delete User Answer
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: 
+URL: {{server_url}}/userAnswers/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
+
+
+
+### 3. Validate User Answers
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/userAnswers/validate
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "userId": 1,
+    "questionAnswerSet": [
+        {
+            "questionId": 1,
+             "answer": "My name is Goofy"
+        },
+        {
+            "questionId": 2,
+             "answer": "My name is Donald"
+        },
+        {
+            "questionId": 3,
+             "answer": "My name is Mickey"
+        }
+
+    ]
+}
+```
+
+
+
 ## Users
 Token needs sent in the header with "x-auth-token" as key and the token as value for routes that require authentication.
 
@@ -2272,7 +2531,31 @@ Fields allowed:
 
 
 
-### 1. Get users
+### 1. Get user by email
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/users/email
+```
+
+
+
+***Query params:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| email | fake_email@gmail.com |  |
+
+
+
+### 2. Get users
 
 
 Requires admin token
@@ -2288,7 +2571,7 @@ URL: {{server_url}}/users
 
 
 
-### 2. Login user
+### 3. Login user
 
 
 
@@ -2345,7 +2628,7 @@ URL: {{server_url}}/login
 
 
 
-### 3. Register admin
+### 4. Register admin
 
 
 
@@ -2371,7 +2654,7 @@ URL: {{server_url}}/register-admin
 
 
 
-### 4. Register user
+### 5. Register user
 
 
 
@@ -2429,7 +2712,7 @@ URL: {{server_url}}/register
 
 
 
-### 5. Update other user
+### 6. Update other user
 
 
 
@@ -2463,7 +2746,7 @@ URL: {{server_url}}/users/:id
 
 
 
-### 6. Update user
+### 7. Update user
 
 
 
@@ -2497,4 +2780,4 @@ URL: {{server_url}}/updateUser
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-17 20:37:06 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-20 16:19:48 by [docgen](https://github.com/thedevsaddam/docgen)

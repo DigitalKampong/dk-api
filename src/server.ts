@@ -21,6 +21,8 @@ import users from './routes/users';
 // import reset from './routes/reset';
 import reviews from './routes/reviews';
 import favourites from './routes/favourites';
+import securityQuestions from './routes/securityQuestions';
+import userAnswers from './routes/userAnswers';
 
 const app = express();
 
@@ -43,6 +45,8 @@ app.use('/search', search);
 app.use('/', users);
 app.use('/reviews', reviews);
 app.use('/favourites', favourites);
+app.use('/securityQuestions', securityQuestions);
+app.use('/userAnswers', userAnswers);
 
 app.all('*', (req: Request, res: Response) => {
   const err = new NotFoundError('You are at the wrong place. Page cannot be found. Shoo!');

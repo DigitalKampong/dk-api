@@ -10,7 +10,7 @@ function generateFileFilter(regexp: RegExp) {
 
     if (!result || !regexp.test(result)) {
       // Short circuits the request chain
-      cb(new BadRequestError(`Invalid mimetype for ${file.originalname}`));
+      cb(new BadRequestError(`Invalid mimetype for ${file.originalname}. Only accept ${regexp}`));
     } else {
       cb(null, true);
     }

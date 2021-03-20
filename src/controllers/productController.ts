@@ -9,7 +9,7 @@ import {
 import { Product, Stall } from '../models';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
-import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
+import { MAX_NUM_IMAGES, UPLOAD_IMAGE_FORM_FIELD } from '../consts';
 import sequelize from '../db';
 
 function getProductInclude() {
@@ -130,7 +130,7 @@ export const updateProductFuncs = [retrieveProduct, updateProduct];
 export const destroyProductFuncs = [retrieveProduct, destroyProduct];
 export const uploadProductImagesFuncs = [
   retrieveProduct,
-  upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
+  upload.array(UPLOAD_IMAGE_FORM_FIELD, MAX_NUM_IMAGES),
   uploadFormImgs,
   uploadProductImages,
 ];

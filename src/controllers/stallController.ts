@@ -1,14 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
-import { UniqueConstraintError } from 'sequelize';
+import { json, UniqueConstraintError } from 'sequelize';
 import { Includeable } from 'sequelize/types';
+import multer from 'multer';
+import { parse } from 'fast-csv';
 
-import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
+import {
+  UPLOAD_CSV_FORM_FIELD,
+  MAX_CSV_SIZE,
+  MAX_NUM_IMAGES,
+  UPLOAD_IMAGE_FORM_FIELD,
+} from '../consts';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
 import sequelize from '../db';
 import { Stall, HawkerCentre, Review, Product, Favourite } from '../models';
 import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
 import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
+import { generateFileFilter } from '../utils/uploadUtil';
 
 /*
  * Returns the includes needed to fetch associated models for a single stall response
@@ -190,6 +198,7 @@ async function createStall(req: Request, res: Response, next: NextFunction) {
 
 async function bulkCreateStalls(req: Request, res: Response, next: NextFunction) {
   try {
+    // TODO: This has no pagination, should just return a success message like importStalls.
     const stalls = await Stall.bulkCreate(req.body);
     stalls.forEach(async stall => {
       await stall.reload({ include: getStallInclude() });
@@ -201,15 +210,46 @@ async function bulkCreateStalls(req: Request, res: Response, next: NextFunction)
   }
 }
 
+// Upload csv files to import data
+const csvUpload = multer({
+  storage: multer.memoryStorage(),
+  fileFilter: generateFileFilter(/csv/),
+  limits: { fileSize: MAX_CSV_SIZE },
+});
+
 async function importStalls(req: Request, res: Response, next: NextFunction) {
+  try {
+    if (!req.file) {
+      throw new BadRequestError('No file found in request');
+    }
 
-  // try {
-    
-  // } catch (err) {
-  //   next(err);
-  // }
+    const csvString = req.file.buffer.toString('utf-8');
+    const data = [];
+    const parseErrors = [];
 
-  res.status(200).json('success');
+    await new Promise((resolve, _reject) => {
+      const stream = parse({ headers: true })
+        .on('error', err => {
+          console.error(err);
+          parseErrors.push(err);
+        })
+        .on('data', row => data.push(row))
+        .on('end', (rowCount: number) => resolve(rowCount));
+
+      stream.write(csvString);
+      stream.end();
+    });
+
+    if (parseErrors.length > 0) {
+      console.log(parseErrors);
+      throw new BadRequestError(parseErrors);
+    }
+
+    const stalls = await Stall.bulkCreate(data);
+    res.status(200).json(`Successfully created ${stalls.length} stalls`);
+  } catch (err) {
+    next(err);
+  }
 }
 
 async function updateStall(req: Request, res: Response, next: NextFunction) {
@@ -382,14 +422,14 @@ export const indexStallFuncs = [indexStall];
 export const showStallFuncs = [retrieveStall, showStall];
 export const createStallFuncs = [createStall];
 export const bulkCreateStallsFuncs = [bulkCreateStalls];
-export const importStallsFuncs = [importStalls];
+export const importStallsFuncs = [csvUpload.single(UPLOAD_CSV_FORM_FIELD), importStalls];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];
 export const bulkDestroyStallsFuncs = [bulkDestroyStalls];
 
 export const uploadStallImagesFuncs = [
   retrieveStall,
-  upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
+  upload.array(UPLOAD_IMAGE_FORM_FIELD, MAX_NUM_IMAGES),
   uploadFormImgs,
   uploadStallImages,
 ];

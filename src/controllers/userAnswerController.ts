@@ -95,7 +95,7 @@ async function validateSecurityQuestionAnswer(req: Request, res: Response, next:
     jwt.sign(
       payload,
       password,
-      { expiresIn: '1d' }, //600s -> 10 mins
+      { expiresIn: 600 }, //600s -> 10 mins
       (err: Error | null, token: string | undefined) => {
         if (err) throw err;
         res.status(201).json({ token: token! });

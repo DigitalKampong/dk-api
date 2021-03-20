@@ -210,13 +210,21 @@ async function bulkCreateStalls(req: Request, res: Response, next: NextFunction)
   }
 }
 
-// Upload csv files to import data
+// Upload csv file to import data
 const csvUpload = multer({
   storage: multer.memoryStorage(),
   fileFilter: generateFileFilter(/csv/),
   limits: { fileSize: MAX_CSV_SIZE },
 });
 
+/**
+ * Csvfile needs to have stall attributes as its header on the first row.
+ *
+ * Example of csv file:
+ * name,description,contactNo,unitNo,hawkerCentreId
+ * test,test description,97654321,#01-02,null,1
+ * test2,test description 2,97654321,#01-02,null,1
+ */
 async function importStalls(req: Request, res: Response, next: NextFunction) {
   try {
     if (!req.file) {
@@ -226,7 +234,7 @@ async function importStalls(req: Request, res: Response, next: NextFunction) {
     const csvString = req.file.buffer.toString('utf-8').trim();
     const data = [];
     let parseError = '';
-    let currRow = 1;
+    let currRow = 2; // header is on first row
 
     await new Promise((resolve, _reject) => {
       const stream = parse({ headers: true })

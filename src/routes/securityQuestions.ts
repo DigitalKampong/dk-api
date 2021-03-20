@@ -4,8 +4,8 @@ import { adminAuth } from '../middleware/auth';
 
 const router = Router();
 
-router.get('/', securityQuestionController.indexSecurityQuestionFuncs);
-router.get('/active', securityQuestionController.indexActiveSecurityQuestionFuncs);
+router.get('/', securityQuestionController.indexActiveSecurityQuestionFuncs);
+router.get('/all', securityQuestionController.indexSecurityQuestionFuncs);
 router.get('/:id', securityQuestionController.showSecurityQuestionFuncs);
 router.post('/', adminAuth, securityQuestionController.createSecurityQuestionFuncs);
 router.put('/:id', adminAuth, securityQuestionController.updateSecurityQuestionFuncs);

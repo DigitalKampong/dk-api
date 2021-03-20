@@ -76,8 +76,8 @@
   * [Create SecurityQuestion Copy](#2-create-securityquestion-copy)
   * [Delete SecurityQuestions](#3-delete-securityquestions)
   * [Get Active SecurityQuestions](#4-get-active-securityquestions)
-  * [Get SecurityQuestion](#5-get-securityquestion)
-  * [Get SecurityQuestions](#6-get-securityquestions)
+  * [Get All SecurityQuestions](#5-get-all-securityquestions)
+  * [Get SecurityQuestion](#6-get-securityquestion)
 
 * [Stalls](#stalls)
 
@@ -1779,12 +1779,28 @@ Requires admin token
 ```bash
 Method: GET
 Type: 
-URL: {{server_url}}/securityQuestions/active
+URL: {{server_url}}/securityQuestions
 ```
 
 
 
-### 5. Get SecurityQuestion
+### 5. Get All SecurityQuestions
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/securityQuestions/all
+```
+
+
+
+### 6. Get SecurityQuestion
 
 
 Requires admin token
@@ -1805,22 +1821,6 @@ URL: {{server_url}}/securityQuestions/:id
 | Key | Value | Description |
 | --- | ------|-------------|
 | id | 1 |  |
-
-
-
-### 6. Get SecurityQuestions
-
-
-Requires admin token
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: {{server_url}}/securityQuestions
-```
 
 
 
@@ -2780,4 +2780,4 @@ URL: {{server_url}}/updateUser
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-20 00:53:09 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-20 16:19:48 by [docgen](https://github.com/thedevsaddam/docgen)

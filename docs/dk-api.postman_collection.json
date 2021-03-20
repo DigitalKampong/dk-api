@@ -3536,7 +3536,7 @@
 			"name": "SecurityQuestions",
 			"item": [
 				{
-					"name": "Get SecurityQuestions",
+					"name": "Get Active SecurityQuestions",
 					"request": {
 						"auth": {
 							"type": "apikey",
@@ -3569,6 +3569,47 @@
 							],
 							"path": [
 								"securityQuestions"
+							]
+						},
+						"description": "Requires admin token"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All SecurityQuestions",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{server_url}}/securityQuestions/all",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"securityQuestions",
+								"all"
 							]
 						},
 						"description": "Requires admin token"
@@ -3616,47 +3657,6 @@
 									"key": "id",
 									"value": "1"
 								}
-							]
-						},
-						"description": "Requires admin token"
-					},
-					"response": []
-				},
-				{
-					"name": "Get Active SecurityQuestions",
-					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{token}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "x-auth-token",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "",
-								"type": "text",
-								"value": "",
-								"disabled": true
-							}
-						],
-						"url": {
-							"raw": "{{server_url}}/securityQuestions/active",
-							"host": [
-								"{{server_url}}"
-							],
-							"path": [
-								"securityQuestions",
-								"active"
 							]
 						},
 						"description": "Requires admin token"

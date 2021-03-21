@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
 import { User } from '../models';
-import { UserCreationAttributes, hashPassword } from '../models/User';
+import { UserCreationAttributes } from '../models/User';
 import { BadRequestError, NotFoundError, UnauthorizedError } from '../errors/httpErrors';
 import { ACCESS_TOKEN_SECRET } from '../consts';
 

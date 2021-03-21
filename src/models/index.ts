@@ -39,5 +39,7 @@ export { default as Review } from './Review';
 export { default as Stall } from './Stall';
 export { default as User } from './User';
 export { default as Favourite } from './Favourite';
+export { default as SecurityQuestion } from './SecurityQuestion';
+export { default as UserAnswer } from './UserAnswer';
 
 export default models;

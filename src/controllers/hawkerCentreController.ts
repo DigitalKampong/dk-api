@@ -4,7 +4,7 @@ import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
 import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
 import { fmtStallsResp } from './stallController';
-import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
+import { MAX_NUM_IMAGES, UPLOAD_IMAGE_FORM_FIELD } from '../consts';
 import sequelize from '../db';
 import { Includeable } from 'sequelize/types';
 
@@ -160,7 +160,7 @@ export const updateHawkerCentreFuncs = [retrieveHawkerCentre, updateHawkerCentre
 export const destroyHawkerCentreFuncs = [retrieveHawkerCentre, destroyHawkerCentre];
 export const uploadHawkerCentreImagesFuncs = [
   retrieveHawkerCentre,
-  upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
+  upload.array(UPLOAD_IMAGE_FORM_FIELD, MAX_NUM_IMAGES),
   uploadFormImgs,
   uploadHawkerCentreImages,
 ];

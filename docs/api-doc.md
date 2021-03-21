@@ -87,8 +87,9 @@
   * [Delete stall images](#4-delete-stall-images)
   * [Get stall](#5-get-stall)
   * [Get stalls](#6-get-stalls)
-  * [Update stall](#7-update-stall)
-  * [Upload stall images](#8-upload-stall-images)
+  * [Import stalls CSV](#7-import-stalls-csv)
+  * [Update stall](#8-update-stall)
+  * [Upload stall images](#9-upload-stall-images)
 
 * [UserAnswers](#useranswers)
 
@@ -2209,7 +2210,29 @@ URL: {{server_url}}/stalls
 
 
 
-### 7. Update stall
+### 7. Import stalls CSV
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: FORMDATA
+URL: {{server_url}}/stalls/import
+```
+
+
+
+***Body:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| file |  |  |
+
+
+
+### 8. Update stall
 
 
 
@@ -2315,7 +2338,7 @@ URL: {{server_url}}/stalls/:id
 
 
 
-### 8. Upload stall images
+### 9. Upload stall images
 
 
 
@@ -2780,4 +2803,4 @@ URL: {{server_url}}/updateUser
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-20 16:19:48 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-20 23:19:58 by [docgen](https://github.com/thedevsaddam/docgen)

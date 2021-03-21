@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "56761b62-5897-4a16-81e8-9e5e98a786e8",
+		"_postman_id": "cd70f835-0d71-4fbf-a4d4-d941dd6f8938",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1106,6 +1106,49 @@
 							"body": ""
 						}
 					]
+				},
+				{
+					"name": "Import stalls CSV",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/ivan/Desktop/digital-kampung/stall_import.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server_url}}/stalls/import",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls",
+								"import"
+							]
+						}
+					},
+					"response": []
 				},
 				{
 					"name": "Bulk Destroy stalls",

@@ -1,14 +1,23 @@
 import { Request, Response, NextFunction } from 'express';
 import { UniqueConstraintError } from 'sequelize';
 import { Includeable } from 'sequelize/types';
+import multer from 'multer';
+import { parse } from 'fast-csv';
 
-import { MAX_NUM_IMAGES, UPLOAD_FORM_FIELD } from '../consts';
+import {
+  UPLOAD_CSV_FORM_FIELD,
+  MAX_CSV_SIZE,
+  MAX_NUM_IMAGES,
+  UPLOAD_IMAGE_FORM_FIELD,
+} from '../consts';
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
 import sequelize from '../db';
 import { Stall, HawkerCentre, Review, Product, Favourite } from '../models';
 import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
 import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
+import { generateFileFilter } from '../utils/uploadUtil';
+import { StallCreationAttributes } from '../models/Stall';
 
 /*
  * Returns the includes needed to fetch associated models for a single stall response
@@ -190,12 +199,70 @@ async function createStall(req: Request, res: Response, next: NextFunction) {
 
 async function bulkCreateStalls(req: Request, res: Response, next: NextFunction) {
   try {
+    // TODO: This has no pagination, should just return a success message like importStalls.
     const stalls = await Stall.bulkCreate(req.body);
     stalls.forEach(async stall => {
       await stall.reload({ include: getStallInclude() });
       await fmtStallResp(stall);
     });
     res.status(201).json(stalls);
+  } catch (err) {
+    next(err);
+  }
+}
+
+// Upload csv file to import data
+const csvUpload = multer({
+  storage: multer.memoryStorage(),
+  fileFilter: generateFileFilter(/csv/),
+  limits: { fileSize: MAX_CSV_SIZE },
+});
+
+/**
+ * Csvfile needs to have stall attributes as its header on the first row. Attributes that are required to create a stall have to be there.
+ * It is okay to omit optional attributes.
+ *
+ * Example of csv file:
+ * name,description,contactNo,unitNo,hawkerCentreId
+ * test,test description,97654321,#01-02,null,1
+ * test2,test description 2,97654321,#01-02,null,1
+ */
+async function importStalls(req: Request, res: Response, next: NextFunction) {
+  try {
+    if (!req.file) {
+      throw new BadRequestError('No file found in request');
+    }
+
+    const csvString = req.file.buffer.toString('utf-8').trim();
+    const data: StallCreationAttributes[] = [];
+    let parseError = '';
+    let currRow = 2; // header is on first row
+
+    await new Promise((resolve, _reject) => {
+      const stream = parse({ headers: true })
+        .on('error', err => {
+          // Stream will automatically exit once a parsing error is detected.
+          const errMsg = `Row ${currRow}: ${err.message}`;
+          console.error(errMsg);
+          parseError = errMsg;
+          currRow += 1;
+        })
+        .on('data', row => {
+          data.push(row);
+          currRow += 1;
+        })
+        .on('end', (rowCount: number) => resolve(rowCount));
+
+      stream.write(csvString);
+      stream.end();
+    });
+
+    if (parseError !== '') {
+      throw new BadRequestError(parseError);
+    }
+
+    const stalls = await Stall.bulkCreate(data);
+    res.status(200).json(`Successfully created ${stalls.length} stalls`);
   } catch (err) {
     next(err);
   }
@@ -371,13 +438,14 @@ export const indexStallFuncs = [indexStall];
 export const showStallFuncs = [retrieveStall, showStall];
 export const createStallFuncs = [createStall];
 export const bulkCreateStallsFuncs = [bulkCreateStalls];
+export const importStallsFuncs = [csvUpload.single(UPLOAD_CSV_FORM_FIELD), importStalls];
 export const updateStallFuncs = [retrieveStall, updateStall];
 export const destroyStallFuncs = [retrieveStall, destroyStall];
 export const bulkDestroyStallsFuncs = [bulkDestroyStalls];
 
 export const uploadStallImagesFuncs = [
   retrieveStall,
-  upload.array(UPLOAD_FORM_FIELD, MAX_NUM_IMAGES),
+  upload.array(UPLOAD_IMAGE_FORM_FIELD, MAX_NUM_IMAGES),
   uploadFormImgs,
   uploadStallImages,
 ];

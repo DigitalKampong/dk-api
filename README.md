@@ -26,5 +26,5 @@
 To generate API docs,
 1. `cd` into `docs` directory
 2. Export postman collection as `v2.1`
-3. Run `docgen build -i dk-api.postman_collection.json -m -o api-docs.md` with updated postman collection
+3. Run `docgen build -i dk-api.postman_collection.json -m -o api-doc.md` with updated postman collection
 

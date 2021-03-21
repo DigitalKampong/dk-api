@@ -97,6 +97,29 @@ async function indexUser(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function retrieveUserByEmail(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await User.findOne({
+      where: {
+        email: req.query.email,
+      },
+
+      //Exclude these attribtues for security reasons, only return usedId and email which is sufficient
+      //for FE to get the user Id to send a POST request during validation
+
+      attributes: {
+        exclude: ['password', 'role', 'username'],
+      },
+    });
+
+    if (!user) throw new NotFoundError('User with email does not exist!');
+
+    res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+}
+
 async function updateOtherUser(req: Request, res: Response, next: NextFunction) {
   try {
     const idToEdit = req.params.id;
@@ -136,5 +159,6 @@ export const registerFuncs = [register];
 export const registerAdminFuncs = [registerAdmin];
 export const loginFuncs = [login];
 export const indexUserFuncs = [indexUser];
+export const retrieveUserByEmailFuncs = [retrieveUserByEmail];
 export const updateUserFuncs = [updateUser];
 export const updateOtherUserFuncs = [updateOtherUser];

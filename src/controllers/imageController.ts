@@ -7,6 +7,7 @@ import mime from 'mime-types';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Image } from '../models';
+import { generateFileFilter } from '../utils/uploadUtil';
 import { ON_GAE, GCS_BUCKET, GCS_CLIENT_EMAIL, GCS_PRIVATE_KEY, MAX_IMAGE_SIZE } from '../consts';
 import { BadRequestError, UploadFileError } from '../errors/httpErrors';
 import { BulkCreateOptions, DestroyOptions } from 'sequelize/types';
@@ -22,18 +23,6 @@ import { BulkCreateOptions, DestroyOptions } from 'sequelize/types';
  * At any point of time, the request may be short-circuited due to invalid file, file too large etc.
  */
 
-function fileFilter(req: Request, file: Express.Multer.File, cb: Function) {
-  const regexp = /png|jpe?g|gif/;
-  const result = mime.extension(file.mimetype);
-
-  if (!result || !regexp.test(result)) {
-    // Short circuits the request chain
-    cb(new BadRequestError(`Invalid mimetype for ${file.originalname}`));
-  } else {
-    cb(null, true);
-  }
-}
-
 let storage: Storage;
 
 if (ON_GAE) {
@@ -48,7 +37,7 @@ if (ON_GAE) {
 
 const upload = multer({
   storage: multer.memoryStorage(),
-  fileFilter,
+  fileFilter: generateFileFilter(/png|jpe?g|gif/),
   limits: { fileSize: MAX_IMAGE_SIZE },
 });
 

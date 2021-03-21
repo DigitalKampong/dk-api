@@ -44,6 +44,7 @@ export interface StallAttributes {
   unitNo: string | null;
   openingHours: JSON | null;
   hawkerCentreId: number;
+  isFeatured: boolean;
 }
 
 export interface StallCreationAttributes extends Optional<StallAttributes, 'id'> {}
@@ -56,6 +57,7 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public unitNo!: string | null;
   public openingHours!: JSON | null;
   public hawkerCentreId!: number;
+  public isFeatured!: boolean;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -173,6 +175,11 @@ Stall.init(
         model: 'HawkerCentres',
         key: 'id',
       },
+    },
+    isFeatured: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
   },
   { sequelize }

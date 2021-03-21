@@ -65,38 +65,16 @@
 
 - [Search](#search)
 
-<<<<<<< HEAD:docs/api-docs.md
-  - [Search stalls](#1-search-stalls)
-
-- [Stalls](#stalls)
-=======
 * [SecurityQuestions](#securityquestions)
 
-  * [Create SecurityQuestion](#1-create-securityquestion)
-  * [Create SecurityQuestion Copy](#2-create-securityquestion-copy)
-  * [Delete SecurityQuestions](#3-delete-securityquestions)
-  * [Get Active SecurityQuestions](#4-get-active-securityquestions)
-  * [Get All SecurityQuestions](#5-get-all-securityquestions)
-  * [Get SecurityQuestion](#6-get-securityquestion)
+  - [Create SecurityQuestion](#1-create-securityquestion)
+  - [Create SecurityQuestion Copy](#2-create-securityquestion-copy)
+  - [Delete SecurityQuestions](#3-delete-securityquestions)
+  - [Get Active SecurityQuestions](#4-get-active-securityquestions)
+  - [Get All SecurityQuestions](#5-get-all-securityquestions)
+  - [Get SecurityQuestion](#6-get-securityquestion)
 
 * [Stalls](#stalls)
-
-  * [Bulk Destroy stalls](#1-bulk-destroy-stalls)
-  * [Create stall](#2-create-stall)
-  * [Delete stall](#3-delete-stall)
-  * [Delete stall images](#4-delete-stall-images)
-  * [Get stall](#5-get-stall)
-  * [Get stalls](#6-get-stalls)
-  * [Import stalls CSV](#7-import-stalls-csv)
-  * [Update stall](#8-update-stall)
-  * [Upload stall images](#9-upload-stall-images)
-
-* [UserAnswers](#useranswers)
-
-  * [Create User Answer](#1-create-user-answer)
-  * [Delete User Answer](#2-delete-user-answer)
-  * [Validate User Answers](#3-validate-user-answers)
->>>>>>> b594ff1435eca529351316d2ed47017baf57da59:docs/api-doc.md
 
   - [Bulk Destroy stalls](#1-bulk-destroy-stalls)
   - [Create stall](#2-create-stall)
@@ -104,27 +82,39 @@
   - [Delete stall images](#4-delete-stall-images)
   - [Get stall](#5-get-stall)
   - [Get stalls](#6-get-stalls)
-  - [Update stall](#7-update-stall)
-  - [Upload stall images](#8-upload-stall-images)
+  - [Import stalls CSV](#7-import-stalls-csv)
+  - [Update stall](#8-update-stall)
+  - [Upload stall images](#9-upload-stall-images)
 
-<<<<<<< HEAD:docs/api-docs.md
-- [Users](#users)
-=======
-  * [Get user by email](#1-get-user-by-email)
-  * [Get users](#2-get-users)
-  * [Login user](#3-login-user)
-  * [Register admin](#4-register-admin)
-  * [Register user](#5-register-user)
-  * [Update other user](#6-update-other-user)
-  * [Update user](#7-update-user)
->>>>>>> b594ff1435eca529351316d2ed47017baf57da59:docs/api-doc.md
+* [UserAnswers](#useranswers)
 
-  - [Get users](#1-get-users)
-  - [Login user](#2-login-user)
-  - [Register admin](#3-register-admin)
-  - [Register user](#4-register-user)
-  - [Update other user](#5-update-other-user)
-  - [Update user](#6-update-user)
+  - [Create User Answer](#1-create-user-answer)
+  - [Delete User Answer](#2-delete-user-answer)
+  - [Validate User Answers](#3-validate-user-answers)
+
+  * [Bulk Destroy stalls](#1-bulk-destroy-stalls)
+  * [Create stall](#2-create-stall)
+  * [Delete stall](#3-delete-stall)
+  * [Delete stall images](#4-delete-stall-images)
+  * [Get stall](#5-get-stall)
+  * [Get stalls](#6-get-stalls)
+  * [Update stall](#7-update-stall)
+  * [Upload stall images](#8-upload-stall-images)
+
+  - [Get user by email](#1-get-user-by-email)
+  - [Get users](#2-get-users)
+  - [Login user](#3-login-user)
+  - [Register admin](#4-register-admin)
+  - [Register user](#5-register-user)
+  - [Update other user](#6-update-other-user)
+  - [Update user](#7-update-user)
+
+  * [Get users](#1-get-users)
+  * [Login user](#2-login-user)
+  * [Register admin](#3-register-admin)
+  * [Register user](#4-register-user)
+  * [Update other user](#5-update-other-user)
+  * [Update user](#6-update-user)
 
 ---
 
@@ -1353,15 +1343,11 @@ URL: {{server_url}}/search/:query
 
 ## SecurityQuestions
 
-
-
 ### 1. Create SecurityQuestion
-
 
 Requires admin token
 
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -1369,26 +1355,20 @@ Type: RAW
 URL: {{server_url}}/securityQuestions
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "content": "What is the name of your primary school?",
     "isActive": "true"
 }
 ```
 
-
-
 ### 2. Create SecurityQuestion Copy
-
 
 Requires admin token
 
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: PUT
@@ -1396,106 +1376,80 @@ Type: RAW
 URL: {{server_url}}/securityQuestions/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 1 |  |
+| --- | ----- | ----------- |
+| id  | 1     |             |
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "content": "What is the name of your primary school?",
     "isActive": "false"
 }
 ```
 
-
-
 ### 3. Delete SecurityQuestions
-
 
 Request will only be successful if there is no current user using this question
 
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
-Type: 
+Type:
 URL: {{server_url}}/securityQuestions/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 1 |  |
-
-
+| --- | ----- | ----------- |
+| id  | 1     |             |
 
 ### 4. Get Active SecurityQuestions
 
-
 Requires admin token
 
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/securityQuestions
 ```
 
-
-
 ### 5. Get All SecurityQuestions
-
 
 Requires admin token
 
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/securityQuestions/all
 ```
 
-
-
 ### 6. Get SecurityQuestion
-
 
 Requires admin token
 
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/securityQuestions/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id | 1 |  |
-
-
+| --- | ----- | ----------- |
+| id  | 1     |             |
 
 ## Stalls
 
@@ -1820,16 +1774,9 @@ URL: {{server_url}}/stalls
 
 <br>
 
-<<<<<<< HEAD:docs/api-docs.md
-### 7. Update stall
-=======
-
-
 ### 7. Import stalls CSV
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -1837,18 +1784,13 @@ Type: FORMDATA
 URL: {{server_url}}/stalls/import
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| file |  |  |
-
-
+| Key  | Value | Description |
+| ---- | ----- | ----------- |
+| file |       |             |
 
 ### 8. Update stall
->>>>>>> b594ff1435eca529351316d2ed47017baf57da59:docs/api-doc.md
 
 **_Endpoint:_**
 
@@ -1937,13 +1879,7 @@ URL: {{server_url}}/stalls/:id
 
 <br>
 
-<<<<<<< HEAD:docs/api-docs.md
-### 8. Upload stall images
-=======
-
-
 ### 9. Upload stall images
->>>>>>> b594ff1435eca529351316d2ed47017baf57da59:docs/api-doc.md
 
 **_Endpoint:_**
 
@@ -2034,21 +1970,13 @@ URL: {{server_url}}/stalls/:id/upload
 
 <br>
 
-<<<<<<< HEAD:docs/api-docs.md
-=======
-
-
 ## UserAnswers
-
-
 
 ### 1. Create User Answer
 
-
 Requires admin token
 
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -2056,11 +1984,9 @@ Type: RAW
 URL: {{server_url}}/userAnswers
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "content": "My dog name is Scooby",
     "userId": 2,
@@ -2068,39 +1994,29 @@ URL: {{server_url}}/userAnswers
 }
 ```
 
-
-
 ### 2. Delete User Answer
-
 
 Requires admin token
 
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
-Type: 
+Type:
 URL: {{server_url}}/userAnswers/:id
 ```
 
-
-
-***URL variables:***
+**_URL variables:_**
 
 | Key | Value | Description |
-| --- | ------|-------------|
-| id |  |  |
-
-
+| --- | ----- | ----------- |
+| id  |       |             |
 
 ### 3. Validate User Answers
 
-
 Requires admin token
 
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -2108,11 +2024,9 @@ Type: RAW
 URL: {{server_url}}/userAnswers/validate
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "userId": 1,
     "questionAnswerSet": [
@@ -2133,9 +2047,6 @@ URL: {{server_url}}/userAnswers/validate
 }
 ```
 
-
-
->>>>>>> b594ff1435eca529351316d2ed47017baf57da59:docs/api-doc.md
 ## Users
 
 Token needs sent in the header with "x-auth-token" as key and the token as value for routes that require authentication.
@@ -2147,37 +2058,25 @@ Fields allowed:
 - password: string;
 - role: one of [admin, user]; (default is 'user' if 'role' value is not sent with the request)
 
-<<<<<<< HEAD:docs/api-docs.md
-### 1. Get users
-=======
-
-
 ### 1. Get user by email
-
 
 Requires admin token
 
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: {{server_url}}/users/email
 ```
 
+**_Query params:_**
 
-
-***Query params:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| email | fake_email@gmail.com |  |
-
-
+| Key   | Value                | Description |
+| ----- | -------------------- | ----------- |
+| email | fake_email@gmail.com |             |
 
 ### 2. Get users
->>>>>>> b594ff1435eca529351316d2ed47017baf57da59:docs/api-doc.md
 
 Requires admin token
 
@@ -2189,13 +2088,7 @@ Type:
 URL: {{server_url}}/users
 ```
 
-<<<<<<< HEAD:docs/api-docs.md
-### 2. Login user
-=======
-
-
 ### 3. Login user
->>>>>>> b594ff1435eca529351316d2ed47017baf57da59:docs/api-doc.md
 
 **_Endpoint:_**
 
@@ -2239,13 +2132,7 @@ URL: {{server_url}}/login
 
 <br>
 
-<<<<<<< HEAD:docs/api-docs.md
-### 3. Register admin
-=======
-
-
 ### 4. Register admin
->>>>>>> b594ff1435eca529351316d2ed47017baf57da59:docs/api-doc.md
 
 **_Endpoint:_**
 
@@ -2265,13 +2152,7 @@ URL: {{server_url}}/register-admin
 }
 ```
 
-<<<<<<< HEAD:docs/api-docs.md
-### 4. Register user
-=======
-
-
 ### 5. Register user
->>>>>>> b594ff1435eca529351316d2ed47017baf57da59:docs/api-doc.md
 
 **_Endpoint:_**
 
@@ -2316,13 +2197,7 @@ URL: {{server_url}}/register
 
 <br>
 
-<<<<<<< HEAD:docs/api-docs.md
-### 5. Update other user
-=======
-
-
 ### 6. Update other user
->>>>>>> b594ff1435eca529351316d2ed47017baf57da59:docs/api-doc.md
 
 **_Endpoint:_**
 
@@ -2348,13 +2223,7 @@ URL: {{server_url}}/users/:id
 }
 ```
 
-<<<<<<< HEAD:docs/api-docs.md
-### 6. Update user
-=======
-
-
 ### 7. Update user
->>>>>>> b594ff1435eca529351316d2ed47017baf57da59:docs/api-doc.md
 
 **_Endpoint:_**
 
@@ -2382,9 +2251,5 @@ URL: {{server_url}}/updateUser
 ---
 
 [Back to top](#dk-api)
-<<<<<<< HEAD:docs/api-docs.md
 
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-17 20:37:06 by [docgen](https://github.com/thedevsaddam/docgen)
-=======
 > Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-20 23:19:58 by [docgen](https://github.com/thedevsaddam/docgen)
->>>>>>> b594ff1435eca529351316d2ed47017baf57da59:docs/api-doc.md

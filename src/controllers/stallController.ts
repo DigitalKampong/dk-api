@@ -219,7 +219,8 @@ const csvUpload = multer({
 });
 
 /**
- * Csvfile needs to have stall attributes as its header on the first row.
+ * Csvfile needs to have stall attributes as its header on the first row. Attributes that are required to create a stall have to be there.
+ * It is okay to omit optional attributes.
  *
  * Example of csv file:
  * name,description,contactNo,unitNo,hawkerCentreId

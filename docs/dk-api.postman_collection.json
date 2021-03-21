@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cd70f835-0d71-4fbf-a4d4-d941dd6f8938",
+		"_postman_id": "e659de96-fab2-43f5-8612-554a5121e188",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -830,7 +830,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"3rd chicken Rice Stall\",\n    \"description\": \"some description\",\n    \"rating\": 1.5,\n    \"contactNo\": \"97654321\",\n    \"unitNo\": \"01-03\",\n    \"hawkerCentreId\": 1\n}",
+							"raw": "{\n    \"name\": \"3rd chicken Rice Stall\",\n    \"description\": \"some description\",\n    \"announcement\": \"some announcement\",\n    \"rating\": 1.5,\n    \"contactNo\": \"97654321\",\n    \"unitNo\": \"01-03\",\n    \"hawkerCentreId\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"

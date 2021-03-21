@@ -90,8 +90,6 @@ async function validateSecurityQuestionAnswer(req: Request, res: Response, next:
       id: user.id,
     };
 
-    console.log(password);
-
     jwt.sign(
       payload,
       password,

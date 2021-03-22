@@ -5,9 +5,11 @@ import { auth, adminAuth } from '../middleware/auth';
 const router = Router();
 
 router.get('/', stallController.indexStallFuncs);
+router.get('/featured', stallController.showFeaturedStallFuncs);
 router.get('/:id', stallController.showStallFuncs);
 router.post('/', adminAuth, stallController.createStallFuncs);
 router.post('/bulkCreate', adminAuth, stallController.bulkCreateStallsFuncs);
+router.post('/import', adminAuth, stallController.importStallsFuncs);
 router.put('/:id', adminAuth, stallController.updateStallFuncs);
 router.delete('/:id', adminAuth, stallController.destroyStallFuncs);
 router.post('/bulkDestroy', adminAuth, stallController.bulkDestroyStallsFuncs);

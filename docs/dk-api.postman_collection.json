@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "56761b62-5897-4a16-81e8-9e5e98a786e8",
+		"_postman_id": "e659de96-fab2-43f5-8612-554a5121e188",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -830,7 +830,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"3rd chicken Rice Stall\",\n    \"description\": \"some description\",\n    \"rating\": 1.5,\n    \"contactNo\": \"97654321\",\n    \"unitNo\": \"01-03\",\n    \"hawkerCentreId\": 1\n}",
+							"raw": "{\n    \"name\": \"3rd chicken Rice Stall\",\n    \"description\": \"some description\",\n    \"announcement\": \"some announcement\",\n    \"rating\": 1.5,\n    \"contactNo\": \"97654321\",\n    \"unitNo\": \"01-03\",\n    \"hawkerCentreId\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1106,6 +1106,49 @@
 							"body": ""
 						}
 					]
+				},
+				{
+					"name": "Import stalls CSV",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/ivan/Desktop/digital-kampung/stall_import.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server_url}}/stalls/import",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls",
+								"import"
+							]
+						}
+					},
+					"response": []
 				},
 				{
 					"name": "Bulk Destroy stalls",

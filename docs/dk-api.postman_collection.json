@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e659de96-fab2-43f5-8612-554a5121e188",
+		"_postman_id": "f4a45619-f3fd-46ca-811b-6cf868037808",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2842,6 +2842,104 @@
 					]
 				},
 				{
+					"name": "Update Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"newPassword\": \"123456789\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/users/passwordReset?resetToken={{reset_token}}",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"users",
+								"passwordReset"
+							],
+							"query": [
+								{
+									"key": "resetToken",
+									"value": "{{reset_token}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Register user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"fake_email@gmail.com\",\n    \"password\": \"asdf\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server_url}}/register",
+									"host": [
+										"{{server_url}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "149"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"95-FjTk2SnRhVE8CVfi23M3AK4a1Ys\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 19 Dec 2020 14:15:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA4Mzg3MzE2LCJleHAiOjE2MDg5OTIxMTZ9.HTTRAhau8_we-HlJsRqsJgtBcYmDFROnlLSfgKomNfQ\"\n}"
+						}
+					]
+				},
+				{
 					"name": "Get users",
 					"request": {
 						"auth": {
@@ -3756,7 +3854,7 @@
 					"response": []
 				},
 				{
-					"name": "Create SecurityQuestion Copy",
+					"name": "Update SecurityQuestion Copy",
 					"request": {
 						"auth": {
 							"type": "apikey",

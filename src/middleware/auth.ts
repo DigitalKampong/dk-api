@@ -7,7 +7,7 @@ import User from '../models/User';
 import { ROLES } from '../models/User';
 import { NotFoundError } from '../errors/httpErrors';
 
-interface UserDecoded {
+export interface UserDecoded {
   id: number;
   iat: number; // issued at in epoch time
   exp: number; // expiry in epoch time
@@ -65,31 +65,5 @@ async function adminAuthImpl(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function passwordResetAuthImpl(req: Request, res: Response, next: NextFunction) {
-  try {
-    const token = req.header('x-auth-token');
-
-    if (!token) throw new UnauthorizedError('No password reset token found!');
-
-    const decoded = jwt.decode(token) as UserDecoded;
-
-    const id = decoded.id;
-    const user = await User.findByPk(id);
-
-    if (!user) throw new NotFoundError('User Not Found!');
-
-    const password = user.password;
-
-    jwt.verify(token, password);
-
-    req.user = user;
-
-    next();
-  } catch (err) {
-    next(err);
-  }
-}
-
 export const auth = authImpl;
 export const adminAuth = [authImpl, adminAuthImpl];
-export const passwordResetAuth = [passwordResetAuthImpl];

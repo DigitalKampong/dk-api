@@ -73,11 +73,11 @@
 * [SecurityQuestions](#securityquestions)
 
   * [Create SecurityQuestion](#1-create-securityquestion)
-  * [Create SecurityQuestion Copy](#2-create-securityquestion-copy)
-  * [Delete SecurityQuestions](#3-delete-securityquestions)
-  * [Get Active SecurityQuestions](#4-get-active-securityquestions)
-  * [Get All SecurityQuestions](#5-get-all-securityquestions)
-  * [Get SecurityQuestion](#6-get-securityquestion)
+  * [Delete SecurityQuestions](#2-delete-securityquestions)
+  * [Get Active SecurityQuestions](#3-get-active-securityquestions)
+  * [Get All SecurityQuestions](#4-get-all-securityquestions)
+  * [Get SecurityQuestion](#5-get-securityquestion)
+  * [Update SecurityQuestion Copy](#6-update-securityquestion-copy)
 
 * [Stalls](#stalls)
 
@@ -104,8 +104,9 @@
   * [Login user](#3-login-user)
   * [Register admin](#4-register-admin)
   * [Register user](#5-register-user)
-  * [Update other user](#6-update-other-user)
-  * [Update user](#7-update-user)
+  * [Update Password](#6-update-password)
+  * [Update other user](#7-update-other-user)
+  * [Update user](#8-update-user)
 
 
 --------
@@ -1710,7 +1711,87 @@ URL: {{server_url}}/securityQuestions
 
 
 
-### 2. Create SecurityQuestion Copy
+### 2. Delete SecurityQuestions
+
+
+Request will only be successful if there is no current user using this question
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: 
+URL: {{server_url}}/securityQuestions/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 1 |  |
+
+
+
+### 3. Get Active SecurityQuestions
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/securityQuestions
+```
+
+
+
+### 4. Get All SecurityQuestions
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/securityQuestions/all
+```
+
+
+
+### 5. Get SecurityQuestion
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{server_url}}/securityQuestions/:id
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 1 |  |
+
+
+
+### 6. Update SecurityQuestion Copy
 
 
 Requires admin token
@@ -1742,86 +1823,6 @@ URL: {{server_url}}/securityQuestions/:id
     "isActive": "false"
 }
 ```
-
-
-
-### 3. Delete SecurityQuestions
-
-
-Request will only be successful if there is no current user using this question
-
-
-***Endpoint:***
-
-```bash
-Method: DELETE
-Type: 
-URL: {{server_url}}/securityQuestions/:id
-```
-
-
-
-***URL variables:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| id | 1 |  |
-
-
-
-### 4. Get Active SecurityQuestions
-
-
-Requires admin token
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: {{server_url}}/securityQuestions
-```
-
-
-
-### 5. Get All SecurityQuestions
-
-
-Requires admin token
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: {{server_url}}/securityQuestions/all
-```
-
-
-
-### 6. Get SecurityQuestion
-
-
-Requires admin token
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: {{server_url}}/securityQuestions/:id
-```
-
-
-
-***URL variables:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| id | 1 |  |
 
 
 
@@ -2736,7 +2737,71 @@ URL: {{server_url}}/register
 
 
 
-### 6. Update other user
+### 6. Update Password
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/users/passwordReset
+```
+
+
+
+***Query params:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| resetToken | {{reset_token}} |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "newPassword": "123456789"
+}
+```
+
+
+
+***More example Requests/Responses:***
+
+
+##### I. Example Request: Register user
+
+
+
+***Body:***
+
+```js        
+{
+    "email": "fake_email@gmail.com",
+    "password": "asdf"
+}
+```
+
+
+
+##### I. Example Response: Register user
+```js
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjA4Mzg3MzE2LCJleHAiOjE2MDg5OTIxMTZ9.HTTRAhau8_we-HlJsRqsJgtBcYmDFROnlLSfgKomNfQ"
+}
+```
+
+
+***Status Code:*** 201
+
+<br>
+
+
+
+### 7. Update other user
 
 
 
@@ -2770,7 +2835,7 @@ URL: {{server_url}}/users/:id
 
 
 
-### 7. Update user
+### 8. Update user
 
 
 
@@ -2804,4 +2869,4 @@ URL: {{server_url}}/updateUser
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-22 10:37:21 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-22 19:49:38 by [docgen](https://github.com/thedevsaddam/docgen)

@@ -96,7 +96,7 @@ async function validateSecurityQuestionAnswer(req: Request, res: Response, next:
       { expiresIn: 600 }, //600s -> 10 mins
       (err: Error | null, token: string | undefined) => {
         if (err) throw err;
-        res.status(201).json({ token: token! });
+        res.status(201).json({ resetToken: token! });
       }
     );
   } catch (err) {

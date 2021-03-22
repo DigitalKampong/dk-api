@@ -7,6 +7,7 @@ import { User } from '../models';
 import { UserCreationAttributes } from '../models/User';
 import { BadRequestError, NotFoundError, UnauthorizedError } from '../errors/httpErrors';
 import { ACCESS_TOKEN_SECRET } from '../consts';
+import { UserDecoded } from '../middleware/auth';
 
 async function createUser(attributes: UserCreationAttributes) {
   try {
@@ -140,6 +141,8 @@ async function updateOtherUser(req: Request, res: Response, next: NextFunction) 
 
 async function updateUser(req: Request, res: Response, next: NextFunction) {
   try {
+    const token = req.query.resetToken;
+
     const user = req.user!;
     await user.update({ ...req.body, role: user.role });
     await user.reload();
@@ -150,6 +153,33 @@ async function updateUser(req: Request, res: Response, next: NextFunction) {
     delete userObj['password'];
 
     res.status(200).json(userObj);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function passwordResetAuth(req: Request, res: Response, next: NextFunction) {
+  try {
+    const token = req.query.resetToken as string;
+
+    if (!token) throw new UnauthorizedError('No password reset token found!');
+
+    console.log(token);
+
+    const decoded = jwt.decode(token) as UserDecoded;
+
+    const id = decoded.id;
+    const user = await User.findByPk(id);
+
+    if (!user) throw new NotFoundError('User Not Found!');
+
+    const password = user.password;
+
+    jwt.verify(token, password);
+
+    req.user = user;
+
+    next();
   } catch (err) {
     next(err);
   }
@@ -176,4 +206,4 @@ export const indexUserFuncs = [indexUser];
 export const retrieveUserByEmailFuncs = [retrieveUserByEmail];
 export const updateUserFuncs = [updateUser];
 export const updateOtherUserFuncs = [updateOtherUser];
-export const updateUserPasswordFuncs = [updateUserPassword];
+export const updateUserPasswordFuncs = [passwordResetAuth, updateUserPassword];

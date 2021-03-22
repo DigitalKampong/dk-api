@@ -1880,6 +1880,7 @@ URL: {{server_url}}/stalls
 {
     "name": "3rd chicken Rice Stall",
     "description": "some description",
+    "announcement": "some announcement",
     "rating": 1.5,
     "contactNo": "97654321",
     "unitNo": "01-03",
@@ -2803,4 +2804,4 @@ URL: {{server_url}}/updateUser
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-20 23:19:58 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-22 10:37:21 by [docgen](https://github.com/thedevsaddam/docgen)

@@ -141,8 +141,6 @@ async function updateOtherUser(req: Request, res: Response, next: NextFunction) 
 
 async function updateUser(req: Request, res: Response, next: NextFunction) {
   try {
-    const token = req.query.resetToken;
-
     const user = req.user!;
     await user.update({ ...req.body, role: user.role });
     await user.reload();
@@ -163,8 +161,6 @@ async function passwordResetAuth(req: Request, res: Response, next: NextFunction
     const token = req.query.resetToken as string;
 
     if (!token) throw new UnauthorizedError('No password reset token found!');
-
-    console.log(token);
 
     const decoded = jwt.decode(token) as UserDecoded;
 

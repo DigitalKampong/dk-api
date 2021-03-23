@@ -28,7 +28,7 @@ async function createUserAnswer(req: Request, res: Response, next: NextFunction)
     if (!req.body.content)
       throw new BadRequestError('Answer for security question must not be empty!');
 
-    req.body.content = req.body.content.trim();
+    req.body.content = req.body.content.trim().toLowerCase();
 
     const question = await SecurityQuestion.findByPk(req.body.securityQuestionId);
 
@@ -60,7 +60,7 @@ async function validateSecurityQuestionAnswer(req: Request, res: Response, next:
     await Promise.all(
       questionAnswerSet.map(async (questionAnswer: questionAnswerSet) => {
         const questionId = questionAnswer.questionId;
-        const answer = questionAnswer.answer;
+        const answer = questionAnswer.answer.toLowerCase();
 
         const userAnswer = await UserAnswer.findOne({
           where: {

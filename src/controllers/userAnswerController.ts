@@ -1,8 +1,9 @@
-import { UserAnswer, SecurityQuestion } from '../models/';
+import { UserAnswer, SecurityQuestion, User } from '../models/';
 import { Request, Response, NextFunction } from 'express';
 import { NotFoundError, BadRequestError, UnauthorizedError } from '../errors/httpErrors';
 import { UniqueConstraintError } from 'sequelize';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 interface questionAnswerSet {
   questionId: number;
@@ -27,7 +28,7 @@ async function createUserAnswer(req: Request, res: Response, next: NextFunction)
     if (!req.body.content)
       throw new BadRequestError('Answer for security question must not be empty!');
 
-    req.body.content = req.body.content.trim();
+    req.body.content = req.body.content.trim().toLowerCase();
 
     const question = await SecurityQuestion.findByPk(req.body.securityQuestionId);
 
@@ -59,7 +60,7 @@ async function validateSecurityQuestionAnswer(req: Request, res: Response, next:
     await Promise.all(
       questionAnswerSet.map(async (questionAnswer: questionAnswerSet) => {
         const questionId = questionAnswer.questionId;
-        const answer = questionAnswer.answer;
+        const answer = questionAnswer.answer.toLowerCase();
 
         const userAnswer = await UserAnswer.findOne({
           where: {
@@ -79,7 +80,25 @@ async function validateSecurityQuestionAnswer(req: Request, res: Response, next:
       })
     );
 
-    res.status(200).json('Answered Question Successfully!');
+    const user = await User.findByPk(userId);
+
+    if (!user) throw new NotFoundError('No user with this id found!');
+
+    const password = user.password;
+
+    const payload = {
+      id: user.id,
+    };
+
+    jwt.sign(
+      payload,
+      password,
+      { expiresIn: 600 }, //600s -> 10 mins
+      (err: Error | null, token: string | undefined) => {
+        if (err) throw err;
+        res.status(201).json({ resetToken: token! });
+      }
+    );
   } catch (err) {
     next(err);
   }

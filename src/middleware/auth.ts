@@ -7,7 +7,7 @@ import User from '../models/User';
 import { ROLES } from '../models/User';
 import { NotFoundError } from '../errors/httpErrors';
 
-interface UserDecoded {
+export interface UserDecoded {
   id: number;
   iat: number; // issued at in epoch time
   exp: number; // expiry in epoch time

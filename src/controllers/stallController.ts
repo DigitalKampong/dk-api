@@ -13,7 +13,7 @@ import {
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
 import sequelize from '../db';
-import { Stall, HawkerCentre, Review, Product, Favourite } from '../models';
+import { Stall, HawkerCentre, Review, Product, Favourite, CategoryStall } from '../models';
 import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
 import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
 import { generateFileFilter } from '../utils/uploadUtil';
@@ -462,6 +462,60 @@ async function retrieveFeatureStalls(req: Request, res: Response, next: NextFunc
   }
 }
 
+async function indexCategoryStalls(req: Request, res: Response, next: NextFunction) {
+  try {
+    const categoryStalls = await CategoryStall.findAll({
+      where: {
+        stallId: req.params.id,
+      },
+    });
+    res.status(200).json(categoryStalls);
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function updateCategoryStalls(req: Request, res: Response, next: NextFunction) {
+  try {
+    const updatedCategoryIds: number[] = req.body.categoryIds;
+    const categoryStalls = await CategoryStall.findAll({
+      where: {
+        stallId: req.params.id,
+      },
+    });
+    const currentCategoryIds = categoryStalls.map(categoryStall =>
+      categoryStall.getDataValue('categoryId')
+    );
+    const categoryIdsToCreate = updatedCategoryIds.filter(
+      categoryId => !currentCategoryIds.includes(categoryId)
+    );
+    const categoryStallIdsToDelete = categoryStalls
+      .filter(
+        categoryStall => !updatedCategoryIds.includes(categoryStall.getDataValue('categoryId'))
+      )
+      .map(categoryStall => categoryStall.getDataValue('id'));
+
+    await CategoryStall.bulkCreate(
+      categoryIdsToCreate.map(categoryId => {
+        return {
+          stallId: parseInt(req.params.id),
+          categoryId: categoryId,
+        };
+      })
+    );
+
+    await CategoryStall.destroy({
+      where: {
+        id: categoryStallIdsToDelete,
+      },
+    });
+
+    res.status(200).end();
+  } catch (err) {
+    next(err);
+  }
+}
+
 export { getStallInclude, getStallsInclude, fmtStallResp, fmtStallsResp };
 
 export const indexStallFuncs = [indexStall];
@@ -487,3 +541,6 @@ export const createStallReviewFuncs = [createStallReview];
 
 export const createStallFavouriteFuncs = [createStallFavourite];
 export const destroyStallFavouriteFuncs = [destroyStallFavourite];
+
+export const indexCategoryStallsFuncs = [indexCategoryStalls];
+export const updateCategoryStallsFuncs = [updateCategoryStalls];

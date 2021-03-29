@@ -462,55 +462,13 @@ async function retrieveFeatureStalls(req: Request, res: Response, next: NextFunc
   }
 }
 
-async function indexCategoryStalls(req: Request, res: Response, next: NextFunction) {
-  try {
-    const categoryStalls = await CategoryStall.findAll({
-      where: {
-        stallId: req.params.id,
-      },
-    });
-    res.status(200).json(categoryStalls);
-  } catch (err) {
-    next(err);
-  }
-}
-
 async function updateCategoryStalls(req: Request, res: Response, next: NextFunction) {
   try {
-    const updatedCategoryIds: number[] = req.body.categoryIds;
-    const categoryStalls = await CategoryStall.findAll({
-      where: {
-        stallId: req.params.id,
-      },
-    });
-    const currentCategoryIds = categoryStalls.map(categoryStall =>
-      categoryStall.getDataValue('categoryId')
-    );
-    const categoryIdsToCreate = updatedCategoryIds.filter(
-      categoryId => !currentCategoryIds.includes(categoryId)
-    );
-    const categoryStallIdsToDelete = categoryStalls
-      .filter(
-        categoryStall => !updatedCategoryIds.includes(categoryStall.getDataValue('categoryId'))
-      )
-      .map(categoryStall => categoryStall.getDataValue('id'));
-
-    await CategoryStall.bulkCreate(
-      categoryIdsToCreate.map(categoryId => {
-        return {
-          stallId: parseInt(req.params.id),
-          categoryId: categoryId,
-        };
-      })
-    );
-
-    await CategoryStall.destroy({
-      where: {
-        id: categoryStallIdsToDelete,
-      },
-    });
-
-    res.status(200).end();
+    const categories: number[] = req.body.categoryIds;
+    const stall = req.stall!;
+    await stall.setCategories(categories);
+    await stall.reload();
+    res.status(200).send(stall);
   } catch (err) {
     next(err);
   }
@@ -542,5 +500,4 @@ export const createStallReviewFuncs = [createStallReview];
 export const createStallFavouriteFuncs = [createStallFavourite];
 export const destroyStallFavouriteFuncs = [destroyStallFavourite];
 
-export const indexCategoryStallsFuncs = [indexCategoryStalls];
-export const updateCategoryStallsFuncs = [updateCategoryStalls];
+export const updateCategoryStallsFuncs = [retrieveStall, updateCategoryStalls];

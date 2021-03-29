@@ -2634,14 +2634,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{server_url}}/stalls/:id/categoryStalls",
+							"raw": "{{server_url}}/stalls/:id/setCategoryStalls",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"stalls",
 								":id",
-								"categoryStalls"
+								"setCategoryStalls"
 							],
 							"variable": [
 								{

@@ -360,7 +360,7 @@ URL: {{server_url}}/categoryStalls/:id
 ```bash
 Method: PUT
 Type: RAW
-URL: {{server_url}}/stalls/:id/categoryStalls
+URL: {{server_url}}/stalls/:id/setCategoryStalls
 ```
 
 
@@ -2909,4 +2909,4 @@ URL: {{server_url}}/updateUser
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-29 09:20:30 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-29 11:57:35 by [docgen](https://github.com/thedevsaddam/docgen)

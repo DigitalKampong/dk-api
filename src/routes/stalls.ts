@@ -23,4 +23,6 @@ router.post('/:id/reviews', auth, stallController.createStallReviewFuncs);
 router.post('/:id/favourites', auth, stallController.createStallFavouriteFuncs);
 router.delete('/:id/favourites', auth, stallController.destroyStallFavouriteFuncs);
 
+router.put('/:id/setCategoryStalls', auth, stallController.updateCategoryStallsFuncs);
+
 export default router;

@@ -462,6 +462,18 @@ async function retrieveFeatureStalls(req: Request, res: Response, next: NextFunc
   }
 }
 
+async function updateCategoryStalls(req: Request, res: Response, next: NextFunction) {
+  try {
+    const categories: number[] = req.body.categoryIds;
+    const stall = req.stall!;
+    await stall.setCategories(categories);
+    await stall.reload();
+    res.status(200).send(stall);
+  } catch (err) {
+    next(err);
+  }
+}
+
 export { getStallInclude, getStallsInclude, fmtStallResp, fmtStallsResp };
 
 export const indexStallFuncs = [indexStall];
@@ -487,3 +499,5 @@ export const createStallReviewFuncs = [createStallReview];
 
 export const createStallFavouriteFuncs = [createStallFavourite];
 export const destroyStallFavouriteFuncs = [destroyStallFavourite];
+
+export const updateCategoryStallsFuncs = [retrieveStall, updateCategoryStalls];

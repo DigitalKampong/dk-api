@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f4a45619-f3fd-46ca-811b-6cf868037808",
+		"_postman_id": "7974b59c-449d-4b9f-a711-4c27d326c9d9",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2607,6 +2607,46 @@
 								{
 									"key": "id",
 									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update categorystalls for stall",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"categoryIds\": [1, 2, 3]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/stalls/:id/categoryStalls",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls",
+								":id",
+								"categoryStalls"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
 								}
 							]
 						}

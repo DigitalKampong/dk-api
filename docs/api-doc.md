@@ -20,6 +20,7 @@
   * [Get categorystall](#3-get-categorystall)
   * [Get categorystalls](#4-get-categorystalls)
   * [Update categorystall](#5-update-categorystall)
+  * [Update categorystalls for stall](#6-update-categorystalls-for-stall)
 
 * [Favourites](#favourites)
 
@@ -345,6 +346,45 @@ URL: {{server_url}}/categoryStalls/:id
 {
     "stallId": "1",
     "categoryId": "2"
+}
+```
+
+
+
+### 6. Update categorystalls for stall
+
+
+
+***Endpoint:***
+
+```bash
+Method: PUT
+Type: RAW
+URL: {{server_url}}/stalls/:id/categoryStalls
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| x-auth-token | {{token}} |  |
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 1 |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "categoryIds": [1, 2, 3]
 }
 ```
 
@@ -2869,4 +2909,4 @@ URL: {{server_url}}/updateUser
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-22 19:49:38 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-03-29 09:20:30 by [docgen](https://github.com/thedevsaddam/docgen)

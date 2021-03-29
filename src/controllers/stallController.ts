@@ -13,7 +13,7 @@ import {
 import { BadRequestError, NotFoundError } from '../errors/httpErrors';
 
 import sequelize from '../db';
-import { Stall, HawkerCentre, Review, Product, Favourite, CategoryStall } from '../models';
+import { Stall, HawkerCentre, Review, Product, Favourite } from '../models';
 import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
 import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
 import { generateFileFilter } from '../utils/uploadUtil';

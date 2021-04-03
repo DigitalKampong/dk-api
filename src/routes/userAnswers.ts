@@ -4,7 +4,6 @@ import { auth, adminAuth } from '../middleware/auth';
 
 const router = Router();
 
-router.post('/', auth, userAnswerController.createUserAnswerFuncs);
 router.post('/validate', userAnswerController.validateUserAnswerFuncs);
 router.delete('/:id', adminAuth, userAnswerController.destroyUserAnswerFuncs);
 

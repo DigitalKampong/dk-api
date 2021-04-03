@@ -2,8 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import { UniqueConstraintError } from 'sequelize';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import sequelize from '../db';
 
-import { User } from '../models';
+import { questionAnswerSet } from './userAnswerController';
+import { User, UserAnswer, SecurityQuestion } from '../models';
 import { UserCreationAttributes } from '../models/User';
 import { BadRequestError, NotFoundError, UnauthorizedError } from '../errors/httpErrors';
 import { ACCESS_TOKEN_SECRET } from '../consts';
@@ -23,27 +25,53 @@ async function createUser(attributes: UserCreationAttributes) {
 }
 
 async function register(req: Request, res: Response, next: NextFunction) {
+  // Start atomic transaction
+  const t = await sequelize.transaction();
+
   try {
     if (req.body['role'] === 'admin') {
       throw new UnauthorizedError('You are not authorized to create a admin.');
     }
 
-    const user = await createUser({ ...req.body, role: 'user' });
+    const { email, username, password, questionAnswerSet } = req.body;
+
+    const user = await User.create({ email, username, password, role: 'user' }, { transaction: t });
+    const userId = user.id;
+
+    if (!questionAnswerSet) throw new BadRequestError('No questions and answers found!');
+
+    await Promise.all(
+      questionAnswerSet.map(async (questionAnswer: questionAnswerSet) => {
+        const question = await SecurityQuestion.findByPk(questionAnswer.questionId);
+
+        if (!question || !question.isActive)
+          throw new BadRequestError('Question does not exist or is not active!');
+
+        const securityQuestionId = question!.id;
+        const content = questionAnswer.answer.trim().toLowerCase();
+
+        if (!content) throw new BadRequestError('Answer cannot be blank!');
+
+        await UserAnswer.create({ content, userId, securityQuestionId }, { transaction: t });
+      })
+    );
 
     const payload = {
-      id: user.id,
+      id: userId,
     };
 
     jwt.sign(
       payload,
       ACCESS_TOKEN_SECRET,
       { expiresIn: '7 days' },
-      (err: Error | null, token: string | undefined) => {
+      async (err: Error | null, token: string | undefined) => {
         if (err) throw err;
+        await t.commit();
         res.status(201).json({ token: token!, role: user.role });
       }
     );
   } catch (err) {
+    await t.rollback();
     next(err);
   }
 }

@@ -1,11 +1,10 @@
-import { UserAnswer, SecurityQuestion, User } from '../models/';
+import { UserAnswer, User } from '../models/';
 import { Request, Response, NextFunction } from 'express';
 import { NotFoundError, BadRequestError, UnauthorizedError } from '../errors/httpErrors';
-import { UniqueConstraintError } from 'sequelize';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-interface questionAnswerSet {
+export interface questionAnswerSet {
   questionId: number;
   answer: string;
 }
@@ -19,27 +18,6 @@ async function retrieveUserAnswer(req: Request, res: Response, next: NextFunctio
     req.userAnswer = userAnswer;
     next();
   } catch (err) {
-    next(err);
-  }
-}
-
-async function createUserAnswer(req: Request, res: Response, next: NextFunction) {
-  try {
-    if (!req.body.content)
-      throw new BadRequestError('Answer for security question must not be empty!');
-
-    req.body.content = req.body.content.trim().toLowerCase();
-
-    const question = await SecurityQuestion.findByPk(req.body.securityQuestionId);
-
-    if (!question || !question.isActive)
-      throw new BadRequestError('Question does not exist or is not active!');
-
-    const userAnswer = await UserAnswer.create(req.body);
-    res.status(201).json(userAnswer);
-  } catch (err) {
-    if (err instanceof UniqueConstraintError)
-      next(new BadRequestError('The User already has already used this question!'));
     next(err);
   }
 }
@@ -104,6 +82,5 @@ async function validateSecurityQuestionAnswer(req: Request, res: Response, next:
   }
 }
 
-export const createUserAnswerFuncs = [createUserAnswer];
 export const destroyUserAnswerFuncs = [retrieveUserAnswer, destroyUserAnswer];
 export const validateUserAnswerFuncs = [validateSecurityQuestionAnswer];

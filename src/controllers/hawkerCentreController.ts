@@ -7,7 +7,6 @@ import { fmtStallsResp } from './stallController';
 import { MAX_NUM_IMAGES, UPLOAD_IMAGE_FORM_FIELD } from '../consts';
 import sequelize from '../db';
 import { Includeable } from 'sequelize/types';
-import { now } from 'sequelize/types/lib/utils';
 
 function getHawkerCentreStallsInclude(): Includeable[] {
   return [

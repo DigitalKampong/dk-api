@@ -33,6 +33,8 @@ export interface HawkerCentreAttributes {
   bus: string | null;
   mrt: string | null;
   announcement: string | null;
+  closeStart: Date | null;
+  closeEnd: Date | null;
 }
 
 export interface HawkerCentreCreationAttributes extends Optional<HawkerCentreAttributes, 'id'> {}
@@ -49,6 +51,8 @@ class HawkerCentre
   public bus!: string | null;
   public mrt!: string | null;
   public announcement!: string | null;
+  public closeStart!: Date | null;
+  public closeEnd!: Date | null;
 
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -130,6 +134,14 @@ HawkerCentre.init(
     },
     announcement: {
       type: DataTypes.TEXT,
+    },
+    closeStart: {
+      type: DataTypes.DATE,
+      defaultValue: null,
+    },
+    closeEnd: {
+      type: DataTypes.DATE,
+      defaultValue: null,
     },
   },
   { sequelize }

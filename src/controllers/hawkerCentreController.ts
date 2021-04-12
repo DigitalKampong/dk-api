@@ -34,6 +34,22 @@ function getHawkerCentresInclude(): Includeable[] {
   ];
 }
 
+function getIsClosed(hawkerCentre: HawkerCentre) {
+  const closeStart = hawkerCentre.closeStart;
+  const closeEnd = hawkerCentre.closeEnd;
+
+  let isClosed = false;
+  if (closeStart !== null && closeEnd !== null) {
+    const currDate = new Date();
+    isClosed = currDate >= closeStart && currDate <= closeEnd;
+  }
+  return isClosed;
+}
+
+/**
+ * Format a single hawkerCentre response
+ * @param hawkerCentre HawkerCentre instance
+ */
 async function fmtHawkerCentreResp(hawkerCentre: HawkerCentre) {
   let stalls = hawkerCentre.Stalls;
 
@@ -47,11 +63,35 @@ async function fmtHawkerCentreResp(hawkerCentre: HawkerCentre) {
   // this method to format its hawkerCentre
   const stallsObj = await fmtStallsResp(stalls);
 
+  const isClosed = getIsClosed(hawkerCentre);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hcObj: any = hawkerCentre.get({ plain: true });
 
   hcObj['Stalls'] = stallsObj;
+  hcObj['isClosed'] = isClosed;
+
   return hcObj;
+}
+
+/**
+ * Format multiple hawkerCentres response
+ * @param hawkerCentre An array of HawkerCentre instances
+ */
+async function fmtHawkerCentresResp(hawkerCentres: HawkerCentre[]) {
+  const result = await Promise.all(
+    hawkerCentres.map(async hawkerCentre => {
+      const isClosed = getIsClosed(hawkerCentre);
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const hcObj: any = hawkerCentre.get({ plain: true });
+
+      hcObj['isClosed'] = isClosed;
+
+      return hcObj;
+    })
+  );
+  return result;
 }
 
 async function retrieveHawkerCentre(req: Request, res: Response, next: NextFunction) {
@@ -76,7 +116,8 @@ async function indexHawkerCentre(req: Request, res: Response, next: NextFunction
     const hawkerCentres = await HawkerCentre.findAll({
       include: getHawkerCentresInclude(),
     });
-    res.status(200).json(hawkerCentres);
+    const formattedHawkerCentres = await fmtHawkerCentresResp(hawkerCentres);
+    res.status(200).json(formattedHawkerCentres);
   } catch (err) {
     next(err);
   }

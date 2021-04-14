@@ -223,9 +223,9 @@ const csvUpload = multer({
  * It is okay to omit optional attributes.
  *
  * Example of csv file:
- * name,description,contactNo,unitNo,hawkerCentreId
- * test,test description,97654321,#01-02,null,1
- * test2,test description 2,97654321,#01-02,null,1
+ * name,description,contactNo,unitNo
+ * test,test description,97654321,#01-02
+ * test2,test description 2,97654321,#01-03,
  */
 async function importStalls(req: Request, res: Response, next: NextFunction) {
   try {
@@ -248,6 +248,7 @@ async function importStalls(req: Request, res: Response, next: NextFunction) {
           currRow += 1;
         })
         .on('data', row => {
+          row.hawkerCentreId = req.params.hawkerCentreId;
           data.push(row);
           currRow += 1;
         })

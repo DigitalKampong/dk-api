@@ -35,7 +35,8 @@
   * [Delete hawker centre](#2-delete-hawker-centre)
   * [Get hawker centre](#3-get-hawker-centre)
   * [Get hawker centres](#4-get-hawker-centres)
-  * [Update hawker centre](#5-update-hawker-centre)
+  * [Import stalls for hawker centre](#5-import-stalls-for-hawker-centre)
+  * [Update hawker centre](#6-update-hawker-centre)
 
 * [Products](#products)
 
@@ -78,24 +79,24 @@
   * [Get Active SecurityQuestions](#3-get-active-securityquestions)
   * [Get All SecurityQuestions](#4-get-all-securityquestions)
   * [Get SecurityQuestion](#5-get-securityquestion)
-  * [Update SecurityQuestion](#6-update-securityquestion)
+  * [Update SecurityQuestion Copy](#6-update-securityquestion-copy)
 
 * [Stalls](#stalls)
 
-  * [Bulk Destroy stalls](#1-bulk-destroy-stalls)
-  * [Create stall](#2-create-stall)
-  * [Delete stall](#3-delete-stall)
-  * [Delete stall images](#4-delete-stall-images)
+  * [Create stall](#1-create-stall)
+  * [Delete stall](#2-delete-stall)
+  * [Delete stall images](#3-delete-stall-images)
+  * [Delete stalls](#4-delete-stalls)
   * [Get stall](#5-get-stall)
   * [Get stalls](#6-get-stalls)
-  * [Import stalls CSV](#7-import-stalls-csv)
-  * [Update stall](#8-update-stall)
-  * [Upload stall images](#9-upload-stall-images)
+  * [Update stall](#7-update-stall)
+  * [Upload stall images](#8-upload-stall-images)
 
 * [UserAnswers](#useranswers)
 
-  * [Delete User Answer](#1-delete-user-answer)
-  * [Validate User Answers](#2-validate-user-answers)
+  * [Create User Answer](#1-create-user-answer)
+  * [Delete User Answer](#2-delete-user-answer)
+  * [Validate User Answers](#3-validate-user-answers)
 
 * [Users](#users)
 
@@ -687,7 +688,37 @@ URL: {{server_url}}/hawkercentres
 
 
 
-### 5. Update hawker centre
+### 5. Import stalls for hawker centre
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: FORMDATA
+URL: {{server_url}}/hawkercentres/:id/import-stalls
+```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id | 1 |  |
+
+
+
+***Body:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| file |  |  |
+
+
+
+### 6. Update hawker centre
 
 
 
@@ -1830,7 +1861,7 @@ URL: {{server_url}}/securityQuestions/:id
 
 
 
-### 6. Update SecurityQuestion
+### 6. Update SecurityQuestion Copy
 
 
 Requires admin token
@@ -1876,31 +1907,7 @@ Fields allowed:
 
 
 
-### 1. Bulk Destroy stalls
-
-
-
-***Endpoint:***
-
-```bash
-Method: POST
-Type: RAW
-URL: {{server_url}}/stalls/bulkDestroy
-```
-
-
-
-***Body:***
-
-```js        
-{
-    "ids": [18, 19]
-}
-```
-
-
-
-### 2. Create stall
+### 1. Create stall
 
 
 
@@ -1989,7 +1996,7 @@ URL: {{server_url}}/stalls
 
 
 
-### 3. Delete stall
+### 2. Delete stall
 
 
 
@@ -2024,7 +2031,7 @@ URL: {{server_url}}/stalls/:id
 
 
 
-### 4. Delete stall images
+### 3. Delete stall images
 
 
 
@@ -2051,6 +2058,30 @@ URL: {{server_url}}/stalls/:id/delete-images
 ```js        
 {
     "imageIds": [30]
+}
+```
+
+
+
+### 4. Delete stalls
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/stalls/bulkDestroy
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "ids": [18, 19]
 }
 ```
 
@@ -2251,29 +2282,7 @@ URL: {{server_url}}/stalls
 
 
 
-### 7. Import stalls CSV
-
-
-
-***Endpoint:***
-
-```bash
-Method: POST
-Type: FORMDATA
-URL: {{server_url}}/stalls/import
-```
-
-
-
-***Body:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| file |  |  |
-
-
-
-### 8. Update stall
+### 7. Update stall
 
 
 
@@ -2379,7 +2388,7 @@ URL: {{server_url}}/stalls/:id
 
 
 
-### 9. Upload stall images
+### 8. Upload stall images
 
 
 
@@ -2491,7 +2500,35 @@ URL: {{server_url}}/stalls/:id/upload
 
 
 
-### 1. Delete User Answer
+### 1. Create User Answer
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/userAnswers
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "content": "My dog name is Scooby",
+    "userId": 2,
+    "securityQuestionId": 1
+}
+```
+
+
+
+### 2. Delete User Answer
 
 
 Requires admin token
@@ -2515,7 +2552,7 @@ URL: {{server_url}}/userAnswers/:id
 
 
 
-### 2. Validate User Answers
+### 3. Validate User Answers
 
 
 Requires admin token
@@ -2710,21 +2747,7 @@ URL: {{server_url}}/register
 {
     "email": "fake_email@gmail.com",
     "username": "fake_username",
-    "password": "asdf",
-    "questionAnswerSet": [
-        {
-            "questionId": 2,
-                "answer": "My name is Goofy"
-        },
-        {
-            "questionId": 4,
-            "answer": "My name is Donald"
-        },
-        {
-            "questionId": 5,
-            "answer": "My name is Mickey"
-        }
-    ]
+    "password": "asdf"
 }
 ```
 
@@ -2893,5 +2916,5 @@ URL: {{server_url}}/updateUser
 
 
 ---
-[Back to top](#dk-api-copy-2)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-04-04 01:37:13 by [docgen](https://github.com/thedevsaddam/docgen)
+[Back to top](#dk-api)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-04-14 22:55:52 by [docgen](https://github.com/thedevsaddam/docgen)

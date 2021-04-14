@@ -78,7 +78,7 @@
   * [Get Active SecurityQuestions](#3-get-active-securityquestions)
   * [Get All SecurityQuestions](#4-get-all-securityquestions)
   * [Get SecurityQuestion](#5-get-securityquestion)
-  * [Update SecurityQuestion](#6-update-securityquestion)
+  * [Update SecurityQuestion Copy](#6-update-securityquestion-copy)
 
 * [Stalls](#stalls)
 
@@ -94,8 +94,9 @@
 
 * [UserAnswers](#useranswers)
 
-  * [Delete User Answer](#1-delete-user-answer)
-  * [Validate User Answers](#2-validate-user-answers)
+  * [Create User Answer](#1-create-user-answer)
+  * [Delete User Answer](#2-delete-user-answer)
+  * [Validate User Answers](#3-validate-user-answers)
 
 * [Users](#users)
 
@@ -1830,7 +1831,7 @@ URL: {{server_url}}/securityQuestions/:id
 
 
 
-### 6. Update SecurityQuestion
+### 6. Update SecurityQuestion Copy
 
 
 Requires admin token
@@ -2260,8 +2261,16 @@ URL: {{server_url}}/stalls
 ```bash
 Method: POST
 Type: FORMDATA
-URL: {{server_url}}/stalls/import
+URL: {{server_url}}/stalls/import/:hawkerCentreId
 ```
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| hawkerCentreId | 1 |  |
 
 
 
@@ -2491,7 +2500,35 @@ URL: {{server_url}}/stalls/:id/upload
 
 
 
-### 1. Delete User Answer
+### 1. Create User Answer
+
+
+Requires admin token
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{server_url}}/userAnswers
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "content": "My dog name is Scooby",
+    "userId": 2,
+    "securityQuestionId": 1
+}
+```
+
+
+
+### 2. Delete User Answer
 
 
 Requires admin token
@@ -2515,7 +2552,7 @@ URL: {{server_url}}/userAnswers/:id
 
 
 
-### 2. Validate User Answers
+### 3. Validate User Answers
 
 
 Requires admin token
@@ -2710,21 +2747,7 @@ URL: {{server_url}}/register
 {
     "email": "fake_email@gmail.com",
     "username": "fake_username",
-    "password": "asdf",
-    "questionAnswerSet": [
-        {
-            "questionId": 2,
-                "answer": "My name is Goofy"
-        },
-        {
-            "questionId": 4,
-            "answer": "My name is Donald"
-        },
-        {
-            "questionId": 5,
-            "answer": "My name is Mickey"
-        }
-    ]
+    "password": "asdf"
 }
 ```
 
@@ -2893,5 +2916,5 @@ URL: {{server_url}}/updateUser
 
 
 ---
-[Back to top](#dk-api-copy-2)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-04-04 01:37:13 by [docgen](https://github.com/thedevsaddam/docgen)
+[Back to top](#dk-api)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-04-14 22:38:03 by [docgen](https://github.com/thedevsaddam/docgen)

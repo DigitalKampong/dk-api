@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cd14cce4-55d3-4a6c-bdcb-2f59dbc4bc4a",
+		"_postman_id": "7974b59c-449d-4b9f-a711-4c27d326c9d9",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1133,18 +1133,25 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/Users/ivan/Desktop/digital-kampung/stall_import.csv"
+									"src": "/Users/wenhao/Desktop/Digital Kampung/dk-api/add_stalls_template.csv"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{server_url}}/stalls/import",
+							"raw": "{{server_url}}/stalls/import/:hawkerCentreId",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"stalls",
-								"import"
+								"import",
+								":hawkerCentreId"
+							],
+							"variable": [
+								{
+									"key": "hawkerCentreId",
+									"value": "1"
+								}
 							]
 						}
 					},
@@ -2665,7 +2672,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"fake_email@gmail.com\",\n    \"username\": \"fake_username\",\n    \"password\": \"asdf\",\n    \"questionAnswerSet\": [\n        {\n            \"questionId\": 2,\n                \"answer\": \"My name is Goofy\"\n        },\n        {\n            \"questionId\": 4,\n            \"answer\": \"My name is Donald\"\n        },\n        {\n            \"questionId\": 5,\n            \"answer\": \"My name is Mickey\"\n        }\n    ]\n}",
+							"raw": "{\n    \"email\": \"fake_email@gmail.com\",\n    \"username\": \"fake_username\",\n    \"password\": \"asdf\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3566,6 +3573,55 @@
 			"name": "UserAnswers",
 			"item": [
 				{
+					"name": "Create User Answer",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"type": "text",
+								"value": "",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"My dog name is Scooby\",\r\n    \"userId\": 2,\r\n    \"securityQuestionId\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/userAnswers",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"userAnswers"
+							]
+						},
+						"description": "Requires admin token"
+					},
+					"response": []
+				},
+				{
 					"name": "Validate User Answers",
 					"request": {
 						"auth": {
@@ -3845,7 +3901,7 @@
 					"response": []
 				},
 				{
-					"name": "Update SecurityQuestion",
+					"name": "Update SecurityQuestion Copy",
 					"request": {
 						"auth": {
 							"type": "apikey",

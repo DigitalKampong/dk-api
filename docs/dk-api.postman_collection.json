@@ -1108,57 +1108,7 @@
 					]
 				},
 				{
-					"name": "Import stalls CSV",
-					"request": {
-						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{admin_token}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "x-auth-token",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "file",
-									"type": "file",
-									"src": "/Users/wenhao/Desktop/Digital Kampung/dk-api/add_stalls_template.csv"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{server_url}}/stalls/import/:hawkerCentreId",
-							"host": [
-								"{{server_url}}"
-							],
-							"path": [
-								"stalls",
-								"import",
-								":hawkerCentreId"
-							],
-							"variable": [
-								{
-									"key": "hawkerCentreId",
-									"value": "1"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Bulk Destroy stalls",
+					"name": "Delete stalls",
 					"request": {
 						"auth": {
 							"type": "apikey",
@@ -1850,6 +1800,56 @@
 							"body": ""
 						}
 					]
+				},
+				{
+					"name": "Import stalls for hawker centre",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{admin_token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "x-auth-token",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/wenhao/Desktop/add_stalls_template.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server_url}}/hawkercentres/:id/import-stalls",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"hawkercentres",
+								":id",
+								"import-stalls"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "Fields needed\n- name: string;\n- address: string | null;\n- regionId: number;",

@@ -248,7 +248,7 @@ async function importStalls(req: Request, res: Response, next: NextFunction) {
           currRow += 1;
         })
         .on('data', row => {
-          row.hawkerCentreId = req.params.hawkerCentreId;
+          row.hawkerCentreId = req.params.id;
           data.push(row);
           currRow += 1;
         })

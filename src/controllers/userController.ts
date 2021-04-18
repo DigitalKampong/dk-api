@@ -137,7 +137,7 @@ async function retrieveUserByEmail(req: Request, res: Response, next: NextFuncti
       //for FE to get the user Id to send a POST request during validation
 
       attributes: {
-        exclude: ['password', 'role', 'username'],
+        exclude: ['password', 'role'],
       },
     });
 
@@ -223,11 +223,34 @@ async function updateUserPassword(req: Request, res: Response, next: NextFunctio
   }
 }
 
+async function retrieveUser(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await User.findByPk(req.params.id);
+    if (!user) {
+      throw new NotFoundError('User cannot be found');
+    }
+    req.user = user;
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+async function destroyUser(req: Request, res: Response, next: NextFunction) {
+  try {
+    await req.user!.destroy();
+    res.status(200).end();
+  } catch (err) {
+    next(err);
+  }
+}
+
 export const registerFuncs = [register];
 export const registerAdminFuncs = [registerAdmin];
 export const loginFuncs = [login];
 export const indexUserFuncs = [indexUser];
+export const retrieveUserFuncs = [retrieveUser];
 export const retrieveUserByEmailFuncs = [retrieveUserByEmail];
 export const updateUserFuncs = [updateUser];
+export const deleteUserFuncs = [retrieveUser, destroyUser];
 export const updateOtherUserFuncs = [updateOtherUser];
 export const updateUserPasswordFuncs = [passwordResetAuth, updateUserPassword];

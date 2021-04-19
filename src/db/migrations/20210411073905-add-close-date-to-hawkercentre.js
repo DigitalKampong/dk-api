@@ -15,5 +15,5 @@ module.exports = {
   down: async (queryInterface, _Sequelize) => {
     await queryInterface.removeColumn('HawkerCentres', 'closeStart');
     await queryInterface.removeColumn('HawkerCentres', 'closeEnd');
-  }
+  },
 };

@@ -72,8 +72,6 @@ async function fmtHawkerCentreResp(hawkerCentre: HawkerCentre) {
   hcObj['Stalls'] = stallsObj;
   hcObj['isClosed'] = isClosed;
 
-  delete hcObj['closeStart'];
-  delete hcObj['closeEnd'];
   return hcObj;
 }
 
@@ -91,8 +89,6 @@ async function fmtHawkerCentresResp(hawkerCentres: HawkerCentre[]) {
 
       hcObj['isClosed'] = isClosed;
 
-      delete hcObj['closeStart'];
-      delete hcObj['closeEnd'];
       return hcObj;
     })
   );

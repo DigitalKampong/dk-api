@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "7974b59c-449d-4b9f-a711-4c27d326c9d9",
-		"name": "dk-api",
+		"_postman_id": "da110168-60eb-4382-b1b0-c6965b51ca3d",
+		"name": "dk-api Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -1302,6 +1302,35 @@
 									"key": "id",
 									"value": "4"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Import products",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/olivia/Desktop/apple.csv"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server_url}}/stalls/2/import-products",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"stalls",
+								"2",
+								"import-products"
 							]
 						}
 					},

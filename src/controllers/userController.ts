@@ -133,8 +133,8 @@ async function retrieveUserByEmail(req: Request, res: Response, next: NextFuncti
         email: req.query.email,
       },
 
-      //Exclude these attribtues for security reasons, only return usedId and email which is sufficient
-      //for FE to get the user Id to send a POST request during validation
+      //Exclude these attribtues for security reasons, only return usedId, email and username which is sufficient
+      //Used by FE and admin console
 
       attributes: {
         exclude: ['password', 'role'],
@@ -235,6 +235,7 @@ async function retrieveUser(req: Request, res: Response, next: NextFunction) {
     next(err);
   }
 }
+
 async function destroyUser(req: Request, res: Response, next: NextFunction) {
   try {
     await req.user!.destroy();

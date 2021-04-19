@@ -89,8 +89,9 @@
   * [Delete stalls](#4-delete-stalls)
   * [Get stall](#5-get-stall)
   * [Get stalls](#6-get-stalls)
-  * [Update stall](#7-update-stall)
-  * [Upload stall images](#8-upload-stall-images)
+  * [Import products](#7-import-products)
+  * [Update stall](#8-update-stall)
+  * [Upload stall images](#9-upload-stall-images)
 
 * [UserAnswers](#useranswers)
 
@@ -100,14 +101,15 @@
 
 * [Users](#users)
 
-  * [Get user by email](#1-get-user-by-email)
-  * [Get users](#2-get-users)
-  * [Login user](#3-login-user)
-  * [Register admin](#4-register-admin)
-  * [Register user](#5-register-user)
-  * [Update Password](#6-update-password)
-  * [Update other user](#7-update-other-user)
-  * [Update user](#8-update-user)
+  * [Delete user](#1-delete-user)
+  * [Get user by email](#2-get-user-by-email)
+  * [Get users](#3-get-users)
+  * [Login user](#4-login-user)
+  * [Register admin](#5-register-admin)
+  * [Register user](#6-register-user)
+  * [Update Password](#7-update-password)
+  * [Update other user](#8-update-other-user)
+  * [Update user](#9-update-user)
 
 
 --------
@@ -2282,7 +2284,29 @@ URL: {{server_url}}/stalls
 
 
 
-### 7. Update stall
+### 7. Import products
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: FORMDATA
+URL: {{server_url}}/stalls/2/import-products
+```
+
+
+
+***Body:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| file |  |  |
+
+
+
+### 8. Update stall
 
 
 
@@ -2388,7 +2412,7 @@ URL: {{server_url}}/stalls/:id
 
 
 
-### 8. Upload stall images
+### 9. Upload stall images
 
 
 
@@ -2604,7 +2628,36 @@ Fields allowed:
 
 
 
-### 1. Get user by email
+### 1. Delete user
+
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: RAW
+URL: {{server_url}}/users/:id
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+|  |  |  |
+
+
+
+***URL variables:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| id |  |  |
+
+
+
+### 2. Get user by email
 
 
 Requires admin token
@@ -2628,7 +2681,7 @@ URL: {{server_url}}/users/email
 
 
 
-### 2. Get users
+### 3. Get users
 
 
 Requires admin token
@@ -2644,7 +2697,7 @@ URL: {{server_url}}/users
 
 
 
-### 3. Login user
+### 4. Login user
 
 
 
@@ -2701,7 +2754,7 @@ URL: {{server_url}}/login
 
 
 
-### 4. Register admin
+### 5. Register admin
 
 
 
@@ -2727,7 +2780,7 @@ URL: {{server_url}}/register-admin
 
 
 
-### 5. Register user
+### 6. Register user
 
 
 
@@ -2785,7 +2838,7 @@ URL: {{server_url}}/register
 
 
 
-### 6. Update Password
+### 7. Update Password
 
 
 
@@ -2849,7 +2902,7 @@ URL: {{server_url}}/users/passwordReset
 
 
 
-### 7. Update other user
+### 8. Update other user
 
 
 
@@ -2883,7 +2936,7 @@ URL: {{server_url}}/users/:id
 
 
 
-### 8. Update user
+### 9. Update user
 
 
 
@@ -2917,4 +2970,4 @@ URL: {{server_url}}/updateUser
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-04-14 22:55:52 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-04-20 04:19:44 by [docgen](https://github.com/thedevsaddam/docgen)

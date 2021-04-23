@@ -21,6 +21,7 @@ async function authImpl(req: Request, res: Response, next: NextFunction) {
 
   // Get token from header
   const token = req.header('x-auth-token');
+  console.log(token);
 
   // Check if no token
   if (!token) {

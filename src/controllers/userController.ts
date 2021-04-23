@@ -139,6 +139,10 @@ async function retrieveUserByEmail(req: Request, res: Response, next: NextFuncti
       attributes: {
         exclude: ['password', 'role'],
       },
+      include: {
+        association: User.associations.UserAnswers,
+        attributes: { exclude: ['id', 'content', 'userId', 'createdAt', 'updatedAt'] },
+      },
     });
 
     if (!user) throw new NotFoundError('User with email does not exist!');

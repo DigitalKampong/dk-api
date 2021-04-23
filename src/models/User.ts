@@ -20,6 +20,7 @@ import sequelize from '../db';
 
 import Review from './Review';
 import Favourite from './Favourite';
+import UserAnswer from './UserAnswer';
 
 interface UserAttributes {
   id: number;
@@ -71,12 +72,26 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
   public removeFavourites!: HasManyRemoveAssociationsMixin<Favourite, number>;
   public setFavourites!: HasManySetAssociationsMixin<Favourite, number>;
 
+  // User.hasMany(UserAnswer)
+  public addUserAnswer!: HasManyAddAssociationMixin<UserAnswer, number>;
+  public addUserAnswers!: HasManyAddAssociationsMixin<UserAnswer, number>;
+  public countUserAnswers!: HasManyCountAssociationsMixin;
+  public createUserAnswers!: HasManyCreateAssociationMixin<UserAnswer>;
+  public getUserAnswers!: HasManyGetAssociationsMixin<UserAnswer>;
+  public hasUserAnswer!: HasManyHasAssociationMixin<UserAnswer, number>;
+  public hasUserAnswers!: HasManyHasAssociationsMixin<UserAnswer, number>;
+  public removeUserAnswer!: HasManyRemoveAssociationMixin<UserAnswer, number>;
+  public removeUserAnswers!: HasManyRemoveAssociationsMixin<UserAnswer, number>;
+  public setUserAnswers!: HasManySetAssociationsMixin<UserAnswer, number>;
+
   public readonly Reviews?: Review[];
   public readonly Favourites?: Favourite[];
+  public readonly UserAnswers?: UserAnswer[];
 
   public static associations: {
     Reviews: Association<User, Review>;
     Favourites: Association<User, Favourite>;
+    UserAnswers: Association<User, Favourite>;
   };
 }
 

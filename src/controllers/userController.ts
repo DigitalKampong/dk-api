@@ -135,9 +135,18 @@ async function retrieveUserByEmail(req: Request, res: Response, next: NextFuncti
 
       //Exclude these attribtues for security reasons, only return usedId, email and username which is sufficient
       //Also for FE to get the userId to send a POST request during validation
-
       attributes: {
         exclude: ['password', 'role'],
+      },
+      include: {
+        association: User.associations.UserAnswers,
+        attributes: ['id'],
+        include: [
+          {
+            association: UserAnswer.associations.SecurityQuestion,
+            attributes: ['id', 'content'],
+          },
+        ],
       },
     });
 

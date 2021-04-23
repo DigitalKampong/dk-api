@@ -2701,7 +2701,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"fake_email@gmail.com\",\n    \"username\": \"fake_username\",\n    \"password\": \"asdf\"\n}",
+							"raw": "{\n    \"email\": \"fake_email@gmail.com\",\n    \"username\": \"fake_username\",\n    \"password\": \"asdf\",\n    \"questionAnswerSet\": [\n        {\n            \"questionId\": 2,\n            \"answer\": \"My name is Goofy\"\n        },\n        {\n            \"questionId\": 20,\n            \"answer\": \"My name is Donald\"\n        },\n        {\n            \"questionId\": 5,\n            \"answer\": \"My name is Mickey\"\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3052,19 +3052,7 @@
 					"name": "Get user by email",
 					"request": {
 						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "value",
-									"value": "{{token}}",
-									"type": "string"
-								},
-								{
-									"key": "key",
-									"value": "x-auth-token",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [

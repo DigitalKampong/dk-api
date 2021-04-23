@@ -2800,7 +2800,21 @@ URL: {{server_url}}/register
 {
     "email": "fake_email@gmail.com",
     "username": "fake_username",
-    "password": "asdf"
+    "password": "asdf",
+    "questionAnswerSet": [
+        {
+            "questionId": 2,
+            "answer": "My name is Goofy"
+        },
+        {
+            "questionId": 20,
+            "answer": "My name is Donald"
+        },
+        {
+            "questionId": 5,
+            "answer": "My name is Mickey"
+        }
+    ]
 }
 ```
 
@@ -2970,4 +2984,4 @@ URL: {{server_url}}/updateUser
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-04-20 04:19:44 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-04-23 21:31:05 by [docgen](https://github.com/thedevsaddam/docgen)

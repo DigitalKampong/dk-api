@@ -1,5 +1,6 @@
 import {
   Model,
+  Association,
   DataTypes,
   Optional,
   BelongsToCreateAssociationMixin,
@@ -41,6 +42,12 @@ class UserAnswer
   public createSecurityQuestion!: BelongsToCreateAssociationMixin<SecurityQuestion>;
   public getSecurityQuestion!: BelongsToGetAssociationMixin<SecurityQuestion>;
   public setSecurityQuestion!: BelongsToSetAssociationMixin<SecurityQuestion, number>;
+
+  public readonly SecurityQuestion?: SecurityQuestion;
+
+  public static associations: {
+    SecurityQuestion: Association<UserAnswer, SecurityQuestion>;
+  };
 }
 
 UserAnswer.init(

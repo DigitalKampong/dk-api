@@ -47,4 +47,6 @@ export function associate(models: Models) {
   Favourite.belongsTo(User, { foreignKey: 'stallId' });
 
   SecurityQuestion.hasMany(UserAnswer, { foreignKey: 'securityQuestionId' });
+
+  UserAnswer.belongsTo(SecurityQuestion, { foreignKey: 'securityQuestionId' });
 }

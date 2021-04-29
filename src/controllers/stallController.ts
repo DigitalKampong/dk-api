@@ -17,6 +17,7 @@ import { Stall, HawkerCentre, Review, Product, Favourite } from '../models';
 import { upload, uploadFormImgs, createImages, destroyImageIds } from './imageController';
 import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
 import { generateFileFilter } from '../utils/uploadUtil';
+import { isHawkerCentreClosed } from '../utils/hawkerCentreUtil';
 import { StallCreationAttributes } from '../models/Stall';
 
 /*
@@ -90,6 +91,9 @@ async function getCategories(stall: Stall) {
  * @param stall Stall instance
  */
 async function fmtStallResp(stall: Stall) {
+  const hawkerCentre = stall.HawkerCentre;
+  const isClosed = isHawkerCentreClosed(hawkerCentre);
+
   const rating = await getRating(stall);
   const categories = await getCategories(stall);
 
@@ -98,8 +102,10 @@ async function fmtStallResp(stall: Stall) {
 
   stallObj['categories'] = categories;
   stallObj['rating'] = rating;
+  stallObj['HawkerCentre']['isClosed'] = isClosed;
 
   delete stallObj['Categories'];
+
   return stallObj;
 }
 

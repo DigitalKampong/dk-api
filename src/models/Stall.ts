@@ -127,7 +127,7 @@ class Stall extends Model<StallAttributes, StallCreationAttributes> implements S
   public removeFavourites!: HasManyRemoveAssociationsMixin<Favourite, number>;
   public setFavourites!: HasManySetAssociationsMixin<Favourite, number>;
 
-  public readonly HawkerCentre!: HawkerCentre;
+  public readonly HawkerCentre?: HawkerCentre;
   public readonly Products?: Product[];
   public readonly Images?: Image[];
   public readonly Reviews?: Review[];

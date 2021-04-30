@@ -91,7 +91,7 @@ async function getCategories(stall: Stall) {
  * @param stall Stall instance
  */
 async function fmtStallResp(stall: Stall) {
-  const hawkerCentre = stall.HawkerCentre;
+  const hawkerCentre = stall!.HawkerCentre!;
   const isClosed = isHawkerCentreClosed(hawkerCentre);
 
   const rating = await getRating(stall);

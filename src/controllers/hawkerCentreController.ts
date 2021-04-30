@@ -7,6 +7,7 @@ import { fmtStallsResp } from './stallController';
 import { MAX_NUM_IMAGES, UPLOAD_IMAGE_FORM_FIELD } from '../consts';
 import sequelize from '../db';
 import { Includeable } from 'sequelize/types';
+import { isHawkerCentreClosed } from '../utils/hawkerCentreUtil';
 
 function getHawkerCentreStallsInclude(): Includeable[] {
   return [
@@ -34,18 +35,6 @@ function getHawkerCentresInclude(): Includeable[] {
   ];
 }
 
-function getIsClosed(hawkerCentre: HawkerCentre) {
-  const closeStart = hawkerCentre.closeStart;
-  const closeEnd = hawkerCentre.closeEnd;
-
-  let isClosed = false;
-  if (closeStart !== null && closeEnd !== null) {
-    const currDate = new Date();
-    isClosed = currDate >= closeStart && currDate <= closeEnd;
-  }
-  return isClosed;
-}
-
 /**
  * Format a single hawkerCentre response
  * @param hawkerCentre HawkerCentre instance
@@ -63,7 +52,7 @@ async function fmtHawkerCentreResp(hawkerCentre: HawkerCentre) {
   // this method to format its hawkerCentre
   const stallsObj = await fmtStallsResp(stalls);
 
-  const isClosed = getIsClosed(hawkerCentre);
+  const isClosed = isHawkerCentreClosed(hawkerCentre);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const hcObj: any = hawkerCentre.get({ plain: true });
@@ -81,7 +70,7 @@ async function fmtHawkerCentreResp(hawkerCentre: HawkerCentre) {
 async function fmtHawkerCentresResp(hawkerCentres: HawkerCentre[]) {
   const result = await Promise.all(
     hawkerCentres.map(async hawkerCentre => {
-      const isClosed = getIsClosed(hawkerCentre);
+      const isClosed = isHawkerCentreClosed(hawkerCentre);
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const hcObj: any = hawkerCentre.get({ plain: true });

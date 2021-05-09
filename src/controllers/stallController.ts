@@ -244,8 +244,58 @@ async function importStalls(req: Request, res: Response, next: NextFunction) {
     let parseError = '';
     let currRow = 2; // header is on first row
 
+    type stallRow = {
+      name: string;
+      description: string;
+      contactNo: string;
+      unitNo: string;
+      openingHours: string;
+      isFeatured: boolean;
+      hawkerCentreId: number;
+    };
+
+    type transformedStallRow = Omit<stallRow, 'openingHours'> & {
+      openingHours: JSON;
+    };
+
     await new Promise((resolve, _reject) => {
-      const stream = parse({ headers: true })
+      const stream = parse<stallRow, transformedStallRow>({
+        headers: true,
+      })
+        .transform(
+          (data: stallRow): transformedStallRow => {
+            const dataArr: string[] = data.openingHours.split(' ');
+            const days: string[] = [
+              'Monday',
+              'Tuesday',
+              'Wednesday',
+              'Thursday',
+              'Friday',
+              'Saturday',
+              'Sunday',
+            ];
+            const formattedOpeningHours: { [key: string]: object } = {};
+            days.forEach(day => {
+              const isClosed = !dataArr.includes(day);
+              const idx = dataArr.indexOf(day);
+              formattedOpeningHours[day] = {
+                allDay: false,
+                closed: isClosed,
+                start: isClosed ? null : dataArr[idx + 1],
+                end: isClosed ? null : dataArr[idx + 2],
+              };
+            });
+            return {
+              name: data.name,
+              description: data.description,
+              contactNo: data.contactNo,
+              unitNo: data.unitNo,
+              openingHours: JSON.parse(JSON.stringify(formattedOpeningHours)),
+              isFeatured: data.isFeatured,
+              hawkerCentreId: parseInt(req.params.id),
+            };
+          }
+        )
         .on('error', err => {
           // Stream will automatically exit once a parsing error is detected.
           const errMsg = `Row ${currRow}: ${err.message}`;
@@ -253,8 +303,7 @@ async function importStalls(req: Request, res: Response, next: NextFunction) {
           parseError = errMsg;
           currRow += 1;
         })
-        .on('data', row => {
-          row.hawkerCentreId = req.params.id;
+        .on('data', (row: transformedStallRow) => {
           data.push(row);
           currRow += 1;
         })

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { UniqueConstraintError } from 'sequelize';
+import { INTEGER, UniqueConstraintError } from 'sequelize';
 import { Includeable } from 'sequelize/types';
 import multer from 'multer';
 import { parse } from 'fast-csv';
@@ -254,16 +254,16 @@ async function importStalls(req: Request, res: Response, next: NextFunction) {
       hawkerCentreId: number;
     };
 
-    type transformedStallRow = Omit<stallRow, 'openingHours'> & {
-      openingHours: JSON;
-    };
+    // type transformedStallRow = Omit<stallRow, 'openingHours'> & {
+    //   openingHours: JSON;
+    // };
 
     await new Promise((resolve, _reject) => {
-      const stream = parse<stallRow, transformedStallRow>({
+      const stream = parse<stallRow, StallCreationAttributes>({
         headers: true,
       })
         .transform(
-          (data: stallRow): transformedStallRow => {
+          (data: stallRow): StallCreationAttributes => {
             const dataArr: string[] = data.openingHours.split(' ');
             const days: string[] = [
               'Monday',
@@ -276,13 +276,24 @@ async function importStalls(req: Request, res: Response, next: NextFunction) {
             ];
             const formattedOpeningHours: { [key: string]: object } = {};
             days.forEach(day => {
-              const isClosed = !dataArr.includes(day);
+              let isClosed = !dataArr.includes(day);
               const idx = dataArr.indexOf(day);
+              let startTime = null;
+              let endTime = null;
+              if (!isClosed) {
+                startTime = dataArr[idx + 1];
+                endTime = dataArr[idx + 2];
+                if (!parseInt(startTime) || !parseInt(endTime)) {
+                  isClosed = true;
+                  startTime = null;
+                  endTime = null;
+                }
+              }
               formattedOpeningHours[day] = {
                 allDay: false,
                 closed: isClosed,
-                start: isClosed ? null : dataArr[idx + 1],
-                end: isClosed ? null : dataArr[idx + 2],
+                start: startTime,
+                end: endTime,
               };
             });
             return {
@@ -303,7 +314,7 @@ async function importStalls(req: Request, res: Response, next: NextFunction) {
           parseError = errMsg;
           currRow += 1;
         })
-        .on('data', (row: transformedStallRow) => {
+        .on('data', (row: StallCreationAttributes) => {
           data.push(row);
           currRow += 1;
         })

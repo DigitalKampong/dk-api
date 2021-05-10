@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { INTEGER, UniqueConstraintError } from 'sequelize';
+import { UniqueConstraintError } from 'sequelize';
 import { Includeable } from 'sequelize/types';
 import multer from 'multer';
 import { parse } from 'fast-csv';

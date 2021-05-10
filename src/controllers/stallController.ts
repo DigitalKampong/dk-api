@@ -244,8 +244,59 @@ async function importStalls(req: Request, res: Response, next: NextFunction) {
     let parseError = '';
     let currRow = 2; // header is on first row
 
+    type stallRow = Omit<StallCreationAttributes, 'openingHours'> & {
+      openingHours: string;
+    };
+
     await new Promise((resolve, _reject) => {
-      const stream = parse({ headers: true })
+      const stream = parse<stallRow, StallCreationAttributes>({
+        headers: true,
+      })
+        .transform(
+          (data: stallRow): StallCreationAttributes => {
+            const dataArr: string[] = data.openingHours.split(' ');
+            const days: string[] = [
+              'Monday',
+              'Tuesday',
+              'Wednesday',
+              'Thursday',
+              'Friday',
+              'Saturday',
+              'Sunday',
+            ];
+            const formattedOpeningHours: { [key: string]: object } = {};
+            days.forEach(day => {
+              let isClosed = !dataArr.includes(day);
+              const idx = dataArr.indexOf(day);
+              let startTime = null;
+              let endTime = null;
+              if (!isClosed) {
+                startTime = dataArr[idx + 1];
+                endTime = dataArr[idx + 2];
+                if (!parseInt(startTime) || !parseInt(endTime)) {
+                  isClosed = true;
+                  startTime = null;
+                  endTime = null;
+                }
+              }
+              formattedOpeningHours[day] = {
+                allDay: false,
+                closed: isClosed,
+                start: startTime,
+                end: endTime,
+              };
+            });
+            return {
+              name: data.name,
+              description: data.description,
+              contactNo: data.contactNo,
+              unitNo: data.unitNo,
+              openingHours: JSON.parse(JSON.stringify(formattedOpeningHours)),
+              isFeatured: data.isFeatured,
+              hawkerCentreId: parseInt(req.params.id),
+            };
+          }
+        )
         .on('error', err => {
           // Stream will automatically exit once a parsing error is detected.
           const errMsg = `Row ${currRow}: ${err.message}`;
@@ -253,8 +304,7 @@ async function importStalls(req: Request, res: Response, next: NextFunction) {
           parseError = errMsg;
           currRow += 1;
         })
-        .on('data', row => {
-          row.hawkerCentreId = req.params.id;
+        .on('data', (row: StallCreationAttributes) => {
           data.push(row);
           currRow += 1;
         })

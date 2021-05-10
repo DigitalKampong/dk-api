@@ -244,19 +244,9 @@ async function importStalls(req: Request, res: Response, next: NextFunction) {
     let parseError = '';
     let currRow = 2; // header is on first row
 
-    type stallRow = {
-      name: string;
-      description: string;
-      contactNo: string;
-      unitNo: string;
+    type stallRow = Omit<StallCreationAttributes, 'openingHours'> & {
       openingHours: string;
-      isFeatured: boolean;
-      hawkerCentreId: number;
     };
-
-    // type transformedStallRow = Omit<stallRow, 'openingHours'> & {
-    //   openingHours: JSON;
-    // };
 
     await new Promise((resolve, _reject) => {
       const stream = parse<stallRow, StallCreationAttributes>({

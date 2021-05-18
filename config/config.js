@@ -17,7 +17,7 @@ if (ON_GAE !== undefined && ON_GAE === 'true') {
     database: GCSQL_DB_NAME,
     dialect: 'postgres',
     dialectOptions: {
-      ssl: true,
+      ssl: false,
     },
     host: `${GCSQL_DB_SOCKET_PATH}/${GCSQL_CONNECTION_NAME}`,
   };

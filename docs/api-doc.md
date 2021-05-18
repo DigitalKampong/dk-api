@@ -75,11 +75,11 @@
 * [SecurityQuestions](#securityquestions)
 
   * [Create SecurityQuestion](#1-create-securityquestion)
-  * [Delete SecurityQuestions](#2-delete-securityquestions)
+  * [Delete SecurityQuestion](#2-delete-securityquestion)
   * [Get Active SecurityQuestions](#3-get-active-securityquestions)
   * [Get All SecurityQuestions](#4-get-all-securityquestions)
   * [Get SecurityQuestion](#5-get-securityquestion)
-  * [Update SecurityQuestion Copy](#6-update-securityquestion-copy)
+  * [Update SecurityQuestion](#6-update-securityquestion)
 
 * [Stalls](#stalls)
 
@@ -1783,7 +1783,7 @@ URL: {{server_url}}/securityQuestions
 
 
 
-### 2. Delete SecurityQuestions
+### 2. Delete SecurityQuestion
 
 
 Request will only be successful if there is no current user using this question
@@ -1863,7 +1863,7 @@ URL: {{server_url}}/securityQuestions/:id
 
 
 
-### 6. Update SecurityQuestion Copy
+### 6. Update SecurityQuestion
 
 
 Requires admin token
@@ -2984,4 +2984,4 @@ URL: {{server_url}}/updateUser
 
 ---
 [Back to top](#dk-api)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-04-23 21:31:05 by [docgen](https://github.com/thedevsaddam/docgen)
+> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2021-05-18 19:53:29 by [docgen](https://github.com/thedevsaddam/docgen)

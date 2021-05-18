@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d989d431-f60b-44a8-b30c-37708e6878e4",
+		"_postman_id": "2d041a51-b1cf-4471-9cf6-59937fa1f61f",
 		"name": "dk-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -3972,7 +3972,7 @@
 					"response": []
 				},
 				{
-					"name": "Update SecurityQuestion Copy",
+					"name": "Update SecurityQuestion",
 					"request": {
 						"auth": {
 							"type": "apikey",
@@ -4028,7 +4028,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete SecurityQuestions ",
+					"name": "Delete SecurityQuestion",
 					"request": {
 						"auth": {
 							"type": "apikey",

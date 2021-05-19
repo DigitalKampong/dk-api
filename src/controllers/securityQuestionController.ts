@@ -17,7 +17,7 @@ async function retrieveSecurityQuestion(req: Request, res: Response, next: NextF
 
 async function indexSecurityQuestion(req: Request, res: Response, next: NextFunction) {
   try {
-    const securityQuestions = await SecurityQuestion.findAll();
+    const securityQuestions = await SecurityQuestion.findAll({ order: [['id', 'ASC']] });
     res.status(200).json(securityQuestions);
   } catch (err) {
     next(err);

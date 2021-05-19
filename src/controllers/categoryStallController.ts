@@ -17,7 +17,7 @@ async function retrieveCategoryStall(req: Request, res: Response, next: NextFunc
 
 async function indexCategoryStall(req: Request, res: Response, next: NextFunction) {
   try {
-    const categoryStalls = await CategoryStall.findAll();
+    const categoryStalls = await CategoryStall.findAll({ order: [['id', 'ASC']] });
     res.status(200).json(categoryStalls);
   } catch (err) {
     next(err);

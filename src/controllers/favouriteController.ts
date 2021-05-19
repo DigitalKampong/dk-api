@@ -5,6 +5,7 @@ async function indexFavourite(req: Request, res: Response, next: NextFunction) {
   try {
     const favourites = await Favourite.findAll({
       where: { userId: req.user!.id },
+      order: [['id', 'ASC']],
       include: [
         {
           association: Favourite.associations.Stall,

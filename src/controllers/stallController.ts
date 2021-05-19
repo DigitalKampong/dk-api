@@ -68,7 +68,7 @@ async function getRating(stall: Stall) {
   let reviews = stall.Reviews;
 
   if (reviews === undefined) {
-    reviews = await stall.getReviews();
+    reviews = await stall.getReviews({ order: [['id', 'ASC']] });
   }
 
   const total = reviews.reduce((accum, review) => accum + review.rating, 0);
@@ -80,7 +80,7 @@ async function getCategories(stall: Stall) {
   let categories = stall.Categories;
 
   if (categories === undefined) {
-    categories = await stall.getCategories();
+    categories = await stall.getCategories({ order: [['id', 'ASC']] });
   }
 
   return categories;
@@ -436,6 +436,7 @@ async function indexStallReview(req: Request, res: Response, next: NextFunction)
       where: {
         stallId: req.params.id,
       },
+      order: [['id', 'ASC']],
       include: [
         { association: Review.associations.Stall },
         { association: Review.associations.User },

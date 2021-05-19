@@ -17,7 +17,7 @@ async function retrieveRegion(req: Request, res: Response, next: NextFunction) {
 
 async function indexRegion(req: Request, res: Response, next: NextFunction) {
   try {
-    const regions = await Region.findAll();
+    const regions = await Region.findAll({ order: [['id', 'ASC']] });
     res.status(200).json(regions);
   } catch (err) {
     next(err);

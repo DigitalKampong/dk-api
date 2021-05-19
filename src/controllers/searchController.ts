@@ -58,7 +58,7 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
       sourceRoute = '/search';
     } else {
       query = cleanInput(rawQuery);
-      queryString = ` SELECT id, ts_rank_cd(to_tsquery('english', '${query}'), _search) AS score
+      queryString = ` SELECT id, ts_rank_cd(_search, to_tsquery('english', '${query}')) AS score
                       FROM "Stalls"
                       WHERE (
                         id IN (

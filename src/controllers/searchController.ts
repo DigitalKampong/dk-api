@@ -58,7 +58,7 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
       sourceRoute = '/search';
     } else {
       query = cleanInput(rawQuery);
-      queryString = ` SELECT id
+      queryString = ` SELECT id, ts_rank_cd(to_tsquery('english', '${query}'), _search) AS score
                       FROM "Stalls"
                       WHERE (
                         id IN (
@@ -92,7 +92,8 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
                         )
                       )
                       AND ${categoryFilterCondition || 'TRUE'}
-                      AND ${regionFilterCondition || 'TRUE'}`;
+                      AND ${regionFilterCondition || 'TRUE'}
+                      ORDER BY score DESC`;
       sourceRoute = `/search/${rawQuery}`;
     }
 

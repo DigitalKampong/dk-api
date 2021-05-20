@@ -108,7 +108,6 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
 
     const stalls = await Stall.findAndCountAll({
       where: { id: stallIds },
-      order: [['id', 'ASC']],
       include: getStallsInclude(),
       limit: limit,
       offset: offset,

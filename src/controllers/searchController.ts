@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { getStallsInclude, fmtStallsResp } from './stallController';
 import { Stall } from '../models';
 import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
+import { Sequelize } from 'sequelize';
 
 async function searchStalls(req: Request, res: Response, next: NextFunction) {
   try {
@@ -112,6 +113,7 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
       limit: limit,
       offset: offset,
       distinct: true,
+      order: Sequelize.literal(`ARRAY_POSITION(ARRAY[${stallIds}]::integer[], "Stall"."id")`),
     });
 
     const rows = await fmtStallsResp(stalls.rows);

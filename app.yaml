@@ -16,4 +16,10 @@ env_variables:
   GCSQL_DB_NAME: $GCSQL_DB_NAME
   GCSQL_CONNECTION_NAME: $GCSQL_CONNECTION_NAME
   GMAPS_API_KEY: $GMAPS_API_KEY
-  
+
+handlers:
+  - url: /.*
+    secure: always
+    redirect_http_response_code: 301
+    script: auto
+

@@ -119,7 +119,10 @@ async function login(req: Request, res: Response, next: NextFunction) {
 
 async function indexUser(req: Request, res: Response, next: NextFunction) {
   try {
-    const users = await User.findAll({ attributes: { exclude: ['password'] } });
+    const users = await User.findAll({
+      order: [['id', 'ASC']],
+      attributes: { exclude: ['password'] },
+    });
     res.status(200).json(users);
   } catch (err) {
     next(err);

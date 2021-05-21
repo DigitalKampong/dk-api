@@ -19,7 +19,7 @@ async function retrieveCategory(req: Request, res: Response, next: NextFunction)
 
 async function indexCategory(req: Request, res: Response, next: NextFunction) {
   try {
-    const categories = await Category.findAll();
+    const categories = await Category.findAll({ order: [['id', 'ASC']] });
     res.status(200).json(categories);
   } catch (err) {
     next(err);

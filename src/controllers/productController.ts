@@ -49,6 +49,7 @@ async function retrieveProduct(req: Request, res: Response, next: NextFunction) 
 async function indexProduct(req: Request, res: Response, next: NextFunction) {
   try {
     const products = await Product.findAll({
+      order: [['id', 'ASC']],
       include: getProductInclude(),
     });
     res.status(200).json(products);

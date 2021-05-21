@@ -103,6 +103,7 @@ async function retrieveHawkerCentre(req: Request, res: Response, next: NextFunct
 async function indexHawkerCentre(req: Request, res: Response, next: NextFunction) {
   try {
     const hawkerCentres = await HawkerCentre.findAll({
+      order: [['id', 'ASC']],
       include: getHawkerCentresInclude(),
     });
     const formattedHawkerCentres = await fmtHawkerCentresResp(hawkerCentres);

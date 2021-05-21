@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { getStallsInclude, fmtStallsResp } from './stallController';
 import { Stall } from '../models';
 import { generatePagination, fmtPaginationResp } from '../utils/paginationUtil';
+import { Sequelize } from 'sequelize';
 
 async function searchStalls(req: Request, res: Response, next: NextFunction) {
   try {
@@ -58,7 +59,7 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
       sourceRoute = '/search';
     } else {
       query = cleanInput(rawQuery);
-      queryString = ` SELECT id
+      queryString = ` SELECT id, ts_rank_cd(_search, to_tsquery('english', '${query}')) AS score
                       FROM "Stalls"
                       WHERE (
                         id IN (
@@ -92,7 +93,8 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
                         )
                       )
                       AND ${categoryFilterCondition || 'TRUE'}
-                      AND ${regionFilterCondition || 'TRUE'}`;
+                      AND ${regionFilterCondition || 'TRUE'}
+                      ORDER BY score DESC`;
       sourceRoute = `/search/${rawQuery}`;
     }
 
@@ -107,11 +109,11 @@ async function searchStalls(req: Request, res: Response, next: NextFunction) {
 
     const stalls = await Stall.findAndCountAll({
       where: { id: stallIds },
-      order: [['id', 'ASC']],
       include: getStallsInclude(),
       limit: limit,
       offset: offset,
       distinct: true,
+      order: Sequelize.literal(`ARRAY_POSITION(ARRAY[${stallIds}]::integer[], "Stall"."id")`),
     });
 
     const rows = await fmtStallsResp(stalls.rows);
